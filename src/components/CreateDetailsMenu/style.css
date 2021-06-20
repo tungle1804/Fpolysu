@@ -1,0 +1,61 @@
+.app-preview__body {
+    flex-grow: 1;
+    max-height: calc(100% - 67px);
+    overflow-y: auto;
+    background: #fff;
+}
+
+.app-preview__body.desktop .preview-image {
+    width: 692px;
+    height: 409px;
+    /* background: url(../../../public/images/desktop.png) 0 0 / contain no-repeat; */
+}
+.app-preview__body .preview-image {
+    margin: 0 auto;
+    position: relative;
+}
+
+.app-preview__body.desktop .preview-image iframe {
+    left: 79px;
+    top: 18px;
+    /* left: 0px;
+    top: 0px; */
+    width: 822px;
+    height: 524px;
+    border: none;
+    -ms-zoom: 0.65;
+    -moz-transform: scale(0.65);
+    -moz-transform-origin: 0 0;
+    -o-transform: scale(0.65);
+    -o-transform-origin: 0 0;
+    -webkit-transform: scale(0.65);
+    -webkit-transform-origin: 0 0;
+}
+
+.app-preview__body iframe {
+    -ms-zoom: 0.75;
+    -moz-transform: scale(0.75);
+    -moz-transform-origin: 0 0;
+    -o-transform: scale(0.75);
+    -o-transform-origin: 0 0;
+    -webkit-transform: scale(0.75);
+    -webkit-transform-origin: 0 0;
+    /* background-image: url(/assets_metu/media/images/bg_preview.jpg); */
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    position: absolute;
+    display: block;
+}
+iframe {
+    border-top-width: 0px;
+    border-right-width: 0px;
+    border-bottom-width: 0px;
+    border-left-width: 0px;
+}
+iframe {
+    border-width: 2px;
+    border-style: inset;
+    border-color: initial;
+    border-image: initial;
+}
