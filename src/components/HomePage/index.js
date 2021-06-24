@@ -30,7 +30,7 @@ export default function HomePage() {
                                 <button className="py-2 px-2 flex hover:text-purple-700">
                                     Contact us
                                 </button>
-                                <button onClick={() => history.push('/QA')} className="py-2 px-2 flex hover:text-purple-700">
+                                <button onClick={() => history.push('/QA')} className="py-2 px-2 flex hover:text-purple-700"> </button>
 
                                 <button onClick={() => history.push('/hssd')} className="py-2 px-2 flex hover:text-purple-700">
 
@@ -39,8 +39,8 @@ export default function HomePage() {
                                 <button onClick={() => history.push('/contact')} className="py-2 px-2 flex hover:text-purple-700">
                                     Liên Hệ
                                 </button>
-                               
                             </nav>
+
                             <button className="flex flex-col ml-4">
                                 <span className="w-6 h-1 rounded-full bg-purple-800 mb-1" />
                                 <span className="w-6 h-1 rounded-full bg-purple-800 mb-1" />
