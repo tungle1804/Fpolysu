@@ -9,6 +9,7 @@ import ReactLoading from 'react-loading';
 export default function View({ posts, onlistbutton, requesting }) {
     const [radio, setRadio] = useState('false')
     const [listmenu, setListMenu] = useState({});
+    console.log(posts + 's')
     // const [listbutton, setListButton] = useContext(MenuContext)
 
     // useEffect(() => {
@@ -34,10 +35,10 @@ export default function View({ posts, onlistbutton, requesting }) {
             {requesting ? <ReactLoading type="balls" color="#f32" height={467} width={275} /> : <div className=" ml-10 h-full" style={{ width: '400px' }}>
                 <div className="text-sm text-gray-600 font-normal antialiased tracking-normal">
                     Projects &nbsp; / &nbsp; Biltrax IT Project
-        </div>
+                </div>
                 <div className="text-2xl mt-3 text-black font-semibold antialiased tracking-normal">
                     Danh Sách Menu
-        </div>
+                </div>
                 <Link to="create-menu" class=" px-3 py-1 self-center ml-2 text-sm font-medium antialiased rounded bg-blue-800 text-white">Tạo Menu</Link>
                 <div className="flex mt-5 w-full">
                     <input type="text" className="w-1/2 h-7 px-2 text-gray-500 border rounded text-xs" placeholder="Tìm Kiếm Menu ..." />
@@ -61,7 +62,7 @@ export default function View({ posts, onlistbutton, requesting }) {
                                                     </div>
                                                     <div className="font-bold text-gray-500 ml-1 text-xs">
                                                         NITSWEBAPP-01
-                    </div>
+                                                    </div>
                                                 </div>
 
                                                 <Link to={`/admin/update-menu/${res.id_menu}`} class=" inline-flex items-center justify-center px-4 py-2 text-base leading-5 rounded-md border font-medium shadow-sm transition ease-in-out duration-150 focus:outline-none focus:shadow-outline bg-blue-600 border-blue-600 text-gray-100 hover:bg-blue-500 hover:border-blue-500 hover:text-gray-100">
@@ -130,7 +131,7 @@ export default function View({ posts, onlistbutton, requesting }) {
                         </div>
                         <div className="flex px-3 py-1 self-center text-sm antialiased rounded-md text-gray-600 ">
                             issue 48 of 88
-            </div>
+                        </div>
                     </div>
 
 

@@ -33,7 +33,10 @@ export default function HomePage() {
                                 <button onClick={() => history.push('/contact')} className="py-2 px-2 flex hover:text-purple-700">
                                     Liên Hệ
                                 </button>
-                               
+                                <button onClick={() => history.push('/price-list')} className="py-2 px-2 flex hover:text-purple-700">
+                                    Bảng giá
+                                </button>
+
                             </nav>
                             <button className="flex flex-col ml-4">
                                 <span className="w-6 h-1 rounded-full bg-purple-800 mb-1" />
