@@ -19,6 +19,7 @@ import { ButtonProvider } from '../service/ButtonContext';
 import { MenuProvider } from '../service/MenuContext';
 import UpdateMenu from '../components/UpdateMenu'
 import DisplayUpdate from '../components/Display/displayupdate'
+import Navbar from '../components/QA';
 // eslint-disable-next-line import/no-anonymous-default-export
 export default () => {
 
@@ -30,12 +31,13 @@ export default () => {
                         <Switch>
                             <Route path="/login"><Login /></Route>
                             <Route path="/resgiter"><Resgiter /></Route>
+                            <Route path="/QA"><Navbar /></Route>
                             <Route path="/view/:id" component={Display} />
                             <Route exact path="/homepage"><HomePage /></Route>
                             <Route path="/viewdetails"><DisplayCreateDetails /></Route>
                             <Route path="/viewupdate/:id"><DisplayUpdate /> </Route>
                             <Route path='/admin/:path?/:path?' exact>
-
+                            
                                 <Home>
                                     <Switch>
 

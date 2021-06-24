@@ -9,7 +9,6 @@ export default function HomePage() {
     // }
     return (
         <>
-
             <main className="bg-gray-100 font-montserrat">
                 <header className="h-24 sm:h-32 flex items-center">
                     <div className="container mx-auto px-6 sm:px-12 flex items-center justify-between">
@@ -20,7 +19,7 @@ export default function HomePage() {
                             <nav className="text-purple-900 text-lg hidden lg:flex items-center">
                                 <button className="py-2 px-2 flex hover:text-purple-700">
                                     Home
-                                </button>
+                                </button>   
                                 <button onClick={() => history.push('/login')} className="py-2 px-2 flex hover:text-purple-700">
                                     Đăng nhập
                                 </button>
@@ -30,7 +29,7 @@ export default function HomePage() {
                                 <button className="py-2 px-2 flex hover:text-purple-700">
                                     Contact us
                                 </button>
-                                <button className="py-2 px-2 flex hover:text-purple-700">
+                                <button onClick={() => history.push('/QA')} className="py-2 px-2 flex hover:text-purple-700">
                                     Hướng dẫn sử dụng
                                 </button>
                             </nav>
