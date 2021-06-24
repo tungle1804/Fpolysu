@@ -69,6 +69,7 @@ export default function Menu() {
               Hướng Dẫn Sử Dụng
             </div>
 
+
             <div className="border border-gray-300 mt-5" />
             <div className="cursor-pointer py-3 px-3  hover:bg-blue-100 rounded text-sm text-gray-600  font-normal antialiased tracking-normal">
               Nâng Cấp Tài Khoản
@@ -88,4 +89,35 @@ export default function Menu() {
       </div>
     </>
   );
+                    <div className="py-3 px-3 bg-blue-100 cursor-pointer rounded text-sm text-gray-600  font-normal antialiased tracking-normal">
+                            Quản Lí Khách Hàng
+          </div>
+                        <div className="py-3 px-3 hover:bg-blue-100 cursor-pointer rounded text-sm text-gray-600  font-normal antialiased tracking-normal">
+                            Tích Hợp
+          </div>
+                        <div className="py-3 px-3 hover:bg-blue-100 cursor-pointer rounded text-sm text-gray-600  font-normal antialiased tracking-normal">
+                            Cài Đặt Kết Nối
+          </div>
+                        <div className="py-3 px-3 hover:bg-blue-100 cursor-pointer rounded text-sm text-gray-600  font-normal antialiased tracking-normal">
+                            Hướng Dẫn Sử Dụng
+          </div>
+
+                        <div className="border border-gray-300 mt-5" />
+                        <div className="cursor-pointer py-3 px-3  hover:bg-blue-100 rounded text-sm text-gray-600  font-normal antialiased tracking-normal">
+                            Nâng Cấp Tài Khoản
+          </div>
+                        {/* <div className="cursor-pointer py-3 px-3  hover:bg-blue-100 rounded text-sm text-gray-600  font-normal antialiased tracking-normal">
+                            Chợ Ứng Dụng
+          </div> */}
+                        <div className="cursor-pointer py-3 px-3 mb-5 hover:bg-blue-100 rounded text-sm text-gray-600  font-normal antialiased tracking-normal">
+                            Lịch Sử Thanh Toán
+          </div>
+                        <div className="border border-gray-300 mt-5" />
+                       
+                    </div>
+                </div>
+            </div >
+        </>
+    )
+
 }

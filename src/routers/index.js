@@ -9,6 +9,8 @@ import Home from '../components/Home';
 import HomePage from '../components/HomePage';
 import Login from '../components/Login';
 import Resgiter from '../components/Resgiter';
+import Contact from '../components/Contact';
+import Hssd from '../components/Hssd';
 import Display from '../components/Display';
 import DisplayCreateDetails from '../components/Display/displaycreatedetails'
 import Dashboard from '../components/Dashboard';
@@ -31,7 +33,12 @@ export default () => {
                         <Switch>
                             <Route path="/login"><Login /></Route>
                             <Route path="/resgiter"><Resgiter /></Route>
+
                             <Route path="/QA"><Navbar /></Route>
+
+                            <Route path="/contact"><Contact/></Route>
+                            <Route path="/hssd"><Hssd/></Route>
+
                             <Route path="/view/:id" component={Display} />
                             <Route exact path="/homepage"><HomePage /></Route>
                             <Route path="/viewdetails"><DisplayCreateDetails /></Route>
