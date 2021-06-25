@@ -52,9 +52,9 @@ export default () => {
                                     <Switch>
 
                                         <Route exact path='/admin' component={Dashboard} />
-                                        <Route exact path='/admin/payment-history' component={PaymentHistory} />
-                                        <Route exact path='/admin/upgrade-account' component={UpgradeAccount} />
-                                        <Route exact path='/admin/bill' component={Bill} />
+                                        <Route path='/admin/payment-history' component={PaymentHistory} />
+                                        <Route path='/admin/upgrade-account' component={UpgradeAccount} />
+                                        <Route path='/admin/bill' component={Bill} />
                                         <Route path='/admin/list-menu'>
                                             <ManagerMenu />
                                         </Route>
