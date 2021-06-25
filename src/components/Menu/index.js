@@ -77,7 +77,7 @@ export default function Menu() {
             <div className="cursor-pointer py-3 px-3  hover:bg-blue-100 rounded text-sm text-gray-600  font-normal antialiased tracking-normal">
               Chợ Ứng Dụng
             </div>
-            <Link to="payment-history"><div className="cursor-pointer py-3 px-3 mb-5 hover:bg-blue-100 rounded text-sm text-gray-600  font-normal antialiased tracking-normal">
+            <Link to="/admin/payment-history"><div className="cursor-pointer py-3 px-3 mb-5 hover:bg-blue-100 rounded text-sm text-gray-600  font-normal antialiased tracking-normal">
               Lịch Sử Thanh Toán
             </div></Link>
             <div className="border border-gray-300 mt-5" />
