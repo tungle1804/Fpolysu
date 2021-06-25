@@ -71,15 +71,15 @@ export default function Menu() {
 
 
             <div className="border border-gray-300 mt-5" />
-            <div className="cursor-pointer py-3 px-3  hover:bg-blue-100 rounded text-sm text-gray-600  font-normal antialiased tracking-normal">
+            <Link to="/admin/upgrade-account"><div className="cursor-pointer py-3 px-3  hover:bg-blue-100 rounded text-sm text-gray-600  font-normal antialiased tracking-normal">
               Nâng Cấp Tài Khoản
-            </div>
+            </div></Link>
             <div className="cursor-pointer py-3 px-3  hover:bg-blue-100 rounded text-sm text-gray-600  font-normal antialiased tracking-normal">
               Chợ Ứng Dụng
             </div>
-            <div className="cursor-pointer py-3 px-3 mb-5 hover:bg-blue-100 rounded text-sm text-gray-600  font-normal antialiased tracking-normal">
+            <Link to="payment-history"><div className="cursor-pointer py-3 px-3 mb-5 hover:bg-blue-100 rounded text-sm text-gray-600  font-normal antialiased tracking-normal">
               Lịch Sử Thanh Toán
-            </div>
+            </div></Link>
             <div className="border border-gray-300 mt-5" />
             <div className="cursor-pointer py-3 px-3 mb-5 hover:bg-blue-100 rounded text-sm text-gray-600  font-normal antialiased tracking-normal">
               Kiểm Tiền Từ PolyTu
@@ -89,5 +89,5 @@ export default function Menu() {
       </div>
     </>
   );
- 
+
 }

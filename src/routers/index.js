@@ -22,6 +22,9 @@ import { MenuProvider } from '../service/MenuContext';
 import UpdateMenu from '../components/UpdateMenu'
 import DisplayUpdate from '../components/Display/displayupdate'
 import Navbar from '../components/QA';
+import Bill from '../components/Bill'
+import PaymentHistory from '../components/PaymentHistory'
+import UpgradeAccount from '../components/UpgradeAccount'
 // eslint-disable-next-line import/no-anonymous-default-export
 export default () => {
 
@@ -36,20 +39,22 @@ export default () => {
 
                             <Route path="/QA"><Navbar /></Route>
 
-                            <Route path="/contact"><Contact/></Route>
-                            <Route path="/hssd"><Hssd/></Route>
+                            <Route path="/contact"><Contact /></Route>
+                            <Route path="/hssd"><Hssd /></Route>
 
                             <Route path="/view/:id" component={Display} />
                             <Route exact path="/homepage"><HomePage /></Route>
                             <Route path="/viewdetails"><DisplayCreateDetails /></Route>
                             <Route path="/viewupdate/:id"><DisplayUpdate /> </Route>
                             <Route path='/admin/:path?/:path?' exact>
-                            
+
                                 <Home>
                                     <Switch>
 
                                         <Route exact path='/admin' component={Dashboard} />
-
+                                        <Route path='/admin/payment-history' component={PaymentHistory} />
+                                        <Route path='/admin/upgrade-account' component={UpgradeAccount} />
+                                        <Route path='/admin/bill' component={Bill} />
                                         <Route path='/admin/list-menu'>
                                             <ManagerMenu />
                                         </Route>
