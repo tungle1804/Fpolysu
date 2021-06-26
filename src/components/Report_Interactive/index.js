@@ -3,144 +3,100 @@ import React from 'react'
 // eslint-disable-next-line import/no-anonymous-default-export
 export default () => (
    <>
+   <div>
+     <h1 className="text-2xl font-bold m-5">Thống kê tương tác</h1>
+     <div className="grid grid-cols-2 gap-10">
+       <div>
+       <p className="text-lg text-center font-bold m-5">Tỉ lệ nhấp chuột vào menu</p>
+  <table className="rounded-t-lg mx-auto bg-gray-200" >
+    <tbody>
+      <tr className="text-left border-b-2 border-gray-300  ">
+        <th className="px-3 py-1">#</th>
+        <th className="px-3 py-1">Tên Menu</th>
+        <th className="px-3 py-1">Số lần hiển thị	</th>
+        <th className="px-3 py-1">Số lần click</th>
+        <th className="px-3 py-1">Tỉ lệ click</th>
        
-       <div className="p-16">
-       <h2 className="font-bold text-lg h-2 mb-8">Thống kế Tương Tác</h2>
-  <div className="grid md:grid-cols-2 lg:grid-cols-2 m-5 mb-10">
-    <div className="bg-white overflow-hidden hover:bg-green-100 border border-gray-200 p-3">
-      <div className="m-2 text-justify text-sm">
+      </tr>
+      <tr className="bg-gray-100 border-b border-gray-400">
+        <td className="px-1 py-1">1</td>
+        <td className="px-1 py-1">abc</td>
+        <td className="px-1 py-1">50</td>
+        <td className="px-1 py-1">0</td>
+        <td className="px-1 py-1">0</td>
        
-        <h2 className="font-bold text-lg h-2 mb-8">Tương tác trên thiết bị </h2>
-        <span className="text-sm">
-        Tổng số click trên tất cả kiểu nút trên thiết bị
-        </span>
-        
-      </div>
+      </tr>
+    </tbody></table>
+       </div>
+       <div>
+       <p className="text-lg text-center font-bold m-5">Tỉ lệ nhấp chuột vào widget</p>
+       <table className=" mx-auto bg-gray-200">
+    <tbody>
+      <tr className="text-left border-b-2 border-gray-300  ">
+        <th className="px-3 py-1">#</th>
+        <th className="px-3 py-1">Tên Menu</th>
+        <th className="px-3 py-1">Số lần hiển thị	</th>
+        <th className="px-3 py-1">Số lần click</th>
+        <th className="px-3 py-1">Tỉ lệ click</th>
+       
+      </tr>
+      <tr className="bg-gray-100 border-b border-gray-400">
+        <td className="px-1 py-1">1</td>
+        <td className="px-1 py-1">abc</td>
+        <td className="px-1 py-1">50</td>
+        <td className="px-1 py-1">0</td>
+        <td className="px-1 py-1">0</td>
+       
+      </tr>
+    </tbody></table>
+       </div>
+       
+     </div>
+     <div className="grid grid-cols-2 gap-10 pt-20">
+       <div>
+       <p className="text-lg text-center font-bold m-5">Tương tác trên thiết bị</p>
+      <span>Tổng số click trên thiết bị</span>
+      <h1>Biểu đồ</h1>
+       </div>
+      {/* phần 2 */}
+       <div>
+       <p className="text-lg text-center font-bold m-5">Tương tác trên nút</p>
+       <span>Tổng số click trên tất cả kiểu nút trên menu</span>
+       <h1>Biểu đồ</h1>
+       </div>
+     </div>
+     <div className="grid grid-cols-1 gap-10 pt-10">
+       <div>
+       <p className="text-lg text-center font-bold m-5">Danh sách tất cả click trên từng nút theo thời gian</p>  
      
-  <table className="text-left w-full">
-    <thead className="flex text-black w-full">
-      <tr className="flex w-full mb-4">
-        <th className="p-4 w-1/4">One</th>
-        <th className="p-4 w-1/4">One</th>
-        <th className="p-4 w-1/4">Two</th>
-        <th className="p-4 w-1/4">Three</th>
-        <th className="p-4 w-1/4">Four</th>
+       <table className="rounded-t-lg mx-auto bg-gray-200" >
+    <tbody>
+      <tr className="text-left border-b-2 border-gray-300  ">
+        <th className="px-10 py-1">#</th>
+        <th className="px-10 py-1">Tên Menu</th>
+        <th className="px-10 py-1">Số lần hiển thị	</th>
+        <th className="px-10 py-1">Số lần click</th>
+        <th className="px-10 py-1">Tỉ lệ click</th>
+        <th className="px-10 py-1">Số lần click</th>
+        <th className="px-10 py-1">Tỉ lệ click</th>
+       
       </tr>
-    </thead>
-    {/* Remove the nasty inline CSS fixed height on production and replace it with a CSS class — this is just for demonstration purposes! */}
-    <tbody className="bg-grey-light flex flex-col items-center justify-between overflow-y-scroll w-full" style={{height: '30vh'}}>
-      <tr className="flex w-full mb-4">
-        <td className="p-4 w-1/4">Dogs</td>
-        <td className="p-4 w-1/4">Dogs</td>
-        <td className="p-4 w-1/4">Cats</td>
-        <td className="p-4 w-1/4">Birds</td>
-        <td className="p-4 w-1/4">Fish</td>
+      <tr className="bg-gray-100 border-b border-gray-400">
+        <td className="px-10 py-1">1</td>
+        <td className="px-10 py-1">abc</td>
+        <td className="px-10 py-1">50</td>
+        <td className="px-10 py-1">0</td>
+        <td className="px-10 py-1">0</td>
+        <td className="px-10 py-1">0</td>
+        <td className="px-10 py-1">0</td>
+       
       </tr>
-    </tbody>
-  </table>
+    </tbody></table>
     </div>
-    
-    <div className="bg-white overflow-hidden hover:bg-green-100 border border-gray-200 p-3">
-      <div className="m-2 text-justify text-sm">
-       
-        <h2 className="font-bold text-lg h-2 mb-8">Tương tác trên nút </h2>
-        <span className="text-sm">
-        Tổng số click trên tất cả kiểu nút trên menu
-        </span>
-      </div>
-       
-  <table className="text-left w-full">
-    <thead className="flex text-black w-full">
-      <tr className="flex w-full mb-4">
-        <th className="p-4 w-1/4">One</th>
-        <th className="p-4 w-1/4">One</th>
-        <th className="p-4 w-1/4">Two</th>
-        <th className="p-4 w-1/4">Three</th>
-        <th className="p-4 w-1/4">Four</th>
-      </tr>
-    </thead>
-    {/* Remove the nasty inline CSS fixed height on production and replace it with a CSS class — this is just for demonstration purposes! */}
-    <tbody className="bg-grey-light flex flex-col items-center justify-between overflow-y-scroll w-full" style={{height: '30vh'}}>
-      <tr className="flex w-full mb-4">
-        <td className="p-4 w-1/4">Dogs</td>
-        <td className="p-4 w-1/4">Dogs</td>
-        <td className="p-4 w-1/4">Cats</td>
-        <td className="p-4 w-1/4">Birds</td>
-        <td className="p-4 w-1/4">Fish</td>
-      </tr>
-    </tbody>
-  </table> 
-    </div>    
+     </div>
   </div>
 
-  {/* <h2 className="font-bold text-lg h-2 mb-8">Thống kế Tương Tác</h2>
-  <div className="grid md:grid-cols-2 sm:grid-cols-1 lg:grid-cols-2 m-5 mb-10">
-    <div className="bg-white overflow-hidden hover:bg-green-100 border border-gray-200 p-3">
-      <div className="m-2 text-justify text-sm">
-       
-        <h2 className="font-bold text-lg h-2 mb-8">Tương tác trên thiết bị </h2>
-        <span className="text-sm">
-        Tổng số click trên tất cả kiểu nút trên thiết bị
-        </span>
-        
-      </div>
-     
-  <table className="text-left w-full">
-    <thead className="flex text-black w-full">
-      <tr className="flex w-full mb-4">
-        <th className="p-4 w-1/4">One</th>
-        <th className="p-4 w-1/4">One</th>
-        <th className="p-4 w-1/4">Two</th>
-        <th className="p-4 w-1/4">Three</th>
-        <th className="p-4 w-1/4">Four</th>
-      </tr>
-    </thead>
-    <tbody className="bg-grey-light flex flex-col items-center justify-between overflow-y-scroll w-full" style={{height: '30vh'}}>
-      <tr className="flex w-full mb-4">
-        <td className="p-4 w-1/4">Dogs</td>
-        <td className="p-4 w-1/4">Dogs</td>
-        <td className="p-4 w-1/4">Cats</td>
-        <td className="p-4 w-1/4">Birds</td>
-        <td className="p-4 w-1/4">Fish</td>
-      </tr>
-    </tbody>
-  </table>
-    </div>
-    
-    <div className="bg-white overflow-hidden hover:bg-green-100 border border-gray-200 p-3">
-      <div className="m-2 text-justify text-sm">
-       
-        <h2 className="font-bold text-lg h-2 mb-8">Tương tác trên nút </h2>
-        <span className="text-sm">
-        Tổng số click trên tất cả kiểu nút trên menu
-        </span>
-      </div>
-       
-  <table className="text-left w-full">
-    <thead className="flex text-black w-full">
-      <tr className="flex w-full mb-4">
-        <th className="p-4 w-1/4">One</th>
-        <th className="p-4 w-1/4">One</th>
-        <th className="p-4 w-1/4">Two</th>
-        <th className="p-4 w-1/4">Three</th>
-        <th className="p-4 w-1/4">Four</th>
-      </tr>
-    </thead>
-    <tbody className="bg-grey-light flex flex-col items-center justify-between overflow-y-scroll w-full" style={{height: '30vh'}}>
-      <tr className="flex w-full mb-4">
-        <td className="p-4 w-1/4">Dogs</td>
-        <td className="p-4 w-1/4">Dogs</td>
-        <td className="p-4 w-1/4">Cats</td>
-        <td className="p-4 w-1/4">Birds</td>
-        <td className="p-4 w-1/4">Fish</td>
-      </tr>
-    </tbody>
-  </table> 
-    </div> 
-       
-    
-  </div> */}
-</div>
+
 
     </>
     
