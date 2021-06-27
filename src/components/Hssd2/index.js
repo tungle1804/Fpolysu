@@ -1,6 +1,6 @@
 import React from 'react'
 
-const Hssd1 = () => {
+const Hssd2 = () => {
   return (
     <div>
       <div className="w-full">
@@ -19,17 +19,41 @@ const Hssd1 = () => {
       </g>
     </g>
     <p className="italic m-5 text-3xl">
-      Polysu là gì?
+      Tổng quan vai trò của METU
     </p>
   </div>
-  <p className="text-gray-500 italic m-5 text-2xl">
-    Là một công cụ cho phép bạn tạo ra menu thứ 2 xuất hiện bên dưới màn hình hiển thị của các thiết bị khi truy cập vào website của bạn.
+  <p className="italic m-5 text-2xl">
+    Điểm nổi bật
   </p>
-  <p className="text-gray-500 italic m-5 text-2xl">
-    METU với tuỳ biến linh hoạt về màu sắc và thiết kế hợp lý sẽ giúp điều hướng và kích thích tương tác của khách hàng với Website.
+  <p className="text-gray-500 italic m-5 text-1xl">
+    - Giao diện thân thiện đặc biệt trên mobile
   </p>
-  <p className="text-gray-500 italic m-5 text-2xl">
-    Ngoài ra METU có khả năng đồng bộ hoá dữ liệu của các nút Call To Action này vào Adwords, giúp tối ưu hoá hiệu quả của các chiến dịch quảng cáo.
+  <p className="text-gray-500 italic m-5 text-1xl">
+    - Cài đặt đơn giản cho mọi người
+  </p>
+  <p className="text-gray-500 italic m-5 text-1xl">
+    - Nhiều nút tương tác phù hợp với mọi khách hàng
+  </p>
+  <p className="text-gray-500 italic m-5 text-1xl">
+    - Gia tăng tỷ lệ chuyển đổi chỉ với vài thao tác
+  </p>
+  <p className="italic m-5 text-2xl">
+    Tính tương thích cao, tùy biến đa dạng
+  </p>
+  <p className="text-gray-500 italic m-5 text-1xl">
+    - Nhiều theme với nhiều tuỳ biến màu sắc khác nhau, tương thích với mọi định dạng Website cả trên PC &amp; Mobile. Dễ dàng điều chỉnh Menu cho riêng một trang hoặc một nhóm trang nào đó trên Website.
+  </p>
+  <p className="italic m-5 text-2xl">
+    Tối ưu hoá doanh thu, Hiểu khách hàng tiềm năng
+  </p>
+  <p className="text-gray-500 italic m-5 text-1xl">
+    - Tăng tới 50% tỷ lệ chuyển đổi từ khách hàng. Đo đạc hành vi trên trang của khách hàng, từ đó phân tích thói quen mua hàng. Điều hướng khách hàng về các nội dung trên trang mà bạn mong muốn, từ đó dễ dàng hơn trong việc kích thích mua hàng.
+  </p>
+  <p className="italic m-5 text-2xl">
+    Theo dõi, tối ưu chiến dịch quảng cáo
+  </p>
+  <p className="text-gray-500 italic m-5 text-1xl">
+    - Đồng bộ hoá dữ liệu khách hàng có được với các chiến dịch quảng cáo, từ đó tối đa hoá hiệu quả dựa trên chi phí bỏ ra.
   </p>
 </div>
 
@@ -37,4 +61,4 @@ const Hssd1 = () => {
   )
 }
 
-export default Hssd1
+export default Hssd2

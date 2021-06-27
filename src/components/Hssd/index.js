@@ -1,5 +1,6 @@
 import React from 'react'
 import Hssd1 from '../Hssd1';
+import Hssd2 from '../Hssd2';
 import {
   BrowserRouter as Router,
   Switch,
@@ -11,12 +12,14 @@ const index = () => {
   return (
     <div>
      {/* component */}
+     <Router>
+      {/* component */}
 <div className="h-screen flex flex-col">
   <header className="flex flex-shrink-0">
     <div className="flex-shrink-0 px-4 py-3  w-64">
       <button className="flex items-center block w-full">
-      <img className="h- w-20 mt-1 rounded " src="https://fpt.com.vn/Content/home/images/icon/logo-ft.png" />
-        <span className="ml-4 text-2xl font-medium text-black">PoLySu</span>
+        <img className="h-8 w-8 rounded-full object-cover" src="https://fpt.com.vn/Content/home/images/icon/logo-ft.png" alt="" />
+        <span className="ml-4 text-3xl font-medium text-black">Polysu</span>
       </button>
     </div>
     <div className="flex-1 flex  px-6 items-center justify-between">
@@ -44,17 +47,18 @@ const index = () => {
   <div className="flex overflow-0-hidden">
     <div className="w-64 p-6 bg-gray-100 overflow-y-auto ">
       <nav>
-        <h1 className="font-semibold text-2xl text-gray-600 uppercase tracking-wide">
-          <Link to="/hssd1" className=" text-gray-900 hover:bg-yellow-300" >Polysu là gì?</Link>
+        <h1 className="font-semibold text-1xl text-gray-600 uppercase tracking-wide">
+          <Link to="/hssd1"  className=" text-gray-900 hover:bg-yellow-300" >Polysu là gì?</Link>
         </h1>
         <div className="mt-3">
           <a href className="-mx-3  py-1 px-3 text-sm font-medium flex items-center justify-between  rounded-lg">
             <span>
               <i className="h-6 w-6 fa fa-envelope-o fill-current text-gray-700 " aria-hidden="true" />
-            </span></a><a href="Tongquan.html" className=" text-gray-900 hover:bg-yellow-300" target="page">Tổng quan &amp; Vai trò</a>
+            </span></a>
+            <Link to="/hssd2" className=" text-gray-900 hover:bg-yellow-300" >Tổng quan &amp; Vai trò</Link>
         </div>
         <div className="mt-8">
-          <span className="font-semibold text-1xl text-gray-600 uppercase tracking-wide">Sử dụng Polysu</span>
+          <h2 className="font-semibold text-gray-600 uppercase tracking-wide">Sử dụng Polysu</h2>
           <div className="mt-3">
             <a href className="-mx-3  py-1 px-3 text-sm font-medium flex items-center justify-between  rounded-lg">
               <span>
@@ -75,20 +79,26 @@ const index = () => {
     </div>
     <main>
       <div>
-        {/* <iframe width={1000} height={800} src="Polysu.js" name="page" frameBorder={0} className="border-none"  /> */}
-          <Router>
-            
-              <Route path="/hssd1">
-                <Hssd1></Hssd1>
-              </Route>
-            
-          </Router>
+      {/* //  <iframe width={1000} height={800} src="Polysu.html" name="page" frameBorder={0} /> */}
+      
+        
+        <Switch>
+        <Route exact path="/hssd1"> 
+        <Hssd1></Hssd1>
+         
+        </Route>
+        <Route exact path="/hssd2">
+        <Hssd2></Hssd2>
+       
+        </Route>
 
+        </Switch>
+     
       </div>
     </main>
   </div>
 </div>
-
+</Router>
     </div>
   )
 }
