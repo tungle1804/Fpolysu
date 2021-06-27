@@ -9,7 +9,6 @@ export default function HomePage() {
     // }
     return (
         <>
-
             <main className="bg-gray-100 font-montserrat">
                 <header className="h-24 sm:h-32 flex items-center">
                     <div className="container mx-auto px-6 sm:px-12 flex items-center justify-between">
@@ -27,17 +26,28 @@ export default function HomePage() {
                                 <button onClick={() => history.push('/resgiter')} className="py-2 px-2 flex hover:text-purple-700">
                                     Đăng ký
                                 </button>
+
+                                <button className="py-2 px-2 flex hover:text-purple-700">
+                                    Contact us
+                                </button>
+                                <button onClick={() => history.push('/QA')} className="py-2 px-2 flex hover:text-purple-700"> </button>
+
                                 <button onClick={() => history.push('/hssd')} className="py-2 px-2 flex hover:text-purple-700">
+
                                     Hướng dẫn sử dụng
                                 </button>
                                 <button onClick={() => history.push('/contact')} className="py-2 px-2 flex hover:text-purple-700">
                                     Liên Hệ
                                 </button>
+
                                 <button onClick={() => history.push('/price-list')} className="py-2 px-2 flex hover:text-purple-700">
                                     Bảng giá
                                 </button>
 
+
+
                             </nav>
+
                             <button className="flex flex-col ml-4">
                                 <span className="w-6 h-1 rounded-full bg-purple-800 mb-1" />
                                 <span className="w-6 h-1 rounded-full bg-purple-800 mb-1" />

@@ -21,9 +21,15 @@ import { ButtonProvider } from '../service/ButtonContext';
 import { MenuProvider } from '../service/MenuContext';
 import UpdateMenu from '../components/UpdateMenu'
 import DisplayUpdate from '../components/Display/displayupdate'
+
 import PriceList from '../components/PriceList'
+import Navbar from '../components/QA';
+import Bill from '../components/Bill'
+import PaymentHistory from '../components/PaymentHistory'
+import UpgradeAccount from '../components/UpgradeAccount'
+
 // eslint-disable-next-line import/no-anonymous-default-export
-export default () => {
+export default function Routers() {
 
     return (
         <>
@@ -33,9 +39,14 @@ export default () => {
                         <Switch>
                             <Route path="/login"><Login /></Route>
                             <Route path="/resgiter"><Resgiter /></Route>
+
+
+                            <Route path="/price-list"><PriceList /></Route>
+
+
+                            <Route path="/QA"><Navbar /></Route>
                             <Route path="/contact"><Contact /></Route>
                             <Route path="/hssd"><Hssd /></Route>
-                            <Route path="/price-list"><PriceList /></Route>
                             <Route path="/view/:id" component={Display} />
                             <Route exact path="/homepage"><HomePage /></Route>
                             <Route path="/viewdetails"><DisplayCreateDetails /></Route>
@@ -46,7 +57,9 @@ export default () => {
                                     <Switch>
 
                                         <Route exact path='/admin' component={Dashboard} />
-
+                                        <Route path='/admin/payment-history' component={PaymentHistory} />
+                                        <Route path='/admin/upgrade-account' component={UpgradeAccount} />
+                                        <Route path='/admin/bill' component={Bill} />
                                         <Route path='/admin/list-menu'>
                                             <ManagerMenu />
                                         </Route>
