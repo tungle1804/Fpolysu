@@ -91,6 +91,7 @@ export default function View({ posts, onlistbutton, requesting }) {
                           </div>
                         </div>
 
+
                         <Link
                           to={`/admin/update-menu/${res.id_menu}`}
                           class=" inline-flex items-center justify-center px-4 py-2 text-base leading-5 rounded-md border font-medium shadow-sm transition ease-in-out duration-150 focus:outline-none focus:shadow-outline bg-blue-600 border-blue-600 text-gray-100 hover:bg-blue-500 hover:border-blue-500 hover:text-gray-100"
@@ -170,6 +171,7 @@ export default function View({ posts, onlistbutton, requesting }) {
                       </div>
                       <div className="border mt-3" />
                     </div>
+
                   );
                 })}
               </div>
@@ -200,4 +202,5 @@ export default function View({ posts, onlistbutton, requesting }) {
       )}
     </>
   );
+
 }
