@@ -1,5 +1,6 @@
 import React from 'react'
-
+import { Doughnut } from 'react-chartjs-2';
+import Barchart from '../BarChart';
 // eslint-disable-next-line import/no-anonymous-default-export
 export default () => (
    <>
@@ -56,13 +57,18 @@ export default () => (
        <div>
        <p className="text-lg text-center font-bold m-5">Tương tác trên thiết bị</p>
       <span>Tổng số click trên thiết bị</span>
-      <h1>Biểu đồ</h1>
+        <div>
+          <Barchart/>
+        </div>
+
        </div>
       {/* phần 2 */}
        <div>
        <p className="text-lg text-center font-bold m-5">Tương tác trên nút</p>
        <span>Tổng số click trên tất cả kiểu nút trên menu</span>
-       <h1>Biểu đồ</h1>
+       <div>
+       <Barchart/>
+       </div>
        </div>
      </div>
      <div className="grid grid-cols-1 gap-10 pt-10">
