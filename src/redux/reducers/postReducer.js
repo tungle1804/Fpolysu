@@ -19,12 +19,11 @@ function postReducers(state = initialState, payload) {
                 ...state,
                 requesting: true
             }
-        case SAVE_DATA_MENUS:
+        case FETCH_MENUS_SUCCESS:
             return {
                 ...state,
                 requesting: false,
-                success: true,
-
+                success: true
             }
         case FETCH_MENUS_FAILED:
             return {

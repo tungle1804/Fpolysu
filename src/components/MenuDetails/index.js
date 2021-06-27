@@ -10,10 +10,10 @@ export default function MenuDetails({ idMenu }) {
 
     const requesting = useSelector(state => state.buttons.requesting)
     const dispatch = useDispatch();
-    useEffect(() => {
-        dispatch(viewButtonByIDMenu(idMenu))
+    // useEffect(() => {
+    //     dispatch(viewButtonByIDMenu(idMenu))
 
-    }, [idMenu])
+    // }, [idMenu])
     // const [listbutton, setListButton] = useContext(MenuContext)
     const [iframe, setIframe] = useState(false)
 

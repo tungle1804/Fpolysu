@@ -11,14 +11,16 @@ import View from '../View';
 function ManagerMenu({ data, requesting, dispatch }) {
     // const { loadMenus } = MenusAction
     const [idMenu, setIDMenu] = useState()
-
+    console.log(data + 'ss')
     // const data = useSelector(state => state.posts.data)
     // console.log(data + 'data')
     // const requesting = useSelector(state => state.posts.requesting)
     // const dispatch = useDispatch();
     const history = useHistory();
     useEffect(() => {
+
         dispatch(loadMenus())
+
     }, [])
     const onlistbutton = (id) => {
 

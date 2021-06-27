@@ -16,6 +16,7 @@ function getApi() {
         .catch((error) => { throw error })
 }
 function* fetchMenus() {
+
     try {
         // let email = localStorage.getItem('email')
         // const menu = yield call(MenuService.getMenuByEmail(email))
@@ -25,6 +26,7 @@ function* fetchMenus() {
         console.log(menu)
         yield put(fetchListMenusSuccess())
         yield put(savelistMenus(menu))
+
     } catch (error) {
         console.log('menusaga')
         yield put(fetchListMenusFailed(error))
