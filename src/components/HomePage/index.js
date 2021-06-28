@@ -30,7 +30,7 @@ export default function HomePage() {
                                 <button className="py-2 px-2 flex hover:text-purple-700">
                                     Contact us
                                 </button>
-                                <button onClick={() => history.push('/QA')} className="py-2 px-2 flex hover:text-purple-700"> </button>
+                                <button onClick={() => history.push('/QA')} className="py-2 px-2 flex hover:text-purple-700">Q&A</button>
 
                                 <button onClick={() => history.push('/hssd')} className="py-2 px-2 flex hover:text-purple-700">
 
