@@ -5,10 +5,73 @@ import MenuService from "../../service/Menu/MenuService";
 import { MenuContext } from "../../service/MenuContext";
 import { useDispatch, useSelector } from "react-redux";
 import { loadPosts, viewPost } from "../../redux/actions/menuAction";
+import ReactPaginate from 'react-paginate';
 import ReactLoading from "react-loading";
 export default function View({ posts, onlistbutton, requesting }) {
   const [radio, setRadio] = useState("false");
   const [listmenu, setListMenu] = useState({});
+  const [search, setSearch] = useState('');
+  const [filterMenu, setFilterMenu] = useState([]);
+  const [paginate, setPaginate] = useState({
+    offset: 0,
+    tableData: [],
+    orgtableData: [],
+    perPage: 5,
+    currentPage: 0
+  })
+  // useEffect(() => {
+  //   // setPaginate({
+  //   //   ...paginate,
+  //   //   tableData: posts.filter(post => {
+
+  //   //     return post.name_menu.toLowerCase().includes(search.toLowerCase())
+  //   //   }),
+
+  //   // })
+  //   setFilterMenu(paginate.tableData.filter(post => {
+  //     return post.name_menu.toLowerCase().includes(search.toLowerCase())
+  // }))
+
+  // }, [search]);
+  useEffect(() => {
+    // ProductService.getProducts().then(res => {
+
+
+
+    //     var slice = res.data.slice(paginate.offset, paginate.offset + paginate.perPage)
+    //     setPaginate({
+    //         ...paginate,
+    //         pageCount: Math.ceil(res.data.length / paginate.perPage),
+    //         orgtableData: res.data,
+    //         tableData: slice
+    //     })
+
+
+    // }
+
+    // );
+    var slice = posts.slice(paginate.offset, paginate.offset + paginate.perPage)
+    setPaginate({
+      ...paginate,
+      pageCount: Math.ceil(posts.length / paginate.perPage),
+      orgtableData: posts,
+      tableData: slice
+    })
+  }, []);
+  const handlePageClick = (e) => {
+    // console.log(paginate.orgtableData)
+    const selectedPage = e.selected;
+    const offset = selectedPage * paginate.perPage;
+
+    const data = paginate.orgtableData;
+    const slice = data.slice(offset, offset + paginate.perPage)
+    setPaginate({
+      ...paginate,
+      currentPage: selectedPage,
+      pageCount: Math.ceil(data.length / paginate.perPage),
+      tableData: slice
+    });
+  }
   // const [listbutton, setListButton] = useContext(MenuContext)
 
   // useEffect(() => {
@@ -47,14 +110,11 @@ export default function View({ posts, onlistbutton, requesting }) {
             Tạo Menu
           </Link>
           <div className="flex mt-5 w-full">
-            <input
+            <input onChange={e => setSearch(e.target.value)}
               type="text"
-              className="w-1/2 h-7 px-2 text-gray-500 border rounded text-xs"
+              className="w-1/2 h-8 px-2 text-gray-500 border rounded text-xs"
               placeholder="Tìm Kiếm Menu ..."
             />
-            <div className="items-center cursor-pointer px-2  mb-1 text-sm text-blue-500 hover:underline">
-              Tìm Kiếm
-            </div>
           </div>
           <div className="bg-gray-100 mt-4 rounded">
             <div className="mx-2 bg-white rounded">
@@ -62,7 +122,7 @@ export default function View({ posts, onlistbutton, requesting }) {
                 className="overflow-auto flex-col"
                 style={{ height: "308px" }}
               >
-                {posts.map((res) => {
+                {paginate.tableData.map((res) => {
                   return (
                     <div
                       onClick={() => onlistbutton(res.id_menu)}
@@ -176,7 +236,7 @@ export default function View({ posts, onlistbutton, requesting }) {
                 })}
               </div>
             </div>
-            <div className="flex  justify-between px-1 text-center items-center">
+            <div className="flex  justify-between px-1 text-center items-center mt-6">
               <div className="p-2">
                 <button className="flex rounded px-4 py-2 focus:outline-none text-gray-500 hover:bg-blue-100 justify-around">
                   {/*                                    <svg class="h-3 w-3 " xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 512 512"><path fill-rule="evenodd" d="M441.156 322.876L392.49 275.49a8.523 8.523 0 00-11.93.017l-81.894 80.299V8.533A8.536 8.536 0 00290.133 0h-68.267a8.536 8.536 0 00-8.533 8.533v347.273l-81.894-80.299a8.528 8.528 0 00-11.921-.017l-48.666 47.386a8.503 8.503 0 00-2.586 6.11c0 2.304.939 4.506 2.586 6.11l179.2 174.481A8.508 8.508 0 00256 512c2.15 0 4.292-.811 5.956-2.423l179.2-174.481a8.526 8.526 0 002.577-6.11c0-2.304-.93-4.506-2.577-6.11z"/></svg>*/}
@@ -193,8 +253,27 @@ export default function View({ posts, onlistbutton, requesting }) {
                   </svg>
                 </button>
               </div>
+              <div className=" flex pl-0 list-none rounded my-2">
+                <div className="place-self-center">  <ReactPaginate
+                  previousLabel={"Prev"}
+                  nextLabel={"Next"}
+                  breakLabel={"..."}
+                  breakClassName={"break-me"}
+                  pageClassName={"relative block py-2 px-2 leading-tight bg-white border border-gray-300 text-blue-700 border-r-0 ml-0 rounded-l hover:bg-gray-200"}
+                  pageCount={paginate.pageCount}
+                  marginPagesDisplayed={2}
+                  pageRangeDisplayed={5}
+                  onPageChange={handlePageClick}
+                  containerClassName={"pagination"}
+                  previousClassName={"relative block py-2 px-2 leading-tight bg-white border border-gray-300 text-blue-700 rounded-r hover:bg-gray-200"}
+                  subContainerClassName={"pages pagination"}
+                  nextClassName={"relative block py-2 px-2 leading-tight bg-white border border-gray-300 text-blue-700 rounded-r hover:bg-gray-200"}
+                  activeClassName={"active"}
+                /></div>
+
+              </div>
               <div className="flex px-3 py-1 self-center text-sm antialiased rounded-md text-gray-600 ">
-                issue 48 of 88
+                Total : {posts.length}
               </div>
             </div>
           </div>

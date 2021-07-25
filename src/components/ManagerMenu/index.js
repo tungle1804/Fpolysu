@@ -8,10 +8,11 @@ import ReactLoading from 'react-loading';
 import Display from '../Display';
 import MenuDetails from '../MenuDetails';
 import View from '../View';
-function ManagerMenu({ data, requesting, dispatch }) {
+import { loadButtons } from '../../redux/actions/buttonAction';
+function ManagerMenu({ data, requesting, dispatch, dataButton, requestingButton }) {
     // const { loadMenus } = MenusAction
     const [idMenu, setIDMenu] = useState()
-    console.log(data + 'ss')
+
     // const data = useSelector(state => state.posts.data)
     // console.log(data + 'data')
     // const requesting = useSelector(state => state.posts.requesting)
@@ -24,6 +25,7 @@ function ManagerMenu({ data, requesting, dispatch }) {
     }, [])
     const onlistbutton = (id) => {
 
+        dispatch(loadButtons({ id }))
         setIDMenu(id)
         // dispatch(viewPost(id))
     }
@@ -40,7 +42,7 @@ function ManagerMenu({ data, requesting, dispatch }) {
 
 
             {/* {requesting ? <ReactLoading type="balls" color="#ffff" height="667" width="375" /> : idmenu ? <MenuDetails idmenu={idmenu} /> : <h1>not data</h1>} */}
-            {<MenuDetails idMenu={idMenu} />}
+            {<MenuDetails idMenu={idMenu} dataButton={dataButton} requestingButton={requestingButton} />}
         </>
 
     )
@@ -49,6 +51,8 @@ function ManagerMenu({ data, requesting, dispatch }) {
 const mapStateToProps = state => {
 
     return {
+        requestingButton: state.buttons.requesting,
+        dataButton: state.buttons.dataButton,
         data: state.posts.data,
         requesting: state.posts.requesting
     };

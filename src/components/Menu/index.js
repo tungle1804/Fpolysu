@@ -37,31 +37,33 @@ export default function Menu() {
         <div className="overflow-auto" style={{ height: "430px" }}>
           <div className="flex-col px-3">
             <Link to="/admin">
-              {" "}
+
               <div className="items-center ml-2 py-4  mb-1 text-sm font-medium text-gray-700">
-                {" "}
+
                 Tổng Quan
               </div>
             </Link>
             <Link to="/admin/list-menu">
-              {" "}
+
               <div className="py-3 px-3 hover:bg-blue-100 cursor-pointer rounded text-sm text-gray-600  font-normal antialiased tracking-normal">
                 Quản lí Menu
               </div>
             </Link>
             <Link to="/admin/report">
-              {" "}
               <div className="py-3 px-3 hover:bg-blue-100 cursor-pointer rounded text-sm text-gray-600  font-normal antialiased tracking-normal">
                 Thông Kê
               </div>
             </Link>
-
-            <div className="py-3 px-3 bg-blue-100 cursor-pointer rounded text-sm text-gray-600  font-normal antialiased tracking-normal">
+            <Link to="/admin/customer-management"> <div className="py-3 px-3 bg-blue-100 cursor-pointer rounded text-sm text-gray-600  font-normal antialiased tracking-normal">
               Quản Lí Khách Hàng
-            </div>
-            <div className="py-3 px-3 hover:bg-blue-100 cursor-pointer rounded text-sm text-gray-600  font-normal antialiased tracking-normal">
-              Tích Hợp
-            </div>
+            </div></Link>
+
+            <Link to="/admin/integrared">
+
+              <div className="py-3 px-3 hover:bg-blue-100 cursor-pointer rounded text-sm text-gray-600  font-normal antialiased tracking-normal">
+                Tích Hợp
+              </div>
+            </Link>
             <div className="py-3 px-3 hover:bg-blue-100 cursor-pointer rounded text-sm text-gray-600  font-normal antialiased tracking-normal">
               Cài Đặt Kết Nối
             </div>

@@ -4,18 +4,17 @@ import Iframe from 'react-iframe'
 import Ifram from '../CreateDetailsMenu/iframe'
 import { useDispatch, useSelector } from 'react-redux'
 import { viewButtonByIDMenu } from '../../redux/actions/buttonAction'
-export default function MenuDetails({ idMenu }) {
+export default function MenuDetails({ idMenu, dataButton, requestingButton }) {
+    // const data = useSelector(state => state.buttons.data)
 
-    const data = useSelector(state => state.buttons.data)
-
-    const requesting = useSelector(state => state.buttons.requesting)
-    const dispatch = useDispatch();
+    // const requesting = useSelector(state => state.buttons.requesting)
+    // const dispatch = useDispatch();
     // useEffect(() => {
     //     dispatch(viewButtonByIDMenu(idMenu))
 
     // }, [idMenu])
     // const [listbutton, setListButton] = useContext(MenuContext)
-    const [iframe, setIframe] = useState(false)
+    // const [iframe, setIframe] = useState(false)
 
 
     // const demos = {
@@ -24,19 +23,19 @@ export default function MenuDetails({ idMenu }) {
     //         '<iframe width="100%" height="166" scrolling="no" frameborder="no" allow="autoplay" src="http://127.0.0.1:5500/metu/src/components/viewtest/view.html"></iframe>'
     // };
 
-    const onchangeClick = () => {
-        setIframe(!iframe)
+    // const onchangeClick = () => {
+    //     setIframe(!iframe)
 
-    }
+    // }
 
     return (
         <>
 
 
             <div className="  relative ml-10  pt-8  " style={{ width: '620px' }}>
-                <button className="border border-teal-500 bg-teal-500 text-white rounded-md px-4 py-2 m-2 transition duration-500 ease select-none hover:bg-teal-600 focus:outline-none focus:shadow-outline" onClick={onchangeClick}>{iframe ? 'Không hiển thị' : 'Hiển thị'}</button>
+                {/* <button className="border border-teal-500 bg-teal-500 text-white rounded-md px-4 py-2 m-2 transition duration-500 ease select-none hover:bg-teal-600 focus:outline-none focus:shadow-outline" onClick={onchangeClick}>{iframe ? 'Không hiển thị' : 'Hiển thị'}</button> */}
                 <div className="flex    flex-wrap mt-1">
-                    {data && data.length > 0 ? data.map((items) => {
+                    {dataButton && dataButton.length > 0 ? dataButton.map((items) => {
                         return (
                             <div class="p-2 ">
 
@@ -89,7 +88,7 @@ export default function MenuDetails({ idMenu }) {
                         // </div>
 
 
-                        : <h1>not data</h1>}
+                        : ""}
 
 
 
@@ -98,7 +97,7 @@ export default function MenuDetails({ idMenu }) {
                             <img src="../../../images/desktop.png" alt="" width="692px" height="409px" />
 
                             {/* <Ifram iframe={demos["soundcloud"]}></Ifram> */}
-                            {requesting ? '' : <Iframe frameborder="0" src={`http://localhost:3000/view/${idMenu}`} />}
+                            {requestingButton ? '' : <Iframe frameborder="0" src={`http://localhost:3000/view/${idMenu}`} />}
                         </div>
                     </div>
 

@@ -11,7 +11,7 @@ import { useParams } from 'react-router';
 export default function Display() {
     let { id } = useParams();
 
-    const data = useSelector(state => state.buttons.data)
+    const data = useSelector(state => state.buttons.dataButton)
     const requesting = useSelector(state => state.buttons.requesting)
     // console.log(data + 'ssssssssssssss')
     const dispatch = useDispatch();
@@ -85,7 +85,7 @@ export default function Display() {
                     <Modal.Title>Cấu hình nút : Gọi ngay</Modal.Title>
                 </Modal.Header>
                 <Modal.Body >Mô tả : Khách hàng sẽ gọi trực tiếp thông qua tính năng này
-                 <Modal.Title>  Cấu hình hiển thị nút</Modal.Title>
+                    <Modal.Title>  Cấu hình hiển thị nút</Modal.Title>
                     {/* <Modal.Text>Biểu tượng nút</Modal.Text> */}
 
                     <Form>
@@ -110,11 +110,11 @@ export default function Display() {
                 <Modal.Footer>
                     <ReactBootStrap.Button variant="secondary"     >
                         Sửa Menu
-          </ReactBootStrap.Button>
+                    </ReactBootStrap.Button>
 
                     <ReactBootStrap.Button variant="primary" onClick={onchangeClose}  >
                         Quay lại
-          </ReactBootStrap.Button>
+                    </ReactBootStrap.Button>
                 </Modal.Footer>
             </Modal>
         </>
