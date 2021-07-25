@@ -1,37 +1,46 @@
+
 import {
-    FETCH_POSTS_REQUEST1,
-    FETCH_POSTS_SUCCESS1,
-    FETCH_POSTS_ERROR1
+    FETCH_BUTTONS_REQUEST,
+    FETCH_BUTTONS_SUCCESS,
+    FETCH_BUTTONS_FAILED,
+    SAVE_DATA_BUTTONS,
+    FETCH_BUTTONS
 } from '../constants/buttonConstant'
 
 const initialState = {
     requesting: false,
     success: false,
     message: null,
-    data: []
+    dataButton: [],
 
 }
 function buttonReducers(state = initialState, payload) {
     switch (payload.type) {
-        case FETCH_POSTS_REQUEST1:
+        case FETCH_BUTTONS_REQUEST:
             return {
                 ...state,
                 requesting: true
             }
-        case FETCH_POSTS_SUCCESS1:
+        case FETCH_BUTTONS_SUCCESS:
             return {
                 ...state,
                 requesting: false,
-                success: true,
-                data: payload.data
+                success: true
             }
-        case FETCH_POSTS_ERROR1:
+        case FETCH_BUTTONS_FAILED:
             return {
                 ...state,
                 requesting: false,
                 success: false,
                 message: payload.message
-            };
+            }
+        case SAVE_DATA_BUTTONS:
+            return {
+
+                ...state,
+                dataButton: payload.data
+
+            }
         default:
             return state;
     }

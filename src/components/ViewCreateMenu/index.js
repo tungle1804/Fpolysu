@@ -111,7 +111,7 @@ export default function ViewCreateMenu() {
             <div className=" ml-10 h-full" style={{ width: '405px' }}>
                 <div className="text-sm text-gray-600 font-normal antialiased tracking-normal">
                     Projects &nbsp; / &nbsp; Biltrax IT Project
-        </div>
+                </div>
                 <div className="text-2xl mt-3 text-black font-semibold antialiased tracking-normal">
                     <button >Tạo Menu</button>
                 </div>
@@ -130,10 +130,10 @@ export default function ViewCreateMenu() {
                             </div>
                             <label>Danh sách các nút để chọn:</label>
                             <section className="container mx-auto px-6 my-1 flex flex-wrap -m-4">
-                                <div className="p-2 md:w-40 ">
+                                {/* <div className="p-2 md:w-40 ">
 
                                     <div onClick={() => handleShow('zalo.png')} className="flex items-center p-4 bg-gray-200 rounded-lg shadow-xs cursor-pointer hover:bg-gray-500 hover:text-gray-100">
-                                        {/* <ModalComponent onhandleClose={onhandleCloses} shows={show} /> */}
+                                      
                                         <a className="flex items-center p-4 bg-blue-200 rounded-lg shadow-xs cursor-pointer hover:bg-blue-500 hover:text-gray-100">
                                             <img className="h-12" src="../images/zalo.png" />
 
@@ -212,8 +212,55 @@ export default function ViewCreateMenu() {
                                             </div>
                                         </a>
                                     </div>
+                                </div> */}
+                                <div className="m-3">
+                                    <button onClick={() => handleShow('zalo.png')} className="bg-white text-gray-800 font-bold rounded border-b-2 border-green-500 hover:border-green-600 hover:bg-green-500 hover:text-white shadow-md py-4 px-6 inline-flex items-center">
+                                        <span className="mr-2">Zalo</span>
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                                            <path fill="currentcolor" d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"></path>
+                                        </svg>
+                                    </button>
                                 </div>
-
+                                <div className="m-3">
+                                    <button onClick={() => handleShow('message.png')} className="bg-white text-gray-800 font-bold rounded border-b-2 border-green-500 hover:border-green-600 hover:bg-green-500 hover:text-white shadow-md py-4 px-2 inline-flex items-center">
+                                        <span className="mr-2">   Messager</span>
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                                            <path fill="currentcolor" d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"></path>
+                                        </svg>
+                                    </button>
+                                </div>
+                                <div className="m-3">
+                                    <button onClick={() => handleShow('call.png')} className="bg-white text-gray-800 font-bold rounded border-b-2 border-green-500 hover:border-green-600 hover:bg-green-500 hover:text-white shadow-md py-4 px-2 inline-flex items-center">
+                                        <span className="mr-2">Gọi ngay</span>
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                                            <path fill="currentcolor" d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"></path>
+                                        </svg>
+                                    </button>
+                                </div>
+                                <div className="m-3">
+                                    <button onClick={() => handleShow('seemore.png')} className="bg-white text-gray-800 font-bold rounded border-b-2 border-green-500 hover:border-green-600 hover:bg-green-500 hover:text-white shadow-md py-4 px-2 inline-flex items-center">
+                                        <span className="mr-2">        Xem Thêm</span>
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                                            <path fill="currentcolor" d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"></path>
+                                        </svg>
+                                    </button>
+                                </div>
+                                <div className="m-3">
+                                    <button onClick={() => handleShow('email.png')} className="bg-white text-gray-800 font-bold rounded border-b-2 border-green-500 hover:border-green-600 hover:bg-green-500 hover:text-white shadow-md py-4 px-1 inline-flex items-center">
+                                        <span className="mr-2">       Nhận Email</span>
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                                            <path fill="currentcolor" d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"></path>
+                                        </svg>
+                                    </button>
+                                </div>
+                                <div className="m-3">
+                                    <button onClick={() => handleShow('share.png')} className="bg-white text-gray-800 font-bold rounded border-b-2 border-green-500 hover:border-green-600 hover:bg-green-500 hover:text-white shadow-md py-4 px-4 inline-flex items-center">
+                                        <span className="mr-2">  Chia sẻ</span>
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                                            <path fill="currentcolor" d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"></path>
+                                        </svg>
+                                    </button>
+                                </div>
 
 
                             </section>
@@ -229,27 +276,27 @@ export default function ViewCreateMenu() {
                             <label>Chọn thiết bị bạn muốn hiển thị:</label> <br /><br />
                             <button class="inline-block px-6 py-2 text-xs font-medium leading-6 text-center text-white uppercase transition bg-blue-700 rounded-full shadow ripple hover:shadow-lg hover:bg-blue-800 focus:outline-none waves-effect">
                                 Mọi thiết bị
-          </button>
+                            </button>
                             <button class="inline-block px-6 py-2 text-xs font-medium leading-6 text-center text-white uppercase transition bg-blue-700 rounded-full shadow ripple hover:shadow-lg hover:bg-blue-800 focus:outline-none waves-effect">
                                 Điện thoại
-          </button>
+                            </button>
                             <button class="inline-block px-6 py-2 text-xs font-medium leading-6 text-center text-white uppercase transition bg-blue-700 rounded-full shadow ripple hover:shadow-lg hover:bg-blue-800 focus:outline-none waves-effect">
                                 Máy tính
-          </button>
+                            </button>
                             <br />
                             <label>Cấu hình đường dẫn hiển thị</label>
                             <button class="inline-block px-6 py-2 text-xs font-medium leading-6 text-center text-white uppercase transition bg-blue-700 rounded-full shadow ripple hover:shadow-lg hover:bg-blue-800 focus:outline-none waves-effect">
                                 Đường dẫn tùy chỉnh
-          </button>
+                            </button>
                             <button class=" mb-5 inline-block px-6 py-2 text-xs font-medium leading-6 text-center text-white uppercase transition bg-blue-700 rounded-full shadow ripple hover:shadow-lg hover:bg-blue-800 focus:outline-none waves-effect">
                                 Đường dẫn ladipage
-          </button>
+                            </button>
                             <button class="inline-block px-6 py-2 text-xs font-medium leading-6 text-center text-white uppercase transition bg-blue-700 rounded-full shadow ripple hover:shadow-lg hover:bg-blue-800 focus:outline-none waves-effect">
                                 Đường dẫn haravan
-          </button>
+                            </button>
                             <button class="inline-block px-6 py-2 text-xs font-medium leading-6 text-center text-white uppercase transition bg-blue-700 rounded-full shadow ripple hover:shadow-lg hover:bg-blue-800 focus:outline-none waves-effect">
                                 Đường dẫn động
-          </button>
+                            </button>
                         </div>
                     </div>
                 </div>
@@ -265,7 +312,7 @@ export default function ViewCreateMenu() {
 
                     <div className="flex px-3 py-1 self-center text-sm antialiased rounded-md text-gray-600 ">
                         issue 48 of 88
-            </div>
+                    </div>
 
                 </div>
 
@@ -275,7 +322,7 @@ export default function ViewCreateMenu() {
                     <Modal.Title>Cấu hình nút : Gọi ngay</Modal.Title>
                 </Modal.Header>
                 <Modal.Body >Mô tả : Khách hàng sẽ gọi trực tiếp thông qua tính năng này
-                 <Modal.Title>  Cấu hình hiển thị nút</Modal.Title>
+                    <Modal.Title>  Cấu hình hiển thị nút</Modal.Title>
                     {/* <Modal.Text>Biểu tượng nút</Modal.Text> */}
 
                     <Form>
@@ -336,11 +383,11 @@ export default function ViewCreateMenu() {
                 <Modal.Footer>
                     <Button variant="secondary" onClick={onhandleCloses} >
                         Thêm vào Menu
-          </Button>
+                    </Button>
 
                     <Button variant="primary" onClick={onhandleCloses2} >
                         Quay lại
-          </Button>
+                    </Button>
                 </Modal.Footer>
             </Modal>
 
@@ -357,10 +404,10 @@ export default function ViewCreateMenu() {
                 <Modal.Footer>
                     <Button variant="primary" onClick={handleClose1}>
                         Có
-          </Button>
+                    </Button>
                     <Button variant="secondary" onClick={handleClose2}>
                         Không
-          </Button>
+                    </Button>
 
                 </Modal.Footer>
             </Modal>
