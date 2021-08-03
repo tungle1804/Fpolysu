@@ -26,9 +26,9 @@ export default function Login() {
         })
     }, [user])
     const onchangeLogin = () => {
-        // UserService.loginUser(user.email).then((res) => {
-        //     setUsers(res.data)
-        // })
+        UserService.loginUser(user.email).then((res) => {
+            setUsers(res.data)
+        })
 
         if (users === null) {
             alert('email khong ton tai')
