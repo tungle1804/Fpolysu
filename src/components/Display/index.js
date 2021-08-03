@@ -18,12 +18,14 @@ export default function Display() {
     console.log(data)
     useEffect(() => {
         if (email != null) {
-            MenuService.getMenuByStatus(email).then((res) => {
+            // MenuService.getMenuByStatus(email).then((res) => {
 
-                ButtonService.getButtonByIDMenu(id).then((res) => {
-                    setButton(res.data)
-                })
+            ButtonService.getButtonByIDMenu(id).then((res) => {
+                setButton(res.data)
             })
+            // }
+
+            // )
         }
     }, [id])
     const [menu, setMenu] = useState();
