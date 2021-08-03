@@ -126,7 +126,7 @@ export default function View({ posts, onlistbutton, requesting }) {
                 {paginate.tableData.map((res) => {
                   return (
                     <div
-                      onClick={() => onlistbutton(res.id_menu)}
+                      onClick={() => onlistbutton(res.id)}
                       className="flex-col cursor-pointer rounded hover:bg-blue-100"
                     >
                       <div className="py-3 px-3 cursor-pointer text-gray-700 rounded text-sm font-normal antialiased tracking-normal">
@@ -206,12 +206,12 @@ export default function View({ posts, onlistbutton, requesting }) {
                                   let checked = event.target.checked;
                                   setRadio(
                                     posts.map((data) => {
-                                      if (data.id_menu === res.id_menu) {
+                                      if (data.id === res.id) {
                                         data.status = checked;
                                       }
                                       MenuService.updateMenu(
                                         data,
-                                        data.id_menu
+                                        data.id
                                       );
                                       console.log(data);
 

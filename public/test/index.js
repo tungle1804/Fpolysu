@@ -3,7 +3,7 @@
 // const email = localStorage.getItem('email')
 
 
-fetch(`http://localhost:8080/api/v1/getMenuByStatus/nhan@gmail.com`, {
+fetch(`http://localhost:8080/api/v1/getMenuByStatus/vuthanhnam@gmail.com`, {
   method: 'GET',
   headers: {
     'Content-Type': 'application/json',
@@ -14,9 +14,7 @@ fetch(`http://localhost:8080/api/v1/getMenuByStatus/nhan@gmail.com`, {
   })
   .then(function (data) {
     console.log(data)
-    var maMN = data[0].id_menu;
-    console.log(data[0]);
-    console.log(maMN)
+    var maMN = data[0].id;
 
     fetch(`http://localhost:8080/api/v1/getButtonByIDMenu/${maMN}`, {
       method: 'GET',

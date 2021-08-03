@@ -1,0 +1,7 @@
+export const FETCH_DATA_REQUEST = "FETCH_Data_REQUEST"
+export const FETCH_DATA_SUCCESS = "FETCH_Data_SUCCESS"
+export const FETCH_DATA_FAILED = "FETCH_Data_FAILED"
+export const FETCH_DATA = "FETCH_Data"
+export const SAVE_DATA = "SAVE_DATA"
+export const FETCH_DATA_INFO = "FETCH_DATA_INFO"
+export const SAVE_DATA_INFO = "SAVE_DATA_INFO"

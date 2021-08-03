@@ -34,7 +34,7 @@ export default function Login() {
             alert('email khong ton tai')
         } else {
             if (users.password === user.password) {
-                if (users.role == 0) {
+                if (users.role === 'customer') {
                     history.push('/admin')
                     localStorage.setItem('email', users.email)
                 } else {
