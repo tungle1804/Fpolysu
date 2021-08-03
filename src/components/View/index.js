@@ -5,20 +5,20 @@ import MenuService from "../../service/Menu/MenuService";
 import { MenuContext } from "../../service/MenuContext";
 import { useDispatch, useSelector } from "react-redux";
 import { loadPosts, viewPost } from "../../redux/actions/menuAction";
-import ReactPaginate from 'react-paginate';
+import ReactPaginate from "react-paginate";
 import ReactLoading from "react-loading";
 export default function View({ posts, onlistbutton, requesting }) {
   const [radio, setRadio] = useState("false");
   const [listmenu, setListMenu] = useState({});
-  const [search, setSearch] = useState('');
+  const [search, setSearch] = useState("");
   const [filterMenu, setFilterMenu] = useState([]);
   const [paginate, setPaginate] = useState({
     offset: 0,
     tableData: [],
     orgtableData: [],
     perPage: 5,
-    currentPage: 0
-  })
+    currentPage: 0,
+  });
   // useEffect(() => {
   //   // setPaginate({
   //   //   ...paginate,
@@ -36,8 +36,6 @@ export default function View({ posts, onlistbutton, requesting }) {
   useEffect(() => {
     // ProductService.getProducts().then(res => {
 
-
-
     //     var slice = res.data.slice(paginate.offset, paginate.offset + paginate.perPage)
     //     setPaginate({
     //         ...paginate,
@@ -46,17 +44,19 @@ export default function View({ posts, onlistbutton, requesting }) {
     //         tableData: slice
     //     })
 
-
     // }
 
     // );
-    var slice = posts.slice(paginate.offset, paginate.offset + paginate.perPage)
+    var slice = posts.slice(
+      paginate.offset,
+      paginate.offset + paginate.perPage
+    );
     setPaginate({
       ...paginate,
       pageCount: Math.ceil(posts.length / paginate.perPage),
       orgtableData: posts,
-      tableData: slice
-    })
+      tableData: slice,
+    });
   }, []);
   const handlePageClick = (e) => {
     // console.log(paginate.orgtableData)
@@ -64,14 +64,14 @@ export default function View({ posts, onlistbutton, requesting }) {
     const offset = selectedPage * paginate.perPage;
 
     const data = paginate.orgtableData;
-    const slice = data.slice(offset, offset + paginate.perPage)
+    const slice = data.slice(offset, offset + paginate.perPage);
     setPaginate({
       ...paginate,
       currentPage: selectedPage,
       pageCount: Math.ceil(data.length / paginate.perPage),
-      tableData: slice
+      tableData: slice,
     });
-  }
+  };
   // const [listbutton, setListButton] = useContext(MenuContext)
 
   // useEffect(() => {
@@ -110,7 +110,8 @@ export default function View({ posts, onlistbutton, requesting }) {
             Tạo Menu
           </Link>
           <div className="flex mt-5 w-full">
-            <input onChange={e => setSearch(e.target.value)}
+            <input
+              onChange={(e) => setSearch(e.target.value)}
               type="text"
               className="w-1/2 h-8 px-2 text-gray-500 border rounded text-xs"
               placeholder="Tìm Kiếm Menu ..."
@@ -150,7 +151,6 @@ export default function View({ posts, onlistbutton, requesting }) {
                             NITSWEBAPP-01
                           </div>
                         </div>
-
 
                         <Link
                           to={`/admin/update-menu/${res.id_menu}`}
@@ -231,7 +231,6 @@ export default function View({ posts, onlistbutton, requesting }) {
                       </div>
                       <div className="border mt-3" />
                     </div>
-
                   );
                 })}
               </div>
@@ -254,23 +253,31 @@ export default function View({ posts, onlistbutton, requesting }) {
                 </button>
               </div>
               <div className=" flex pl-0 list-none rounded my-2">
-                <div className="place-self-center">  <ReactPaginate
-                  previousLabel={"Prev"}
-                  nextLabel={"Next"}
-                  breakLabel={"..."}
-                  breakClassName={"break-me"}
-                  pageClassName={"relative block py-2 px-2 leading-tight bg-white border border-gray-300 text-blue-700 border-r-0 ml-0 rounded-l hover:bg-gray-200"}
-                  pageCount={paginate.pageCount}
-                  marginPagesDisplayed={2}
-                  pageRangeDisplayed={5}
-                  onPageChange={handlePageClick}
-                  containerClassName={"pagination"}
-                  previousClassName={"relative block py-2 px-2 leading-tight bg-white border border-gray-300 text-blue-700 rounded-r hover:bg-gray-200"}
-                  subContainerClassName={"pages pagination"}
-                  nextClassName={"relative block py-2 px-2 leading-tight bg-white border border-gray-300 text-blue-700 rounded-r hover:bg-gray-200"}
-                  activeClassName={"active"}
-                /></div>
-
+                <div className="place-self-center">
+                  {" "}
+                  <ReactPaginate
+                    previousLabel={"Prev"}
+                    nextLabel={"Next"}
+                    breakLabel={"..."}
+                    breakClassName={"break-me"}
+                    pageClassName={
+                      "relative block py-2 px-2 leading-tight bg-white border border-gray-300 text-blue-700 border-r-0 ml-0 rounded-l hover:bg-gray-200"
+                    }
+                    pageCount={paginate.pageCount}
+                    marginPagesDisplayed={2}
+                    pageRangeDisplayed={5}
+                    onPageChange={handlePageClick}
+                    containerClassName={"pagination"}
+                    previousClassName={
+                      "relative block py-2 px-2 leading-tight bg-white border border-gray-300 text-blue-700 rounded-r hover:bg-gray-200"
+                    }
+                    subContainerClassName={"pages pagination"}
+                    nextClassName={
+                      "relative block py-2 px-2 leading-tight bg-white border border-gray-300 text-blue-700 rounded-r hover:bg-gray-200"
+                    }
+                    activeClassName={"active"}
+                  />
+                </div>
               </div>
               <div className="flex px-3 py-1 self-center text-sm antialiased rounded-md text-gray-600 ">
                 Total : {posts.length}
@@ -281,5 +288,4 @@ export default function View({ posts, onlistbutton, requesting }) {
       )}
     </>
   );
-
 }

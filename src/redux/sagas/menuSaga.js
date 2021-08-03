@@ -22,7 +22,6 @@ import { fetchListButtonsFailed, fetchListButtonsRequest, fetchListButtonsSucces
 // const api = "http://localhost:8080/api/v1/getMenuByEmail/nhan@gmail.com"
 // const method = 'GET'
 
-
 // function apiall (data){
 //     return new Promise(( ,method)=>{
 //         return fetch(api),{
