@@ -1,29 +1,48 @@
 import React, { useContext, useState } from 'react'
-import { ButtonContext } from '../../service/ButtonContext';
-import UserService from '../../service/UserService';
+import { callApi } from '../../service/Apis';
+import Swal from 'sweetalert2'
+import { useHistory } from 'react-router';
+
 export default function Resgiter() {
 
-    const [user, setUser] = useState([]);
+    let history = useHistory();
+
+    const [user, setUser] = useState({role: "customer"});
 
     const onhandleResgiter = (e) => {
-        const { name } = e.target;
-        setUser({
-            ...user,
-            [name]: e.target.value
-
-        })
+        const { name, value } = e.target;
+        setUser({ ...user, [name]: value })
+        console.log(e.target.value)
     }
-    const onclickResgiter = (e) => {
 
-        UserService.createUser(user)
+    const onclickResgiter = (e) => {
+        var password1 = document.getElementById("password1").value;
+        var password2 = document.getElementById("password2").value;
+
+        if(password1 != password2){
+            alert("mật khẩu phải trùng với xác nhận mật khẩu")
+            return
+        }
+
+        var data = JSON.stringify(user);
+        callApi( "post", "api/v1/user", data )
+        .then(response => {console.log("đăng ký thành công ", response);
+        Swal.fire({
+            icon: 'success',
+            title: 'Thành công',
+            text: 'Chúc mừng bạn đăng ký thành công',
+            timer: 2000
+          })
+    })
+        .catch(error => {console.log(error)})
+
+        e.preventDefault();
+        document.getElementById("form").reset();
     }
 
     return (
         <>
             <div>
-                <h1><a href="trangchuUser.html">Trang chủ</a></h1>
-
-
                 <div className="min-w-screen min-h-screen bg-gray-900 flex items-center justify-center px-5 py-5">
                     <div className="bg-gray-100 text-gray-500 rounded-3xl shadow-xl w-full overflow-hidden" style={{ maxWidth: '1000px' }}>
                         <div className="md:flex w-full">
@@ -32,58 +51,75 @@ export default function Resgiter() {
                             </div>
                             <div className="w-full md:w-1/2 py-10 px-5 md:px-10">
                                 <div className="text-center mb-10">
-                                    <h1 className="font-bold text-3xl text-gray-900">REGISTER</h1>
-
-                                    <p>Enter your information to register</p>
+                                    <h1 className="font-bold text-3xl text-gray-900">ĐĂNG KÝ</h1>
+                                    <p>Nhập thông tin của bạn để đăng ký</p>
                                 </div>
                                 <div>
-                                    <form onSubmit={onclickResgiter}  >
+                                    <form onSubmit={onclickResgiter} id="form" >
                                         <div className="flex -mx-3">
-                                            <div className="w-1/2 px-3 mb-5">
+                                            <div className="w-3/5 px-3 mb-3">
                                                 <label htmlFor className="text-xs font-semibold px-1">Họ và tên</label>
                                                 <div className="flex">
                                                     <div className="w-10 z-10 pl-1 text-center pointer-events-none flex items-center justify-center"><i className="mdi mdi-account-outline text-gray-400 text-lg" /></div>
-                                                    <input onChange={onhandleResgiter} name="name_user" id="hoten" type="text" className="w-full -ml-10 pl-10 pr-3 py-2 rounded-lg border-2 border-gray-200 outline-none focus:border-indigo-500" placeholder="John" />
+                                                    <input onChange={onhandleResgiter} name="fullName" id="hoten" type="text" className="w-full -ml-10 pl-3 pr-3 py-2 rounded-lg border-2 border-gray-200 outline-none focus:border-indigo-500" placeholder="John" />
                                                 </div>
                                             </div>
-                                            <div className="w-1/2 px-3 mb-5">
+                                            <div className="w-2/5 px-3 mb-3">
                                                 <label htmlFor className="text-xs font-semibold px-1">Số điện thoại</label>
                                                 <div className="flex">
                                                     <div className="w-10 z-10 pl-1 text-center pointer-events-none flex items-center justify-center"><i className="mdi mdi-account-outline text-gray-400 text-lg" /></div>
-                                                    <input onChange={onhandleResgiter} name="phone" id="sdt" type="text" className="w-full -ml-10 pl-10 pr-3 py-2 rounded-lg border-2 border-gray-200 outline-none focus:border-indigo-500" />
+                                                    <input onChange={onhandleResgiter} name="phone" id="sdt" type="text" className="w-full -ml-10 pl-3 pr-3 py-2 rounded-lg border-2 border-gray-200 outline-none focus:border-indigo-500" />
                                                 </div>
                                             </div>
                                         </div>
                                         <div className="flex -mx-3">
-                                            <div className="w-full px-3 mb-5">
+                                            <div className="w-full px-3 mb-3">
                                                 <label htmlFor className="text-xs font-semibold px-1">Tên doanh nghiệp</label>
                                                 <div className="flex">
                                                     <div className="w-10 z-10 pl-1 text-center pointer-events-none flex items-center justify-center"><i className="mdi mdi-email-outline text-gray-400 text-lg" /></div>
-                                                    <input onChange={onhandleResgiter} name="business" id="tenDN" type="text" className="w-full -ml-10 pl-10 pr-3 py-2 rounded-lg border-2 border-gray-200 outline-none focus:border-indigo-500" placeholder="công ty abc" />
+                                                    <input onChange={onhandleResgiter} name="business" id="tenDN" type="text" className="w-full -ml-10 pl-3 pr-3 py-2 rounded-lg border-2 border-gray-200 outline-none focus:border-indigo-500" placeholder="công ty abc" />
                                                 </div>
                                             </div>
                                         </div>
                                         <div className="flex -mx-3">
-                                            <div className="w-full px-3 mb-5">
+                                            <div className="w-full px-3 mb-3">
                                                 <label htmlFor className="text-xs font-semibold px-1">Email</label>
                                                 <div className="flex">
                                                     <div className="w-10 z-10 pl-1 text-center pointer-events-none flex items-center justify-center"><i className="mdi mdi-email-outline text-gray-400 text-lg" /></div>
-                                                    <input onChange={onhandleResgiter} name="email" id="email" type="email" className="w-full -ml-10 pl-10 pr-3 py-2 rounded-lg border-2 border-gray-200 outline-none focus:border-indigo-500" placeholder="johnsmith@example.com" />
+                                                    <input onChange={onhandleResgiter} name="email" id="email" type="email" className="w-full -ml-10 pl-3 pr-3 py-2 rounded-lg border-2 border-gray-200 outline-none focus:border-indigo-500" placeholder="johnsmith@example.com" />
                                                 </div>
                                             </div>
                                         </div>
                                         <div className="flex -mx-3">
-                                            <div className="w-full px-3 mb-12">
-                                                <label htmlFor className="text-xs font-semibold px-1">Password</label>
+                                            <div className="w-full px-3 mb-3">
+                                                <label htmlFor className="text-xs font-semibold px-1">Mật khẩu</label>
                                                 <div className="flex">
                                                     <div className="w-10 z-10 pl-1 text-center pointer-events-none flex items-center justify-center"><i className="mdi mdi-lock-outline text-gray-400 text-lg" /></div>
-                                                    <input onChange={onhandleResgiter} name="password" id="password" type="password" className="w-full -ml-10 pl-10 pr-3 py-2 rounded-lg border-2 border-gray-200 outline-none focus:border-indigo-500" placeholder="************" />
+                                                    <input onChange={onhandleResgiter} name="password" id="password1" type="password" className="w-full -ml-10 pl-3 pr-3 py-2 rounded-lg border-2 border-gray-200 outline-none focus:border-indigo-500" placeholder="************" />
                                                 </div>
                                             </div>
                                         </div>
+
+                                        <div className="flex -mx-3">
+                                            <div className="w-full px-3 mb-10">
+                                                <label htmlFor className="text-xs font-semibold px-1">Xác nhận mật khẩu</label>
+                                                <div className="flex">
+                                                    <div className="w-10 z-10 pl-1 text-center pointer-events-none flex items-center justify-center"><i className="mdi mdi-lock-outline text-gray-400 text-lg" /></div>
+                                                    <input  id="password2" type="password" className="w-full -ml-10 pl-3 pr-3 py-2 rounded-lg border-2 border-gray-200 outline-none focus:border-indigo-500" placeholder="************" />
+                                                </div>
+                                            </div>
+                                        </div>
+
                                         <div className="flex -mx-3">
                                             <div className="w-full px-3 mb-5">
-                                                <button type="submit" id="btn_register" className="block w-full max-w-xs mx-auto bg-indigo-500 hover:bg-indigo-700 focus:bg-indigo-700 text-white rounded-lg px-3 py-3 font-semibold">REGISTER NOW</button>
+                                                <button type="submit" id="btn_register" className="block w-full max-w-xs mx-auto bg-indigo-500 hover:bg-indigo-700 focus:bg-indigo-700 text-white rounded-lg px-3 py-3 font-semibold">ĐĂNG KÝ</button>
+                                            </div>
+                                        </div>
+
+
+                                        <div className="flex -mx-3">
+                                            <div className="w-full px-3 mb-3">
+                                                <button onClick = {() => history.push("/login")} className="block w-full max-w-xs mx-auto text-gray-700 px-3 py-3 font-semibold border">Đăng nhập</button>
                                             </div>
                                         </div>
                                     </form>

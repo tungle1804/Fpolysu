@@ -1,9 +1,21 @@
 import React from 'react'
-
-
+import { useHistory } from 'react-router';
 
 export default function Header() {
 
+    let history = useHistory();
+
+    var countClick = 0;
+    const showDropDownOpen = () => {
+        var dropdownOpen = document.getElementById("dropdownOpen");
+        countClick++;
+        if (countClick % 2 == 0) {
+            dropdownOpen.style.display = "none"
+        } else {
+            dropdownOpen.style.display = "block"
+        }
+
+    }
 
     return (
         <>
@@ -77,12 +89,12 @@ export default function Header() {
                                 </div>
                                 <div className="justify-center text-xl font-semibold text-center">
                                     PolyTu
-            </div>
+                                </div>
                             </div>
                             <div className="hidden md:block">
                                 <div className="flex items-center ml-3 ">
                                     <a href="#" className="px-3 py-1 ml-2 self-center text-sm font-medium text-gray-800 antialiased rounded-md focus:outline-none hover:bg-blue-100 hover:text-blue-500 focus:bg-blue-100">Your work
-              </a>
+                                    </a>
                                     <div className="flex px-3 py-1 ml-2 self-center text-sm font-medium text-gray-800 antialiased rounded-md focus:outline-none bg-blue-100 text-blue-500 focus:bg-blue-100">
                                         <a href="#" className>Projects</a>
                                         <svg className="h-4 w-4 mt-1 ml-1" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
@@ -135,11 +147,36 @@ export default function Header() {
                                         <path fillRule="evenodd" d="M460.8 170.667h-28.894a203.036 203.036 0 00-8.226-19.934l20.48-20.48c6.663-6.664 6.663-17.468 0-24.132l-72.482-72.346c-6.665-6.663-17.468-6.663-24.132 0l-20.48 20.48a206.392 206.392 0 00-19.866-8.294V17.067C307.2 7.641 299.559 0 290.133 0h-102.4c-9.426 0-17.067 7.641-17.067 17.067v28.894a206.34 206.34 0 00-19.951 8.226l-20.48-20.48c-6.665-6.662-17.468-6.662-24.132 0l-72.329 72.482c-6.663 6.664-6.663 17.468 0 24.132l20.48 20.48a202.631 202.631 0 00-8.294 19.866H17.067C7.641 170.667 0 178.308 0 187.733v102.4c0 9.426 7.641 17.067 17.067 17.067h28.894a202.79 202.79 0 008.226 19.934l-20.48 20.48c-6.662 6.665-6.662 17.468 0 24.132l72.414 72.414c6.665 6.662 17.468 6.662 24.132 0l20.48-20.48a206.65 206.65 0 0019.934 8.226V460.8c0 9.426 7.641 17.067 17.067 17.067h102.4c9.426 0 17.067-7.641 17.067-17.067v-28.894a206.34 206.34 0 0019.951-8.226l20.48 20.48c6.665 6.662 17.468 6.662 24.132 0l72.414-72.414c6.662-6.664 6.662-17.468 0-24.132l-20.48-20.48a202.67 202.67 0 008.209-19.934H460.8c9.426 0 17.067-7.641 17.067-17.067v-102.4c0-9.425-7.641-17.066-17.067-17.066zM238.933 358.4c-65.98 0-119.467-53.487-119.467-119.467s53.487-119.467 119.467-119.467S358.4 172.954 358.4 238.933c-.075 65.949-53.518 119.392-119.467 119.467z" />
                                     </svg>
                                 </button>
+
+
                                 <div className="relative ml-2">
-                                    <button className="p-1 flex hover:bg-blue-100 items-center max-w-xs text-sm text-white rounded-full focus:outline-none focus:shadow-solid" id="user-menu" aria-label="User menu" aria-haspopup="true">
-                                        <img className="w-6 h-6 rounded-full" src="https://fpt.com.vn/Content/home/images/icon/logo-ft.png" alt="" />
+                                    <button onClick={showDropDownOpen} className="relative block h-8 w-8 rounded-full overflow-hidden shadow focus:outline-none">
+                                        <img className="h-full w-full object-cover" src="https://images.unsplash.com/photo-1528892952291-009c663ce843?ixlib=rb-1.2.1&amp;ixid=eyJhcHBfaWQiOjEyMDd9&amp;auto=format&amp;fit=crop&amp;w=296&amp;q=80" alt="Your avatar" />
                                     </button>
+                                    <div id="dropdownOpen" className="absolute right-0 mt-2 w-48 bg-white rounded-md overflow-hidden shadow-xl z-10" style={{ display: "none" }}>
+                                        <span className="block px-3 py-2 text-sm text-gray-700 hover:bg-indigo-600 hover:text-white">
+                                            <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 inline mr-2" viewBox="0 0 20 20" fill="currentColor">
+                                                <path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-6-3a2 2 0 11-4 0 2 2 0 014 0zm-2 4a5 5 0 00-4.546 2.916A5.986 5.986 0 0010 16a5.986 5.986 0 004.546-2.084A5 5 0 0010 11z" clipRule="evenodd" />
+                                            </svg>Thông tin cá nhân</span>
+
+                                        <span className="block px-3 py-2 text-sm text-gray-700 hover:bg-indigo-600 hover:text-white">
+                                            <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 inline mr-2" viewBox="0 0 20 20" fill="currentColor">
+                                                <path fillRule="evenodd" d="M11.49 3.17c-.38-1.56-2.6-1.56-2.98 0a1.532 1.532 0 01-2.286.948c-1.372-.836-2.942.734-2.106 2.106.54.886.061 2.042-.947 2.287-1.561.379-1.561 2.6 0 2.978a1.532 1.532 0 01.947 2.287c-.836 1.372.734 2.942 2.106 2.106a1.532 1.532 0 012.287.947c.379 1.561 2.6 1.561 2.978 0a1.533 1.533 0 012.287-.947c1.372.836 2.942-.734 2.106-2.106a1.533 1.533 0 01.947-2.287c1.561-.379 1.561-2.6 0-2.978a1.532 1.532 0 01-.947-2.287c.836-1.372-.734-2.942-2.106-2.106a1.532 1.532 0 01-2.287-.947zM10 13a3 3 0 100-6 3 3 0 000 6z" clipRule="evenodd" />
+                                            </svg>Cài đặt</span>
+
+                                        <span onClick={() => {
+                                            localStorage.removeItem("token");
+                                            localStorage.removeItem("email");
+                                            localStorage.removeItem("fullName");
+                                            history.push("/login") }}
+                                            className="block px-3 py-2 text-sm text-gray-700 hover:bg-indigo-600 hover:text-white">
+                                            <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 inline mr-2" viewBox="0 0 20 20" fill="currentColor">
+                                                <path fillRule="evenodd" d="M3 3a1 1 0 00-1 1v12a1 1 0 102 0V4a1 1 0 00-1-1zm10.293 9.293a1 1 0 001.414 1.414l3-3a1 1 0 000-1.414l-3-3a1 1 0 10-1.414 1.414L14.586 9H7a1 1 0 100 2h7.586l-1.293 1.293z" clipRule="evenodd" />
+                                            </svg>Đăng xuất</span>
+                                    </div>
                                 </div>
+
+
                             </div>
                         </div>
                         <div className="flex -mr-2 md:hidden">
