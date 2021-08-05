@@ -40,7 +40,7 @@ function* fetchMenus() {
         // yield put(loadMenus())
         yield put(fetchListMenusRequest())
         // const menu = yield call(getApi("http://localhost:8080/api/v1/getMenuByEmail/nhan@gmail.com", 'GET'))\
-        const response = yield call(getApi, ['/getMenuByEmail/nhan@gmail.com']);
+        const response = yield call(getApi, ['/getMenuByEmail/abc@gmail.com']);
         yield put(fetchListMenusSuccess())
         yield put(savelistMenus(response.data))
 
