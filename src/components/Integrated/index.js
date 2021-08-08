@@ -7,7 +7,7 @@ const Integrated = () => {
             <div className="flex flex-col h-screen bg-center bg-cover bg-no-repeat bg-gray-100">
                 <div className="grid place-items-center w-4/5 mx-auto p-10 my-20 sm:my-auto bg-white-600 border-4 border-indigo-600 bg-opacity-70 rounded-xl shadow-2xl space-y-5 text-center cursor-pointer">
                     <p className="m-0 p-0">Tích hợp POLYSU lên website của bạn. Vui lòng làm theo hướng dẫn sau đây để tích hợp POLYSU lên Website.</p>
-                    <p className="m-0 p-0">Cách 1: Sao chép và dán đoạn mã này vào trong thẻ body trên Website của bạn.</p>
+                    <p className="m-0 p-0 text-indigo-600">Cách 1: Sao chép và dán đoạn mã này vào trong thẻ body trên Website của bạn.</p>
                     <p className="m-0 p-0">Chú ý: mỗi website chỉ được gắn một đoạn mã này</p>
                     <div className="p-2">
                         <div className="inline-flex items-center bg-white leading-none text-purple-600 rounded-full p-2 shadow text-teal text-sm">
