@@ -7,7 +7,7 @@ export default function Resgiter() {
 
     let history = useHistory();
 
-    const [user, setUser] = useState({role: "customer"});
+    const [user, setUser] = useState({ role: "customer" });
 
     const onhandleResgiter = (e) => {
         const { name, value } = e.target;
@@ -19,22 +19,23 @@ export default function Resgiter() {
         var password1 = document.getElementById("password1").value;
         var password2 = document.getElementById("password2").value;
 
-        if(password1 != password2){
+        if (password1 != password2) {
             alert("mật khẩu phải trùng với xác nhận mật khẩu")
             return
         }
 
         var data = JSON.stringify(user);
-        callApi( "post", "api/v1/user", data )
-        .then(response => {console.log("đăng ký thành công ", response);
-        Swal.fire({
-            icon: 'success',
-            title: 'Thành công',
-            text: 'Chúc mừng bạn đăng ký thành công',
-            timer: 2000
-          })
-    })
-        .catch(error => {console.log(error)})
+        callApi("post", "api/v1/user", data)
+            .then(response => {
+                console.log("đăng ký thành công ", response);
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Thành công',
+                    text: 'Chúc mừng bạn đăng ký thành công',
+                    timer: 2000
+                })
+            })
+            .catch(error => { console.log(error) })
 
         e.preventDefault();
         document.getElementById("form").reset();
@@ -105,7 +106,7 @@ export default function Resgiter() {
                                                 <label htmlFor className="text-xs font-semibold px-1">Xác nhận mật khẩu</label>
                                                 <div className="flex">
                                                     <div className="w-10 z-10 pl-1 text-center pointer-events-none flex items-center justify-center"><i className="mdi mdi-lock-outline text-gray-400 text-lg" /></div>
-                                                    <input  id="password2" type="password" className="w-full -ml-10 pl-3 pr-3 py-2 rounded-lg border-2 border-gray-200 outline-none focus:border-indigo-500" placeholder="************" />
+                                                    <input id="password2" type="password" className="w-full -ml-10 pl-3 pr-3 py-2 rounded-lg border-2 border-gray-200 outline-none focus:border-indigo-500" placeholder="************" />
                                                 </div>
                                             </div>
                                         </div>
@@ -119,7 +120,7 @@ export default function Resgiter() {
 
                                         <div className="flex -mx-3">
                                             <div className="w-full px-3 mb-3">
-                                                <button onClick = {() => history.push("/login")} className="block w-full max-w-xs mx-auto text-gray-700 px-3 py-3 font-semibold border">Đăng nhập</button>
+                                                <button onClick={() => history.push("/login")} className="block w-full max-w-xs mx-auto text-gray-700 px-3 py-3 font-semibold border">Đăng nhập</button>
                                             </div>
                                         </div>
                                     </form>
