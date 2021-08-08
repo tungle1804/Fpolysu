@@ -36,12 +36,12 @@ import { fetchListButtonsFailed, fetchListButtonsRequest, fetchListButtonsSucces
 function* fetchMenus() {
 
     try {
-        // let email = localStorage.getItem('email')
+        let email = localStorage.getItem('email')
         // const menu = yield call(MenuService.getMenuByEmail(email))
         // yield put(loadMenus())
         yield put(fetchListMenusRequest())
         // const menu = yield call(getApi("http://localhost:8080/api/v1/getMenuByEmail/nhan@gmail.com", 'GET'))\
-        const response = yield call(getApi, ['/getMenuByEmail/vuthanhnam@gmail.com']);
+        const response = yield call(getApi, [`/getMenuByEmail/${email}`]);
         yield put(fetchListMenusSuccess())
         yield put(savelistMenus(response.data))
 
