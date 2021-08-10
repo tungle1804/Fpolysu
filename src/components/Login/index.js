@@ -1,112 +1,89 @@
-import axios from 'axios';
-import React, { useContext, useEffect, useState } from 'react'
+
+import React, { useContext, useState } from 'react'
 import { useHistory } from 'react-router';
-import { ButtonContext } from '../../service/ButtonContext';
-import UserService from '../../service/UserService';
-import Register from '../Resgiter/index'
+import { callApi } from '../../service/Apis';
+
 export default function Login() {
 
-    const [user, setUser] = useState([]);
-    const [users, setUsers] = useState([]);
-    let history = useHistory();
+    // const { jwt, setJwt } = useContext(JwtContext);
+    const history = useHistory();
 
+    const [infoLogin, setInfoLogin] = useState({ email: "", passWord: "" });
 
-    const onhandleChange = (e) => {
-        const { name } = e.target;
-        setUser({
-            ...user,
-            [name]: e.target.value
+    const handleChange = (e) => {
+      const { name, value } = e.target;
+      console.log(e.target.value);
+      setInfoLogin({ ...infoLogin, [name]: value });
+    };
 
-        })
-    }
-
-    useEffect(() => {
-        UserService.loginUser(user.email).then(res => {
-            setUsers(res.data)
-        })
-    }, [user])
-    const onchangeLogin = () => {
-        // UserService.loginUser(user.email).then((res) => {
-        //     setUsers(res.data)
-        // })
-
-        if (users === null) {
-            alert('email khong ton tai')
-        } else {
-            if (users.password === user.password) {
-                if (users.role == 0) {
-                    history.push('/admin')
-                    localStorage.setItem('email', users.email)
-                } else {
-                    alert('ban da vao trang admin')
-                }
-            } else {
-                console.log(users)
-                alert('password khong chinh xac')
-            }
-        }
-    }
+var data = JSON.stringify(infoLogin);
+ const handleSubmit = (e) => {
+    e.preventDefault();
+       callApi('post', 'login', data)
+       .then((response) => {
+         if(response.data.role[0].authority === 'customer' ){
+            history.push("/admin/list-menu'")
+         }else {
+            history.push("/admin/manage")
+         }
+        localStorage.setItem("token", response.data.token);
+        localStorage.setItem("fullName", response.data.fullName);
+        localStorage.setItem("email", response.data.email);
+        //  setJwt(data.token);
+         
+     })
+     .catch(function (error) {
+       alert("Tên đăng nhập hoặc mật khẩu không chính xác");
+       console.log(error);
+     });
+  };
 
     return (
         <>
-
-            <div className="min-h-screen bg-gray-100 flex flex-col justify-center sm:py-12">
-                <div className="p-10 xs:p-0 mx-auto md:w-full md:max-w-md">
-                    {/* <h1 className="font-bold text-center text-2xl mb-5">Your Logo</h1> */}
-
-                    <div className="bg-white shadow w-full rounded-lg divide-y divide-gray-200">
-                        <div className="px-5 py-7">
-                            <label className="font-semibold text-sm text-gray-600 pb-1 block">E-mail</label>
-                            <input onChange={onhandleChange} name="email" id="email" type="text" className="border rounded-lg px-3 py-2 mt-1 mb-5 text-sm w-full" />
-                            <label className="font-semibold text-sm text-gray-600 pb-1 block">Password</label>
-                            <input onChange={onhandleChange} name="password" id="password" type="text" className="border rounded-lg px-3 py-2 mt-1 mb-5 text-sm w-full" />
-                            <button id="btn_login" onClick={onchangeLogin} className="transition duration-200 bg-blue-500 hover:bg-blue-600 focus:bg-blue-700 focus:shadow-sm focus:ring-4 focus:ring-blue-500 focus:ring-opacity-50 text-white w-full py-2.5 rounded-lg text-sm shadow-sm hover:shadow-md font-semibold text-center inline-block">
-                                <span className="inline-block mr-2">Login</span>
-                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" className="w-4 h-4 inline-block">
-                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
-                                </svg>
+            <div className="py-10">
+                <div className="flex bg-white rounded-lg shadow-lg overflow-hidden mx-auto w-4/6" >
+                    <div className="hidden lg:block lg:w-1/2 bg-cover" style={{backgroundImage: "url('/images/FPT_Polytechnic_Hanoi.jpg')"}}></div>
+                    <div className="p-8 lg:w-1/2">
+                        <h1 className="text-2xl font-semibold text-blue-700 text-center">POLYSU</h1>
+                        <p className="text-xl text-gray-600 text-center">Chào mừng đến với Polysu!</p>
+                        <a href="#" className="flex items-center justify-center mt-4 text-white rounded-lg shadow-md hover:bg-gray-100">
+                            <div className="px-4 py-3">
+                                <img className="h-auto w-20 mx-auto" src="https://fpt.com.vn/Content/home/images/icon/logo-ft.png" />
+                            </div>
+                        </a>
+                        <div className="mt-4 flex items-center justify-between">
+                            <span className="border-b w-1/5 lg:w-1/4"></span>
+                            <span className="text-xs text-center text-gray-500 uppercase">Đăng nhập bằng email</span>
+                            <span className="border-b w-1/5 lg:w-1/4"></span>
+                        </div>
+                        <div className="mt-4">
+                            <label className="block text-gray-700 text-sm font-bold mb-2">Tên đăng nhập</label>
+                            <input
+                                className="bg-gray-200 text-gray-700 focus:outline-none focus:shadow-outline border border-gray-300 rounded py-2 px-2 block w-full appearance-none"
+                                type="email" name = "email" onChange={handleChange}/>
+                        </div>
+                        <div className="mt-4">
+                            <div className="flex justify-between">
+                                <label className="block text-gray-700 text-sm font-bold mb-2">Mật khẩu</label>
+                                <a href="forgot-password.html" className="text-xs text-gray-500">Quên mật khẩu?</a>
+                            </div>
+                            <input
+                                className="bg-gray-200 text-gray-700 focus:outline-none focus:shadow-outline border border-gray-300 rounded py-2 px-2 block w-full appearance-none"
+                                type="password" name = "passWord" onChange={handleChange}/>
+                        </div>
+                        <div className="mt-8">
+                            <button className="bg-gray-700 text-white font-bold py-2 px-4 w-full rounded hover:bg-gray-600"  onClick={handleSubmit}>
+                                Đăng nhập
                             </button>
                         </div>
-
-                        <div className="py-5">
-                            <div className="grid grid-cols-2 gap-1">
-                                <div className="text-center sm:text-left whitespace-nowrap">
-                                    <button className="transition duration-200 mx-5 px-5 py-4 cursor-pointer font-normal text-sm rounded-lg text-gray-500 hover:bg-gray-100 focus:outline-none focus:bg-gray-200 focus:ring-2 focus:ring-gray-400 focus:ring-opacity-50 ring-inset">
-                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" className="w-4 h-4 inline-block align-text-top">
-                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 11V7a4 4 0 118 0m-4 8v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2z" />
-                                        </svg>
-                                        <span className="inline-block ml-1">Forgot Password</span>
-                                    </button>
-                                </div>
-                                <div className="text-center sm:text-right  whitespace-nowrap">
-                                    <button className="transition duration-200 mx-5 px-5 py-4 cursor-pointer font-normal text-sm rounded-lg text-gray-500 hover:bg-gray-100 focus:outline-none focus:bg-gray-200 focus:ring-2 focus:ring-gray-400 focus:ring-opacity-50 ring-inset">
-                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" className="w-4 h-4 inline-block align-text-bottom	">
-                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M18.364 5.636l-3.536 3.536m0 5.656l3.536 3.536M9.172 9.172L5.636 5.636m3.536 9.192l-3.536 3.536M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-5 0a4 4 0 11-8 0 4 4 0 018 0z" />
-                                        </svg>
-                                        <span className="inline-block ml-1">Help</span>
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div className="py-5">
-                        <div className="grid grid-cols-2 gap-1">
-                            <div className="text-center sm:text-left whitespace-nowrap">
-                                <button className="transition duration-200 mx-5 px-5 py-4 cursor-pointer font-normal text-sm rounded-lg text-gray-500 hover:bg-gray-200 focus:outline-none focus:bg-gray-300 focus:ring-2 focus:ring-gray-400 focus:ring-opacity-50 ring-inset">
-                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" className="w-4 h-4 inline-block align-text-top">
-                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 19l-7-7m0 0l7-7m-7 7h18" />
-                                    </svg>
-                                    <span className="inline-block ml-1">Back to your-app.com</span>
-                                </button>
-                            </div>
+                        <div className="mt-4 flex items-center justify-between">
+                            <span className="border-b w-1/5 md:w-1/4"></span>
+                            <a href="register.html" className="text-xs text-gray-500 uppercase"></a>
+                            <span className="border-b w-1/5 md:w-1/4"></span>
                         </div>
                     </div>
                 </div>
             </div>
-
-
-
-
         </>
     )
 }

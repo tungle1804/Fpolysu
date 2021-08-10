@@ -56,9 +56,7 @@ export const fetchListMenusFailed = error => {
 export const savelistMenus = data => {
     return {
         type: SAVE_DATA_MENUS,
-
         data: data
-
     }
 }
 // export const viewPost = (id) => async dispatch => {

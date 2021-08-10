@@ -5,6 +5,7 @@ import Ifram from '../CreateDetailsMenu/iframe'
 import { useDispatch, useSelector } from 'react-redux'
 import { viewButtonByIDMenu } from '../../redux/actions/buttonAction'
 export default function MenuDetails({ idMenu, dataButton, requestingButton }) {
+
     // const data = useSelector(state => state.buttons.data)
 
     // const requesting = useSelector(state => state.buttons.requesting)
