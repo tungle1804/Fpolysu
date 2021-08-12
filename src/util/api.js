@@ -17,3 +17,12 @@ export const getApi = (data) => {
             .catch((err) => reject(err));
     });
 }
+export const getApi1 = (data) => {
+    return new Promise((resolve, reject) => {
+        debugger
+        return baseInstance
+            .post(`${data[0]}`, data[1])
+            .then((res) => resolve(res))
+            .catch((err) => reject(err));
+    });
+}
