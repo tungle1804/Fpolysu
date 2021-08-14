@@ -1,7 +1,7 @@
 import React from 'react'
 import { useHistory } from 'react-router';
 
-export default function Header() {
+export default function AdminHeader() {
 
     let history = useHistory();
 
@@ -14,8 +14,7 @@ export default function Header() {
         } else {
             dropdownOpen.style.display = "block"
         }
-
-    }
+        }
 
     return (
         <>
@@ -31,7 +30,7 @@ export default function Header() {
                                     <img className="h-5 w-5" src="https://fpt.com.vn/Content/home/images/icon/logo-ft.png" />
                                 </div>
                                 <div className="justify-center text-xl font-semibold text-center">
-                                    PolyTu
+                                    PolySu
                                 </div>
                             </div>
                             <div className="hidden md:block">
@@ -106,7 +105,8 @@ export default function Header() {
                                             localStorage.removeItem("token");
                                             localStorage.removeItem("email");
                                             localStorage.removeItem("fullName");
-                                            history.push("/login") }}
+                                            history.push("/login")
+                                        }}
                                             className="block px-3 py-2 text-sm text-gray-700 hover:bg-indigo-600 hover:text-white">
                                             <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 inline mr-2" viewBox="0 0 20 20" fill="currentColor">
                                                 <path fillRule="evenodd" d="M3 3a1 1 0 00-1 1v12a1 1 0 102 0V4a1 1 0 00-1-1zm10.293 9.293a1 1 0 001.414 1.414l3-3a1 1 0 000-1.414l-3-3a1 1 0 10-1.414 1.414L14.586 9H7a1 1 0 100 2h7.586l-1.293 1.293z" clipRule="evenodd" />
