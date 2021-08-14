@@ -107,9 +107,9 @@ function CustomerManagement({ data, requesting, dispatch, dataButton, requesting
             </div>
           </div>
           <section >
-            <label>Thời gian hẹn </label>
+            <label>Thời gian  </label>
 
-            <input disabled className="w-full bg-purple-100 p-2 rounded-xl" rows={3} defaultValue={""} />
+            <input disabled className="w-full bg-purple-100 p-2 rounded-xl" rows={3} value={dataInfo ? dataInfo.createDate : ""} />
             <label>Họ và tên</label>
             <input disabled value={dataInfo ? dataInfo.fullName : ""} className="w-full bg-purple-100 p-2 rounded-xl" rows={3} defaultValue={""} />
             <label>Email</label>
