@@ -82,13 +82,10 @@ fetch(`http://localhost:8080/api/v1/getMenuByStatus/test1@gmail.com`, {
                                   >
                                   <!-- <div class="mt-tooltip__text">chiều này</div> -->
                                 </div></span
-                              >
-                              
-                              
+                              >           
           `;
           }).join('');
           root.innerHTML = html;
-
         }
 
       });
