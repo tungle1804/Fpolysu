@@ -29,7 +29,15 @@ import PaymentHistory from '../components/PaymentHistory'
 import UpgradeAccount from '../components/UpgradeAccount'
 import Integrated from '../components/Integrated'
 import CustomerManagement from '../components/CustomerManagement';
-import AdminManage from '../components/AdminManage';
+
+import AdminManage from '../components/admin/components/AdminManage';
+import AdminStaff from '../components/admin/components/AdminStaff';
+import AdminCustomer from '../components/admin/components/AdminCustomer';
+import AdminServiceFee from '../components/admin/components/AdminServiceFee';
+import AdminDataOfCustomer from '../components/admin/components/AdminDataOfCustomer';
+import AdminStatistical from '../components/admin/components/AdminStatistical';
+import AdminDashboard from '../components/admin/components/AdminDashboard';
+
 
 // eslint-disable-next-line import/no-anonymous-default-export
 export default function Routers() {
@@ -40,7 +48,19 @@ export default function Routers() {
                 <MenuProvider>
                     <Router>
                         <Switch>
-                            <Route path="/admin/manage"><AdminManage /></Route>
+                            <Route path="/admin/manage/:path?/:path?" exact>
+                            <AdminManage>
+                                    <Switch>
+                                        <Route exact path ='/admin/manage/dashboard' component={AdminDashboard} />   
+                                        <Route exact path ='/admin/manage/staffs' component={AdminStaff} />
+                                        <Route exact path ='/admin/manage/customers' component={AdminCustomer} />
+                                        <Route exact path ='/admin/manage/services-fee' component={AdminServiceFee} />
+                                        <Route exact path ='/admin/manage/data-of-customers' component={AdminDataOfCustomer} />
+                                        <Route exact path ='/admin/manage/statistical' component={AdminStatistical} />                                
+                                    </Switch>
+                            </AdminManage>
+                            </Route>
+
                             <Route path="/login"><Login /></Route>
                             <Route path="/resgiter"><Resgiter /></Route>
                             <Route path="/price-list"><PriceList /></Route>
