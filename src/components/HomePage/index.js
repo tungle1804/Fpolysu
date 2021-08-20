@@ -1,57 +1,72 @@
 import React, { useState } from 'react'
+import { useEffect } from 'react';
 import { useHistory } from 'react-router'
 
 export default function HomePage() {
     const history = useHistory();
+
+    const [isOpen, setisOpen] = useState(false);
+
+    useEffect(() => {
+        const script = document.createElement('script');
+
+        script.src = "script/nav.js";
+        script.async = true;
+
+        document.body.appendChild(script);
+
+        return () => {
+            document.body.removeChild(script);
+        }
+    }, []);
 
     // const onchangelogin = () => {
     //     history.push('/login')
     // }
     return (
         <>
-            <main className="bg-gray-100 font-montserrat">
+            {/* <style dangerouslySetInnerHTML={{ __html: "\n      #menu-toggle:checked + #menu {\n        display: block;\n      }\n  " }} /> */}
+            <div className="bg-gray-100 font-montserrat">
                 <header className="h-24 sm:h-32 flex items-center">
-                    <div className="container mx-auto px-6 sm:px-12 flex items-center justify-between">
+
+                    {/* <div className="container mx-auto px-6 sm:px-12 flex items-center justify-between">
                         <div className="font-black text-blue-900 text-4xl flex items-start">
                             Polysu<span className="w-3 h-3 rounded-full bg-purple-600 ml-2" />
                         </div>
-                        <div className="flex items-center">
-                            <nav className="text-purple-900 text-lg hidden lg:flex items-center">
-                                <button className="py-2 px-3 flex hover:text-purple-700 transition duration-150 ease-in-out transform hover:scale-125 bg-emerald-600 text-black font-semibold">
+
+                        <div className="flex lg:items-center lg:w-auto w-full">
+                            <nav className="text-purple-900 text-lg lg:flex hidden"   >
+                                <button className="py-2 px-3  hover:text-purple-700 transition duration-150 ease-in-out transform hover:scale-125 bg-emerald-600 text-black font-semibold">
                                     Home
                                 </button>
 
-                                {/* <button onClick={() => history.push('/resgiter')} className="py-2 px-2 flex hover:text-purple-700">
-                                    Đăng ký
-                                </button> */}
-
-                                <button className="py-2 px-3 flex hover:text-purple-700 transition duration-150 ease-in-out transform hover:scale-125 bg-emerald-600 text-black font-semibold ">
+                                <button className="py-2 px-3  hover:text-purple-700 transition duration-150 ease-in-out transform hover:scale-125 bg-emerald-600 text-black font-semibold ">
                                     Contact us
                                 </button>
 
 
 
 
-                                {/* <button onClick={() => history.push('/QA')} className="py-2 px-2 flex hover:text-purple-700 py-2 px-2 flex hover:text-purple-700 transition duration-150 ease-in-out transform hover:scale-125 bg-emerald-600 text-black font-semibold"> </button> */}
+                                <button onClick={() => history.push('/QA')} className="py-2 px-3  hover:text-purple-700 transition duration-150 ease-in-out transform hover:scale-125 bg-emerald-600 text-black font-semibold"> QA</button>
 
-                                <button onClick={() => history.push('/hssd')} className="py-2 px-3 flex hover:text-purple-700 transition duration-150 ease-in-out transform hover:scale-125 bg-emerald-600 text-black font-semibold">
+                                <button onClick={() => history.push('/hssd')} className="py-2 px-3  hover:text-purple-700 transition duration-150 ease-in-out transform hover:scale-125 bg-emerald-600 text-black font-semibold">
 
                                     Hướng dẫn sử dụng
                                 </button>
-                                <button onClick={() => history.push('/contact')} className="py-2 px-3 flex hover:text-purple-700 transition duration-150 ease-in-out transform hover:scale-125 bg-emerald-600 text-black font-semibold">
+                                <button onClick={() => history.push('/contact')} className="py-2 px-3  hover:text-purple-700 transition duration-150 ease-in-out transform hover:scale-125 bg-emerald-600 text-black font-semibold">
                                     Liên Hệ
                                 </button>
 
-                                <button onClick={() => history.push('/price-list')} className="py-2 px-3 flex hover:text-purple-700 transition duration-150 ease-in-out transform hover:scale-125 bg-emerald-600 text-black font-semibold">
+                                <button onClick={() => history.push('/price-list')} className="py-2 px-3  hover:text-purple-700 transition duration-150 ease-in-out transform hover:scale-125 bg-emerald-600 text-black font-semibold">
                                     Bảng giá
                                 </button>
 
-                                <button onClick={() => history.push('/login')} className="py-2 px-3 flex hover:text-purple-700 transition duration-150 ease-in-out transform hover:scale-125 bg-emerald-600 text-black font-semibold">
+                                <button onClick={() => history.push('/login')} className="py-2 px-3  hover:text-purple-700 transition duration-150 ease-in-out transform hover:scale-125 bg-emerald-600 text-black font-semibold">
                                     Đăng nhập
                                 </button>
 
                                 <span class="relative inline-flex rounded-md shadow-sm animate-bounce">
-                                    <button type="button" onClick={() => history.push('/resgiter')} class=" inline-flex items-center px-4 py-3 border border-purple-400 text-base leading-6 font-medium rounded-md text-purple-800 bg-gray-400 hover:text-purple-700 focus:border-purple-300 transition ease-in-out duration-250">
+                                    <button type="button" onClick={() => history.push('/resgiter')} class=" inline-flex items-center px-4 py-3 border border-purple-400 text-base leading-6 font-medium rounded-md text-black bg-red-600 hover:text-white focus:border-purple-300 transition ease-in-out duration-250">
                                         Đăng ký
                                     </button>
                                     <span class="flex absolute h-3 w-3 top-0 right-0 -mt-1 -mr-1">
@@ -60,17 +75,76 @@ export default function HomePage() {
                                     </span>
                                 </span>
 
-
-
                             </nav>
 
-                            {/* <button className="flex flex-col ml-4">
-                                <span className="w-6 h-1 rounded-full bg-purple-800 mb-1" />
-                                <span className="w-6 h-1 rounded-full bg-purple-800 mb-1" />
-                                <span className="w-6 h-1 rounded-full bg-purple-800 mb-1" />
-                            </button> */}
                         </div>
-                    </div>
+
+                        <button type="button" className="block lg:hidden ml-3" onClick={handleClick}>
+                            <a className="flex items-center px-3 py-2 border-2 rounded text-blue-700 border-blue-700 hover:text-blue-700 hover:border-blue-700">
+                                <svg className="fill-current h-3 w-3" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><title>Menu</title>
+                                    <path d="M0 3h20v2H0V3zm0 6h20v2H0V9zm0 6h20v2H0v-2z" />
+                                </svg>
+                            </a>
+                        </button>
+                    </div> */}
+                    <nav id="header" className="fixed bg-white shadow-xl text-white w-full  z-20 top-0">
+                        <div id="progress" className="h-1 z-40 top-0" style={{ background: 'linear-gradient(to right, #FFC100 var(--scroll), transparent 0)' }} />
+                        <div className="flex ">
+                            <div className="font-black my-auto mx-auto lg:block hidden text-blue-900 text-4xl flex items-start">
+                                Polysu<span className="w-3 h-3 rounded-full bg-purple-600 ml-2" />
+                            </div>
+                            <div className="w-full md:max-w-4xl mx-auto bg-white flex flex-wrap items-center justify-between mt-0 py-3">
+                                <div className="block lg:hidden pl-8  p-2">
+                                    <div className="font-black text-blue-900 text-4xl flex items-start">
+                                        Polysu<span className="w-3 h-3 rounded-full bg-purple-600 ml-2" />
+                                    </div>
+                                </div>
+                                <div className="block lg:hidden pr-4">
+                                    <button id="nav-toggle" className="flex items-center px-3 py-2 text-black border-gray-600 focus:outline-none">
+                                        <svg fill="text-black" viewBox="0 0 20 20" className="w-6 h-6 fill-current">
+                                            <title>Menu</title>
+                                            <path fillRule="evenodd" d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM9 15a1 1 0 011-1h6a1 1 0 110 2h-6a1 1 0 01-1-1z" clipRule="evenodd" />
+                                        </svg>
+                                    </button>
+                                </div>
+                                <div className="w-full flex-grow px-4 lg:flex lg:items-center lg:w-auto hidden lg:block  bg-white  z-20" id="nav-content">
+                                    <ul className="list-reset lg:flex justify-center flex-1 items-center my-auto">
+                                        <li class="mr-3">
+                                            <a class="inline-block lg:text-xl text-base py-2 px-4 text-black hover:text-purple-700 hover:bg-gray-300 rounded font-bold transition duration-150 ease-in-out transform hover:scale-125"
+                                                href="#">Home</a>
+                                        </li>
+                                        <li class="mr-3">
+                                            <a class="inline-block lg:text-xl text-base text-black hover:text-purple-700 hover:bg-gray-300 rounded py-2 px-4 transition duration-150 ease-in-out transform hover:scale-125" href="#">Contact us</a>
+                                        </li>
+                                        <li class="mr-3">
+                                            <a onClick={() => history.push('/hssd')} class=" inline-block lg:text-xl text-base text-black hover:text-purple-700 hover:bg-gray-300 rounded py-2 px-4 transition duration-150 ease-in-out transform hover:scale-125" href="#">Hướng dẫn sử dụng</a>
+                                        </li>
+                                        <li class="mr-3">
+                                            <a onClick={() => history.push('/contact')} class="inline-block lg:text-xl text-base text-black hover:text-purple-700 hover:bg-gray-300 rounded py-2 px-4 transition duration-150 ease-in-out transform hover:scale-125" href="#">Liên Hệ</a>
+                                        </li>
+                                        <li class="mr-3 ">
+                                            <a onClick={() => history.push('/price-list')} class="inline-block lg:text-xl text-base text-black hover:text-purple-700 hover:bg-gray-300 rounded py-2 px-4 transition duration-150 ease-in-out transform hover:scale-125" href="#">Bảng giá</a>
+                                        </li>
+                                        <li class="mr-3 lg:hidden block">
+                                            <a onClick={() => history.push('/login')} class="inline-block lg:text-xl text-base text-black hover:text-purple-700 hover:bg-gray-300 rounded py-2 px-4 transition duration-150 ease-in-out transform hover:scale-125" href="#">Đăng nhập</a>
+                                        </li>
+                                        <li class="mr-3 lg:hidden block">
+                                            <a onClick={() => history.push('/resgiter')} class="inline-block lg:text-xl text-base text-black hover:text-purple-700 hover:bg-gray-300 rounded py-2 px-4 transition duration-150 ease-in-out transform hover:scale-125" href="#">Đăng ký</a>
+                                        </li>
+                                        
+                                    </ul>
+                                </div>
+                            </div>
+                            <div className="lg:flex hidden my-auto mr-5">
+                                <button onClick={() => history.push('/login')} className="flex-1 lg:h-14 h-10 w-16 py-2 px-3 mx-2 hover:text-white bg-red-500 rounded transition duration-150 ease-in-out transform hover:scale-110 bg-emerald-600 text-black font-semibold">
+                                    Đăng nhập
+                                </button>
+                                <button onClick={() => history.push('/resgiter')} className="flex-1 lg:h-14 h-10 py-2 w-40 px-3 mx-2 hover:text-white bg-red-500 rounded transition duration-150 ease-in-out transform hover:scale-110 bg-emerald-600 text-black font-semibold">
+                                    Đăng ký
+                                </button>
+                            </div>
+                        </div>
+                    </nav>
                 </header>
                 <div className="container mx-auto px-6 sm:px-12 flex flex-col-reverse sm:flex-row relative">
                     <div className="sm:w-6/12 relative z-10">
@@ -524,11 +598,11 @@ export default function HomePage() {
                                                     <img src="https://i.pravatar.cc/100?img=1" alt="" />
                                                 </div>
                                                 <div className="flex-grow pl-3">
-                                                    <h6 className="font-bold text-sm uppercase text-gray-600">Kenzie Edgar.</h6>
+                                                    <h6 className="font-bold text-sm uppercase text-gray-600">Bình Lê.</h6>
                                                 </div>
                                             </div>
                                             <div className="w-full">
-                                                <p className="text-sm leading-tight"><span className="text-lg leading-none italic font-bold text-gray-400 mr-1">"</span>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quos sunt ratione dolor exercitationem minima quas itaque saepe quasi architecto vel! Accusantium, vero sint recusandae cum tempora nemo commodi soluta deleniti.<span className="text-lg leading-none italic font-bold text-gray-400 ml-1">"</span></p>
+                                                <p className="text-sm leading-tight"><span className="text-lg leading-none italic font-bold text-gray-400 mr-1">"</span>Quá tuyệt vời và thuận tiện cho website của tôi.<span className="text-lg leading-none italic font-bold text-gray-400 ml-1">"</span></p>
                                             </div>
                                         </div>
                                         <div className="w-full mx-auto rounded-lg bg-white border border-gray-200 p-5 text-gray-800 font-light mb-10 transform hover:-translate-y-4 hover:scale-110 transition-transform duration-500 ease-in-out">
@@ -537,11 +611,11 @@ export default function HomePage() {
                                                     <img src="https://i.pravatar.cc/100?img=2" alt="" />
                                                 </div>
                                                 <div className="flex-grow pl-3">
-                                                    <h6 className="font-bold text-sm uppercase text-gray-600">Stevie Tifft.</h6>
+                                                    <h6 className="font-bold text-sm uppercase text-gray-600">Tùng Lê.</h6>
                                                 </div>
                                             </div>
                                             <div className="w-full">
-                                                <p className="text-sm leading-tight"><span className="text-lg leading-none italic font-bold text-gray-400 mr-1">"</span>Lorem ipsum, dolor sit amet, consectetur adipisicing elit. Dolore quod necessitatibus, labore sapiente, est, dignissimos ullam error ipsam sint quam tempora vel.<span className="text-lg leading-none italic font-bold text-gray-400 ml-1">"</span></p>
+                                                <p className="text-sm leading-tight"><span className="text-lg leading-none italic font-bold text-gray-400 mr-1">"</span>Từ khi biết đến Polysu tương tác trên website tôi tăng đáng kể.<span className="text-lg leading-none italic font-bold text-gray-400 ml-1">"</span></p>
                                             </div>
                                         </div>
                                     </div>
@@ -552,11 +626,11 @@ export default function HomePage() {
                                                     <img src="https://i.pravatar.cc/100?img=3" alt="" />
                                                 </div>
                                                 <div className="flex-grow pl-3">
-                                                    <h6 className="font-bold text-sm uppercase text-gray-600">Tommie Ewart.</h6>
+                                                    <h6 className="font-bold text-sm uppercase text-gray-600">Tùng Lâm.</h6>
                                                 </div>
                                             </div>
                                             <div className="w-full">
-                                                <p className="text-sm leading-tight"><span className="text-lg leading-none italic font-bold text-gray-400 mr-1">"</span>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Vitae, obcaecati ullam excepturi dicta error deleniti sequi.<span className="text-lg leading-none italic font-bold text-gray-400 ml-1">"</span></p>
+                                                <p className="text-sm leading-tight"><span className="text-lg leading-none italic font-bold text-gray-400 mr-1">"</span>Polysu hỗ trợ rất tốt cho tôi.<span className="text-lg leading-none italic font-bold text-gray-400 ml-1">"</span></p>
                                             </div>
                                         </div>
                                         <div className="w-full mx-auto rounded-lg bg-white border border-gray-200 p-5 text-gray-800 font-light mb-10 transform hover:-translate-y-4 hover:scale-110 transition-transform duration-500 ease-in-out">
@@ -565,11 +639,11 @@ export default function HomePage() {
                                                     <img src="https://i.pravatar.cc/100?img=4" alt="" />
                                                 </div>
                                                 <div className="flex-grow pl-3">
-                                                    <h6 className="font-bold text-sm uppercase text-gray-600">Charlie Howse.</h6>
+                                                    <h6 className="font-bold text-sm uppercase text-gray-600">Duy Lê.</h6>
                                                 </div>
                                             </div>
                                             <div className="w-full">
-                                                <p className="text-sm leading-tight"><span className="text-lg leading-none italic font-bold text-gray-400 mr-1">"</span>Lorem ipsum dolor sit amet consectetur adipisicing elit. Architecto inventore voluptatum nostrum atque, corrupti, vitae esse id accusamus dignissimos neque reprehenderit natus, hic sequi itaque dicta nisi voluptatem! Culpa, iusto.<span className="text-lg leading-none italic font-bold text-gray-400 ml-1">"</span></p>
+                                                <p className="text-sm leading-tight"><span className="text-lg leading-none italic font-bold text-gray-400 mr-1">"</span>Hoàn toàn hài lòng về công dụng của Polysu.<span className="text-lg leading-none italic font-bold text-gray-400 ml-1">"</span></p>
                                             </div>
                                         </div>
                                     </div>
@@ -580,11 +654,11 @@ export default function HomePage() {
                                                     <img src="https://i.pravatar.cc/100?img=5" alt="" />
                                                 </div>
                                                 <div className="flex-grow pl-3">
-                                                    <h6 className="font-bold text-sm uppercase text-gray-600">Nevada Herbertson.</h6>
+                                                    <h6 className="font-bold text-sm uppercase text-gray-600">Thành Nam.</h6>
                                                 </div>
                                             </div>
                                             <div className="w-full">
-                                                <p className="text-sm leading-tight"><span className="text-lg leading-none italic font-bold text-gray-400 mr-1">"</span>Lorem ipsum dolor sit amet consectetur adipisicing elit. Nobis, voluptatem porro obcaecati dicta, quibusdam sunt ipsum, laboriosam nostrum facere exercitationem pariatur deserunt tempora molestiae assumenda nesciunt alias eius? Illo, autem!<span className="text-lg leading-none italic font-bold text-gray-400 ml-1">"</span></p>
+                                                <p className="text-sm leading-tight"><span className="text-lg leading-none italic font-bold text-gray-400 mr-1">"</span>Từ khi biết đến Polysu khách hàng truy cập website của chúng tôi cảm thấy rất thuận tiện!<span className="text-lg leading-none italic font-bold text-gray-400 ml-1">"</span></p>
                                             </div>
                                         </div>
                                         <div className="w-full mx-auto rounded-lg bg-white border border-gray-200 p-5 text-gray-800 font-light mb-10 transform hover:-translate-y-4 hover:scale-110 transition-transform duration-500 ease-in-out">
@@ -593,11 +667,11 @@ export default function HomePage() {
                                                     <img src="https://i.pravatar.cc/100?img=6" alt="" />
                                                 </div>
                                                 <div className="flex-grow pl-3">
-                                                    <h6 className="font-bold text-sm uppercase text-gray-600">Kris Stanton.</h6>
+                                                    <h6 className="font-bold text-sm uppercase text-gray-600">Bá Vinh.</h6>
                                                 </div>
                                             </div>
                                             <div className="w-full">
-                                                <p className="text-sm leading-tight"><span className="text-lg leading-none italic font-bold text-gray-400 mr-1">"</span>Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatem iusto, explicabo, cupiditate quas totam!<span className="text-lg leading-none italic font-bold text-gray-400 ml-1">"</span></p>
+                                                <p className="text-sm leading-tight"><span className="text-lg leading-none italic font-bold text-gray-400 mr-1">"</span>Tùy chỉnh nút trên website rất dễ dàng giao diện dễ nhìn, quá tốt!<span className="text-lg leading-none italic font-bold text-gray-400 ml-1">"</span></p>
                                             </div>
                                         </div>
                                     </div>
@@ -616,9 +690,9 @@ export default function HomePage() {
                             eiusmod tempor incididunt ut labore et dolore magna aliqua.</p> */}
                         <div className="flex flex-row justify-start w-full max-w-md shadow-xl border-t border-b border-gray-200">
                             <input className="border-l-4 border-red-700 bg-white focus:outline-none px-4 w-full m-0" placeholder="Email" type="email" />
-                            <button className="inline-flex text-black py-2 px-6 focus:outline-none text-lg m-0 h-12 bg-gray-100 opacity-10 transform hover:opacity-100 hover:bg-purple-500 hover:scale-125  transition-opacity duration-500 ease-in-out">Subscribe</button>
+                            <button className="inline-flex text-black py-2 px-6 focus:outline-none text-lg m-0 h-12 bg-gray-100 opacity-10 transform hover:opacity-100 hover:bg-purple-500 hover:scale-125  transition-opacity duration-500 ease-in-out">Gửi</button>
                         </div>
-                        <p className="text-sm mt-2 text-gray-500 mb-8 w-full">Keep in tough with us.</p>
+                        <p className="text-sm mt-2 text-gray-500 mb-8 w-full">Luôn đồng hành với chúng tôi.</p>
                         <div className="flex lg:flex-row md:flex-col">
                             <a className="mx-2 text-gray-600 p-3 text-center inline-flex items-center justify-center w-16 h-16 mb-6 shadow-lg rounded-full hover:bg-blue-300 transform hover:-translate-y-4 transition-transform duration-500 ease-in-out">
                                 <i className="fab fa-linkedin-in" />
@@ -645,16 +719,16 @@ export default function HomePage() {
                         <div className="mx-auto container pt-12 lg:pt-32 px-4 xl:px-12 2xl:px-4 py-5">
                             <div className=" lg:pt-16 pt-6 pb-6 px-2 lg:px-0 lg:pb-12 border rounded-lg border-gray-200 dark:border-gray-700 flex flex-col items-center justify-center">
                                 <h2 className="text-[24px] md:text-3xl lg:text-6xl font-bold sm:font-black leading-tight tracking-tight text-center text-gray-900 dark:text-gray-50 w-11/12 lg:w-4/5">Miễn phí trọn đời</h2>
-                                <div className="md:flex md:justify-center md:space-x-8 md:px-14 mx-5 gap-5">
+                                <div className="block md:flex md:justify-center md:space-x-8 md:px-14 mx-5 gap-5">
                                     {/* box-1 */}
                                     <div className="mt-16 py-4 px-4 bg-whit w-72 bg-white rounded-xl shadow-lg hover:shadow-xl transform hover:scale-110 transition duration-500 mx-auto md:mx-0">
                                         <div className="w-sm">
-                                            <img className="w-64" src="https://images01.nicepage.com/c461c07a441a5d220e8feb1a/a17abde8d83650a582a28432/users-with-speech-bubbles-vector_53876-82250.jpg" alt="" />
+                                            <img className="w-64 mx-auto" src="https://images01.nicepage.com/c461c07a441a5d220e8feb1a/a17abde8d83650a582a28432/users-with-speech-bubbles-vector_53876-82250.jpg" alt="" />
 
                                             <div className="mt-4 text-green-600 text-center">
-                                                <h1 className="text-xl font-bold">Inspired Design</h1>
-                                                <p className="mt-4 text-gray-600">Nunc consequat interdum varius sit amet mattis vulputate enim nulla. Risus feugiat.</p>
-                                                <button className="mt-8 mb-4 py-2 px-14 rounded-full bg-green-600 text-white tracking-widest hover:bg-green-500 transition duration-200">MORE</button>
+                                                <h1 className="text-xl font-bold">Tính tương thích cao, tùy biến đa dạng.</h1>
+                                                <p className="mt-4 text-gray-600">Nhiều theme với nhiều tuỳ biến màu sắc khác nhau, tương thích với mọi định dạng Website cả trên PC & Mobile.</p>
+                                                {/* <button className="mt-8 mb-4 py-2 px-14 rounded-full bg-green-600 text-white tracking-widest hover:bg-green-500 transition duration-200">MORE</button> */}
                                             </div>
                                         </div>
                                     </div>
@@ -663,9 +737,9 @@ export default function HomePage() {
                                         <div className="w-sm">
                                             <img className="w-64" src="https://images01.nicepage.com/c461c07a441a5d220e8feb1a/3b242447f922540fbe750cab/fdf.jpg" alt="" />
                                             <div className="mt-4 text-green-600 text-center">
-                                                <h1 className="text-xl font-bold">Inspired Design</h1>
-                                                <p className="mt-4 text-gray-600">Nunc consequat interdum varius sit amet mattis vulputate enim nulla. Risus feugiat.</p>
-                                                <button className="mt-8 mb-4 py-2 px-14 rounded-full bg-green-600 text-white tracking-widest hover:bg-green-500 transition duration-200">MORE</button>
+                                                <h1 className="text-xl font-bold">Tối ưu hoá doanh thu, Hiểu khách hàng tiềm năng.</h1>
+                                                <p className="mt-4 text-gray-600">Tăng tới 50% tỷ lệ chuyển đổi từ khách hàng. Đo đạc hành vi trên trang của khách hàng, từ đó phân tích thói quen mua hàng. </p>
+                                                {/* <button className="mt-8 mb-4 py-2 px-14 rounded-full bg-green-600 text-white tracking-widest hover:bg-green-500 transition duration-200">MORE</button> */}
                                             </div>
                                         </div>
                                     </div>
@@ -674,13 +748,13 @@ export default function HomePage() {
                                         <div className="w-sm">
                                             <img className="w-64" src="https://images01.nicepage.com/c461c07a441a5d220e8feb1a/8cc47b39e719570b996d9879/dsds.jpg" alt="" />
                                             <div className="mt-4 text-green-600 text-center">
-                                                <h1 className="text-xl font-bold">Happy Customers</h1>
-                                                <p className="mt-4 text-gray-600">Nisl purus in mollis nunc sed id semper. Rhoncus aenean vel elit scelerisque mauris.</p>
-                                                <button className="mt-8 mb-4 py-2 px-14 rounded-full bg-green-600 text-white tracking-widest hover:bg-green-500 transition duration-200">MORE</button>
+                                                <h1 className="text-xl font-bold">Theo dõi, tối ưu chiến dịch quảng cáo.</h1>
+                                                <p className="mt-4 text-gray-600">Đồng bộ hoá dữ liệu khách hàng có được với các chiến dịch quảng cáo, từ đó tối đa hoá hiệu quả dựa trên chi phí bỏ ra.</p>
+                                                {/* <button className="mt-8 mb-4 py-2 px-14 rounded-full bg-green-600 text-white tracking-widest hover:bg-green-500 transition duration-200">MORE</button> */}
                                             </div>
                                         </div>
                                     </div>
-                                    <div className="mt-16 py-4 px-4 bg-whit w-72 bg-white rounded-xl shadow-lg hover:shadow-xl transform hover:scale-110 transition duration-500 mx-auto md:mx-0">
+                                    {/* <div className="mt-16 py-4 px-4 bg-whit w-72 bg-white rounded-xl shadow-lg hover:shadow-xl transform hover:scale-110 transition duration-500 mx-auto md:mx-0">
                                         <div className="w-sm">
                                             <img className="w-64" src="https://images01.nicepage.com/c461c07a441a5d220e8feb1a/8cc47b39e719570b996d9879/dsds.jpg" alt="" />
                                             <div className="mt-4 text-green-600 text-center">
@@ -699,7 +773,7 @@ export default function HomePage() {
                                                 <button className="mt-8 mb-4 py-2 px-14 rounded-full bg-green-600 text-white tracking-widest hover:bg-green-500 transition duration-200">MORE</button>
                                             </div>
                                         </div>
-                                    </div>
+                                    </div> */}
                                 </div>
 
                             </div>
@@ -711,36 +785,38 @@ export default function HomePage() {
 
 
                 <div className="lg:px-20 pb-12">
-                    <h2 className="text-[24px] lg:text-6xl text-center font-bold sm:font-black leading-tight text-gray-900 dark:text-gray-50 ls-2 tracking-tight">The only ui library you will ever need</h2>
+                    <h2 className="text-[24px] lg:text-6xl text-center font-bold sm:font-black leading-tight text-gray-900 dark:text-gray-50 ls-2 tracking-tight">Cập nhật thông tin mới nhất với Polysu</h2>
                     <div className="mt-4 lg:mt-8 flex justify-center w-full">
-                        <p className="leading-7 w-full md:w-11/12 lg:w-9/12 text-center text-gray-600 dark:text-gray-400">Build your MVP with the best practices, user experiences, and eye-catching interfaces. TUK gives you the functionality that contemporary audiences demand. Our drop-in ready components help you save your most valuable asset, Time.</p>
+                        <p className="leading-7 w-full md:w-11/12 lg:w-9/12 text-center text-gray-600 dark:text-gray-400">Trải nghiệm của khách hàng luôn là ưu tiên hàng đầu.</p>
                     </div>
                     <div className="mt-24">
                         <div className="flex flex-col flex-col-reverse md:flex-row items-center w-full justify-between bg-yellow-200 rounded-xl transform skew-y-3">
                             <div className="md:pr-12 xl:pr-0 mt-8 md:mt-0 w-full md:w-7/12 text-center md:text-left">
-                                <h3 className="text-xl lg:text-4xl font-bold leading-9 text-gray-900 dark:text-gray-50 tracking-tight">Tested components</h3>
-                                <p className="text-base lg:text-xl leading-7 text-gray-600 dark:text-gray-400 mt-4 w-full xl:w-10/12">Get a creatively consistent experience on 68 different devices with our responsive and rigorously tested tailwind css elements. Rest assured, we ensure no stone is left unturned to make your life easier.</p>
+                                <h3 className="text-xl lg:text-4xl font-bold leading-9 text-gray-900 dark:text-gray-50 tracking-tight">Dự kiến ngày ra mắt Polysu</h3>
+                                <p className="text-base lg:text-xl leading-7 text-gray-600 dark:text-gray-400 mt-4 w-full xl:w-10/12">Thông tin ra mắt.</p>
+                                {/* <button className="mt-8 mb-4 py-2 px-14 rounded-full bg-green-600 text-white tracking-widest hover:bg-green-500 transition duration-200">MORE</button> */}
+
                             </div>
                             <img className=" animate-bounce w-144 h-144 sm:h-auto sm:w-1/2 lg:w-auto mx-auto md:mx-0 md:pl-6 xl:w-400" src="https://tailwinduikit.com/img/home/cross-browser.svg" alt="tailwind css components and templates" />
                         </div>
                         <div className="mt-24 flex flex-col md:flex-row items-center w-full justify-between bg-purple-200 rounded-xl transform -skew-y-3">
                             <img className="animate-bounce w-192 h-144 sm:h-auto sm:w-1/2 lg:w-auto mx-auto md:mx-0 md:pr-6 xl:w-400" src="https://tailwinduikit.com/img/home/tested.svg" alt="tailwind css components and templates" />
                             <div className="w-full md:w-1/2 mt-8 md:mt-0 text-center md:text-left">
-                                <h3 className="text-xl lg:text-4xl font-bold leading-9 text-gray-900 dark:text-gray-50 tracking-tight">Complete package</h3>
-                                <p className="text-base lg:text-xl leading-7 text-gray-600 dark:text-gray-400 mt-4">Get the best of both worlds with our tailwind css components that are both beautifully designed and proficiently developed. It is like hiring a designer and a developer at the same time.
+                                <h3 className="text-xl lg:text-4xl font-bold leading-9 text-gray-900 dark:text-gray-50 tracking-tight">Những tính năng nổi bật nhất mới ra mắt</h3>
+                                <p className="text-base lg:text-xl leading-7 text-gray-600 dark:text-gray-400 mt-4">Thông tin tính năng.
                                 </p>
                             </div>
                         </div>
                         <div className="flex flex-col flex-col-reverse md:flex-row items-center mt-24 w-full justify-between bg-red-200 rounded-xl transform skew-y-3">
-                            <div className="md:pr-12 xl:pr-0 mt-8 md:mt-0 w-full md:w-7/12 text-center md:text-left"><h3 className="text-xl lg:text-4xl font-bold leading-9 text-gray-900 dark:text-gray-50 tracking-tight">Accessible</h3>
-                                <p className="text-base lg:text-xl leading-7 text-gray-600 dark:text-gray-400 mt-4 w-full xl:w-10/12">With the baked-in accessibility, the tailwind css components fit the needs of every user. With these elements, your project is accessible to all sorts of audiences around the world.</p>
+                            <div className="md:pr-12 xl:pr-0 mt-8 md:mt-0 w-full md:w-7/12 text-center md:text-left"><h3 className="text-xl lg:text-4xl font-bold leading-9 text-gray-900 dark:text-gray-50 tracking-tight">Thống kê của Polysu</h3>
+                                <p className="text-base lg:text-xl leading-7 text-gray-600 dark:text-gray-400 mt-4 w-full xl:w-10/12">Thông tin thống kê.</p>
                             </div>
                             <img className="animate-bounce w-182 sm:w-1/2 lg:w-auto h-157 sm:h-auto mx-auto md:mx-0 md:pl-6 xl:w-400" src="https://tailwinduikit.com/img/home/accessibility.svg" alt="tailwind css components and templates" />
                         </div>
                         <div className="mt-24 flex flex-col md:flex-row items-center w-full justify-between bg-blue-200 rounded-xl transform -skew-y-3">
                             <img className="animate-bounce w-187 sm:w-1/2 lg:w-auto h-187 sm:h-auto  mx-auto md:mx-0 md:pr-6 xl:w-400" src="https://tailwinduikit.com/img/home/responsive.svg" alt="tailwind css components and templates" />
                             <div className="w-full md:w-1/2 mt-8 md:mt-0 text-center md:text-left">
-                                <h3 className="text-xl lg:text-4xl font-bold leading-9 text-gray-900 dark:text-gray-50 tracking-tight">Cross browser compatible</h3><p className="text-base lg:text-xl leading-7 text-gray-600 dark:text-gray-400 mt-4">Each component is cross-browser compatible to project your brand in the best possible light across the entire web.
+                                <h3 className="text-xl lg:text-4xl font-bold leading-9 text-gray-900 dark:text-gray-50 tracking-tight">Những thành tựu Polysu</h3><p className="text-base lg:text-xl leading-7 text-gray-600 dark:text-gray-400 mt-4">Thông tin thành tựu.
                                 </p>
                             </div>
                         </div>
@@ -752,61 +828,61 @@ export default function HomePage() {
                         <h1 className="text-3xl font-medium mb-2">Luôn mang lại cảm giác hài lòng nhất cho khách hàng</h1>
                         <h2 className="font-medium text-lg text-indigo-400 mb-4 uppercase tracking-wide">Góp ý đến nhà phát triển</h2>
                         {/* <span className="my-5">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Illum illo cupiditate molestias atque consequuntur ea quo cumque, odit velit sint similique? Asperiores ratione aperiam tempora, alias corrupti deleniti quaerat molestiae.</span>  */}
-                        
-                            <div className="bg-white shadow rounded-lg p-6 ">
-                                <div className="grid lg:grid-cols-2 gap-6">
-                                    <div className="border focus-within:border-blue-500 focus-within:text-blue-500 transition-all duration-500 relative rounded p-1">
-                                        <div className="-mt-4 absolute tracking-wider px-1 uppercase text-xs">
-                                            <p>
-                                                <label htmlFor="name" className="bg-white text-gray-600 px-1">Tên bạn là</label>
-                                            </p>
-                                        </div>
-                                        <p>
-                                            <input id="name" autoComplete="false" tabIndex={0} type="text" className="py-1 px-1 text-gray-900 outline-none block h-full w-full" />
-                                        </p>
-                                    </div>
-                                    <div className="border focus-within:border-blue-500 focus-within:text-blue-500 transition-all duration-500 relative rounded p-1">
-                                        <div className="-mt-4 absolute tracking-wider px-1 uppercase text-xs">
-                                            <p>
-                                                <label htmlFor="lastname" className="bg-white text-gray-600 px-1">Email</label>
-                                            </p>
-                                        </div>
-                                        <p>
-                                            <input id="email" autoComplete="false" tabIndex={0} type="email" className="py-1 px-1 outline-none block h-full w-full" />
-                                        </p>
-                                    </div>
-                                    <div className="border focus-within:border-blue-500 focus-within:text-blue-500 transition-all duration-500 relative rounded p-1">
-                                        <div className="-mt-4 absolute tracking-wider px-1 uppercase text-xs">
-                                            <p>
-                                                <label htmlFor="username" className="bg-white text-gray-600 px-1">Số điện thoại</label>
-                                            </p>
-                                        </div>
-                                        <p>
-                                            <input id="phone" autoComplete="false" tabIndex={0} type="text" className="py-1 px-1 outline-none block h-full w-full" />
-                                        </p>
-                                    </div>
-                                    <div className="border focus-within:border-blue-500 focus-within:text-blue-500 transition-all duration-500 relative rounded p-1">
-                                        <div className="-mt-4 absolute tracking-wider px-1 uppercase text-xs">
-                                            <p>
-                                                <label htmlFor="password" className="bg-white text-gray-600 px-1">Chủ đề góp ý</label>
-                                            </p>
-                                        </div>
-                                        <p>
-                                            <input id="text" autoComplete="false" tabIndex={0} type="text" className="py-1 px-1 outline-none block h-full w-full" />
-                                        </p>
-                                    </div>
 
+                        <div className="bg-white shadow rounded-lg p-6 ">
+                            <div className="grid lg:grid-cols-2 gap-6">
+                                <div className="border focus-within:border-blue-500 focus-within:text-blue-500 transition-all duration-500 relative rounded p-1">
+                                    <div className="-mt-4 absolute tracking-wider px-1 uppercase text-xs">
+                                        <p>
+                                            <label htmlFor="name" className="bg-white text-gray-600 px-1">Tên bạn là</label>
+                                        </p>
+                                    </div>
+                                    <p>
+                                        <input id="name" autoComplete="false" tabIndex={0} type="text" className="py-1 px-1 text-gray-900 outline-none block h-full w-full" />
+                                    </p>
                                 </div>
-                                <span className="text-gray-600 my-5" >Nội dung cụ thể</span>
-                                <textarea className="p-4 w-full border h-32 focus-within:border-blue-500 focus-within:text-blue-500" name="" id="" cols="30" rows="10"></textarea>
-                                <div className="border-t mt-6 pt-3">
-                                    <button className="rounded text-gray-100 px-3 py-1 bg-blue-500 hover:shadow-inner hover:bg-blue-700 transition-all duration-300">
-                                        Gửi
-                                    </button>
+                                <div className="border focus-within:border-blue-500 focus-within:text-blue-500 transition-all duration-500 relative rounded p-1">
+                                    <div className="-mt-4 absolute tracking-wider px-1 uppercase text-xs">
+                                        <p>
+                                            <label htmlFor="lastname" className="bg-white text-gray-600 px-1">Email</label>
+                                        </p>
+                                    </div>
+                                    <p>
+                                        <input id="email" autoComplete="false" tabIndex={0} type="email" className="py-1 px-1 outline-none block h-full w-full" />
+                                    </p>
                                 </div>
+                                <div className="border focus-within:border-blue-500 focus-within:text-blue-500 transition-all duration-500 relative rounded p-1">
+                                    <div className="-mt-4 absolute tracking-wider px-1 uppercase text-xs">
+                                        <p>
+                                            <label htmlFor="username" className="bg-white text-gray-600 px-1">Số điện thoại</label>
+                                        </p>
+                                    </div>
+                                    <p>
+                                        <input id="phone" autoComplete="false" tabIndex={0} type="text" className="py-1 px-1 outline-none block h-full w-full" />
+                                    </p>
+                                </div>
+                                <div className="border focus-within:border-blue-500 focus-within:text-blue-500 transition-all duration-500 relative rounded p-1">
+                                    <div className="-mt-4 absolute tracking-wider px-1 uppercase text-xs">
+                                        <p>
+                                            <label htmlFor="password" className="bg-white text-gray-600 px-1">Chủ đề góp ý</label>
+                                        </p>
+                                    </div>
+                                    <p>
+                                        <input id="text" autoComplete="false" tabIndex={0} type="text" className="py-1 px-1 outline-none block h-full w-full" />
+                                    </p>
+                                </div>
+
                             </div>
-                            
-                        
+                            <span className="text-gray-600 my-5" >Nội dung cụ thể</span>
+                            <textarea className="p-4 w-full border h-32 focus-within:border-blue-500 focus-within:text-blue-500" name="" id="" cols="30" rows="10"></textarea>
+                            <div className="border-t mt-6 pt-3">
+                                <button className="rounded text-gray-100 px-3 py-1 bg-blue-500 hover:shadow-inner hover:bg-blue-700 transition-all duration-300">
+                                    Gửi
+                                </button>
+                            </div>
+                        </div>
+
+
 
                     </div>
 
@@ -814,7 +890,7 @@ export default function HomePage() {
 
 
 
-            </main>
+            </div>
             <footer class="py-6 bg-gray-300 text-coolGray-900">
                 <div class="container px-6 mx-auto space-y-6 divide-y divide-gray-400 md:space-y-12 divide-opacity-50">
                     <div class="grid grid-cols-12">
@@ -903,3 +979,5 @@ export default function HomePage() {
         </>
     )
 }
+
+
