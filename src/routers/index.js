@@ -30,6 +30,8 @@ import UpgradeAccount from '../components/UpgradeAccount'
 import Integrated from '../components/Integrated'
 import CustomerManagement from '../components/CustomerManagement';
 import AdminManage from '../components/AdminManage';
+import PaymentSuccess from '../components/PaymentSuccess';
+import PaymentFailed from '../components/PaymentFailed';
 
 // eslint-disable-next-line import/no-anonymous-default-export
 export default function Routers() {
@@ -52,7 +54,7 @@ export default function Routers() {
                             <Route path="/viewdetails"><DisplayCreateDetails /></Route>
                             <Route path="/viewupdate/:id"><DisplayUpdate /> </Route>
                             <Route path='/admin/:path?/:path?' exact>
-                           
+
 
                                 <Home>
                                     <Switch>
@@ -61,6 +63,8 @@ export default function Routers() {
                                         <Route path='/admin/payment-history' component={PaymentHistory} />
                                         <Route path='/admin/upgrade-account' component={UpgradeAccount} />
                                         <Route path='/admin/bill' component={Bill} />
+                                        <Route path='/admin/success' component={PaymentSuccess} />
+                                        <Route path='/admin/failed' component={PaymentFailed} />
                                         <Route path='/admin/list-menu'>
                                             <ManagerMenu />
                                         </Route>
@@ -69,7 +73,7 @@ export default function Routers() {
                                         <Route path='/admin/customer-management' component={CustomerManagement} />
                                         <Route path='/admin/create-menu'><CreateMenu /></Route>
                                         <Route path='/admin/update-menu/:id'><UpdateMenu /></Route>
-                                        
+
                                     </Switch>
                                 </Home>
                             </Route>

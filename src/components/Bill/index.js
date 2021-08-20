@@ -1,8 +1,33 @@
-import React, { useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { callApi } from '../../service/Apis';
+import { useHistory } from 'react-router';
+import Select from 'react-select'
 
 
-const index = () => {
+
+function Bill() {
+
+    const [services, setServices] = useState([]);
+    const name = JSON.parse(localStorage.getItem('fullName'));
+    const email = JSON.parse(localStorage.getItem('email'));
+
+    useEffect(() => {
+
+        callApi('get', 'paypal/service-fee')
+            .then(function (response) {
+                setServices(response.data)
+                console.log(services);
+            })
+            .catch(function (err) {
+                console.log(err)
+            })
+        return () => {
+            console.log("aaaaaaaaaaaaaaaaa");
+        }
+    }, []);
+
+
+
     let price = "";
     let paypal = "";
     const onHandleChange = (e) => {
@@ -12,20 +37,28 @@ const index = () => {
 
 
 
-    const onHandleSubmit = () => {
+    const onHandleSubmit = (e) => {
+        e.preventDefault();
+        callApi('post', 'paypal/pay', price)
+            .then(function (response) {
+                console.log(response.data);
+                paypal = response.data;
+                window.location.replace(paypal);
 
+            }).then(function (response) {
+                console.log("AAAAAAAAAAAAAA" + response);
+                localStorage.setItem('price', JSON.stringify(price))
+            })
+            .catch(function (error) {
+                console.log(error)
+                console.log("AAAAAAA" + error);
+            })
     }
-    callApi('post', 'paypal/pay', price)
-        .then(function (response) {
-            console.log(response.data);
-            paypal = response.data;
-        }).catch(function (error) {
-            console.log(error)
-        })
+
 
     return (
         <>
-            <form action="" onSubmit={onHandleSubmit}>
+            <form onSubmit={onHandleSubmit} className="mx-auto">
                 <div className="mx-auto">
                     <div className="mx-auto min-w-screen min-h-screen bg-gray-200 flex items-center justify-center px-5 pb-10 pt-16">
                         <div className="w-full mx-auto rounded-lg bg-white shadow-lg p-5 text-gray-700" style={{ maxWidth: '600px' }}>
@@ -41,32 +74,30 @@ const index = () => {
                                 <div className="px-2">
                                     <label htmlFor="type1" className="flex items-center cursor-pointer">
                                         <input type="radio" className="form-radio h-5 w-5 text-indigo-500" name="type" id="type1" defaultChecked />
-                                        <img src="https://leadershipmemphis.org/wp-content/uploads/2020/08/780370.png" className="h-8 ml-3" />
-                                    </label>
+                                        <img src="https://www.sketchappsources.com/resources/source-image/PayPalCard.png" className="h-8 ml-3" />                                    </label>
                                 </div>
-                                <div className="px-2">
-                                    <label htmlFor="type2" className="flex items-center cursor-pointer">
-                                        <input type="radio" className="form-radio h-5 w-5 text-indigo-500" name="type" id="type2" />
-                                        <img src="https://www.sketchappsources.com/resources/source-image/PayPalCard.png" className="h-8 ml-3" />
-                                    </label>
-                                </div>
+
                             </div>
                             <div className="mb-3">
                                 <label className="font-bold text-sm mb-2 ml-1">Giá trị đơn hàng:</label>
                                 <div>
-                                    <input className="w-full px-3 py-2 mb-1 border-2 border-gray-200 rounded-md focus:outline-none focus:border-indigo-500 transition-colors" type="text" onChange={onHandleChange} />
+                                    <select name='price' selected={services[0]} className="w-full px-3 py-2 mb-1 border-2 border-gray-200 rounded-md focus:outline-none focus:border-indigo-500 transition-colors" onChange={onHandleChange} >
+                                        {services.map(option =>
+                                            <option name={option.name} value={option.price}>POLYSU PRO - {option.nameService} - {option.price} USD</option>
+                                        )}
+                                    </select>
                                 </div>
                             </div>
                             <div className="mb-3">
-                                <label className="font-bold text-sm mb-2 ml-1">Tài khoản áp dụng:</label>
+                                <label className="font-bold text-sm mb-2 ml-1">Chủ tài khoản:</label>
                                 <div>
-                                    <input className="w-full px-3 py-2 mb-1 border-2 border-gray-200 rounded-md focus:outline-none focus:border-indigo-500 transition-colors" type="text" />
+                                    <input className="w-full px-3 py-2 mb-1 border-2 border-gray-200 rounded-md focus:outline-none focus:border-indigo-500 transition-colors" type="text" value={name} />
                                 </div>
                             </div>
                             <div className="mb-3">
-                                <label className="font-bold text-sm mb-2 ml-1">Hóa đơn sẽ được gửi về email:</label>
+                                <label className="font-bold text-sm mb-2 ml-1">Email:</label>
                                 <div>
-                                    <input className="w-full px-3 py-2 mb-1 border-2 border-gray-200 rounded-md focus:outline-none focus:border-indigo-500 transition-colors" type="text" />
+                                    <input className="w-full px-3 py-2 mb-1 border-2 border-gray-200 rounded-md focus:outline-none focus:border-indigo-500 transition-colors" type="text" value={email} />
                                 </div>
                             </div>
                             <div className="mb-16 -mx-2 flex items-end">
@@ -101,5 +132,4 @@ const index = () => {
     )
 }
 
-export default index
-
+export default Bill
