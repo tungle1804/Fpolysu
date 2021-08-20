@@ -3,6 +3,9 @@ import HeaderLanding from "./header";
 import Sidebar from "./sidebar";
 import Hssd1 from '../Hssd1';
 import Hssd2 from '../Hssd2';
+import Hssd3 from '../Hssd3';
+
+import Hssd5 from '../Hssd5';
 import {
   BrowserRouter as Router,
   Switch,
@@ -80,6 +83,36 @@ export default function Navbar() {
               </div> */}
               {/* sidebar */}
               <Sidebar sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} />
+          </header>
+          <div className="flex overflow-0-hidden">
+            <div className="w-64 p-6 bg-gray-100 overflow-y-auto ">
+              <nav>
+                <h1 className="font-semibold text-lg text-gray-600 uppercase tracking-wide">
+                  <Link to="/hssd1" className=" text-gray-900 hover:bg-yellow-300" >Polysu là gì?</Link>
+                </h1>
+                <div className="mt-3">
+                  <a href className="-mx-3  py-1 px-3 text-sm font-medium flex items-center justify-between  rounded-lg">
+                    <span>
+                      <i className="h-6 w-6 fa fa-envelope-o fill-current text-gray-700 " aria-hidden="true" />
+                    </span></a>
+                  <Link to="/hssd2" className=" text-gray-900 hover:bg-yellow-300" >Tổng quan &amp; Vai trò</Link>
+                </div>
+                <div className="mt-8">
+                  <h2 className="font-semibold text-lg text-gray-600 uppercase tracking-wide">Sử dụng Polysu</h2>
+                  <div className="mt-3">
+                 
+                  <Link to="/hssd3" className=" text-gray-900 hover:bg-yellow-300" >Tạo Menu</Link>
+                </div>
+                
+                <div className="mt-3">
+                  <Link to="/hssd5" className=" text-gray-900 hover:bg-yellow-300" >Cài đặt menu lên website</Link>
+                </div>
+                </div>
+              </nav>
+            </div>
+            <main>
+              <div>
+                {/* //  <iframe width={1000} height={800} src="Polysu.html" name="page" frameBorder={0} /> */}
 
 
               {/* main */}
@@ -103,10 +136,15 @@ export default function Navbar() {
                       </Route>
                       <Route exact path="/hssd2">
                         <Hssd2></Hssd2>
-
-                      </Route>
-
-                    </Switch>
+                  </Route>
+                <Route exact path="/hssd3">
+                  <Hssd3></Hssd3>
+                </Route>
+                <Route exact path="/hssd5">
+                  <Hssd5></Hssd5>
+                </Route>
+               
+                </Switch>
 
                     <div className="row my-5 ">
                       <div className="w-full mx-auto">
