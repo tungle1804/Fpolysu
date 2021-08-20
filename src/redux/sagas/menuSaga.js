@@ -4,7 +4,7 @@ import { fetchListMenusFailed, fetchListMenusSuccess, loadMenus, fetchListMenusR
 import * as taskTypesMenus from './../constants/menuConstant'
 import * as taskTypesButtons from './../constants/buttonConstant'
 import * as taskTypesData from './../constants/dataConstanst'
-import { getApi } from './../../util/api'
+import { getApi, getApi1 } from './../../util/api'
 import { fetchDataRequest, fetchDataSuccess, fetchDataFailed, saveData, saveDataInfo } from '../actions/dataAction'
 import { fetchListButtonsFailed, fetchListButtonsRequest, fetchListButtonsSuccess, saveDataButtons } from '../actions/buttonAction'
 // let email = localStorage.getItem('email')
@@ -97,11 +97,23 @@ function* getDataInfo({ payload }) {
         yield put(fetchDataFailed(error))
     }
 }
+function* createData({ payload }) {
+    try {
+
+        yield put(fetchDataRequest())
+        const response = yield call(getApi1, [`/dataofcustomer`, payload])
+        yield put(fetchDataSuccess())
+    } catch (error) {
+
+        yield put(fetchDataFailed(error))
+    }
+}
 function* menuSaga() {
 
     yield takeEvery(taskTypesMenus.FETCH_MENUS, fetchMenus)
     yield takeEvery(taskTypesButtons.FETCH_BUTTONS, getButtonById)
     yield takeEvery(taskTypesData.FETCH_DATA, getDataByUsers)
     yield takeEvery(taskTypesData.FETCH_DATA_INFO, getDataInfo)
+    yield takeEvery(taskTypesData.FETCH_CREATE_DATA, createData)
 }
 export default menuSaga;

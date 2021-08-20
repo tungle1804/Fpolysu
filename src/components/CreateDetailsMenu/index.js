@@ -8,6 +8,7 @@ import Ifram from './iframe'
 import Iframe from 'react-iframe';
 import DisplayCreateDetails from '../Display/displaycreatedetails'
 import { useDispatch, useSelector } from 'react-redux';
+import Swal from 'sweetalert2'
 import { createButton, deleteButton, updateButton, viewButton } from '../../redux/actions/createbuttonAction';
 export default function CreateDetailsMenu({ data, color }) {
 
@@ -75,17 +76,11 @@ export default function CreateDetailsMenu({ data, color }) {
         const editButtons = { id_button: editButton.id_button, name_button: editButton.name_button, color_text: editButton.color_text, color_background: editButton.color_background, color_icon: editButton.color_icon, link: editButton.link, icon: editButton.icon }
 
         dispatch(updateButton(editButtons))
-        // data1.forEach((items, index) => {
-        //     if (items.id_button === editbutton.id_button) {
-        //         data1.splice(index, 1)
-
-        //         data1.push(editbuttons)
         ButtonFake.updateButtonFake(editButtons, editButton.id_button)
         setShow(false)
 
-        //     }
 
-        // })
+
 
 
     }

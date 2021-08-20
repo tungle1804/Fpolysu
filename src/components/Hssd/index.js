@@ -1,6 +1,9 @@
 import React, { useEffect } from 'react'
 import Hssd1 from '../Hssd1';
 import Hssd2 from '../Hssd2';
+import Hssd3 from '../Hssd3';
+
+import Hssd5 from '../Hssd5';
 import {
   BrowserRouter as Router,
   Switch,
@@ -48,7 +51,7 @@ const Index = () => {
           <div className="flex overflow-0-hidden">
             <div className="w-64 p-6 bg-gray-100 overflow-y-auto ">
               <nav>
-                <h1 className="font-semibold text-1xl text-gray-600 uppercase tracking-wide">
+                <h1 className="font-semibold text-lg text-gray-600 uppercase tracking-wide">
                   <Link to="/hssd1" className=" text-gray-900 hover:bg-yellow-300" >Polysu là gì?</Link>
                 </h1>
                 <div className="mt-3">
@@ -59,22 +62,15 @@ const Index = () => {
                   <Link to="/hssd2" className=" text-gray-900 hover:bg-yellow-300" >Tổng quan &amp; Vai trò</Link>
                 </div>
                 <div className="mt-8">
-                  <h2 className="font-semibold text-gray-600 uppercase tracking-wide">Sử dụng Polysu</h2>
+                  <h2 className="font-semibold text-lg text-gray-600 uppercase tracking-wide">Sử dụng Polysu</h2>
                   <div className="mt-3">
-                    <a href className="-mx-3  py-1 px-3 text-sm font-medium flex items-center justify-between  rounded-lg">
-                      <span>
-                      </span></a><a href="Taomenu.html" className=" text-gray-900 hover:bg-yellow-300" target="page">Tạo Menu</a>
-                  </div>
-                  <div className="mt-3">
-                    <a href className="-mx-3  py-1 px-3 text-sm font-medium flex items-center justify-between  rounded-lg">
-                      <span>
-                      </span></a><a href="//" className=" text-gray-900 hover:bg-yellow-300" target="page">Cấu hình nút</a>
-                  </div>
-                  <div className="mt-3">
-                    <a href className="-mx-3  py-1 px-3 text-sm font-medium flex items-center justify-between  rounded-lg">
-                      <span>
-                      </span></a><a href="//" className=" text-gray-900 hover:bg-yellow-300" target="page">Cài đặt Polysu lên website </a>
-                  </div>
+                 
+                  <Link to="/hssd3" className=" text-gray-900 hover:bg-yellow-300" >Tạo Menu</Link>
+                </div>
+                
+                <div className="mt-3">
+                  <Link to="/hssd5" className=" text-gray-900 hover:bg-yellow-300" >Cài đặt menu lên website</Link>
+                </div>
                 </div>
               </nav>
             </div>
@@ -92,7 +88,13 @@ const Index = () => {
                     <Hssd2></Hssd2>
 
                   </Route>
-
+                <Route exact path="/hssd3">
+                  <Hssd3></Hssd3>
+                </Route>
+                <Route exact path="/hssd5">
+                  <Hssd5></Hssd5>
+                </Route>
+               
                 </Switch>
 
               </div>
