@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react'
+import React, { useContext, useState, useRef } from 'react'
 import ModalComponent from '../ModalComponent';
 import { Modal, Button, Form } from 'react-bootstrap'
 import { Link, useHistory } from 'react-router-dom';
@@ -10,6 +10,7 @@ import WelcomeBack from '../viewtest/WelcomeBack'
 import ButtonFake from '../../service/ButtonFake';
 import { useDispatch, useSelector } from 'react-redux';
 import { createButton } from '../../redux/actions/createbuttonAction';
+import Swal from 'sweetalert2'
 export default function ViewCreateMenu() {
     const data = useSelector(state => state.createbuttons.data)
 
@@ -24,7 +25,8 @@ export default function ViewCreateMenu() {
     const [test1, setTest1] = useContext(ButtonContext)
     const [images, setImages] = useState()
     const [colormenu, setColorMenu] = useState()
-
+    const [countInput, setCountInput] = useState([0])
+    let couter = useRef(0);
 
     const onHandleChange = (e) => {
         const { name } = e.target;
@@ -62,11 +64,17 @@ export default function ViewCreateMenu() {
 
             data.button.push(button)
         }
-        console.log(data)
-        ButtonService.createButton(data)
+        if (colormenu && colormenu !== "") {
+            ButtonService.createButton(data)
 
-        setShow1(false)
-        history.push('/admin/list-metu');
+            setShow1(false)
+            history.push('/admin/list-metu');
+        } else {
+
+            Swal.fire('Bạn phải chọn màu cho Menu')
+
+        }
+
 
     }
     const handleClose2 = () => {
@@ -88,6 +96,7 @@ export default function ViewCreateMenu() {
         setTest1(currentState => [...currentState, tshirt]);
 
         // let tshirt_fake = { id_button: number, name_button: test.name_button, color_text: test.color_text, color_background: test.color_background, color_icon: test.color_icon, link: test.link, icon: images }
+
         ButtonFake.createButtonFake(tshirt)
         setShow(false)
 
@@ -105,6 +114,23 @@ export default function ViewCreateMenu() {
 
     const onhandleColor = (color) => {
         setColorMenu(color)
+    }
+
+    const updateCountInput = () => {
+        console.log('ss')
+        setCountInput(couter.current++)
+        console.log(countInput)
+    }
+    const generateInput = (current) => {
+        for (let i = 0; i < current; i++) {
+            return (<>
+                <Form.Group controlId="formBasicEmail">
+                    <Form.Label>Nhập tên người phụ trách số điện thoại (*)</Form.Label>
+                    <Form.Control type="text" placeholder="Gọi ngay" />
+
+                </Form.Group>
+            </>)
+        }
     }
     return (
         <>
@@ -376,8 +402,28 @@ export default function ViewCreateMenu() {
                             <Form.Control type="text" placeholder="Gọi ngay" />
 
                         </Form.Group>
+                        {/* {(() => {
+                            countInput.length > 0 && countInput.map((item) => {
+                                debugger
+                                return (<>
 
+                                    {item}
+                                    <Form.Group controlId="formBasicEmail">
+                                        <Form.Label >Địa chỉ của văn phòng11111 | chi nhánh | cá nhân</Form.Label>
+                                        <Form.Control type="text" placeholder="Gọi ngay" />
+                                    </Form.Group>
+                                </>)
+                            })
+
+
+                        })()
+
+
+                        } */}
                     </Form>
+                    <div class="cursor-pointer text-blue-400 -ml-4">
+                        <p onClick={() => updateCountInput()} class="inline hover:bg-blue-100 px-4 py-3 rounded-full"><i class="fas fa-globe"></i>Thêm trường thông tin</p>
+                    </div>
                 </Modal.Body>
 
                 <Modal.Footer>
@@ -388,6 +434,7 @@ export default function ViewCreateMenu() {
                     <Button variant="primary" onClick={onhandleCloses2} >
                         Quay lại
                     </Button>
+
                 </Modal.Footer>
             </Modal>
 

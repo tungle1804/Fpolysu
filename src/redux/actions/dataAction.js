@@ -5,7 +5,9 @@ import {
     FETCH_DATA,
     SAVE_DATA,
     FETCH_DATA_INFO,
-    SAVE_DATA_INFO
+    SAVE_DATA_INFO,
+    CREATE_DATA,
+    FETCH_CREATE_DATA
 } from '../constants/dataConstanst'
 
 export const loadData = () => {
@@ -51,6 +53,19 @@ export const loadDataInfo = (payload) => {
 export const saveDataInfo = data => {
     return {
         type: SAVE_DATA_INFO,
+        data: data
+    }
+}
+export const fetchCreateData = payload => {
+    return {
+        type: FETCH_CREATE_DATA,
+        payload: payload,
+    }
+
+}
+export const createData = data => {
+    return {
+        type: CREATE_DATA,
         data: data
     }
 }
