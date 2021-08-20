@@ -4,7 +4,7 @@ const Hssd1 = () => {
   return (
     <div>
       <div className="w-full">
-  <div className="container text-center">
+  <div className=" ">
     <g id="TailwindComponents" stroke="none" strokeWidth={1} fill="none" fillRule="evenodd">
       <g id="HOME" transform="translate(-101.000000, -30.000000)" fillRule="nonzero">
         <g id="Group-7" transform="translate(98.000000, 25.000000)">
@@ -18,17 +18,18 @@ const Hssd1 = () => {
         </g>
       </g>
     </g>
-    <p className="italic m-5 text-3xl">
-      Polysu là gì?
+    <p className=" m-5 text-3xl font-bold">
+      POLYSU là gì?
     </p>
   </div>
-  <p className="text-gray-500 italic m-5 text-2xl">
+  {/* <div className="h-1 bg-gray-400"></div> */}
+  <p className="text-gray-700  m-5 text-lg border-b-2 pb-5">
     Là một công cụ cho phép bạn tạo ra menu thứ 2 xuất hiện bên dưới màn hình hiển thị của các thiết bị khi truy cập vào website của bạn.
   </p>
-  <p className="text-gray-500 italic m-5 text-2xl">
+  <p className="text-gray-700  m-5 text-lg">
     METU với tuỳ biến linh hoạt về màu sắc và thiết kế hợp lý sẽ giúp điều hướng và kích thích tương tác của khách hàng với Website.
   </p>
-  <p className="text-gray-500 italic m-5 text-2xl">
+  <p className="text-gray-700 m-5 text-lg ">
     Ngoài ra METU có khả năng đồng bộ hoá dữ liệu của các nút Call To Action này vào Adwords, giúp tối ưu hoá hiệu quả của các chiến dịch quảng cáo.
   </p>
 </div>

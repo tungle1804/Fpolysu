@@ -30,7 +30,8 @@ import UpgradeAccount from '../components/UpgradeAccount'
 import Integrated from '../components/Integrated'
 import CustomerManagement from '../components/CustomerManagement';
 
-import AdminManage from '../components/admin/components/AdminManage';
+import AdminManage from '../components/AdminManage';
+import Dashboard1 from '../components/QA/all';
 import AdminStaff from '../components/admin/components/AdminStaff';
 import AdminCustomer from '../components/admin/components/AdminCustomer';
 import AdminServiceFee from '../components/admin/components/AdminServiceFee';
@@ -64,7 +65,7 @@ export default function Routers() {
                             <Route path="/login"><Login /></Route>
                             <Route path="/resgiter"><Resgiter /></Route>
                             <Route path="/price-list"><PriceList /></Route>
-                            <Route path="/QA"><Navbar /></Route>
+                            <Route path="/QA"><Dashboard1 /></Route>
                             <Route path="/contact"><Contact /></Route>
                             <Route path="/hssd"><Hssd /></Route>
                             <Route path="/view/:id" component={Display} />
