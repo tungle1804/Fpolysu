@@ -4,7 +4,6 @@ import Sidebar from "./sidebar";
 import Hssd1 from '../Hssd1';
 import Hssd2 from '../Hssd2';
 import Hssd3 from '../Hssd3';
-
 import Hssd5 from '../Hssd5';
 import {
   BrowserRouter as Router,
@@ -22,13 +21,12 @@ export default function Navbar() {
 
   return (
     <>
+      <div className="flex justify-between items-center bg-white border-b-2 shadow-xl ">
+        <HeaderLanding sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} />
+      </div>
       <Router>
         <div className="flex h-screen bg-white">
           <div className="flex-1 flex flex-col  overflow-hidden">
-
-            <div className="flex justify-between items-center bg-white border-b-2 shadow-xl ">
-              <HeaderLanding sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} />
-            </div>
 
             {/* <div class="relative min-h-screen md:flex"></div> */}
             <div className="flex h-full">
@@ -83,49 +81,19 @@ export default function Navbar() {
               </div> */}
               {/* sidebar */}
               <Sidebar sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} />
-          </header>
-          <div className="flex overflow-0-hidden">
-            <div className="w-64 p-6 bg-gray-100 overflow-y-auto ">
-              <nav>
-                <h1 className="font-semibold text-lg text-gray-600 uppercase tracking-wide">
-                  <Link to="/hssd1" className=" text-gray-900 hover:bg-yellow-300" >Polysu là gì?</Link>
-                </h1>
-                <div className="mt-3">
-                  <a href className="-mx-3  py-1 px-3 text-sm font-medium flex items-center justify-between  rounded-lg">
-                    <span>
-                      <i className="h-6 w-6 fa fa-envelope-o fill-current text-gray-700 " aria-hidden="true" />
-                    </span></a>
-                  <Link to="/hssd2" className=" text-gray-900 hover:bg-yellow-300" >Tổng quan &amp; Vai trò</Link>
-                </div>
-                <div className="mt-8">
-                  <h2 className="font-semibold text-lg text-gray-600 uppercase tracking-wide">Sử dụng Polysu</h2>
-                  <div className="mt-3">
-                 
-                  <Link to="/hssd3" className=" text-gray-900 hover:bg-yellow-300" >Tạo Menu</Link>
-                </div>
-                
-                <div className="mt-3">
-                  <Link to="/hssd5" className=" text-gray-900 hover:bg-yellow-300" >Cài đặt menu lên website</Link>
-                </div>
-                </div>
-              </nav>
-            </div>
-            <main>
-              <div>
-                {/* //  <iframe width={1000} height={800} src="Polysu.html" name="page" frameBorder={0} /> */}
 
 
               {/* main */}
 
               <main className="flex flex-col w-full bg-white overflow-x-hidden overflow-y-auto mb-14">
-                <h2 className="flex py-4 px-4 sticky top-0 border-b bg-white items-center justify-between">
+                {/* <h2 className="flex py-4 px-4 sticky top-0 border-b bg-white items-center justify-between">
                   <h1 className="font-bold tracking-wide text-2xl ">
                     Noi dung 1
                   </h1>
                   <div className="text-blue-400">
                     <i className="fa fa-dot-circle-o" />
                   </div>
-                </h2>
+                </h2> */}
                 <div className="flex w-full mx-auto px-6 py-8">
                   <div className="flex flex-col w-full h-full text-gray-900 text-xl border-4 border-gray-900 ">
 
@@ -136,15 +104,16 @@ export default function Navbar() {
                       </Route>
                       <Route exact path="/hssd2">
                         <Hssd2></Hssd2>
-                  </Route>
-                <Route exact path="/hssd3">
-                  <Hssd3></Hssd3>
-                </Route>
-                <Route exact path="/hssd5">
-                  <Hssd5></Hssd5>
-                </Route>
-               
-                </Switch>
+
+                      </Route>
+
+                      <Route exact path="/hssd3">
+                        <Hssd3></Hssd3>
+                      </Route>
+                      <Route exact path="/hssd5">
+                        <Hssd5></Hssd5>
+                      </Route>
+                    </Switch>
 
                     <div className="row my-5 ">
                       <div className="w-full mx-auto">

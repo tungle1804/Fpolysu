@@ -30,7 +30,7 @@ import UpgradeAccount from '../components/UpgradeAccount'
 import Integrated from '../components/Integrated'
 import CustomerManagement from '../components/CustomerManagement';
 
-import AdminManage from '../components/AdminManage';
+import AdminManage from '../components/admin/components/AdminManage';
 
 import PaymentSuccess from '../components/PaymentSuccess';
 import PaymentFailed from '../components/PaymentFailed';

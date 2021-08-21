@@ -118,33 +118,17 @@ export default function Sidebar({ sidebarOpen,
                         </div>
                         <div className="mt-10">
                             <span className="text-xl text-gray-500 uppercase font-bold">SỬ DỤNG POLYSU</span>
-                            <a href="#" className="font-medium block text-black mb-2 py-2 px-4 rounded transition duration-200 hover:bg-blue-700 hover:text-white">
-                                Tạo Menu
-                            </a>
-                            <a href="#" className="font-medium block text-black mb-2 py-2 px-4 rounded transition duration-200 hover:bg-blue-700 hover:text-white">
-                                Cấu hình nút
-                            </a>
-                            <a href="#" className="font-medium block text-black mb-2 py-2 px-4 rounded transition duration-200 hover:bg-blue-700 hover:text-white">
+                            <Link to="/hssd3" className="" >
+                                <a href="#" className="font-medium block text-black mb-2 py-2 px-4 rounded transition duration-200 hover:bg-blue-700 hover:text-white focus:bg-blue-500 focus:text-white">
+                                   Tao menu
+                                </a>
+                            </Link>
+                            <Link to="/hssd5" className="" >
+                                <a href="#" className="font-medium block text-black mb-2 py-2 px-4 rounded transition duration-200 hover:bg-blue-700 hover:text-white focus:bg-blue-500 focus:text-white">
                                 Cài đặt Polysu lên website
-                            </a>
-                            <a href="#" className="font-medium block text-black mb-2 py-2 px-4 rounded transition duration-200 hover:bg-blue-700 hover:text-white">
-                                Tạo Menu
-                            </a>
-                            <a href="#" className="font-medium block text-black mb-2 py-2 px-4 rounded transition duration-200 hover:bg-blue-700 hover:text-white">
-                                Cấu hình nút
-                            </a>
-                            <a href="#" className="font-medium block text-black mb-2 py-2 px-4 rounded transition duration-200 hover:bg-blue-700 hover:text-white">
-                                Cài đặt Polysu lên website
-                            </a>
-                            <a href="#" className="font-medium block text-black mb-2 py-2 px-4 rounded transition duration-200 hover:bg-blue-700 hover:text-white">
-                                Tạo Menu
-                            </a>
-                            <a href="#" className="font-medium block text-black mb-2 py-2 px-4 rounded transition duration-200 hover:bg-blue-700 hover:text-white">
-                                Cấu hình nút
-                            </a>
-                            <a href="#" className="font-medium block text-black mb-2 py-2 px-4 rounded transition duration-200 hover:bg-blue-700 hover:text-white">
-                                Cài đặt Polysu lên website
-                            </a>
+                                </a>
+                            </Link>
+                            
 
                         </div>
                     </nav>

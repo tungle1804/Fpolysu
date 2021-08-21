@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react'
 import { callApi } from '../../service/Apis';
 import { useHistory } from 'react-router';
-import Select from 'react-select'
+
 
 
 
