@@ -47,6 +47,7 @@ const Index = () => {
           </header>
           <div className="flex overflow-0-hidden">
             <div className="w-64 p-6 bg-gray-100 overflow-y-auto ">
+      
               <nav>
                 <h1 className="font-semibold text-1xl text-gray-600 uppercase tracking-wide">
                   <Link to="/hssd1" className=" text-gray-900 hover:bg-yellow-300" >Polysu là gì?</Link>

@@ -11,6 +11,7 @@ export default function Menu() {
             <img
               className="h- w-20 mt-1 rounded "
               src="https://fpt.com.vn/Content/home/images/icon/logo-ft.png"
+              alt="xxx"
             />
           </div>
 
@@ -37,29 +38,42 @@ export default function Menu() {
         <div className="overflow-auto" style={{ height: "430px" }}>
           <div className="flex-col px-3">
             <Link to="/admin">
-
               <div className="items-center ml-2 py-4  mb-1 text-sm font-medium text-gray-700">
-
                 Tổng Quan
               </div>
             </Link>
             <Link to="/admin/list-menu">
-
               <div className="py-3 px-3 hover:bg-blue-100 cursor-pointer rounded text-sm text-gray-600  font-normal antialiased tracking-normal">
                 Quản lí Menu
               </div>
             </Link>
-            <Link to="/admin/report">
+            <Link to="/admin/report-interactive">
               <div className="py-3 px-3 hover:bg-blue-100 cursor-pointer rounded text-sm text-gray-600  font-normal antialiased tracking-normal">
-                Thông Kê
+                Thông Kê Tương tác
               </div>
             </Link>
-            <Link to="/admin/customer-management"> <div className="py-3 px-3 bg-blue-100 cursor-pointer rounded text-sm text-gray-600  font-normal antialiased tracking-normal">
-              Quản Lí Khách Hàng
-            </div></Link>
+            <Link to="/admin/report-menu">
+              <div className="py-3 px-3 hover:bg-blue-100 cursor-pointer rounded text-sm text-gray-600  font-normal antialiased tracking-normal">
+                Thông Kê menu
+              </div>
+            </Link>
+            <Link to="/admin/report-button">
+              <div className="py-3 px-3 hover:bg-blue-100 cursor-pointer rounded text-sm text-gray-600  font-normal antialiased tracking-normal">
+                Thông Lịch Nút
+              </div>
+            </Link>
+            <Link to="/admin/report-action">
+              <div className="py-3 px-3 hover:bg-blue-100 cursor-pointer rounded text-sm text-gray-600  font-normal antialiased tracking-normal">
+                Thông Lịch sử tương tác
+              </div>
+            </Link>
+            <Link to="/admin/customer-management">
+              <div className="py-3 px-3 bg-blue-100 cursor-pointer rounded text-sm text-gray-600  font-normal antialiased tracking-normal">
+                Quản Lí Khách Hàng
+              </div>
+            </Link>
 
             <Link to="/admin/integrared">
-
               <div className="py-3 px-3 hover:bg-blue-100 cursor-pointer rounded text-sm text-gray-600  font-normal antialiased tracking-normal">
                 Tích Hợp
               </div>
@@ -71,17 +85,20 @@ export default function Menu() {
               Hướng Dẫn Sử Dụng
             </div>
 
-
             <div className="border border-gray-300 mt-5" />
-            <Link to="/admin/upgrade-account"><div className="cursor-pointer py-3 px-3  hover:bg-blue-100 rounded text-sm text-gray-600  font-normal antialiased tracking-normal">
-              Nâng Cấp Tài Khoản
-            </div></Link>
+            <Link to="/admin/upgrade-account">
+              <div className="cursor-pointer py-3 px-3  hover:bg-blue-100 rounded text-sm text-gray-600  font-normal antialiased tracking-normal">
+                Nâng Cấp Tài Khoản
+              </div>
+            </Link>
             <div className="cursor-pointer py-3 px-3  hover:bg-blue-100 rounded text-sm text-gray-600  font-normal antialiased tracking-normal">
               Chợ Ứng Dụng
             </div>
-            <Link to="/admin/payment-history"><div className="cursor-pointer py-3 px-3 mb-5 hover:bg-blue-100 rounded text-sm text-gray-600  font-normal antialiased tracking-normal">
-              Lịch Sử Thanh Toán
-            </div></Link>
+            <Link to="/admin/payment-history">
+              <div className="cursor-pointer py-3 px-3 mb-5 hover:bg-blue-100 rounded text-sm text-gray-600  font-normal antialiased tracking-normal">
+                Lịch Sử Thanh Toán
+              </div>
+            </Link>
             <div className="border border-gray-300 mt-5" />
             <div className="cursor-pointer py-3 px-3 mb-5 hover:bg-blue-100 rounded text-sm text-gray-600  font-normal antialiased tracking-normal">
               Kiểm Tiền Từ PolyTu
@@ -91,5 +108,4 @@ export default function Menu() {
       </div>
     </>
   );
-
 }
