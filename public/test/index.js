@@ -71,6 +71,7 @@ fetch(`http://localhost:8080/api/v1/getMenuByStatus/${window.name}`, {
                                     <img
                                       alt="url" style="height:30px;margin-right:20px"
                                       src="../images/${items.icon}"
+
                                       class="mmt-button__icon"/>
                                     <span  class="mmt-button__label" style="color: ${items.color_text}">${items.name_button}</span></span>
                                 </div>
