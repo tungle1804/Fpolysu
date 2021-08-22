@@ -1,17 +1,12 @@
-import logo from './logo.svg';
-import './App.css';
+
+import "./App.css";
 import Router from "./routers";
-// import "@material-tailwind/react/tailwind.css";
-
+import "react-datepicker/dist/react-datepicker.css";
 function App() {
-
   return (
-
     <div className="App">
       <Router />
     </div>
-
-
   );
 }
 

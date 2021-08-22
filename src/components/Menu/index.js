@@ -10,6 +10,7 @@ export default function Menu() {
             <img
               className="h-2/5 w-20"
               src="https://fpt.com.vn/Content/home/images/icon/logo-ft.png"
+              alt="xxx"
             />
           </div>
 
@@ -23,37 +24,47 @@ export default function Menu() {
           </div>
         </div>
         <div className="border border-gray-300 mt-5" />
-        <div className="overflow-auto" style={{ height: "730px" }}>
-          <div className="flex-col py-3">
-            <Link to="/admin" style = {{textDecoration:"none"}}>
-            <div className="py-3 px-4 hover:bg-blue-100 cursor-pointer">
-              <i className="fas fa-tachometer-alt text-blue-700"></i>
-                <span className = "text-gray-900 pl-3">Tổng Quan</span>
+        <div className="overflow-auto" style={{ height: "430px" }}>
+          <div className="flex-col px-3">
+            <Link to="/admin">
+              <div className="items-center ml-2 py-4  mb-1 text-sm font-medium text-gray-700">
+                Tổng Quan
               </div>
             </Link>
-            <Link to="/admin/list-menu" style = {{textDecoration:"none"}}>
-              <div className="py-3 px-4 hover:bg-blue-100 cursor-pointer">
-                <i className="fas fa-bars text-blue-700"></i>
-                <span className = "text-gray-900 pl-3">Quản Lí Menu</span>
+            <Link to="/admin/list-menu">
+              <div className="py-3 px-3 hover:bg-blue-100 cursor-pointer rounded text-sm text-gray-600  font-normal antialiased tracking-normal">
+                Quản lí Menu
               </div>
             </Link>
-            <Link to="/admin/report" style = {{textDecoration:"none"}}>
-              <div className="py-3 px-4 hover:bg-blue-100 cursor-pointer">
-              <i className="fas fa-chart-pie text-blue-700"></i>
-                <span className = "text-gray-900 pl-3">Thống Kê</span>
+            <Link to="/admin/report-interactive">
+              <div className="py-3 px-3 hover:bg-blue-100 cursor-pointer rounded text-sm text-gray-600  font-normal antialiased tracking-normal">
+                Thông Kê Tương tác
               </div>
             </Link>
-            <Link to="/admin/customer-management" style = {{textDecoration:"none"}}>
-              <div className="py-3 px-4 hover:bg-blue-100 cursor-pointer">
-              <i className="fas fa-users text-blue-700"></i>
-                <span className = "text-gray-900 pl-3">Quản Lí Khách Hàng</span>
-            </div>
+            <Link to="/admin/report-menu">
+              <div className="py-3 px-3 hover:bg-blue-100 cursor-pointer rounded text-sm text-gray-600  font-normal antialiased tracking-normal">
+                Thông Kê menu
+              </div>
+            </Link>
+            <Link to="/admin/report-button">
+              <div className="py-3 px-3 hover:bg-blue-100 cursor-pointer rounded text-sm text-gray-600  font-normal antialiased tracking-normal">
+                Thông Lịch Nút
+              </div>
+            </Link>
+            <Link to="/admin/report-action">
+              <div className="py-3 px-3 hover:bg-blue-100 cursor-pointer rounded text-sm text-gray-600  font-normal antialiased tracking-normal">
+                Thông Lịch sử tương tác
+              </div>
+            </Link>
+            <Link to="/admin/customer-management">
+              <div className="py-3 px-3 bg-blue-100 cursor-pointer rounded text-sm text-gray-600  font-normal antialiased tracking-normal">
+                Quản Lí Khách Hàng
+              </div>
             </Link>
 
-            <Link to="/admin/integrared" style = {{textDecoration:"none"}}>
-              <div className="py-3 px-4 hover:bg-blue-100 cursor-pointer">
-              <i className="fas fa-calendar-check text-blue-700"></i>
-                <span className = "text-gray-900 pl-3">Tích Hợp</span>
+            <Link to="/admin/integrared">
+              <div className="py-3 px-3 hover:bg-blue-100 cursor-pointer rounded text-sm text-gray-600  font-normal antialiased tracking-normal">
+                Tích Hợp
               </div>
             </Link>
             <div className="py-3 px-4 hover:bg-blue-100 cursor-pointer">
@@ -86,5 +97,4 @@ export default function Menu() {
       </div>
     </>
   );
-
 }
