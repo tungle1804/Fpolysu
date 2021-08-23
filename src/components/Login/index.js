@@ -18,17 +18,20 @@ export default function Login() {
 
     var data = JSON.stringify(infoLogin);
     const handleSubmit = (e) => {
+
         e.preventDefault();
         callApi('post', 'login', data)
             .then((response) => {
+
                 if (response.data.role[0].authority === 'customer') {
+
                     history.push("/admin/list-menu'")
                 } else {
                     history.push("/admin/manage")
                 }
-                localStorage.setItem("token", JSON.stringify(response.data.token));
-                localStorage.setItem("fullName", JSON.stringify(response.data.fullName));
-                localStorage.setItem("email", JSON.stringify(response.data.email));
+                localStorage.setItem("token", response.data.token);
+                localStorage.setItem("fullName", response.data.fullName);
+                localStorage.setItem("email", response.data.email);
                 //  setJwt(data.token);
 
             })

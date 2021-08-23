@@ -1,12 +1,11 @@
 import {
-    FETCH_CREATE_BUTTON_REQUEST,
-    FETCH_CREATE_BUTTON_SUCCESS,
-    FETCH_CREATE_BUTTON_ERROR,
-    FETCH_CREATE_BUTTON_DELETE,
-    VIEW_BUTTON,
-    UPDATE_BUTTON,
-    FETCH_CLEAR
-} from '../constants/createbuttonAction'
+    FETCH_INPUT_REQUEST,
+    FETCH_INPUT_DELETE,
+    FETCH_INPUT_SUCCESS,
+    FETCH_INPUT_ERROR,
+    VIEW_INPUT,
+    FETCH_INPUT_UPDATE
+} from '../constants/InputConstant'
 
 const initialState = {
     requesting: false,
@@ -15,14 +14,14 @@ const initialState = {
     data: []
 
 }
-function createbuttonReducers(state = initialState, payload) {
+function InputReducers(state = initialState, payload) {
     switch (payload.type) {
-        case FETCH_CREATE_BUTTON_REQUEST:
+        case FETCH_INPUT_REQUEST:
             return {
                 ...state,
                 requesting: true
             }
-        case FETCH_CREATE_BUTTON_SUCCESS:
+        case FETCH_INPUT_SUCCESS:
             return {
                 ...state,
                 requesting: false,
@@ -30,7 +29,7 @@ function createbuttonReducers(state = initialState, payload) {
                 // data: payload.data
                 data: state.data.concat([payload.data])
             }
-        case FETCH_CREATE_BUTTON_DELETE:
+        case FETCH_INPUT_DELETE:
             const commentId = payload.data
 
             return {
@@ -39,41 +38,28 @@ function createbuttonReducers(state = initialState, payload) {
                 success: true,
                 // data: payload.data
 
-                data: state.data.filter(data => data.id_button !== commentId)
+                data: state.data.filter(data => data.id_input !== commentId)
 
             }
-        case VIEW_BUTTON:
-            return {
-                ...state,
-                requesting: false,
-                success: true,
-                // data: payload.data
-            }
-        case UPDATE_BUTTON:
+        case FETCH_INPUT_UPDATE:
             return {
                 ...state,
                 requesting: false,
                 success: true,
                 data: state.data.map(item => {
-                    return item.id_button === payload.data.id_button ? payload.data : item;
+                    return item.id_input === payload.data.id_input ? payload.data : item;
                 })
             }
-        case FETCH_CREATE_BUTTON_ERROR:
+
+        case FETCH_INPUT_ERROR:
             return {
                 ...state,
                 requesting: false,
                 success: false,
                 message: payload.message
             };
-        case FETCH_CLEAR:
-            return {
-                ...state,
-                requesting: false,
-                success: true,
-                data: [],
-            };
         default:
             return state;
     }
 
-} export default createbuttonReducers
+} export default InputReducers
