@@ -10,7 +10,6 @@ import baseInstance from '../util/baseAPI'
 // }
 export const getApi = (data) => {
     return new Promise((resolve, reject) => {
-
         return baseInstance
             .get(`${data[0]}`, data[1])
             .then((res) => resolve(res))

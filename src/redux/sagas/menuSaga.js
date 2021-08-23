@@ -35,15 +35,18 @@ import { saveInput, fetchInputRequest, fetchInputSuccess, fetchInputFailed } fro
 //         }).then(response=>response.json()).catch((error)=>{throw error})
 //     }
 
-function* fetchMenus() {
+function* fetchMenus({ data }) {
 
     try {
-        let email = localStorage.getItem('email')
+        // let email = localStorage.getItem('email')
+        console.log(data)
         // const menu = yield call(MenuService.getMenuByEmail(email))
         // yield put(loadMenus())
         yield put(fetchListMenusRequest())
         // const menu = yield call(getApi("http://localhost:8080/api/v1/getMenuByEmail/nhan@gmail.com", 'GET'))\
-        const response = yield call(getApi, [`/getMenuByEmail/${email}`]);
+        // const response = yield call(getApi, ['/getMenuByEmail/vuthanhnam@gmail.com']);
+        const response = yield call(getApi, [`/getMenuByEmail/${data.email}`]);
+
         yield put(fetchListMenusSuccess())
         yield put(savelistMenus(response.data))
 
