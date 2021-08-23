@@ -11,40 +11,348 @@ import ButtonFake from '../../service/ButtonFake';
 import { useDispatch, useSelector } from 'react-redux';
 import { createButton } from '../../redux/actions/createbuttonAction';
 import Swal from 'sweetalert2'
+import Modals from './Modals';
+import { InputContext } from '../../service/InputContext';
+import { CreateInput, fetchSaveInput } from '../../redux/actions/InputAction';
+import { SketchPicker } from 'react-color'
+import { saveBackgroundColor } from '../../redux/actions/backgroundColorAction';
+
+
+export function useStyle() {
+    return (
+        <> text-blue-500 border-b-2 font-medium border-blue-500</>
+
+    )
+
+}
+
 export default function ViewCreateMenu() {
-    const data = useSelector(state => state.createbuttons.data)
+    const innistall = {
+        displayColorPicker: false,
+        color: {
+            r: '241',
+            g: '112',
+            b: '19',
 
-    const requesting = useSelector(state => state.createbuttons.requesting)
+        }
+    }
+    const initstateText = {
+        displayColorText: false,
+        color: {
+            r: '241',
+            g: '112',
+            b: '19',
 
+        }
+    }
+
+    const initstateBackground = {
+        displayColorBackground: false,
+        color: {
+            r: '241',
+            g: '112',
+            b: '19',
+
+        }
+    }
+    const initstateIcon = {
+        displayColorIcon: false,
+        color: {
+            r: '241',
+            g: '112',
+            b: '19',
+        }
+    }
+    const initstateValueButton = {
+        name_button: null,
+        color_text: null,
+        color_background: null,
+        color_icon: null,
+        link: null
+    }
+
+    const style = useStyle().props.children;
+    const dataInput = useSelector(state => state.input.data);
+    const dataButton = useSelector(state => state.createbuttons.data);
     const dispatch = useDispatch();
     let history = useHistory();
-    const [nameMN, setNameMN] = useState('')
+    const [nameMN, setNameMN] = useState('');
     const [show, setShow] = useState(false);
     const [show1, setShow1] = useState(false);
-    const [test, setTest] = useState()
-    const [test1, setTest1] = useContext(ButtonContext)
-    const [images, setImages] = useState()
-    const [colormenu, setColorMenu] = useState()
-    const [countInput, setCountInput] = useState([0])
-    let couter = useRef(0);
+    const [valueButton, setValueButton] = useState(initstateValueButton);
+    const [test1, setTest1] = useContext(ButtonContext);
+    const [input, setInput] = useContext(InputContext);
+    const [images, setImages] = useState();
+    const [colormenu, setColorMenu] = useState();
+    const [displayColor, setDisplayColor] = useState(true);
+    const [displayTab, setDisplayTab] = useState(1);
+    const [countInput, setCountInput] = useState(0);
+    const [children, setChildren] = useState([]);
+    const [colorPicker, setColorPicker] = useState(innistall);
+    const [colorText, setColorText] = useState(initstateText);
+    const [colorBackground, setColorBackground] = useState(initstateBackground);
+    const [colorIcon, setColorIcon] = useState(initstateIcon);
+    const styles = {
+        color: {
+            width: '36px',
+            height: '14px',
+            borderRadius: '2px',
+            background: `rgba(${colorPicker.color && colorPicker.color.r}, ${colorPicker.color && colorPicker.color.g}, ${colorPicker.color && colorPicker.color.b})`,
+        },
+        swatch: {
+            padding: '5px',
+            background: '#fff',
+            borderRadius: '1px',
+            boxShadow: '0 0 0 1px rgba(0,0,0,.1)',
+            display: 'inline-block',
+            cursor: 'pointer',
+        },
+        popover: {
+            position: 'absolute',
+            zIndex: '1',
+        },
+        cover: {
+            position: 'fixed',
+            top: '0px',
+            right: '0px',
+            bottom: '0px',
+            left: '0px',
+        },
 
+    };
+    const stylesText = {
+        color: {
+            width: '36px',
+            height: '14px',
+            borderRadius: '2px',
+            background: `rgba(${colorText.color && colorText.color.r}, ${colorText.color && colorText.color.g}, ${colorText.color && colorText.color.b})`,
+        },
+        swatch: {
+            padding: '5px',
+            background: '#fff',
+            borderRadius: '1px',
+            boxShadow: '0 0 0 1px rgba(0,0,0,.1)',
+            display: 'inline-block',
+            cursor: 'pointer',
+        },
+        popover: {
+            position: 'absolute',
+            zIndex: '1',
+        },
+        cover: {
+            position: 'fixed',
+            top: '0px',
+            right: '0px',
+            bottom: '0px',
+            left: '0px',
+        },
+
+    };
+    const stylesBackground = {
+        color: {
+            width: '36px',
+            height: '14px',
+            borderRadius: '2px',
+            background: `rgba(${colorBackground.color && colorBackground.color.r}, ${colorBackground.color && colorBackground.color.g}, ${colorBackground.color && colorBackground.color.b})`,
+        },
+        swatch: {
+            padding: '5px',
+            background: '#fff',
+            borderRadius: '1px',
+            boxShadow: '0 0 0 1px rgba(0,0,0,.1)',
+            display: 'inline-block',
+            cursor: 'pointer',
+        },
+        popover: {
+            position: 'absolute',
+            zIndex: '1',
+        },
+        cover: {
+            position: 'fixed',
+            top: '0px',
+            right: '0px',
+            bottom: '0px',
+            left: '0px',
+        },
+
+    };
+    const stylesIcon = {
+        color: {
+            width: '36px',
+            height: '14px',
+            borderRadius: '2px',
+            background: `rgba(${colorIcon.color && colorIcon.color.r}, ${colorIcon.color && colorIcon.color.g}, ${colorIcon.color && colorIcon.color.b})`,
+        },
+        swatch: {
+            padding: '5px',
+            background: '#fff',
+            borderRadius: '1px',
+            boxShadow: '0 0 0 1px rgba(0,0,0,.1)',
+            display: 'inline-block',
+            cursor: 'pointer',
+        },
+        popover: {
+            position: 'absolute',
+            zIndex: '1',
+        },
+        cover: {
+            position: 'fixed',
+            top: '0px',
+            right: '0px',
+            bottom: '0px',
+            left: '0px',
+        },
+
+    };
     const onHandleChange = (e) => {
         const { name } = e.target;
-        setTest({
-            ...test,
+        setValueButton({
+            ...valueButton,
             [name]: e.target.value
-
         })
-
 
     }
 
     const handleShow = (images) => {
         setImages(images)
-
         setShow(true);
+        setValueButton({
+            ...valueButton,
+            name_button: null,
+            color_text: null,
+            color_background: null,
+            color_icon: null,
+            link: null
+        }
+        )
     }
 
+
+    const handleClick = () => {
+        setColorPicker({ ...colorPicker, displayColorPicker: true })
+    }
+    const handleClose = () => {
+        setColorPicker({ ...colorPicker, displayColorPicker: false })
+    };
+    const handleChange = (color) => {
+        setColorPicker({ ...colorPicker, color: color.rgb })
+
+        dispatch(saveBackgroundColor(rgbToHex(color.rgb.r, color.rgb.g, color.rgb.b)))
+
+    };
+    const handleClickText = () => {
+        setColorText({ ...colorText, displayColorText: true })
+    }
+    const handleCloseText = () => {
+        setColorText({ ...colorText.color, displayColorText: false })
+    }
+    const handleChangeText = (color) => {
+        setColorText({ ...colorText, color: color.rgb })
+        setValueButton({ ...valueButton, color_text: color.rgb })
+    }
+    const handleClickBackground = () => {
+        setColorBackground({ ...colorBackground, displayColorBackground: true })
+    }
+    const handleCloseBackground = () => {
+        setColorBackground({ ...colorBackground.color, displayColorBackground: false })
+    }
+    const handleChangeBackground = (color) => {
+        setColorBackground({ ...colorBackground, color: color.rgb })
+        setValueButton({ ...valueButton, color_background: color.rgb })
+    }
+    const handleClickIcon = () => {
+        setColorIcon({ ...colorIcon, displayColorIcon: true })
+    }
+    const handleCloseIcon = () => {
+        setColorIcon({ ...colorIcon.color, displayColorIcon: false })
+    }
+    const handleChangeIcon = (color) => {
+        setColorIcon({ ...colorIcon, color: color.rgb })
+        setValueButton({ ...valueButton, color_icon: color.rgb })
+    }
+    function hexToRgb(hex) {
+        var bigint = parseInt(hex, 16);
+        var r = (bigint >> 16) & 255;
+        var g = (bigint >> 8) & 255;
+        var b = bigint & 255;
+
+        return r + "," + g + "," + b;
+    }
+    function componentToHex(c) {
+        var hex = c.toString(16);
+        return hex.length == 1 ? "0" + hex : hex;
+    }
+
+    function rgbToHex(r, g, b) {
+        return "#" + componentToHex(r) + componentToHex(g) + componentToHex(b);
+    }
+
+    const viewColorRight = () => {
+        return (<>
+            <span className="mr-5">Màu nền</span>
+            <div style={styles.swatch} onClick={handleClick}>
+                <div style={styles.color} />
+            </div>
+
+            {
+                colorPicker.displayColorPicker ? <div >
+                    <div style={styles.cover} onClick={handleClose} />
+                    <SketchPicker color={colorPicker.color} onChange={handleChange} />
+                </div> : ""
+            }
+
+        </>)
+    }
+
+    const viewColorTextInput = () => {
+
+
+        return (<>
+            <div style={stylesText.swatch} onClick={handleClickText}>
+                <div style={stylesText.color} />
+            </div>
+
+            {
+                colorText.displayColorText ? <div >
+                    <div style={stylesText.cover} onClick={handleCloseText} />
+                    <SketchPicker color={colorText.color} onChange={handleChangeText} />
+                </div> : ""
+            }
+
+        </>)
+    }
+    const viewColorBackgroundInput = () => {
+
+
+        return (<>
+            <div style={stylesBackground.swatch} onClick={handleClickBackground}>
+                <div style={stylesBackground.color} />
+            </div>
+
+            {
+                colorBackground.displayColorBackground ? <div >
+                    <div style={stylesBackground.cover} onClick={handleCloseBackground} />
+                    <SketchPicker color={colorBackground.color} onChange={handleChangeBackground} />
+                </div> : ""
+            }
+
+        </>)
+    }
+    const viewColorIconInput = () => {
+        return (<>
+            <div style={stylesIcon.swatch} onClick={handleClickIcon}>
+                <div style={stylesIcon.color} />
+            </div>
+
+            {
+                colorIcon.displayColorIcon ? <div >
+                    <div style={stylesIcon.cover} onClick={handleCloseIcon} />
+                    <SketchPicker color={colorIcon.color} onChange={handleChangeIcon} />
+                </div> : ""
+            }
+
+        </>)
+    }
     const handleShow1 = () => {
 
         setShow1(true);
@@ -53,22 +361,44 @@ export default function ViewCreateMenu() {
 
 
         let data = {
-            menu: [{ users: { email: localStorage.getItem('email') }, name_menu: nameMN, status: 'false', color_menu: colormenu }]
+            menu: [{ users: { email: localStorage.getItem('email') }, name_menu: nameMN, status: 'false', color_menu: colormenu ? colormenu : rgbToHex(colorPicker.color.r, colorPicker.color.g, colorPicker.color.b) }]
             , button: []
+            , modal: []
         }
-        for (let i = 0; i < test1.length; i++) {
+
+        for (let i = 0; i < dataButton.length; i++) {
+
 
             const button = {
-                name_button: test1[i].name_button, color_text: test1[i].color_text, color_background: test1[i].color_background, color_icon: test1[i].color_icon, link: test1[i].link, icon: test1[i].icon
+                name_button: dataButton[i].name_button,
+                color_text: dataButton[i].color_text,
+                color_background: dataButton[i].color_background,
+                color_icon: dataButton[i].color_icon,
+                link: dataButton[i].link,
+                icon: dataButton[i].icon
             };
 
-            data.button.push(button)
-        }
-        if (colormenu && colormenu !== "") {
-            ButtonService.createButton(data)
+            // for (let i = 0; i < dataInput.length; i++) {
+            //     if (dataInput.length > 0 && dataInput && test1[i].name_button === dataInput[i].id_button) {
+            //         const modal = { inputName: dataInput[i].name_input, inputValue: dataInput[i].value_input }
+            //         button.modal.push(modal)
+            //     }
 
+            // }
+
+            data.button.push(button)
+
+        }
+
+        // for (let i = 0; i < dataInput.length; i++) {
+        //     const modal = { inputName: dataInput[i].name_input, inputValue: dataInput[i].value_input }
+        //     data.modal.push(modal)
+        // }
+        if ((colormenu && colormenu != null) ||
+            (colorPicker && colorPicker.color.r != null && colorPicker.color.g != null && colorPicker.color.b != null)) {
+            ButtonService.createButton(data)
             setShow1(false)
-            history.push('/admin/list-metu');
+            // history.push('/admin/list-metu');
         } else {
 
             Swal.fire('Bạn phải chọn màu cho Menu')
@@ -78,26 +408,33 @@ export default function ViewCreateMenu() {
 
     }
     const handleClose2 = () => {
-        // MenuService.deleteMenu(idmenu)
         setShow1(false)
     }
     const getRandomInt = (min, max) => {
         return (Number(Math.floor(Math.random() * (max - min)) + min));
 
     };
+
     const onhandleCloses = () => {
-
-        // let tshirt = { tenBT: test.tenBT, color: test.color, link: test.link }
-        // setTest1(currentState => [...currentState, tshirt]);
-        // localStorage.setItem('test', JSON.stringify(test1))
-
-        let tshirt = { id_button: getRandomInt(4, 10000), name_button: test.name_button, color_text: test.color_text, color_background: test.color_background, color_icon: test.color_icon, link: test.link, icon: images }
+        const id = getRandomInt(4, 10000)
+        let tshirt = {
+            id_button: id,
+            name_button: valueButton.name_button,
+            color_text: rgbToHex(valueButton.color_text.r, valueButton.color_text.g, valueButton.color_text.b),
+            color_background: rgbToHex(valueButton.color_background.r, valueButton.color_background.g, valueButton.color_background.b),
+            color_icon: valueButton.color_icon ? rgbToHex(valueButton.color_icon.r, valueButton.color_icon.g, valueButton.color_icon.b) : null,
+            link: valueButton.link, icon: images,
+            captionContent: valueButton.captionContent
+        }
         dispatch(createButton(tshirt))
         setTest1(currentState => [...currentState, tshirt]);
 
-        // let tshirt_fake = { id_button: number, name_button: test.name_button, color_text: test.color_text, color_background: test.color_background, color_icon: test.color_icon, link: test.link, icon: images }
+        for (let i = 0; i < dataInput.length; i++) {
 
-        ButtonFake.createButtonFake(tshirt)
+            const CreateInputValue = { buttons: { id: id }, inputName: dataInput[i].input_name }
+
+            dispatch(fetchSaveInput({ CreateInputValue }))
+        }
         setShow(false)
 
     }
@@ -109,28 +446,43 @@ export default function ViewCreateMenu() {
     const changemenuname = (e) => {
         setNameMN(e.target.value)
 
-
     }
 
     const onhandleColor = (color) => {
         setColorMenu(color)
+        dispatch(saveBackgroundColor(color))
+    }
+    const InsertInput = () => {
+
+        const id = getRandomInt(4, 1000)
+        let tshirt = { id_input: id, inputName: null }
+        dispatch(CreateInput(tshirt))
+
     }
 
-    const updateCountInput = () => {
-        console.log('ss')
-        setCountInput(couter.current++)
-        console.log(countInput)
+    const viewColorLeft = () => {
+        return (<><button onClick={() => onhandleColor('black')} className="h-12 w-12 mx-auto rounded-md bg-gray-900"></button>
+            <button onClick={() => onhandleColor('#EE0000')} className="h-12 w-12 mx-auto rounded-md bg-red-600"></button>
+            <button onClick={() => onhandleColor('fuchsia')} className="h-12 w-12 mx-auto rounded-md bg-pink-700"></button>
+            <button onClick={() => onhandleColor('gray')} className="h-12 w-12 mx-auto rounded-md bg-gray-500"></button>
+            <button onClick={() => onhandleColor('aqua')} className="h-12 w-12 mx-auto rounded-md bg-teal-400"></button></>)
     }
-    const generateInput = (current) => {
-        for (let i = 0; i < current; i++) {
-            return (<>
-                <Form.Group controlId="formBasicEmail">
-                    <Form.Label>Nhập tên người phụ trách số điện thoại (*)</Form.Label>
-                    <Form.Control type="text" placeholder="Gọi ngay" />
 
-                </Form.Group>
-            </>)
-        }
+    const onChangeViewColorLeft = () => {
+        setDisplayTab(1)
+        setColorPicker({
+            ...colorPicker, color: {
+                r: null,
+                g: null,
+                b: null,
+            }
+        })
+        dispatch(saveBackgroundColor(null))
+    }
+    const onChangeViewColorRight = () => {
+        setDisplayTab(2)
+        setColorMenu(null);
+        dispatch(saveBackgroundColor(null))
     }
     return (
         <>
@@ -156,89 +508,7 @@ export default function ViewCreateMenu() {
                             </div>
                             <label>Danh sách các nút để chọn:</label>
                             <section className="container mx-auto px-6 my-1 flex flex-wrap -m-4">
-                                {/* <div className="p-2 md:w-40 ">
 
-                                    <div onClick={() => handleShow('zalo.png')} className="flex items-center p-4 bg-gray-200 rounded-lg shadow-xs cursor-pointer hover:bg-gray-500 hover:text-gray-100">
-                                      
-                                        <a className="flex items-center p-4 bg-blue-200 rounded-lg shadow-xs cursor-pointer hover:bg-blue-500 hover:text-gray-100">
-                                            <img className="h-12" src="../images/zalo.png" />
-
-                                            <div >
-                                                <p className=" text-xs font-medium ml-2 ">
-                                                    Zalo
-              </p>
-
-                                            </div>
-                                        </a>
-                                    </div>
-                                </div>
-
-                                <div className="p-2 md:w-40 ">
-                                    <div onClick={() => handleShow('message.png')} className="flex items-center p-4 bg-gray-200 rounded-lg shadow-xs cursor-pointer hover:bg-gray-500 hover:text-gray-100">
-                                        <a className="flex items-center p-4 bg-blue-200 rounded-lg shadow-xs cursor-pointer hover:bg-blue-500 hover:text-gray-100">
-                                            <img className="h-12" src="../images/message.png" />
-                                            <div>
-                                                <p className="text-xs font-medium ml-2 ">
-                                                    Messager
-              </p>
-
-                                            </div>
-                                        </a>
-                                    </div>
-                                </div>
-
-                                <div className="p-2 md:w-40 ">
-                                    <div onClick={() => handleShow('call.png')} className="flex items-center p-4 bg-gray-200 rounded-lg shadow-xs cursor-pointer hover:bg-orange-500 hover:text-gray-100">
-                                        <a className="flex items-center p-4 bg-blue-200 rounded-lg shadow-xs cursor-pointer hover:bg-blue-500 hover:text-gray-100">
-                                            <img className="h-12" src="../images/call.png" />
-                                            <div>
-                                                <p className=" text-xs font-medium ml-2 ">
-                                                    Gọi ngay
-              </p>
-
-                                            </div>
-                                        </a>
-                                    </div>
-                                </div>
-                                <div className="p-2 md:w-40 ">
-                                    <div onClick={() => handleShow('seemore.png')} className="flex items-center p-4 bg-gray-200 rounded-lg shadow-xs cursor-pointer hover:bg-orange-500 hover:text-gray-100">
-                                        <a className="flex items-center p-4 bg-blue-200 rounded-lg shadow-xs cursor-pointer hover:bg-blue-500 hover:text-gray-100">
-                                            <img className="h-12" src="../images/seemore.png" />
-                                            <div>
-                                                <p className=" text-xs font-medium ml-2 ">
-                                                    Xem Thêm
-              </p>
-
-                                            </div>
-                                        </a>
-                                    </div>
-                                </div>
-                                <div className="p-2 md:w-40 ">
-                                    <div onClick={() => handleShow('email.png')} className="flex items-center p-4 bg-gray-200 rounded-lg shadow-xs cursor-pointer hover:bg-orange-500 hover:text-gray-100">
-                                        <a className="flex items-center p-4 bg-blue-200 rounded-lg shadow-xs cursor-pointer hover:bg-blue-500 hover:text-gray-100">
-                                            <img className="h-12" src="../images/email.png" />
-                                            <div>
-                                                <p className=" text-xs font-medium ml-2 ">
-                                                    Nhận Email
-              </p>
-
-                                            </div>
-                                        </a>
-                                    </div>
-                                </div>
-                                <div className="p-2 md:w-40 ">
-                                    <div onClick={() => handleShow('share.png')} className="flex items-center p-4 bg-gray-200 rounded-lg shadow-xs cursor-pointer hover:bg-orange-500 hover:text-gray-100">
-                                        <a className="flex items-center p-4 bg-blue-200 rounded-lg shadow-xs cursor-pointer hover:bg-blue-500 hover:text-gray-100">
-                                            <img className="h-12" src="../images/share.png" />
-                                            <div>
-                                                <p className=" text-xs font-medium ml-2 ">
-                                                    Chia sẻ
-              </p>
-
-                                            </div>
-                                        </a>
-                                    </div>
-                                </div> */}
                                 <div className="m-3">
                                     <button onClick={() => handleShow('zalo.png')} className="bg-white text-gray-800 font-bold rounded border-b-2 border-green-500 hover:border-green-600 hover:bg-green-500 hover:text-white shadow-md py-4 px-6 inline-flex items-center">
                                         <span className="mr-2">Zalo</span>
@@ -291,13 +561,19 @@ export default function ViewCreateMenu() {
 
                             </section>
                             <label>Màu sắc:</label>
+                            <nav class="flex flex-col sm:flex-row">
+                                <button onClick={onChangeViewColorLeft} className={`text-gray-600 py-4 px-6 block hover:text-blue-500 focus:outline-none ${displayTab === 1 && style} `}>
+                                    Mặc định
+                                </button><button onClick={onChangeViewColorRight} className={`text-gray-600 py-4 px-6 block hover:text-blue-500 focus:outline-none ${displayTab === 2 && style}`}>
+                                    Tùy chỉnh
+                                </button>
+                            </nav>
                             <div className="container mx-auto px-6 my-1 flex flex-wrap -m-4 mt-5 mb-5">
-                                <button onClick={() => onhandleColor('black')} className="h-12 w-12 mx-auto rounded-md bg-gray-900"></button>
-                                <button onClick={() => onhandleColor('#EE0000')} className="h-12 w-12 mx-auto rounded-md bg-red-600"></button>
-                                <button onClick={() => onhandleColor('fuchsia')} className="h-12 w-12 mx-auto rounded-md bg-pink-700"></button>
-                                <button onClick={() => onhandleColor('gray')} className="h-12 w-12 mx-auto rounded-md bg-gray-500"></button>
-                                <button onClick={() => onhandleColor('aqua')} className="h-12 w-12 mx-auto rounded-md bg-teal-400"></button>
+
+                                {displayTab === 1 ? viewColorLeft() : viewColorRight()}
+
                             </div>
+
 
                             <label>Chọn thiết bị bạn muốn hiển thị:</label> <br /><br />
                             <button class="inline-block px-6 py-2 text-xs font-medium leading-6 text-center text-white uppercase transition bg-blue-700 rounded-full shadow ripple hover:shadow-lg hover:bg-blue-800 focus:outline-none waves-effect">
@@ -353,8 +629,44 @@ export default function ViewCreateMenu() {
 
                     <Form>
                         <Form.Group controlId="formBasicEmail">
-                            <Form.Label>Biểu tượng nút</Form.Label>
-                            <img className="h-12 bg-gray-400" src={`../images/${images}`} />
+
+                            <div class=" flex  space-x-2">
+                                <div class="flex-1 mt-5">   <Form.Label>Biểu tượng nút</Form.Label><img className="h-12 bg-gray-400" src={`../images/${images}`} /></div>
+                                <div class="flex-1 "><div className="flex  flex-wrap mt-1 ">
+                                    <div class="p-2 text-right ml-5 mt-3">
+                                        <Form.Label>Hiển thị</Form.Label>
+                                        <div style={{
+                                            background: `rgba(${valueButton.color_background && valueButton.color_background.r},
+                                                    ${valueButton.color_background && valueButton.color_background.g}, 
+                                                    ${valueButton.color_background && valueButton.color_background.b})`
+                                        }} className={`flex items-center p-1  rounded-lg shadow-xs cursor-pointer hover:bg-blue-500 hover:text-gray-100`}>
+
+                                            <button classname={`flex items-center bg-gray-200 rounded-lg shadow-xs cursor-pointer hover:bg-blue-500 hover:text-gray-100`}>
+
+                                                <img className="h-12" src={`../images/${images}`} />
+
+                                                <div>
+
+                                                    <p className="text-xs font-medium mt-2 ml-2"
+                                                        style={{
+                                                            color: `rgba(${valueButton.color_text && valueButton.color_text.r},
+                                                    ${valueButton.color_text && valueButton.color_text.g}, 
+                                                    ${valueButton.color_text && valueButton.color_text.b})`
+                                                        }} >
+
+                                                        {valueButton && valueButton.name_button}
+                                                    </p>
+
+                                                </div>
+                                            </button>
+
+                                        </div>
+                                    </div>
+
+                                </div></div>
+
+                            </div>
+
 
                         </Form.Group>
                         <Form.Group controlId="formBasicEmail">
@@ -365,19 +677,20 @@ export default function ViewCreateMenu() {
 
                         <Form.Group controlId="formBasicPassword">
                             <Form.Label>Nhập nội dung chú thích</Form.Label>
-                            <Form.Control type="text" placeholder="Hiển thị chú thích khi di chuột vào" />
+                            <Form.Control name="captionContent" onChange={onHandleChange} placeholder="Hiển thị chú thích khi di chuột vào" />
                         </Form.Group>
                         <Form.Group controlId="formBasicPassword">
-                            <Form.Label>Color Text</Form.Label>
-                            <Form.Control name="color_text" onChange={onHandleChange} type="text" placeholder="Màu Chữ" />
+                            <Form.Label className="mr-5">Màu chữ</Form.Label>
+                            {viewColorTextInput()}
+
                         </Form.Group>
                         <Form.Group controlId="formBasicPassword">
-                            <Form.Label>Color Background</Form.Label>
-                            <Form.Control name="color_background" onChange={onHandleChange} type="text" placeholder="Màu Nền" />
+                            <Form.Label className="mr-5" >Màu nền</Form.Label>
+                            {viewColorBackgroundInput()}
                         </Form.Group>
                         <Form.Group controlId="formBasicPassword">
-                            <Form.Label>Color Icon</Form.Label>
-                            <Form.Control name="color_icon" onChange={onHandleChange} type="text" placeholder="Màu Icon" />
+                            <Form.Label className="mr-5" >Màu icon</Form.Label>
+                            {viewColorIconInput()}
                         </Form.Group>
 
                         <Form.Group controlId="formLink">
@@ -402,27 +715,11 @@ export default function ViewCreateMenu() {
                             <Form.Control type="text" placeholder="Gọi ngay" />
 
                         </Form.Group>
-                        {/* {(() => {
-                            countInput.length > 0 && countInput.map((item) => {
-                                debugger
-                                return (<>
+                        <Modals />
 
-                                    {item}
-                                    <Form.Group controlId="formBasicEmail">
-                                        <Form.Label >Địa chỉ của văn phòng11111 | chi nhánh | cá nhân</Form.Label>
-                                        <Form.Control type="text" placeholder="Gọi ngay" />
-                                    </Form.Group>
-                                </>)
-                            })
-
-
-                        })()
-
-
-                        } */}
                     </Form>
                     <div class="cursor-pointer text-blue-400 -ml-4">
-                        <p onClick={() => updateCountInput()} class="inline hover:bg-blue-100 px-4 py-3 rounded-full"><i class="fas fa-globe"></i>Thêm trường thông tin</p>
+                        <p onClick={() => InsertInput()} class="inline hover:bg-blue-100 px-4 py-3 rounded-full"><i class="fas fa-globe"></i>Thêm trường thông tin</p>
                     </div>
                 </Modal.Body>
 
