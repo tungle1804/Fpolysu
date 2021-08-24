@@ -6,9 +6,10 @@ import {
 } from '../constants/menuConstant'
 import MenuService from '../../service/Menu/MenuService'
 
-export const loadMenus = () => {
+export const loadMenus = (data) => {
     return {
-        type: FETCH_MENUS
+        type: FETCH_MENUS,
+        data: data
     }
 }
 export const fetchListMenusRequest = () => {

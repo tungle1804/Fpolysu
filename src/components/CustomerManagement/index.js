@@ -45,35 +45,35 @@ function CustomerManagement({
           <ul className="mt-6">
             {data && data.length > 0
               ? data.map((item) => {
-                  return (
-                    <>
-                      <div onClick={() => onchangebyId(item.id)}>
-                        <li className="py-3 border-b px-3 transition hover:bg-indigo-100">
-                          <div className="flex justify-center items-center content-center bg-gradient-to-br from-pink-300 to-pink-600 shadow-md hover:shadow-lg h-10 w-10 rounded-full fill-current text-white">
-                            <svg
-                              xmlns="http://www.w3.org/2000/svg"
-                              className="h-8 w-8"
-                              viewBox="0 0 20 20"
-                              fill="currentColor"
-                            >
-                              <path
-                                fillRule="evenodd"
-                                d="M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z"
-                                clipRule="evenodd"
-                              />
-                            </svg>
-                          </div>
-                          <div className="flex justify-between items-center">
-                            <h3 className="text-lg font-semibold">
-                              {item.phone}
-                            </h3>
-                            <p className="text-md text-gray-400">23m ago</p>
-                          </div>
-                        </li>
-                      </div>
-                    </>
-                  );
-                })
+                return (
+                  <>
+                    <div onClick={() => onchangebyId(item.id)}>
+                      <li className="py-3 border-b px-3 transition hover:bg-indigo-100">
+                        <div className="flex justify-center items-center content-center bg-gradient-to-br from-pink-300 to-pink-600 shadow-md hover:shadow-lg h-10 w-10 rounded-full fill-current text-white">
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            className="h-8 w-8"
+                            viewBox="0 0 20 20"
+                            fill="currentColor"
+                          >
+                            <path
+                              fillRule="evenodd"
+                              d="M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z"
+                              clipRule="evenodd"
+                            />
+                          </svg>
+                        </div>
+                        <div className="flex justify-between items-center">
+                          <h3 className="text-lg font-semibold">
+                            {item.phone}
+                          </h3>
+                          <p className="text-md text-gray-400">23m ago</p>
+                        </div>
+                      </li>
+                    </div>
+                  </>
+                );
+              })
               : ""}
           </ul>
         </section>
@@ -88,7 +88,7 @@ function CustomerManagement({
                 />
               </div>
               <div className="flex flex-col">
-<h3 className="font-semibold text-lg">Akhil Gautam</h3>
+                <h3 className="font-semibold text-lg">Akhil Gautam</h3>
                 <p className="text-light text-gray-400">akhil.gautam123@gmail.com</p>
               </div>
             </div>
@@ -193,7 +193,7 @@ function CustomerManagement({
               defaultValue={""}
             />
             <label>Địa chỉ</label>
-<input disabled value={dataInfo ? dataInfo.address : ""} className="w-full bg-purple-100 p-2 rounded-xl" rows={3} defaultValue={""} />
+            <input disabled value={dataInfo ? dataInfo.address : ""} className="w-full bg-purple-100 p-2 rounded-xl" rows={3} defaultValue={""} />
             <label>Số điện thoại </label>
             <input
               disabled
@@ -286,7 +286,7 @@ function CustomerManagement({
                     />
                   </tr>
                   <tr className="border-t text-sm">
-<td className="p-1 pl-2 border-r ">Địa chỉ</td>
+                    <td className="p-1 pl-2 border-r ">Địa chỉ</td>
                     <input type="text" autofocus id="username" className="rounded-sm px-4 py-3 mt-3 focus:outline-none bg-gray-100 w-full" />
                   </tr>
                 </tbody>
@@ -357,7 +357,7 @@ function CustomerManagement({
   //             </a>
   //             <a
   //               href="xxx"
-//               className="w-16 p-4 border text-gray-700 rounded-2xl mb-4"
+  //               className="w-16 p-4 border text-gray-700 rounded-2xl mb-4"
   //             >
   //               <svg
   //                 xmlns="http://www.w3.org/2000/svg"
@@ -431,7 +431,7 @@ function CustomerManagement({
   //               <svg
   //                 xmlns="http://www.w3.org/2000/svg"
   //                 fill="none"
-//                 viewBox="0 0 24 24"
+  //                 viewBox="0 0 24 24"
   //                 stroke="currentColor"
   //               >
   //                 <path
@@ -484,7 +484,7 @@ function CustomerManagement({
   //               <div className="text-md italic text-gray-400">
   //                 You have been invited!
   //               </div>
-//             </li>
+  //             </li>
   //             <li className="py-5 border-b px-3 transition hover:bg-indigo-100">
   //               <a href="xxx" className="flex justify-between items-center">
   //                 <h3 className="text-lg font-semibold">Akhil Gautam</h3>
@@ -542,7 +542,7 @@ function CustomerManagement({
   //             <div>
   //               <ul className="flex text-gray-400 space-x-4">
   //                 <li className="w-6 h-6">
-//                   <svg
+  //                   <svg
   //                     xmlns="http://www.w3.org/2000/svg"
   //                     fill="none"
   //                     viewBox="0 0 24 24"
@@ -609,7 +609,7 @@ function CustomerManagement({
   //                     stroke="currentColor"
   //                   >
   //                     <path
-//                       strokeLinecap="round"
+  //                       strokeLinecap="round"
   //                       strokeLinejoin="round"
   //                       strokeWidth={2}
   //                       d="M5 5a2 2 0 012-2h10a2 2 0 012 2v16l-7-3.5L5 21V5z"
@@ -670,7 +670,7 @@ function CustomerManagement({
   //                   xmlns="http://www.w3.org/2000/svg"
   //                   fill="none"
   //                   viewBox="0 0 24 24"
-//                   stroke="currentColor"
+  //                   stroke="currentColor"
   //                 >
   //                   <path
   //                     strokeLinecap="round"
@@ -741,7 +741,7 @@ function CustomerManagement({
 const mapStateToProps = (state) => {
   return {
     data: state.data.data,
-dataInfo: state.data.dataInfo,
+    dataInfo: state.data.dataInfo,
 
   };
 };

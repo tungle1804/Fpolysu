@@ -25,8 +25,8 @@ function ManagerMenu({
   // const dispatch = useDispatch();
   const history = useHistory();
   useEffect(() => {
-
-    dispatch(loadMenus());
+    let email = JSON.parse(localStorage.getItem('email'))
+    dispatch(loadMenus({ email }));
   }, []);
   const onlistbutton = (id) => {
     dispatch(loadButtons({ id }));
@@ -38,11 +38,11 @@ function ManagerMenu({
       {/* {requesting ? <h1>hiiiiii</h1> : (data && data.length > 0) ? <View onlistbutton={onlistbutton} posts={data} /> : <div>Data is empty</div>} */}
 
       {/* {data && data.length > 0 ? ( */}
-        <View
-          onlistbutton={onlistbutton}
-          posts={data}
-          requesting={requesting}
-        />
+      <View
+        onlistbutton={onlistbutton}
+        posts={data}
+        requesting={requesting}
+      />
       {/* ) : (
         <div>Data is empty</div>
       )} */}
