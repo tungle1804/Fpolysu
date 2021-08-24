@@ -8,6 +8,7 @@ import {
   CCardHeader,
   CPagination,
   CRow,
+  CLabel,
 } from "@coreui/react";
 import {
   dataYear,
@@ -80,10 +81,7 @@ function TotalCustomerByMonth() {
   return (
     <>
       <CRow className="container row-auto">
-        <CCard className="col-8 offset-3">
-          <CCardHeader className="text-center font-weight-bold">
-            Thống kê lượng Khách hàng theo ngày
-          </CCardHeader>
+        <CCard className="col-3">
           <CCardBody className="mx-auto p-1 border text-center">
             <CCardTitle className="text-orange-500">Click chọn ngày</CCardTitle>
             <DatePicker
@@ -96,7 +94,10 @@ function TotalCustomerByMonth() {
           </CCardBody>
         </CCard>
 
-        <CCard className="col-10 offset-2">
+        <CCard className="col-8">
+          <CCardHeader className="text-center font-extrabold">
+            Thống kê tương tác hàng ngày của Menu hiện đang sử dụng:{}
+          </CCardHeader>
           <CCardBody>
             <CChartBar
               datasets={[
