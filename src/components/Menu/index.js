@@ -43,17 +43,17 @@ export default function Menu() {
             </Link>
             <Link to="/admin/report-menu">
               <div className="py-3 px-3 hover:bg-blue-100 cursor-pointer rounded text-sm text-gray-600  font-normal antialiased tracking-normal">
-                Thông Kê menu
+                Thông kê menu
               </div>
             </Link>
             <Link to="/admin/report-button">
               <div className="py-3 px-3 hover:bg-blue-100 cursor-pointer rounded text-sm text-gray-600  font-normal antialiased tracking-normal">
-                Thông Lịch Nút
+                Thống kê nút
               </div>
             </Link>
             <Link to="/admin/report-action">
               <div className="py-3 px-3 hover:bg-blue-100 cursor-pointer rounded text-sm text-gray-600  font-normal antialiased tracking-normal">
-                Thông Lịch sử tương tác
+               Thống kê lịch sử tương tác
               </div>
             </Link>
             <Link to="/admin/customer-management">

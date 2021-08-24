@@ -741,12 +741,8 @@ function CustomerManagement({
 const mapStateToProps = (state) => {
   return {
     data: state.data.data,
-<<<<<<< HEAD
-    dataInfo: state.data.dataInfo,
-=======
 dataInfo: state.data.dataInfo,
 
->>>>>>> 30d4734a4b67ff328712265e767723599489919f
   };
 };
 const mapDispatchToProps = (dispatch) => {

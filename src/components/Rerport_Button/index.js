@@ -27,22 +27,24 @@ import axios from "axios";
 import DisplayResultPagination from "./../DisplayResultPagination/DisplayResultPagination";
 import CustomerDatePicker from "./../CustomerDatePicker/index";
 
-function Report_Menu() {
-  const [dataMenu, setDataMenu] = useState([]);
+function Report_Button() {
+  const [dataButton, setDataButton] = useState([]);
   const [menuId, setMenuId] = useState();
-  const [dataActionOfMenuByDay, setDataActionOfMenuByDay] = useState();
+  const [buttonId, setButtonId] = useState();
+  const [dataActionOfButtonByDay, setDataActionOfButtonByDay] = useState();
   const [menus, setMenus] = useState([]);
+  const [buttons, setButtons] = useState([{ value: "", label: "" }]);
   const [listCalender, setListCalender] = useState([]);
   // let menus = [];
-  const [startDate, setStartDate] = useState(new Date('2021-08-01'));
+  const [startDate, setStartDate] = useState(new Date("2021-08-01"));
   const [endDate, setEndDate] = useState(new Date());
 
   const arr = [];
-
+  const arrbt = [];
   const getListMenu = async () => {
     // const username = localStorage.getItem("email");
     const username = "vuthanhnam@gmail.com";
-    var config = {
+    const config = {
       method: "get",
       url: `http://localhost:8080/api/v1/getMenuByEmail/${username}`,
       headers: {
@@ -67,7 +69,37 @@ function Report_Menu() {
       });
   };
 
-  // console.log(menus);
+  const getListButtons = async () => {
+    // const username = localStorage.getItem("email");
+    // const username = "vuthanhnam@gmail.com";
+    setButtons([]);
+    const config = {
+      method: "get",
+      url: `http://localhost:8080/api/v1/getButtonByIDMenu/${menuId}`,
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+        "Content-Type": "application/json",
+      },
+    };
+
+    await axios(config)
+      .then(function (response) {
+        const datas = response.data;
+        //  console.log("datas", datas);
+        datas.map((item) => {
+          // console.log("item", item);
+          const mn = { value: item.id, label: item.name_button };
+          arrbt.push(mn);
+        });
+        if (menuId) {
+          setButtons(arrbt);
+        }
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  };
+  console.log("buttons", buttons);
 
   const getListCalenderbyTimeRange = () => {
     var data = JSON.stringify({
@@ -77,7 +109,7 @@ function Report_Menu() {
       status: true,
     });
 
-    var config = {
+    const config = {
       method: "get",
       url: `http://localhost:8080/api/v1/getListCalenderByRangeTime?start=${startDate
         .toISOString()
@@ -100,16 +132,16 @@ function Report_Menu() {
       });
   };
   // console.log("test", menus);
-  const getDataMenu = () => {
+  const getDataButton = () => {
     const username = "vuthanhnam@gmail.com";
     // const username = localStorage.getItem("email")
-    var config = {
+    const config = {
       method: "get",
-      url: `http://localhost:8080/api/v1/getTotalNumberClickOnMenu?email=${username}&start=${startDate
+      url: `http://localhost:8080/api/v1/getTotalNumberClickOnButtonByRangeTimeSelect?email=${username}&start=${startDate
         .toISOString()
         .slice(0, 10)}&end=${endDate
         .toISOString()
-        .slice(0, 10)}&menuId=${menuId}`,
+        .slice(0, 10)}&buttonId=${buttonId}`,
       headers: {
         Authorization: `Bearer ${localStorage.getItem("token")}`,
         "Content-Type": "application/json",
@@ -118,8 +150,8 @@ function Report_Menu() {
 
     axios(config)
       .then(function (response) {
-        setDataMenu(response.data.content);
-        //   console.log("data", dataMenu);
+        setDataButton(response.data.content);
+        console.log("data", dataButton);
       })
       .catch(function (error) {
         console.log(error);
@@ -127,17 +159,14 @@ function Report_Menu() {
   };
   const getDataActionOfMenuByDay = () => {
     //var axios = require('axios');
-    var data = JSON.stringify({
-      menuId: 8,
-    });
 
+    // const username = localStorage.getItem("eamil")
     const username = "vuthanhnam@gmail.com";
     const baseHref =
-      "http://localhost:8080/api/v1/statisticAllActionOnThisMenuByDay";
-    var config = {
-      // const username = localStorage.getItem("eamil")
+      "http://localhost:8080/api/v1/statisticAllActionOnThisButtonByDay";
+    const config = {
       method: "get",
-      url: `${baseHref}?email=${username}&idMenu=${menuId}&start=${startDate
+      url: `${baseHref}?email=${username}&idButton=${buttonId}&start=${startDate
         .toISOString()
         .slice(0, 10)}&end=${endDate.toISOString().slice(0, 10)}`,
       // url: "http://localhost:8080/api/v1/statisticAllActionOnThisMenuByDay?email=vuthanhnam@gmail.com&idMenu=6&end=2021-08-24&start=2021-08-15",
@@ -145,35 +174,38 @@ function Report_Menu() {
         Authorization: `Bearer ${localStorage.getItem("token")}`,
         "Content-Type": "application/json",
       },
-      data: data,
     };
 
     axios(config)
       .then(function (response) {
-        console.log(JSON.stringify(response.data));
-        setDataActionOfMenuByDay(response.data);
-        console.log("DataActionOfMenuByDay", dataActionOfMenuByDay);
+        console.log("responseDataOfButton", response.data);
+        console.log("objectApiUrl: ", config.url);
+        setDataActionOfButtonByDay(response.data);
+        console.log("DataActionOfMenuByDay", dataActionOfButtonByDay);
       })
       .catch(function (error) {
         console.log(error);
       });
   };
+
   useEffect(() => {
     getListMenu();
-
-    // return () => {
-    //   cleanup
-    // }
+    document.getElementById("button").hidden = true;
   }, []);
 
   useEffect(() => {
-    getDataMenu();
+    getListButtons();
+  }, [menuId]);
+
+  useEffect(() => {
+    getDataButton();
+    getDataActionOfMenuByDay();
+  }, [buttonId, menuId]);
+
+  useEffect(() => {
     getListCalenderbyTimeRange();
     getDataActionOfMenuByDay();
-    // return () => {
-    //   cleanup
-    // }
-  }, [menuId, startDate, endDate]);
+  }, [startDate, endDate]);
   // const menus = [
   //   { value: "under", label: "Dưới 18 tuổi" },
   //   { value: "between", label: "18 đến 35 tuổi" },
@@ -184,30 +216,50 @@ function Report_Menu() {
       <div className="row justify-content-center">
         <h2>
           Thống kê tương tác theo
-          <CBadge color="secondary"> Menu</CBadge>
+          <CBadge color="secondary"> Nút </CBadge>
         </h2>
       </div>
       <br />
       <CRow>
         <CCol sm={6}>
           <CCard>
-            <CCardHeader>Chọn Menu</CCardHeader>
-            <br />
+            <CCardHeader>Chọn Menu-Nút</CCardHeader>
+
             <CCardBody>
-              <Select
-                name="menu"
-                options={menus}
-                placeholder="Chọn Menu"
-                //  defaultValue={{ value: menus[0].value, label: menus[0].label }}
-                onChange={(e) => {
-                  //  setPage(1);
-                  setMenuId(e.value);
-                  console.log("this menu select", e.value);
-                }}
-              />
+              <CRow>
+                <CLabel className="col-3 font-extrabold">Chọn Menu: </CLabel>
+                <Select
+                  id="menu"
+                  className="col-8"
+                  name="menu"
+                  options={menus}
+                  placeholder="Chọn Menu"
+                  //  defaultValue={{ value: menus[0].value, label: menus[0].label }}
+                  onChange={(e) => {
+                    document.getElementById("button").hidden = false;
+                    setMenuId(e.value);
+                    console.log("this menu select", e.value);
+                  }}
+                />
+              </CRow>
+              <br />
+              <br />
+              <CRow id="button">
+                <CLabel className="col-3 font-extrabold">Chọn nút: </CLabel>
+                <Select
+                  className="col-8"
+                  name="button"
+                  options={buttons}
+                  placeholder="Chọn Nút"
+                  //  defaultValue={{ value: menus[0].value, label: menus[0].label }}
+                  onChange={(e) => {
+                    //  setPage(1);
+                    setButtonId(e.value);
+                    console.log("this button select", e.value);
+                  }}
+                />
+              </CRow>
             </CCardBody>
-            <br />
-            <br />
           </CCard>
         </CCol>
         <CCol sm={6}>
@@ -234,7 +286,7 @@ function Report_Menu() {
           </CCardHeader>
           <CCardBody>
             <h1 className="text-lg-center px-3">
-              <CBadge color="secondary">{dataMenu}</CBadge>
+              <CBadge color="secondary">{dataButton}</CBadge>
             </h1>
           </CCardBody>
           <CCardFooter></CCardFooter>
@@ -247,7 +299,7 @@ function Report_Menu() {
                 {
                   label: "Lượng Tương tác",
                   backgroundColor: "#f87979",
-                  data: dataActionOfMenuByDay,
+                  data: dataActionOfButtonByDay,
                 },
               ]}
               labels={listCalender}
@@ -264,4 +316,4 @@ function Report_Menu() {
   );
 }
 
-export default Report_Menu;
+export default Report_Button;

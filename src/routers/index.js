@@ -25,9 +25,10 @@ import PaymentHistory from "../components/PaymentHistory";
 import UpgradeAccount from "../components/UpgradeAccount";
 import Integrated from "../components/Integrated";
 import CustomerManagement from "../components/CustomerManagement";
-import AdminManage from "../components/AdminManage";
+import AdminManage from "./../components/admin/components/AdminManage";
 import Report_Menu from "../components/Report_Menu";
 import Report_ActionHistory from "../components/Report_ActionHistory";
+import Report_Button from "../components/Rerport_Button";
 
 // eslint-disable-next-line import/no-anonymous-default-export
 export default function Routers() {
@@ -93,7 +94,10 @@ export default function Routers() {
                       component={Report_Interactive}
                     />
                     <Route path="/admin/report-menu" component={Report_Menu} />
-                    <Route path="/admin/report-button" component={Report_Menu} />
+                    <Route
+                      path="/admin/report-button"
+                      component={Report_Button}
+                    />
                     <Route
                       path="/admin/report-action"
                       component={Report_ActionHistory}
