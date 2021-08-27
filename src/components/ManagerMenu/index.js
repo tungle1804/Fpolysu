@@ -25,7 +25,7 @@ function ManagerMenu({
   // const dispatch = useDispatch();
   const history = useHistory();
   useEffect(() => {
-    let email = JSON.parse(localStorage.getItem('email'))
+    let email = localStorage.getItem('email')
     dispatch(loadMenus({ email }));
   }, []);
   const onlistbutton = (id) => {
