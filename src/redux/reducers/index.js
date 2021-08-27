@@ -6,6 +6,7 @@ import updatebuttonReducers from './updatebuttonReducer'
 import dataReducers from './dataReducer'
 import InputReducers from './InputReducer'
 import BackgroundcolorReducers from './backgroundColorReducer'
+import DisplayMenuReducers from './displayMenuReducer'
 const reducers = combineReducers({
     posts: postReducer,
     buttons: buttonReducers,
@@ -14,6 +15,7 @@ const reducers = combineReducers({
     data: dataReducers,
     input: InputReducers,
     colormenu: BackgroundcolorReducers,
+    displayMenu: DisplayMenuReducers,
 
 })
 // eslint-disable-next-line import/no-anonymous-default-export
