@@ -1,25 +1,72 @@
 import React, { useState } from "react";
 import DatePicker from "react-datepicker";
-const CustomerDatePicker = () => {
-  const [startDate, setStartDate] = useState(new Date("2021/09/01"));
-  const [endDate, setEndDate] = useState(new Date("2021/09/02"));
+import moment from "moment";
+
+
+const CustomerDatePicker = ({
+  startDate,
+  setStartDate,
+  endDate,
+  setEndDate,
+}) => {
+
+
   return (
     <>
-      <DatePicker
-        selected={startDate}
-        onChange={(date) => setStartDate(date)}
-        selectsStart
-        startDate={startDate}
-        endDate={endDate}
-      />
-      <DatePicker
-        selected={endDate}
-        onChange={(date) => setEndDate(date)}
-        selectsEnd
-        startDate={startDate}
-        endDate={endDate}
-        minDate={startDate}
-      />
+      <div className="row">
+        <div className="col-6">
+          <label style={{ fontWeight: "bold" }}>Start:</label>
+          <DatePicker
+            className="border border-info text-sm-center"
+            selected={startDate}
+            onChange={(date) => setStartDate(date)}
+            selectsStart
+            startDate={startDate}
+            endDate={endDate}
+            dateFormat="dd/MM/yyyy"
+   
+          />
+        </div>
+        <div className="col-6">
+          <label style={{ fontWeight: "bold" }}>End:</label>
+          <DatePicker
+            className="border border-info text-sm-center"
+            selected={endDate}
+            onChange={(date) => setEndDate(date)}
+            selectsEnd
+            startDate={startDate}
+            endDate={endDate}
+            maxDate={new Date()}
+            dateFormat="dd/MM/yyyy"
+            
+          />
+        </div>
+      </div>
+      <div
+        style={{
+          fontFamily: "monospace",
+          fontWeight: "lighter",
+          color: "orangered",
+          alignContent: "center",
+        }}
+      >
+        <br />
+        {startDate && endDate && (
+          <div className="summary">
+            <p
+              style={{
+                fontFamily: "monospace",
+                fontWeight: "lighter",
+                color: "orangered",
+                alignContent: "center",
+              }}
+            >
+              Thống kê tương tác từ ngày {moment(startDate).format("l")} đến
+              ngày {moment(endDate).format("l")}.
+            </p>
+          </div>
+        )}
+      </div>
     </>
   );
 };
