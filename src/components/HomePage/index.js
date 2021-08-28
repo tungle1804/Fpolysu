@@ -111,11 +111,11 @@ export default function HomePage() {
                                     <ul className="list-reset lg:flex justify-center flex-1 items-center my-auto">
                                         <li class="mr-3">
                                             <a class="inline-block lg:text-xl text-base py-2 px-4 text-black hover:text-purple-700 hover:bg-gray-300 rounded font-bold transition duration-150 ease-in-out transform hover:scale-125"
-                                                href="#">Home</a>
+                                                href="#">Trang chủ</a>
                                         </li>
-                                        <li class="mr-3">
+                                        {/* <li class="mr-3">
                                             <a class="inline-block lg:text-xl text-base text-black hover:text-purple-700 hover:bg-gray-300 rounded py-2 px-4 transition duration-150 ease-in-out transform hover:scale-125" href="#">Contact us</a>
-                                        </li>
+                                        </li> */}
                                         <li class="mr-3">
                                             <a onClick={() => history.push('/hssd')} class=" inline-block lg:text-xl text-base text-black hover:text-purple-700 hover:bg-gray-300 rounded py-2 px-4 transition duration-150 ease-in-out transform hover:scale-125" href="#">Hướng dẫn sử dụng</a>
                                         </li>

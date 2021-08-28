@@ -337,7 +337,7 @@ export default function CreateDetailsMenu({ data, color }) {
     }
     return (
         <>
-            <div className=" relative ml-10  pt-8" style={{ width: '700px' }}>
+            <div className=" lg:ml-10 bg-white rounded shadow-xl p-6 w-screen lg:w-full " >
                 <div className="w-full px-2 hover:bg-blue-100 py-2 text-xl font-semibold">Danh sách nút đã tạo</div>
 
 
@@ -375,6 +375,21 @@ export default function CreateDetailsMenu({ data, color }) {
                         </div>
                     )
                     )}
+
+                </div>
+                <div className="flex mt-3 border-b-2 border-gray-200 pb-4">
+                    <button class="flex px-4 py-2 hover:bg-red-500  w-auto self-center text-sm font-medium antialiased rounded bg-blue-800 text-white">
+                        <i class="fas fa-tv mr-3 my-auto"></i>
+                        <div>
+                            Máy tính
+                        </div>
+                    </button>
+                    <button class="flex ml-2 px-4 py-2 hover:bg-red-500 w-auto self-center  text-sm font-medium antialiased rounded bg-blue-800 text-white">
+                        <i class="fas fa-mobile-alt mr-3 my-auto"></i>
+                        <div>
+                            Điện thoại
+                        </div>
+                    </button>
 
                 </div>
                 <button style={{ backgroundColor: color }} className={`h-12 w-12 mx-auto rounded-md `}></button>

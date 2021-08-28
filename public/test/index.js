@@ -1,3 +1,5 @@
+
+
 console.log("window name " + window.name);
 console.log("location.href", window.location.href);
 fetch(`http://localhost:8080/api/v1/getMenuByStatus/${window.name}`, {
@@ -43,6 +45,22 @@ fetch(`http://localhost:8080/api/v1/getMenuByStatus/${window.name}`, {
           root.id = "metu";
           document.body.appendChild(root);
 
+          // Get HTML head element
+          var head = document.getElementsByTagName('HEAD')[0];
+
+          // Create new link Element
+          var link = document.createElement('link');
+
+          // set the attributes for link element 
+          link.rel = 'stylesheet';
+
+          link.type = 'text/css';
+
+          link.href = 'styleMenu.css';
+
+          // Append link element to HTML head
+          head.appendChild(link);
+
           const html = data2
             .map((items) => {
               return `
@@ -77,7 +95,7 @@ fetch(`http://localhost:8080/api/v1/getMenuByStatus/${window.name}`, {
                                 </div>
                                 </a>
                                 </span>
-`;
+              `;
             })
             .join("");
           root.innerHTML = html;

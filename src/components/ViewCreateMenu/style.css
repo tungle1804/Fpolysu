@@ -1,0 +1,23 @@
+.drop {
+    overflow: hidden;
+    }
+    .drop-content {
+    max-height: 0;
+    transition: all 0.5s;
+    }
+    input:checked + .drop-label .test {
+        background-color: #000;
+    }
+    input:checked + .drop-label .test svg {
+        transform: rotate(180deg);
+        stroke: #fff;
+    }
+    input:checked + .drop-label::after {
+    transform: rotate(90deg);
+    }
+    input:checked ~ .drop-content {
+    max-height: 100vh;
+    }
+
+
+/* radio */

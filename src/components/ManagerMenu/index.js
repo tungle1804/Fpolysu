@@ -35,29 +35,32 @@ function ManagerMenu({
   };
   return (
     <>
+
       {/* {requesting ? <h1>hiiiiii</h1> : (data && data.length > 0) ? <View onlistbutton={onlistbutton} posts={data} /> : <div>Data is empty</div>} */}
 
       {/* {data && data.length > 0 ? ( */}
-      <View
-        onlistbutton={onlistbutton}
-        posts={data}
-        requesting={requesting}
-      />
-      {/* ) : (
+      <div className="block lg:flex justify-between w-auto">
+        <View 
+          onlistbutton={onlistbutton}
+          posts={data}
+          requesting={requesting}
+        />
+        {/* ) : (
         <div>Data is empty</div>
       )} */}
-      {/* <Route path="/admin"><View /> </Route>
+        {/* <Route path="/admin"><View /> </Route>
 
                     <Route path="/create-menu">   <CreateMenu /></Route> */}
 
-      {/* {requesting ? <ReactLoading type="balls" color="#ffff" height="667" width="375" /> : idmenu ? <MenuDetails idmenu={idmenu} /> : <h1>not data</h1>} */}
-      {
-        <MenuDetails
-          idMenu={idMenu}
-          dataButton={dataButton}
-          requestingButton={requestingButton}
-        />
-      }
+        {/* {requesting ? <ReactLoading type="balls" color="#ffff" height="667" width="375" /> : idmenu ? <MenuDetails idmenu={idmenu} /> : <h1>not data</h1>} */}
+        {
+          <MenuDetails 
+            idMenu={idMenu}
+            dataButton={dataButton}
+            requestingButton={requestingButton}
+          />
+        }
+      </div>
     </>
   );
 }

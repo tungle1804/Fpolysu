@@ -50,7 +50,7 @@ export default function Sidebar({ sidebarOpen,
                 <div
                     id="sidebar"
                     ref={sidebar}
-                    className={`absolute z-40 left-0 top-0 lg:static lg:left-auto lg:top-auto lg:translate-x-0 transform h-screen overflow-y-scroll  lg:overflow-y-auto no-scrollbar w-64 flex-shrink-0 bg-gray-100 p-4 transition-transform duration-200 ease-in-out ${sidebarOpen ? 'translate-x-0' : '-translate-x-64'}`}
+                    className={`absolute z-40 left-0 top-0 lg:static lg:left-auto lg:top-auto lg:translate-x-0 transform h-full lg:h-screen overflow-y-scroll lg:overflow-y-auto  w-64 flex-shrink-0 bg-gray-100 p-4 transition-transform duration-200 ease-in-out ${sidebarOpen ? 'translate-x-0' : '-translate-x-64'}`}
                 >
 
                     {/* Sidebar header */}

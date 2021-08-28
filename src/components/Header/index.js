@@ -19,7 +19,7 @@ export default function Header() {
 
     return (
         <>
-            <nav className="bg-white fixed top-0 shadow-lg w-full">
+            <nav className="bg-white top-0 shadow-lg w-full">
                 <div className="px-4 mx-auto">
                     <div className="flex items-center justify-between h-16">
                         <div className="flex items-center">

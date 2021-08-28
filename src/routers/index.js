@@ -11,7 +11,6 @@ import Display from "../components/Display";
 import DisplayCreateDetails from "../components/Display/displaycreatedetails";
 import Dashboard from "../components/Dashboard";
 import ManagerMenu from "../components/ManagerMenu";
-
 import CreateMenu from "../components/CreateMenu/index";
 import { ButtonProvider } from "../service/ButtonContext";
 import { MenuProvider } from "../service/MenuContext";

@@ -1,6 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react'
 import { MenuContext } from '../../service/MenuContext'
 import Iframe from 'react-iframe'
+import './styleResponsive.css'
 import Ifram from '../CreateDetailsMenu/iframe'
 import { useDispatch, useSelector } from 'react-redux'
 import { viewButtonByIDMenu } from '../../redux/actions/buttonAction'
@@ -33,9 +34,29 @@ export default function MenuDetails({ idMenu, dataButton, requestingButton }) {
         <>
 
 
-            <div className="  relative ml-10  pt-8  " style={{ width: '620px' }}>
+            <div className="lg:ml-10 bg-white rounded shadow-xl p-6 w-screen lg:w-full ">
+                <div className="mb-5">
+                    <div className="mb-5 mt-3 border-b-2 border-gray-200 pb-4 text-base  text-black font-semibold antialiased tracking-normal">
+                        Giao diện mẫu
+                    </div>
+                    <div className="flex ">
+                        <button class="flex px-4 py-2 hover:bg-red-500  w-auto self-center text-sm font-medium antialiased rounded bg-blue-800 text-white">
+                            <i class="fas fa-tv mr-3 my-auto"></i>
+                            <div>
+                                Máy tính
+                            </div>
+                        </button>
+                        <button class="flex ml-2 px-4 py-2 hover:bg-red-500 w-auto self-center  text-sm font-medium antialiased rounded bg-blue-800 text-white">
+                            <i class="fas fa-mobile-alt mr-3 my-auto"></i>
+                            <div>
+                                Điện thoại
+                            </div>
+                        </button>
+                        
+                    </div>
+                </div>
                 {/* <button className="border border-teal-500 bg-teal-500 text-white rounded-md px-4 py-2 m-2 transition duration-500 ease select-none hover:bg-teal-600 focus:outline-none focus:shadow-outline" onClick={onchangeClick}>{iframe ? 'Không hiển thị' : 'Hiển thị'}</button> */}
-                <div className="flex    flex-wrap mt-1">
+                <div className="flex flex-wrap mt-1 ifame mx-auto" >
                     {dataButton && dataButton.length > 0 ? dataButton.map((items) => {
                         return (
                             <div class="p-2 ">
@@ -93,9 +114,10 @@ export default function MenuDetails({ idMenu, dataButton, requestingButton }) {
 
 
 
-                    <div className="app-preview__body desktop">
+                    <div className="app-preview__body desktop xl:px-5">
                         <div className="preview-image">
-                            <img src="../../../images/desktop.png" alt="" width="692px" height="409px" />
+                            <img src="../../../images/desktop.png" alt=""/>
+                            {/* width="692px" height="407px" */}
 
                             {/* <Ifram iframe={demos["soundcloud"]}></Ifram> */}
                             {requestingButton ? '' : <Iframe frameborder="0" src={`http://localhost:3000/view/${idMenu}`} />}

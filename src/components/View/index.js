@@ -96,31 +96,35 @@ export default function View({ posts, onlistbutton, requesting }) {
       {requesting ? (
         <ReactLoading type="balls" color="#f32" height={467} width={275} />
       ) : (
-        <div className=" ml-10 h-full" style={{ width: "400px" }}>
-          <div className="text-sm text-gray-600 font-normal antialiased tracking-normal">
+        <div className=" bg-white rounded shadow-xl p-6 lg:h-full lg:w-full w-screen mb-3 lg:my-0" >
+          {/* <div className="text-sm text-gray-600 font-normal antialiased tracking-normal">
             Projects &nbsp; / &nbsp; Biltrax IT Project
+          </div> */}
+          <div className="flex mt-3 pb-4 justify-between border-b-2 border-gray-200">
+            <div className="text-base  text-black font-semibold antialiased tracking-normal ">
+              Danh Sách Menu
+            </div>
+            <Link
+              to="create-menu"
+              className="lg:ml-32 px-4 py-1 self-center text-sm font-medium antialiased rounded bg-blue-800 text-white transform  duration-500 hover:scale-110"
+            >
+              Tạo Menu
+            </Link>
+
           </div>
-          <div className="text-2xl mt-3 text-black font-semibold antialiased tracking-normal">
-            Danh Sách Menu
-          </div>
-          <Link
-            to="create-menu"
-            class=" px-3 py-1 self-center ml-2 text-sm font-medium antialiased rounded bg-blue-800 text-white"
-          >
-            Tạo Menu
-          </Link>
-          <div className="flex mt-5 w-full">
+          {/* <button className="bg-black w-96">abc</button> */}
+          <div className="flex mt-3 w-full">
             <input
               onChange={(e) => setSearch(e.target.value)}
               type="text"
-              className="w-1/2 h-8 px-2 text-gray-500 border rounded text-xs"
+              className="w-full h-10 px-2 text-gray-500 border rounded text-xs"
               placeholder="Tìm Kiếm Menu ..."
             />
           </div>
-          <div className="bg-gray-100 mt-4 rounded">
-            <div className="mx-2 bg-white rounded">
+          <div className="bg-white mt-4 rounded">
+            <div className=" bg-gray-100 rounded">
               <div
-                className="overflow-auto flex-col"
+                className="overflow-auto flex-col "
                 style={{ height: "308px" }}
               >
                 {paginate.tableData.map((res) => {

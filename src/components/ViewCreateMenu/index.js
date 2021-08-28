@@ -16,6 +16,18 @@ import { InputContext } from '../../service/InputContext';
 import { CreateInput, fetchSaveInput } from '../../redux/actions/InputAction';
 import { SketchPicker } from 'react-color'
 import { saveBackgroundColor } from '../../redux/actions/backgroundColorAction';
+import { useEffect } from 'react';
+import { Tab } from 'bootstrap';
+import TabsRender from './location';
+import './style.css'
+import {
+    MuiPickersUtilsProvider,
+    KeyboardTimePicker,
+    KeyboardDatePicker,
+} from '@material-ui/pickers';
+import 'date-fns';
+import Grid from '@material-ui/core/Grid';
+import DateFnsUtils from '@date-io/date-fns';
 
 
 export function useStyle() {
@@ -81,7 +93,7 @@ export default function ViewCreateMenu() {
     const [show1, setShow1] = useState(false);
     const [valueButton, setValueButton] = useState(initstateValueButton);
     const [test1, setTest1] = useContext(ButtonContext);
-    const [input, setInput] = useContext(InputContext);
+    // const [input, setInput] = useContext(InputContext);
     const [images, setImages] = useState();
     const [colormenu, setColorMenu] = useState();
     const [displayColor, setDisplayColor] = useState(true);
@@ -461,11 +473,16 @@ export default function ViewCreateMenu() {
     }
 
     const viewColorLeft = () => {
-        return (<><button onClick={() => onhandleColor('black')} className="h-12 w-12 mx-auto rounded-md bg-gray-900"></button>
-            <button onClick={() => onhandleColor('#EE0000')} className="h-12 w-12 mx-auto rounded-md bg-red-600"></button>
-            <button onClick={() => onhandleColor('fuchsia')} className="h-12 w-12 mx-auto rounded-md bg-pink-700"></button>
-            <button onClick={() => onhandleColor('gray')} className="h-12 w-12 mx-auto rounded-md bg-gray-500"></button>
-            <button onClick={() => onhandleColor('aqua')} className="h-12 w-12 mx-auto rounded-md bg-teal-400"></button></>)
+        return (<>
+            <div className="flex gap-3">
+                <button onClick={() => onhandleColor('black')} className="h-6 w-12 mx-auto rounded-sm bg-gray-900"></button>
+                <button onClick={() => onhandleColor('#EE0000')} className="h-6 w-12 mx-auto rounded-sm bg-red-600"></button>
+                <button onClick={() => onhandleColor('fuchsia')} className="h-6 w-12 mx-auto rounded-sm bg-pink-700"></button>
+                <button onClick={() => onhandleColor('gray')} className="h-6 w-12 mx-auto rounded-sm bg-gray-500"></button>
+                <button onClick={() => onhandleColor('aqua')} className="h-6 w-12 mx-auto rounded-sm bg-teal-400"></button>
+            </div>
+        </>
+        )
     }
 
     const onChangeViewColorLeft = () => {
@@ -484,109 +501,255 @@ export default function ViewCreateMenu() {
         setColorMenu(null);
         dispatch(saveBackgroundColor(null))
     }
+
+    useEffect(() => {
+        const script = document.createElement('script');
+
+        script.src = "script/location.js";
+        script.async = true;
+
+        document.body.appendChild(script);
+
+        return () => {
+            document.body.removeChild(script);
+        }
+    }, []);
+
+    const [selectedDate, setSelectedDate] = React.useState(new Date('2014-08-18T21:11:54'));
+
+    const handleDateChange = (date) => {
+        setSelectedDate(date);
+    };
+
     return (
         <>
-            <div className=" ml-10 h-full" style={{ width: '405px' }}>
-                <div className="text-sm text-gray-600 font-normal antialiased tracking-normal">
+            <div className=" bg-white p-6 h-full rounded shadow-xl w-full max-w-lg" >
+                {/* <div className="text-sm text-gray-600 font-normal antialiased tracking-normal">
                     Projects &nbsp; / &nbsp; Biltrax IT Project
-                </div>
-                <div className="text-2xl mt-3 text-black font-semibold antialiased tracking-normal">
+                </div> */}
+
+                <div className="text-2xl mt-3 text-black font-semibold antialiased tracking-normal justify-between">
                     <button >Tạo Menu</button>
+                    {/* <Link to='/admin/list-menu' className=" px-3 py-1 self-center text-sm font-medium antialiased rounded bg-white text-black border-2 border-gray-200">Quay lại</Link> */}
                 </div>
 
+                <div className="flex mt-3 border-b-2 border-gray-200 pb-3">
+                    {/* <Link to='/admin/list-menu' className=" px-3 py-1 self-center text-sm font-medium antialiased rounded bg-blue-800 text-white">Quay lại</Link> */}
+                    <Link to='/admin/list-menu' className=" px-3 py-2 mr-2 self-center text-sm font-medium antialiased rounded bg-white text-black border-2 border-gray-200"><i class="fas fa-arrow-left mr-2"></i> Quay lại</Link>
 
-                <Link to='/admin/list-menu' className=" px-3 py-1 self-center ml-2 text-sm font-medium antialiased rounded bg-blue-800 text-white">Quay lại</Link>
-                <button onClick={handleShow1} to="create-menu" className=" px-3 py-1 self-center ml-2 text-sm font-medium antialiased rounded bg-blue-800 text-white">Lưu Menu</button>
-                <div className="mx-2 bg-white rounded">
-                    <div className="overflow-auto flex-col " style={{ height: '418px' }} >
+                    <button onClick={handleShow1} to="create-menu" className=" px-3 py-2 self-center text-sm font-medium antialiased rounded bg-blue-800 text-white">
+                        <i className="fas fa-plus-square mr-2"></i>Lưu Menu
+                    </button>
+                </div>
+                <div className=" bg-white rounded">
+                    <div className="overflow-auto flex-col " style={{ height: '518px' }} >
 
-                        <div className="bg-gray-100 mt-4 rounded">
+                        <div className="bg-white mt-4 rounded">
 
-                            <div className="mb-6">
-                                <label for="name" className="block mb-2 text-sm text-gray-600 dark:text-gray-400">Tên Menu</label>
+                            <div className="mb-6 mr-1">
+                                <label for="name" className="block mb-2 text-base text-gray-800 dark:text-gray-400">Tên Menu</label>
                                 <input onChange={changemenuname} type="text" name="name" id="name" placeholder="Nhập tên Menu" required class="w-full px-3 py-2 placeholder-gray-300 border border-gray-300 rounded-md focus:outline-none focus:ring focus:ring-indigo-100 focus:border-indigo-300 dark:bg-gray-700 dark:text-white dark:placeholder-gray-500 dark:border-gray-600 dark:focus:ring-gray-900 dark:focus:border-gray-500" />
                             </div>
                             <label>Danh sách các nút để chọn:</label>
-                            <section className="container mx-auto px-6 my-1 flex flex-wrap -m-4">
+                            <section className="my-1 grid grid-cols-2 xl:grid-cols-3 gap-2 mr-1">
 
-                                <div className="m-3">
-                                    <button onClick={() => handleShow('zalo.png')} className="bg-white text-gray-800 font-bold rounded border-b-2 border-green-500 hover:border-green-600 hover:bg-green-500 hover:text-white shadow-md py-4 px-6 inline-flex items-center">
-                                        <span className="mr-2">Zalo</span>
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                                <div className="flex-1 bg-white text-gray-600 font-bold rounded border-2 border-green-500 hover:border-green-700 hover:text-black shadow-md py-2 px-2  items-center">
+                                    <button onClick={() => handleShow('zalo.png')} className="px-3 ">
+                                        <div className="flex mx-auto my-auto">
+                                            <i className="fas fa-phone-volume mr-1 my-auto"></i>
+                                            <span className="text-sm">Gọi ngay</span>
+                                            {/* <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
                                             <path fill="currentcolor" d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"></path>
-                                        </svg>
+                                        </svg> */}
+                                        </div>
                                     </button>
                                 </div>
-                                <div className="m-3">
-                                    <button onClick={() => handleShow('message.png')} className="bg-white text-gray-800 font-bold rounded border-b-2 border-green-500 hover:border-green-600 hover:bg-green-500 hover:text-white shadow-md py-4 px-2 inline-flex items-center">
-                                        <span className="mr-2">   Messager</span>
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                                <div className="flex-1 bg-white text-gray-600 font-bold rounded border-2 border-green-500 hover:border-green-700 hover:text-black shadow-md py-2 px-2  items-center">
+                                    <button onClick={() => handleShow('message.png')} className="px-3">
+                                        <div className="flex mx-auto my-auto">
+                                            <i class="fab fa-facebook-messenger mr-1 my-auto"></i>
+                                            <span className="text-sm">Nhắn tin</span>
+                                            {/* <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
                                             <path fill="currentcolor" d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"></path>
-                                        </svg>
+                                        </svg> */}
+                                        </div>
                                     </button>
                                 </div>
-                                <div className="m-3">
-                                    <button onClick={() => handleShow('call.png')} className="bg-white text-gray-800 font-bold rounded border-b-2 border-green-500 hover:border-green-600 hover:bg-green-500 hover:text-white shadow-md py-4 px-2 inline-flex items-center">
-                                        <span className="mr-2">Gọi ngay</span>
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                                <div className="flex-1 bg-white text-gray-600 font-bold rounded border-2 border-green-500 hover:border-green-700  hover:text-black shadow-md py-2 px-1  items-center">
+                                    <button onClick={() => handleShow('call.png')} className="px-3">
+                                        <div className="flex mx-auto my-auto">
+                                            <i class="far fa-comment-alt mr-1 my-auto"></i>
+                                            <span className="text-sm">Zalo chat</span>
+                                            {/* <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
                                             <path fill="currentcolor" d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"></path>
-                                        </svg>
+                                        </svg> */}
+                                        </div>
                                     </button>
                                 </div>
-                                <div className="m-3">
-                                    <button onClick={() => handleShow('seemore.png')} className="bg-white text-gray-800 font-bold rounded border-b-2 border-green-500 hover:border-green-600 hover:bg-green-500 hover:text-white shadow-md py-4 px-2 inline-flex items-center">
-                                        <span className="mr-2">        Xem Thêm</span>
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                                <div className="flex-1 bg-white text-gray-600 font-bold rounded border-2 border-green-500 hover:border-green-700  hover:text-black shadow-md py-2 px-2 items-center">
+                                    <button onClick={() => handleShow('seemore.png')} className="px-3">
+                                        <div className="flex mx-auto my-auto">
+                                            <i class="fas fa-shopping-cart mr-1 my-auto"></i>
+                                            <span className="text-sm">Đặt mua</span>
+                                            {/* <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
                                             <path fill="currentcolor" d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"></path>
-                                        </svg>
+                                        </svg> */}
+                                        </div>
                                     </button>
                                 </div>
-                                <div className="m-3">
-                                    <button onClick={() => handleShow('email.png')} className="bg-white text-gray-800 font-bold rounded border-b-2 border-green-500 hover:border-green-600 hover:bg-green-500 hover:text-white shadow-md py-4 px-1 inline-flex items-center">
-                                        <span className="mr-2">       Nhận Email</span>
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                                <div className="flex-1 bg-white text-gray-600 font-bold rounded border-2 border-green-500 hover:border-green-700  hover:text-black shadow-md py-2 px-2 items-center">
+                                    <button onClick={() => handleShow('email.png')} className="px-3">
+                                        <div className="flex mx-auto my-auto">
+                                            <i class="fas fa-envelope-open-text mr-1 my-auto"></i>
+                                            <span className="text-sm">Gửi mail</span>
+                                            {/* <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
                                             <path fill="currentcolor" d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"></path>
-                                        </svg>
+                                        </svg> */}
+                                        </div>
                                     </button>
                                 </div>
-                                <div className="m-3">
+
+                                <button className="w-1/2 bg-white text-gray-600 font-bold rounded border-2 border-gray-500 hover:border-gray-700  hover:text-black shadow-md py-2 px-2 items-center">
+                                    <i className="fas fa-plus"></i>
+                                </button>
+
+                                {/* <div className="">
                                     <button onClick={() => handleShow('share.png')} className="bg-white text-gray-800 font-bold rounded border-b-2 border-green-500 hover:border-green-600 hover:bg-green-500 hover:text-white shadow-md py-4 px-4 inline-flex items-center">
                                         <span className="mr-2">  Chia sẻ</span>
                                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
                                             <path fill="currentcolor" d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"></path>
                                         </svg>
                                     </button>
-                                </div>
+                                </div> */}
 
 
                             </section>
-                            <label>Màu sắc:</label>
-                            <nav class="flex flex-col sm:flex-row">
-                                <button onClick={onChangeViewColorLeft} className={`text-gray-600 py-4 px-6 block hover:text-blue-500 focus:outline-none ${displayTab === 1 && style} `}>
-                                    Mặc định
-                                </button><button onClick={onChangeViewColorRight} className={`text-gray-600 py-4 px-6 block hover:text-blue-500 focus:outline-none ${displayTab === 2 && style}`}>
-                                    Tùy chỉnh
-                                </button>
-                            </nav>
-                            <div className="container mx-auto px-6 my-1 flex flex-wrap -m-4 mt-5 mb-5">
+                            <label className="mt-3">Màu sắc:</label>
+                            <div className="mr-1 mt-1 border-2 border-gray-200 rounded-lg">
 
-                                {displayTab === 1 ? viewColorLeft() : viewColorRight()}
+                                <nav class="flex  sm:flex-row ">
+                                    <button onClick={onChangeViewColorLeft} className={`text-gray-600 py-4  px-6 block hover:text-blue-500 focus:outline-none ${displayTab === 1 && style} `}>
+                                        Mặc định
+                                    </button>
+                                    <button onClick={onChangeViewColorRight} className={`text-gray-600 py-4  px-6 block hover:text-blue-500 focus:outline-none ${displayTab === 2 && style}`}>
+                                        Tùy chỉnh
+                                    </button>
+                                    {/* <div className="border-b-2 border-gray-200 w-full"></div> */}
+                                </nav>
+                                <div className="container mx-auto px-6 my-1 flex flex-wrap py-3">
+
+                                    {displayTab === 1 ? viewColorLeft() : viewColorRight()}
+
+                                </div>
+                            </div>
+
+
+                            <label className="mt-3">
+                                Chọn thiết bị bạn muốn hiển thị:
+                            </label>
+                            <div className="flex mt-2 gap-1 mr-1">
+                                <button class="flex-1 inline-block border-2 border-blue-500 px-3 py-2 text-xs font-medium leading-6 text-center text-gray-600 transition rounded-sm  ripple hover:shadow-lg hover:text-black hover:border-blue-700 focus:outline-none waves-effect">
+                                    <i className="fas fa-laptop-house mr-1"></i>
+                                    Mọi thiết bị
+                                </button>
+                                <button class="flex-1 inline-block border-2 border-blue-500  px-3 py-2 text-xs font-medium leading-6 text-center text-gray-600  transition rounded-sm  ripple hover:shadow-lg hover:text-black hover:border-blue-700 focus:outline-none waves-effect">
+                                    <i className="fas fa-mobile-alt mr-1"></i>
+                                    Điện thoại
+                                </button>
+                                <button class="flex-1 inline-block border-2 border-blue-500  px-3 py-2 text-xs font-medium leading-6 text-center text-gray-600  transition rounded-sm  ripple hover:shadow-lg hover:text-black hover:border-blue-700 focus:outline-none waves-effect">
+                                    <i className="fas fa-desktop mr-1"></i>
+                                    Máy tính
+                                </button>
+                            </div>
+                            <div className="mt-3 mr-1">
+                                <div className="mt-4">Tùy chỉnh giao diện cho máy tính:</div>
+                                <TabsRender />
+                            </div>
+                            {/* drop */}
+
+
+                            <div className="w-full px-3 mb-5 mx-auto">
+                                <section className=" row ">
+                                    <div className="drop mr-1">
+                                        <div className="border-b drop">
+                                            <div className="border-l-2 bg-gray-200 rounded-lg w-full border-2 border-gray-400 relative">
+                                                <input className="w-full absolute z-10 cursor-pointer opacity-0 h-10 w-10 top-6" type="checkbox" id="chck1" />
+                                                <header className="flex justify-between items-center p-2 pl-8 pr-8 cursor-pointer select-none drop-label" htmlFor="chck1">
+                                                    <span className="mr-48">
+                                                        Nâng cao:
+                                                    </span>
+                                                    <div className="rounded-full border border-grey w-7 h-7 flex items-center justify-center test">
+                                                        {/* icon by feathericons.com */}
+                                                        <svg aria-hidden="true" className data-reactid={266} fill="none" height={24} stroke="#606F7B" strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} viewBox="0 0 24 24" width={24} xmlns="http://www.w3.org/2000/svg">
+                                                            <polyline points="6 9 12 15 18 9">
+                                                            </polyline>
+                                                        </svg>
+                                                    </div>
+                                                </header>
+                                                <div className="drop-content">
+                                                    <div className="pl-8 pr-8 pb-5 text-grey-darkest">
+                                                        <div className="mt-2">Thời gian hiển thị menu:</div>
+                                                        <ul className="flex  w-full">
+                                                            <MuiPickersUtilsProvider utils={DateFnsUtils}>
+                                                                <Grid container justifyContent="space-around">
+
+                                                                    <KeyboardTimePicker
+                                                                        margin="normal"
+                                                                        id="time-picker"
+                                                                        label="Bắt đầu"
+                                                                        value={selectedDate}
+                                                                        onChange={handleDateChange}
+                                                                        KeyboardButtonProps={{
+                                                                            'aria-label': 'change time',
+                                                                        }}
+                                                                    />
+                                                                </Grid>
+                                                            </MuiPickersUtilsProvider>
+                                                            {/* <div className="mx-2 my-auto rounded-full bg-gray-400 p-2">Đến</div> */}
+                                                            <i className="fas fa-arrow-circle-right mx-4 my-auto"></i>
+                                                            <MuiPickersUtilsProvider utils={DateFnsUtils}>
+                                                                <Grid container justifyContent="space-around">
+
+                                                                    <KeyboardTimePicker
+                                                                        margin="normal"
+                                                                        id="time-picker"
+                                                                        label="Kết thúc"
+                                                                        value={selectedDate}
+                                                                        onChange={handleDateChange}
+                                                                        KeyboardButtonProps={{
+                                                                            'aria-label': 'change time',
+                                                                        }}
+                                                                    />
+                                                                </Grid>
+                                                            </MuiPickersUtilsProvider>
+                                                        </ul>
+                                                        <div>Thời gian ẩn hiện menu</div>
+                                                        <div className="block mt-2">
+                                                            <div className="flex mb-2 border-2 border-gray-400 w-full rounded">
+                                                                <div className="flex-1 p-2 text-sm bg-gray-400 ">Hiện sau:</div>
+                                                                <input className="text-center" type="Number" />
+                                                                <div className="flex-1 text-sm bg-gray-400 text-center">Giây</div>
+                                                            </div>
+                                                            <div className="flex border-2 border-gray-400 w-full rounded">
+                                                                <div className="flex-1 p-2 text-sm bg-gray-400 ">Ẩn sau:</div>
+                                                                <input className="text-center" type="Number" />
+                                                                <div className="flex-1 text-sm bg-gray-400 text-center">Giây</div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </section>
 
                             </div>
 
 
-                            <label>Chọn thiết bị bạn muốn hiển thị:</label> <br /><br />
-                            <button class="inline-block px-6 py-2 text-xs font-medium leading-6 text-center text-white uppercase transition bg-blue-700 rounded-full shadow ripple hover:shadow-lg hover:bg-blue-800 focus:outline-none waves-effect">
-                                Mọi thiết bị
-                            </button>
-                            <button class="inline-block px-6 py-2 text-xs font-medium leading-6 text-center text-white uppercase transition bg-blue-700 rounded-full shadow ripple hover:shadow-lg hover:bg-blue-800 focus:outline-none waves-effect">
-                                Điện thoại
-                            </button>
-                            <button class="inline-block px-6 py-2 text-xs font-medium leading-6 text-center text-white uppercase transition bg-blue-700 rounded-full shadow ripple hover:shadow-lg hover:bg-blue-800 focus:outline-none waves-effect">
-                                Máy tính
-                            </button>
-                            <br />
-                            <label>Cấu hình đường dẫn hiển thị</label>
+
+
+
+                            {/* <label>Cấu hình đường dẫn hiển thị</label>
                             <button class="inline-block px-6 py-2 text-xs font-medium leading-6 text-center text-white uppercase transition bg-blue-700 rounded-full shadow ripple hover:shadow-lg hover:bg-blue-800 focus:outline-none waves-effect">
                                 Đường dẫn tùy chỉnh
                             </button>
@@ -598,12 +761,12 @@ export default function ViewCreateMenu() {
                             </button>
                             <button class="inline-block px-6 py-2 text-xs font-medium leading-6 text-center text-white uppercase transition bg-blue-700 rounded-full shadow ripple hover:shadow-lg hover:bg-blue-800 focus:outline-none waves-effect">
                                 Đường dẫn động
-                            </button>
+                            </button> */}
                         </div>
                     </div>
                 </div>
                 <div className="flex  justify-between px-1 text-center items-center">
-                    <div className="p-2">
+                    {/* <div className="p-2">
                         <button className="flex rounded px-4 py-2 focus:outline-none text-gray-500 hover:bg-blue-100 justify-around">
 
                             <svg className="h-4 w-4 " xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
@@ -614,7 +777,7 @@ export default function ViewCreateMenu() {
 
                     <div className="flex px-3 py-1 self-center text-sm antialiased rounded-md text-gray-600 ">
                         issue 48 of 88
-                    </div>
+                    </div> */}
 
                 </div>
 

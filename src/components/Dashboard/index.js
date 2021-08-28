@@ -32,14 +32,14 @@ export default function Dashboard() {
 
     //     </>
     <div className="mx-auto">
-      <div>
+      {/* <div>
         <img
           src="https://gblobscdn.gitbook.com/assets%2F-Ly2t-f4_pag5tjr6ajf%2F-Ly35JIvvaFs1r22wRc8%2F-Ly3Wn8-ds4Ux4OTN_Ej%2FUntitled.jpg?alt=media&amp;token=81209d07-b4b8-4bdf-95f8-4e73bf535e0f"
           alt="xxx"
           width="1000px"
           height="700px"
         />
-      </div>
+      </div> */}
       <>
         <section className="text-gray-600 body-font ml-200 w-full ">
           <div className="bg-gray-300 w-auto mx-auto rounded-2xl mt-5 max-h-full border-2 border-gray-900">
