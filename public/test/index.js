@@ -1,4 +1,5 @@
 
+
 console.log("window name "+ window.name)
 
 fetch(`http://localhost:8080/api/v1/getMenuByStatus/${window.name}`, {

@@ -38,6 +38,9 @@ import AdminDataOfCustomer from '../components/admin/components/AdminDataOfCusto
 import AdminStatistical from '../components/admin/components/AdminStatistical';
 import AdminDashboard from '../components/admin/components/AdminDashboard';
 
+import AddStaff from '../components/admin/components/AdminStaff/AddStaff';
+import UpdateStaff from '../components/admin/components/AdminStaff/UpdateStaff';
+
 
 // eslint-disable-next-line import/no-anonymous-default-export
 export default function Routers() {
@@ -56,7 +59,9 @@ export default function Routers() {
                                         <Route exact path ='/admin/manage/customers' component={AdminCustomer} />
                                         <Route exact path ='/admin/manage/services-fee' component={AdminServiceFee} />
                                         <Route exact path ='/admin/manage/data-of-customers' component={AdminDataOfCustomer} />
-                                        <Route exact path ='/admin/manage/statistical' component={AdminStatistical} />                                
+                                        <Route exact path ='/admin/manage/statistical' component={AdminStatistical} />    
+                                        <Route exact path ='/admin/manage/staffs/add' component={AddStaff} /> 
+                                        <Route exact path ='/admin/manage/staffs/:id' component={UpdateStaff} />                              
                                     </Switch>
                             </AdminManage>
                             </Route>
