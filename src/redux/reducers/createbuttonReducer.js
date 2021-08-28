@@ -4,7 +4,8 @@ import {
     FETCH_CREATE_BUTTON_ERROR,
     FETCH_CREATE_BUTTON_DELETE,
     VIEW_BUTTON,
-    UPDATE_BUTTON
+    UPDATE_BUTTON,
+    FETCH_CLEAR
 } from '../constants/createbuttonAction'
 
 const initialState = {
@@ -63,6 +64,13 @@ function createbuttonReducers(state = initialState, payload) {
                 requesting: false,
                 success: false,
                 message: payload.message
+            };
+        case FETCH_CLEAR:
+            return {
+                ...state,
+                requesting: false,
+                success: true,
+                data: [],
             };
         default:
             return state;

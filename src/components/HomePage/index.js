@@ -1,60 +1,150 @@
 import React, { useState } from 'react'
+import { useEffect } from 'react';
 import { useHistory } from 'react-router'
 
 export default function HomePage() {
     const history = useHistory();
+
+    const [isOpen, setisOpen] = useState(false);
+
+    useEffect(() => {
+        const script = document.createElement('script');
+
+        script.src = "script/nav.js";
+        script.async = true;
+
+        document.body.appendChild(script);
+
+        return () => {
+            document.body.removeChild(script);
+        }
+    }, []);
 
     // const onchangelogin = () => {
     //     history.push('/login')
     // }
     return (
         <>
-            <main className="bg-gray-100 font-montserrat">
+            {/* <style dangerouslySetInnerHTML={{ __html: "\n      #menu-toggle:checked + #menu {\n        display: block;\n      }\n  " }} /> */}
+            <div className="bg-gray-100 font-montserrat">
                 <header className="h-24 sm:h-32 flex items-center">
-                    <div className="container mx-auto px-6 sm:px-12 flex items-center justify-between">
-                        <div className="font-black text-blue-900 text-2xl flex items-start">
+
+                    {/* <div className="container mx-auto px-6 sm:px-12 flex items-center justify-between">
+                        <div className="font-black text-blue-900 text-4xl flex items-start">
                             Polysu<span className="w-3 h-3 rounded-full bg-purple-600 ml-2" />
                         </div>
-                        <div className="flex items-center">
-                            <nav className="text-purple-900 text-lg hidden lg:flex items-center">
-                                <button className="py-2 px-2 flex hover:text-purple-700">
+
+                        <div className="flex lg:items-center lg:w-auto w-full">
+                            <nav className="text-purple-900 text-lg lg:flex hidden"   >
+                                <button className="py-2 px-3  hover:text-purple-700 transition duration-150 ease-in-out transform hover:scale-125 bg-emerald-600 text-black font-semibold">
                                     Home
                                 </button>
-                                <button onClick={() => history.push('/login')} className="py-2 px-2 flex hover:text-purple-700">
-                                    Đăng nhập
-                                </button>
-                                <button onClick={() => history.push('/resgiter')} className="py-2 px-2 flex hover:text-purple-700">
-                                    Đăng ký
-                                </button>
 
-                                <button className="py-2 px-2 flex hover:text-purple-700">
+                                <button className="py-2 px-3  hover:text-purple-700 transition duration-150 ease-in-out transform hover:scale-125 bg-emerald-600 text-black font-semibold ">
                                     Contact us
                                 </button>
-                                <button onClick={() => history.push('/QA')} className="py-2 px-2 flex hover:text-purple-700"> </button>
 
-                                <button onClick={() => history.push('/hssd')} className="py-2 px-2 flex hover:text-purple-700">
+
+
+
+                                <button onClick={() => history.push('/QA')} className="py-2 px-3  hover:text-purple-700 transition duration-150 ease-in-out transform hover:scale-125 bg-emerald-600 text-black font-semibold"> QA</button>
+
+                                <button onClick={() => history.push('/hssd')} className="py-2 px-3  hover:text-purple-700 transition duration-150 ease-in-out transform hover:scale-125 bg-emerald-600 text-black font-semibold">
 
                                     Hướng dẫn sử dụng
                                 </button>
-                                <button onClick={() => history.push('/contact')} className="py-2 px-2 flex hover:text-purple-700">
+                                <button onClick={() => history.push('/contact')} className="py-2 px-3  hover:text-purple-700 transition duration-150 ease-in-out transform hover:scale-125 bg-emerald-600 text-black font-semibold">
                                     Liên Hệ
                                 </button>
 
-                                <button onClick={() => history.push('/price-list')} className="py-2 px-2 flex hover:text-purple-700">
+                                <button onClick={() => history.push('/price-list')} className="py-2 px-3  hover:text-purple-700 transition duration-150 ease-in-out transform hover:scale-125 bg-emerald-600 text-black font-semibold">
                                     Bảng giá
                                 </button>
 
+                                <button onClick={() => history.push('/login')} className="py-2 px-3  hover:text-purple-700 transition duration-150 ease-in-out transform hover:scale-125 bg-emerald-600 text-black font-semibold">
+                                    Đăng nhập
+                                </button>
 
+                                <span class="relative inline-flex rounded-md shadow-sm animate-bounce">
+                                    <button type="button" onClick={() => history.push('/resgiter')} class=" inline-flex items-center px-4 py-3 border border-purple-400 text-base leading-6 font-medium rounded-md text-black bg-red-600 hover:text-white focus:border-purple-300 transition ease-in-out duration-250">
+                                        Đăng ký
+                                    </button>
+                                    <span class="flex absolute h-3 w-3 top-0 right-0 -mt-1 -mr-1">
+                                        <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-purple-400 opacity-75"></span>
+                                        <span class="relative inline-flex rounded-full h-3 w-3 bg-purple-500"></span>
+                                    </span>
+                                </span>
 
                             </nav>
 
-                            <button className="flex flex-col ml-4">
-                                <span className="w-6 h-1 rounded-full bg-purple-800 mb-1" />
-                                <span className="w-6 h-1 rounded-full bg-purple-800 mb-1" />
-                                <span className="w-6 h-1 rounded-full bg-purple-800 mb-1" />
-                            </button>
                         </div>
-                    </div>
+
+                        <button type="button" className="block lg:hidden ml-3" onClick={handleClick}>
+                            <a className="flex items-center px-3 py-2 border-2 rounded text-blue-700 border-blue-700 hover:text-blue-700 hover:border-blue-700">
+                                <svg className="fill-current h-3 w-3" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><title>Menu</title>
+                                    <path d="M0 3h20v2H0V3zm0 6h20v2H0V9zm0 6h20v2H0v-2z" />
+                                </svg>
+                            </a>
+                        </button>
+                    </div> */}
+                    <nav id="header" className="fixed bg-white shadow-xl text-white w-full  z-20 top-0">
+                        <div id="progress" className="h-1 z-40 top-0" style={{ background: 'linear-gradient(to right, #FFC100 var(--scroll), transparent 0)' }} />
+                        <div className="flex ">
+                            <div className="font-black my-auto mx-auto lg:block hidden text-blue-900 text-4xl flex items-start">
+                                Polysu<span className="w-3 h-3 rounded-full bg-purple-600 ml-2" />
+                            </div>
+                            <div className="w-full md:max-w-4xl mx-auto bg-white flex flex-wrap items-center justify-between mt-0 py-3">
+                                <div className="block lg:hidden pl-8  p-2">
+                                    <div className="font-black text-blue-900 text-4xl flex items-start">
+                                        Polysu<span className="w-3 h-3 rounded-full bg-purple-600 ml-2" />
+                                    </div>
+                                </div>
+                                <div className="block lg:hidden pr-4">
+                                    <button id="nav-toggle" className="flex items-center px-3 py-2 text-black border-gray-600 focus:outline-none">
+                                        <svg fill="text-black" viewBox="0 0 20 20" className="w-6 h-6 fill-current">
+                                            <title>Menu</title>
+                                            <path fillRule="evenodd" d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM9 15a1 1 0 011-1h6a1 1 0 110 2h-6a1 1 0 01-1-1z" clipRule="evenodd" />
+                                        </svg>
+                                    </button>
+                                </div>
+                                <div className="w-full flex-grow px-4 lg:flex lg:items-center lg:w-auto hidden lg:block  bg-white  z-20" id="nav-content">
+                                    <ul className="list-reset lg:flex justify-center flex-1 items-center my-auto">
+                                        <li class="mr-3">
+                                            <a class="inline-block lg:text-xl text-base py-2 px-4 text-black hover:text-purple-700 hover:bg-gray-300 rounded font-bold transition duration-150 ease-in-out transform hover:scale-125"
+                                                href="#">Home</a>
+                                        </li>
+                                        <li class="mr-3">
+                                            <a class="inline-block lg:text-xl text-base text-black hover:text-purple-700 hover:bg-gray-300 rounded py-2 px-4 transition duration-150 ease-in-out transform hover:scale-125" href="#">Contact us</a>
+                                        </li>
+                                        <li class="mr-3">
+                                            <a onClick={() => history.push('/hssd')} class=" inline-block lg:text-xl text-base text-black hover:text-purple-700 hover:bg-gray-300 rounded py-2 px-4 transition duration-150 ease-in-out transform hover:scale-125" href="#">Hướng dẫn sử dụng</a>
+                                        </li>
+                                        <li class="mr-3">
+                                            <a onClick={() => history.push('/contact')} class="inline-block lg:text-xl text-base text-black hover:text-purple-700 hover:bg-gray-300 rounded py-2 px-4 transition duration-150 ease-in-out transform hover:scale-125" href="#">Liên Hệ</a>
+                                        </li>
+                                        <li class="mr-3 ">
+                                            <a onClick={() => history.push('/price-list')} class="inline-block lg:text-xl text-base text-black hover:text-purple-700 hover:bg-gray-300 rounded py-2 px-4 transition duration-150 ease-in-out transform hover:scale-125" href="#">Bảng giá</a>
+                                        </li>
+                                        <li class="mr-3 lg:hidden block">
+                                            <a onClick={() => history.push('/login')} class="inline-block lg:text-xl text-base text-black hover:text-purple-700 hover:bg-gray-300 rounded py-2 px-4 transition duration-150 ease-in-out transform hover:scale-125" href="#">Đăng nhập</a>
+                                        </li>
+                                        <li class="mr-3 lg:hidden block">
+                                            <a onClick={() => history.push('/resgiter')} class="inline-block lg:text-xl text-base text-black hover:text-purple-700 hover:bg-gray-300 rounded py-2 px-4 transition duration-150 ease-in-out transform hover:scale-125" href="#">Đăng ký</a>
+                                        </li>
+                                        
+                                    </ul>
+                                </div>
+                            </div>
+                            <div className="lg:flex hidden my-auto mr-5">
+                                <button onClick={() => history.push('/login')} className="flex-1 lg:h-14 h-10 w-16 py-2 px-3 mx-2 hover:text-white bg-red-500 rounded transition duration-150 ease-in-out transform hover:scale-110 bg-emerald-600 text-black font-semibold">
+                                    Đăng nhập
+                                </button>
+                                <button onClick={() => history.push('/resgiter')} className="flex-1 lg:h-14 h-10 py-2 w-40 px-3 mx-2 hover:text-white bg-red-500 rounded transition duration-150 ease-in-out transform hover:scale-110 bg-emerald-600 text-black font-semibold">
+                                    Đăng ký
+                                </button>
+                            </div>
+                        </div>
+                    </nav>
                 </header>
                 <div className="container mx-auto px-6 sm:px-12 flex flex-col-reverse sm:flex-row relative">
                     <div className="sm:w-6/12 relative z-10">
@@ -150,13 +240,12 @@ export default function HomePage() {
                             </g>
                         </svg>
                     </div>
-                    <div className="sm:w-5/12 xl:w-4/12 flex flex-col items-start sm:items-end sm:text-right ml-auto mt-8 sm:mt-0 relative z-10 xl:pt-20 mb-16 sm:mb-0">
-                        <h1 className="text-4xl lg:text-5xl text-blue-900 leading-none mb-4 font-black">Business Landing Page</h1>
-                        <p className="lg:text-lg mb-4 sm:mb-12 text-blue-900">Lorem ipsum dolor sit amet, consectetur adipiscing
-                            adipiselit. Pellentesque suscipit tellus vitae purus dignissim, nec tincidunt neque condimentum. Nam
-                            nec ligula pretium mi interdum hendrerit in sit.</p>
-                        <a href="#" className="font-semibold text-lg bg-purple-600 hover:bg-blue-400 text-white py-3 px-12 rounded-full">Learn
-                            more</a>
+
+                    <div className=" sm:w-5/12 xl:w-4/12 flex flex-col items-start sm:items-end sm:text-right ml-auto mt-8 sm:mt-0 relative z-10 xl:pt-20 mb-16 sm:mb-0">
+                        <h1 className="text-4xl lg:text-5xl text-blue-900 leading-none mb-4 font-black">Tùy biến nút hút khách hàng</h1>
+                        <p className="lg:text-lg mb-4 sm:mb-12 text-blue-900">
+                            Công cụ tăng tỷ lệ tương tác với khách hàng trên website</p>
+                        <a href="#" className="font-semibold text-lg bg-purple-600 hover:bg-blue-400 text-white py-3 px-12 rounded-full transition duration-500 ease-in-out bg-blue-600 hover:bg-red-600 transform hover:-translate-y-1 hover:scale-110">Thử ngay</a>
                     </div>
                     <svg className="w-full absolute bottom-0 left-0" id="Capa_1" data-name="Capa 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 497.5 141.26">
                         <title>skyline</title>
@@ -323,30 +412,30 @@ export default function HomePage() {
                     </svg>
                 </div>
                 <div className="flex items-center justify-center">
-                    <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-4 xl:grid-cols-4">
+                    <div className="grid grid-cols-1 gap-6 my-2 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-4 xl:grid-cols-4">
                         {/* 1 card */}
-                        <div className="relative bg-white py-6 px-6 rounded-3xl w-64 my-4 shadow-xl">
+                        <div className="relative bg-white py-6 px-6 rounded-3xl w-64 my-4 shadow-xl transition duration-150 ease-in-out transform hover:scale-110 ">
 
                             <div className="mt-8">
-                                <p className="text-xl font-semibold my-2">App Development</p>
-                                <div className="flex space-x-2 text-gray-400 text-sm">
+                                <p className="text-xl font-semibold my-2">Giao diện thân thiện</p>
+                                <div className="flex space-x-2 text-gray-900 text-sm">
                                     {/* svg  */}
                                     <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
                                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
                                     </svg>
-                                    <p>Marketing Team</p>
+                                    <p>Dễ dùng trên MOBILE lẫn PC</p>
                                 </div>
                                 <div className="flex space-x-2 text-gray-400 text-sm my-3">
                                     {/* svg  */}
-                                    <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    {/* <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
                                     </svg>
-                                    <p>1 Weeks Left</p>
+                                    <p>1 Weeks Left</p> */}
                                 </div>
                                 <div className="border-t-2" />
                                 <div className="flex justify-between">
-                                    <div className="my-2">
+                                    {/* <div className="my-2">
                                         <p className="font-semibold text-base mb-2">Team Member</p>
                                         <div className="flex space-x-2">
                                             <img src="https://images.pexels.com/photos/614810/pexels-photo-614810.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500" className="w-6 h-6 rounded-full" />
@@ -359,33 +448,34 @@ export default function HomePage() {
                                         <div className="text-base text-gray-400 font-semibold">
                                             <p>34%</p>
                                         </div>
-                                    </div>
+                                    </div> */}
+                                    <img className="w-32 mx-auto" src="images/tv.png" alt="" />
                                 </div>
                             </div>
                         </div>
                         {/* 2 card */}
-                        <div className="relative bg-white py-6 px-6 rounded-3xl w-64 my-4 shadow-xl">
+                        <div className="relative bg-white py-6 px-6 rounded-3xl w-64 my-4 shadow-xl transition duration-150 ease-in-out transform hover:scale-110">
 
                             <div className="mt-8">
-                                <p className="text-xl font-semibold my-2">Web Design</p>
-                                <div className="flex space-x-2 text-gray-400 text-sm">
+                                <p className="text-xl font-semibold my-2">Cài đặt đơn giản</p>
+                                <div className="flex space-x-2 text-gray-900 text-sm">
                                     {/* svg  */}
                                     <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
                                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
                                     </svg>
-                                    <p>Core UI Team</p>
+                                    <p>Ai cũng có thể sử dụng</p>
                                 </div>
                                 <div className="flex space-x-2 text-gray-400 text-sm my-3">
                                     {/* svg  */}
-                                    <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    {/* <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
                                     </svg>
-                                    <p>3 Weeks Left</p>
+                                    <p>3 Weeks Left</p> */}
                                 </div>
                                 <div className="border-t-2 " />
                                 <div className="flex justify-between">
-                                    <div className="my-2">
+                                    {/* <div className="my-2">
                                         <p className="font-semibold text-base mb-2">Team Member</p>
                                         <div className="flex space-x-2">
                                             <img src="https://images.pexels.com/photos/614810/pexels-photo-614810.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500" className="w-6 h-6 rounded-full" />
@@ -396,33 +486,34 @@ export default function HomePage() {
                                         <div className="text-base text-gray-400 font-semibold">
                                             <p>76%</p>
                                         </div>
-                                    </div>
+                                    </div> */}
+                                    <img className="w-32 mx-auto my-2" src="images/settings.png" alt="" />
                                 </div>
                             </div>
                         </div>
                         {/* 3 card */}
-                        <div className="relative bg-white py-6 px-6 rounded-3xl w-64 my-4 shadow-xl">
+                        <div className="relative bg-white py-6 px-6 rounded-3xl w-64 my-4 shadow-xl transition duration-150 ease-in-out transform hover:scale-110">
 
                             <div className="mt-8">
-                                <p className="text-xl font-semibold my-2">Leading Page</p>
-                                <div className="flex space-x-2 text-gray-400 text-sm">
+                                <p className="text-xl font-semibold my-2">Tương tác dễ dàng</p>
+                                <div className="flex space-x-2 text-gray-900 text-sm">
                                     {/* svg  */}
                                     <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
                                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
                                     </svg>
-                                    <p>Marketing Team</p>
+                                    <p>Phù hợp với mọi người</p>
                                 </div>
                                 <div className="flex space-x-2 text-gray-400 text-sm my-3">
                                     {/* svg  */}
-                                    <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    {/* <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
                                     </svg>
-                                    <p>2 Days Left</p>
+                                    <p>2 Days Left</p> */}
                                 </div>
                                 <div className="border-t-2 " />
                                 <div className="flex justify-between">
-                                    <div className="my-2">
+                                    {/* <div className="my-2">
                                         <p className="font-semibold text-base mb-2">Team Member</p>
                                         <div className="flex space-x-2">
                                             <img src="https://images.pexels.com/photos/614810/pexels-photo-614810.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500" className="w-6 h-6 rounded-full" />
@@ -435,33 +526,34 @@ export default function HomePage() {
                                         <div className="text-base text-gray-400 font-semibold">
                                             <p>4%</p>
                                         </div>
-                                    </div>
+                                    </div> */}
+                                    <img className="w-32 mx-auto" src="images/action.png" alt="" />
                                 </div>
                             </div>
                         </div>
                         {/* 4 card */}
-                        <div className="relative bg-white py-6 px-6 rounded-3xl w-64 my-4 shadow-xl">
+                        <div className="relative bg-white py-6 px-6 rounded-3xl w-64 my-4 shadow-xl transition duration-150 ease-in-out transform hover:scale-110">
 
                             <div className="mt-8">
-                                <p className="text-xl font-semibold my-2">Business Compare</p>
-                                <div className="flex space-x-2 text-gray-400 text-sm">
+                                <p className="text-xl font-semibold my-2">Gia tăng tương tác</p>
+                                <div className="flex space-x-2 text-gray-900 text-sm">
                                     {/* svg  */}
                                     <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
                                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
                                     </svg>
-                                    <p>Marketing Team</p>
+                                    <p>Khách hàng hài lòng hơn</p>
                                 </div>
                                 <div className="flex space-x-2 text-gray-400 text-sm my-3">
                                     {/* svg  */}
-                                    <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    {/* <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
                                     </svg>
-                                    <p>1 Month Left</p>
+                                    <p>1 Month Left</p> */}
                                 </div>
                                 <div className="border-t-2 " />
                                 <div className="flex justify-between">
-                                    <div className="my-2">
+                                    {/* <div className="my-2">
                                         <p className="font-semibold text-base mb-2">Team Member</p>
                                         <div className="flex space-x-2">
                                             <img src="https://images.pexels.com/photos/614810/pexels-photo-614810.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500" className="w-6 h-6 rounded-full" />
@@ -473,20 +565,22 @@ export default function HomePage() {
                                         <div className="text-base text-gray-400 font-semibold">
                                             <p>90%</p>
                                         </div>
-                                    </div>
+                                    </div> */}
+                                    <img className="w-32 mx-auto my-2" src="images/touch-screen.png" alt="" />
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div>
+                <div >
                     <style dangerouslySetInnerHTML={{ __html: "@import url('https://cdnjs.cloudflare.com/ajax/libs/MaterialDesign-Webfont/5.3.45/css/materialdesignicons.min.css')" }} />
                     <div className="min-w-screen min-h-screen bg-gray-50 flex items-center justify-center py-5">
-                        <div className="w-full bg-white border-t border-b border-gray-200 px-5 py-16 md:py-24 text-gray-800">
+
+                        <div style={{ backgroundImage: `url("images/bg3.jpg")` }} className="w-full bg-white bg-fixed border-t border-b border-gray-200 px-5 py-16 md:py-24 text-gray-800">
                             <div className="w-full max-w-6xl mx-auto">
                                 <div className="text-center max-w-xl mx-auto">
-                                    <h1 className="text-6xl md:text-7xl font-bold mb-5 text-gray-600">What people <br />are saying.</h1>
-                                    <h3 className="text-xl mb-5 font-light">Lorem ipsum dolor sit amet consectetur adipisicing elit.</h3>
+                                    <h1 className="text-6xl md:text-7xl font-bold mb-5 text-black animate-pulse">Mọi người <br />Nói gì về Fpolysu.</h1>
+                                    <h3 className="text-xl mb-5 font-medium">Một tiện ích tuyệt vời.</h3>
                                     <div className="text-center mb-10">
                                         <span className="inline-block w-1 h-1 rounded-full bg-indigo-500 ml-1" />
                                         <span className="inline-block w-3 h-1 rounded-full bg-indigo-500 ml-1" />
@@ -497,86 +591,87 @@ export default function HomePage() {
                                 </div>
                                 <div className="-mx-3 md:flex items-start">
                                     <div className="px-3 md:w-1/3">
-                                        <div className="w-full mx-auto rounded-lg bg-white border border-gray-200 p-5 text-gray-800 font-light mb-6">
+
+                                        <div className=" w-full mx-auto rounded-lg bg-white border border-gray-200 p-5 text-gray-800 font-light mb-10 transform hover:-translate-y-4 hover:scale-110 transition-transform duration-500 ease-in-out">
                                             <div className="w-full flex mb-4 items-center">
                                                 <div className="overflow-hidden rounded-full w-10 h-10 bg-gray-50 border border-gray-200">
                                                     <img src="https://i.pravatar.cc/100?img=1" alt="" />
                                                 </div>
                                                 <div className="flex-grow pl-3">
-                                                    <h6 className="font-bold text-sm uppercase text-gray-600">Kenzie Edgar.</h6>
+                                                    <h6 className="font-bold text-sm uppercase text-gray-600">Bình Lê.</h6>
                                                 </div>
                                             </div>
                                             <div className="w-full">
-                                                <p className="text-sm leading-tight"><span className="text-lg leading-none italic font-bold text-gray-400 mr-1">"</span>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quos sunt ratione dolor exercitationem minima quas itaque saepe quasi architecto vel! Accusantium, vero sint recusandae cum tempora nemo commodi soluta deleniti.<span className="text-lg leading-none italic font-bold text-gray-400 ml-1">"</span></p>
+                                                <p className="text-sm leading-tight"><span className="text-lg leading-none italic font-bold text-gray-400 mr-1">"</span>Quá tuyệt vời và thuận tiện cho website của tôi.<span className="text-lg leading-none italic font-bold text-gray-400 ml-1">"</span></p>
                                             </div>
                                         </div>
-                                        <div className="w-full mx-auto rounded-lg bg-white border border-gray-200 p-5 text-gray-800 font-light mb-6">
+                                        <div className="w-full mx-auto rounded-lg bg-white border border-gray-200 p-5 text-gray-800 font-light mb-10 transform hover:-translate-y-4 hover:scale-110 transition-transform duration-500 ease-in-out">
                                             <div className="w-full flex mb-4 items-center">
                                                 <div className="overflow-hidden rounded-full w-10 h-10 bg-gray-50 border border-gray-200">
                                                     <img src="https://i.pravatar.cc/100?img=2" alt="" />
                                                 </div>
                                                 <div className="flex-grow pl-3">
-                                                    <h6 className="font-bold text-sm uppercase text-gray-600">Stevie Tifft.</h6>
+                                                    <h6 className="font-bold text-sm uppercase text-gray-600">Tùng Lê.</h6>
                                                 </div>
                                             </div>
                                             <div className="w-full">
-                                                <p className="text-sm leading-tight"><span className="text-lg leading-none italic font-bold text-gray-400 mr-1">"</span>Lorem ipsum, dolor sit amet, consectetur adipisicing elit. Dolore quod necessitatibus, labore sapiente, est, dignissimos ullam error ipsam sint quam tempora vel.<span className="text-lg leading-none italic font-bold text-gray-400 ml-1">"</span></p>
+                                                <p className="text-sm leading-tight"><span className="text-lg leading-none italic font-bold text-gray-400 mr-1">"</span>Từ khi biết đến Polysu tương tác trên website tôi tăng đáng kể.<span className="text-lg leading-none italic font-bold text-gray-400 ml-1">"</span></p>
                                             </div>
                                         </div>
                                     </div>
                                     <div className="px-3 md:w-1/3">
-                                        <div className="w-full mx-auto rounded-lg bg-white border border-gray-200 p-5 text-gray-800 font-light mb-6">
+                                        <div className="w-full mx-auto rounded-lg bg-white border border-gray-200 p-5 text-gray-800 font-light mb-10 transform hover:-translate-y-4 hover:scale-110 transition-transform duration-500 ease-in-out">
                                             <div className="w-full flex mb-4 items-center">
                                                 <div className="overflow-hidden rounded-full w-10 h-10 bg-gray-50 border border-gray-200">
                                                     <img src="https://i.pravatar.cc/100?img=3" alt="" />
                                                 </div>
                                                 <div className="flex-grow pl-3">
-                                                    <h6 className="font-bold text-sm uppercase text-gray-600">Tommie Ewart.</h6>
+                                                    <h6 className="font-bold text-sm uppercase text-gray-600">Tùng Lâm.</h6>
                                                 </div>
                                             </div>
                                             <div className="w-full">
-                                                <p className="text-sm leading-tight"><span className="text-lg leading-none italic font-bold text-gray-400 mr-1">"</span>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Vitae, obcaecati ullam excepturi dicta error deleniti sequi.<span className="text-lg leading-none italic font-bold text-gray-400 ml-1">"</span></p>
+                                                <p className="text-sm leading-tight"><span className="text-lg leading-none italic font-bold text-gray-400 mr-1">"</span>Polysu hỗ trợ rất tốt cho tôi.<span className="text-lg leading-none italic font-bold text-gray-400 ml-1">"</span></p>
                                             </div>
                                         </div>
-                                        <div className="w-full mx-auto rounded-lg bg-white border border-gray-200 p-5 text-gray-800 font-light mb-6">
+                                        <div className="w-full mx-auto rounded-lg bg-white border border-gray-200 p-5 text-gray-800 font-light mb-10 transform hover:-translate-y-4 hover:scale-110 transition-transform duration-500 ease-in-out">
                                             <div className="w-full flex mb-4 items-center">
                                                 <div className="overflow-hidden rounded-full w-10 h-10 bg-gray-50 border border-gray-200">
                                                     <img src="https://i.pravatar.cc/100?img=4" alt="" />
                                                 </div>
                                                 <div className="flex-grow pl-3">
-                                                    <h6 className="font-bold text-sm uppercase text-gray-600">Charlie Howse.</h6>
+                                                    <h6 className="font-bold text-sm uppercase text-gray-600">Duy Lê.</h6>
                                                 </div>
                                             </div>
                                             <div className="w-full">
-                                                <p className="text-sm leading-tight"><span className="text-lg leading-none italic font-bold text-gray-400 mr-1">"</span>Lorem ipsum dolor sit amet consectetur adipisicing elit. Architecto inventore voluptatum nostrum atque, corrupti, vitae esse id accusamus dignissimos neque reprehenderit natus, hic sequi itaque dicta nisi voluptatem! Culpa, iusto.<span className="text-lg leading-none italic font-bold text-gray-400 ml-1">"</span></p>
+                                                <p className="text-sm leading-tight"><span className="text-lg leading-none italic font-bold text-gray-400 mr-1">"</span>Hoàn toàn hài lòng về công dụng của Polysu.<span className="text-lg leading-none italic font-bold text-gray-400 ml-1">"</span></p>
                                             </div>
                                         </div>
                                     </div>
                                     <div className="px-3 md:w-1/3">
-                                        <div className="w-full mx-auto rounded-lg bg-white border border-gray-200 p-5 text-gray-800 font-light mb-6">
+                                        <div className="w-full mx-auto rounded-lg bg-white border border-gray-200 p-5 text-gray-800 font-light mb-10 transform hover:-translate-y-4 hover:scale-110 transition-transform duration-500 ease-in-out">
                                             <div className="w-full flex mb-4 items-center">
                                                 <div className="overflow-hidden rounded-full w-10 h-10 bg-gray-50 border border-gray-200">
                                                     <img src="https://i.pravatar.cc/100?img=5" alt="" />
                                                 </div>
                                                 <div className="flex-grow pl-3">
-                                                    <h6 className="font-bold text-sm uppercase text-gray-600">Nevada Herbertson.</h6>
+                                                    <h6 className="font-bold text-sm uppercase text-gray-600">Thành Nam.</h6>
                                                 </div>
                                             </div>
                                             <div className="w-full">
-                                                <p className="text-sm leading-tight"><span className="text-lg leading-none italic font-bold text-gray-400 mr-1">"</span>Lorem ipsum dolor sit amet consectetur adipisicing elit. Nobis, voluptatem porro obcaecati dicta, quibusdam sunt ipsum, laboriosam nostrum facere exercitationem pariatur deserunt tempora molestiae assumenda nesciunt alias eius? Illo, autem!<span className="text-lg leading-none italic font-bold text-gray-400 ml-1">"</span></p>
+                                                <p className="text-sm leading-tight"><span className="text-lg leading-none italic font-bold text-gray-400 mr-1">"</span>Từ khi biết đến Polysu khách hàng truy cập website của chúng tôi cảm thấy rất thuận tiện!<span className="text-lg leading-none italic font-bold text-gray-400 ml-1">"</span></p>
                                             </div>
                                         </div>
-                                        <div className="w-full mx-auto rounded-lg bg-white border border-gray-200 p-5 text-gray-800 font-light mb-6">
+                                        <div className="w-full mx-auto rounded-lg bg-white border border-gray-200 p-5 text-gray-800 font-light mb-10 transform hover:-translate-y-4 hover:scale-110 transition-transform duration-500 ease-in-out">
                                             <div className="w-full flex mb-4 items-center">
                                                 <div className="overflow-hidden rounded-full w-10 h-10 bg-gray-50 border border-gray-200">
                                                     <img src="https://i.pravatar.cc/100?img=6" alt="" />
                                                 </div>
                                                 <div className="flex-grow pl-3">
-                                                    <h6 className="font-bold text-sm uppercase text-gray-600">Kris Stanton.</h6>
+                                                    <h6 className="font-bold text-sm uppercase text-gray-600">Bá Vinh.</h6>
                                                 </div>
                                             </div>
                                             <div className="w-full">
-                                                <p className="text-sm leading-tight"><span className="text-lg leading-none italic font-bold text-gray-400 mr-1">"</span>Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatem iusto, explicabo, cupiditate quas totam!<span className="text-lg leading-none italic font-bold text-gray-400 ml-1">"</span></p>
+                                                <p className="text-sm leading-tight"><span className="text-lg leading-none italic font-bold text-gray-400 mr-1">"</span>Tùy chỉnh nút trên website rất dễ dàng giao diện dễ nhìn, quá tốt!<span className="text-lg leading-none italic font-bold text-gray-400 ml-1">"</span></p>
                                             </div>
                                         </div>
                                     </div>
@@ -586,32 +681,303 @@ export default function HomePage() {
                     </div>
                 </div>
 
-                <div className="mx-auto container pt-12 lg:pt-32 px-4 xl:px-12 2xl:px-4">
-                    <div className="lg:pt-16 pt-6 pb-6 px-2 lg:px-0 lg:pb-12 border rounded-lg border-gray-200 dark:border-gray-700 flex flex-col items-center justify-center">
-                        <h2 className="text-[24px] md:text-3xl lg:text-6xl font-bold sm:font-black leading-tight tracking-tight text-center text-gray-900 dark:text-gray-50 w-11/12 lg:w-4/5">Free and premium templates to kick start your next big idea</h2>
-                        <div className="mt-4 lg:mt-8 flex flex-col items-center w-full justify-center">
-                            <p className="text-sm lg:text-xl leading-[24px] sm:leading-7 w-full md:w-10/12 lg:w-9/12 text-center  text-gray-600 dark:text-gray-400">Explore a vast collection of templates that are specifically designed to be used for any kind of organization. Use them as they are or change them to match your own vibe. Craft your own art with a head start from these templates. Choose from a diverse array of designs and give them your personal style.</p><div className="w-11/12 mt-10 lg:mt-20">
-                                <div className="flex flex-col items-center sm:items-end"><div className=" grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 gap-8"><div className="shadow dark:shadow-none rounded-xl"><img loading="lazy" className="rounded-xl" src="https://tailwinduikit.com/img/home/component-1.jpg" alt="tailwind css components and templates" /></div><div className="shadow dark:shadow-none rounded-xl"><img loading="lazy" className="rounded-xl" src="https://tailwinduikit.com/img/home/component-3.jpg" alt="tailwind css components and templates" />
+
+
+                <div className="text-gray-700 body-font flex md:flex-row flex-col items-center bg-white mx-20">
+                    <div className="lg:flex-grow md:w-1/2 lg:pl-24 md:pl-16 flex flex-col md:items-start md:text-left mb-16 md:mb-0 items-center ">
+                        <h1 className="title-font sm:text-4xl text-3xl mb-4 font-medium text-gray-900">Đăng ký nhận thông tin từ nhà phát triển</h1>
+                        {/* <p className="mb-8 leading-relaxed">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+                            eiusmod tempor incididunt ut labore et dolore magna aliqua.</p> */}
+                        <div className="flex flex-row justify-start w-full max-w-md shadow-xl border-t border-b border-gray-200">
+                            <input className="border-l-4 border-red-700 bg-white focus:outline-none px-4 w-full m-0" placeholder="Email" type="email" />
+                            <button className="inline-flex text-black py-2 px-6 focus:outline-none text-lg m-0 h-12 bg-gray-100 opacity-10 transform hover:opacity-100 hover:bg-purple-500 hover:scale-125  transition-opacity duration-500 ease-in-out">Gửi</button>
+                        </div>
+                        <p className="text-sm mt-2 text-gray-500 mb-8 w-full">Luôn đồng hành với chúng tôi.</p>
+                        <div className="flex lg:flex-row md:flex-col">
+                            <a className="mx-2 text-gray-600 p-3 text-center inline-flex items-center justify-center w-16 h-16 mb-6 shadow-lg rounded-full hover:bg-blue-300 transform hover:-translate-y-4 transition-transform duration-500 ease-in-out">
+                                <i className="fab fa-linkedin-in" />
+                            </a>
+                            <a className="mx-2 text-gray-600 p-3 text-center inline-flex items-center justify-center w-16 h-16 mb-6 shadow-lg rounded-full hover:bg-blue-600 transform hover:-translate-y-4 transition-transform duration-500 ease-in-out">
+                                <i className="fab fa-facebook-f" />
+                            </a>
+                            <a className="mx-2 text-gray-600 p-3 text-center inline-flex items-center justify-center w-16 h-16 mb-6 shadow-lg rounded-full hover:bg-blue-400 transform hover:-translate-y-4 transition-transform duration-500 ease-in-out">
+                                <i className="fab fa-twitter" />
+                            </a>
+                            <a className="mx-2 text-gray-600 p-3 text-center inline-flex items-center justify-center w-16 h-16 mb-6 shadow-lg rounded-full hover:bg-red-600 transform hover:-translate-y-4 transition-transform duration-500 ease-in-out">
+                                <i className="fab fa-youtube" />
+                            </a>
+                        </div>
+                    </div>
+                    <div className="md:w-1/2 w-5/6 origin-center ">
+                        <img className="object-cover object-center" alt="hero" src="https://images.unsplash.com/photo-1518272417499-b6ebd5fab96a?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60" />
+                    </div>
+                </div>
+
+
+                <div className="py-10 m-20 bg-pink-400 transform -skew-y-3 shadow-2xl">
+                    <div className=" bg-purple-500 rounded-md transform skew-y-6 md:skew-2 shadow-2xl">
+                        <div className="mx-auto container pt-12 lg:pt-32 px-4 xl:px-12 2xl:px-4 py-5">
+                            <div className=" lg:pt-16 pt-6 pb-6 px-2 lg:px-0 lg:pb-12 border rounded-lg border-gray-200 dark:border-gray-700 flex flex-col items-center justify-center">
+                                <h2 className="text-[24px] md:text-3xl lg:text-6xl font-bold sm:font-black leading-tight tracking-tight text-center text-gray-900 dark:text-gray-50 w-11/12 lg:w-4/5">Miễn phí trọn đời</h2>
+                                <div className="block md:flex md:justify-center md:space-x-8 md:px-14 mx-5 gap-5">
+                                    {/* box-1 */}
+                                    <div className="mt-16 py-4 px-4 bg-whit w-72 bg-white rounded-xl shadow-lg hover:shadow-xl transform hover:scale-110 transition duration-500 mx-auto md:mx-0">
+                                        <div className="w-sm">
+                                            <img className="w-64 mx-auto" src="https://images01.nicepage.com/c461c07a441a5d220e8feb1a/a17abde8d83650a582a28432/users-with-speech-bubbles-vector_53876-82250.jpg" alt="" />
+
+                                            <div className="mt-4 text-green-600 text-center">
+                                                <h1 className="text-xl font-bold">Tính tương thích cao, tùy biến đa dạng.</h1>
+                                                <p className="mt-4 text-gray-600">Nhiều theme với nhiều tuỳ biến màu sắc khác nhau, tương thích với mọi định dạng Website cả trên PC & Mobile.</p>
+                                                {/* <button className="mt-8 mb-4 py-2 px-14 rounded-full bg-green-600 text-white tracking-widest hover:bg-green-500 transition duration-200">MORE</button> */}
+                                            </div>
+                                        </div>
+                                    </div>
+                                    {/* box-2 */}
+                                    <div className="mt-16 py-4 px-4 bg-whit w-72 bg-white rounded-xl shadow-lg hover:shadow-xl transform hover:scale-110 transition duration-500 mx-auto md:mx-0">
+                                        <div className="w-sm">
+                                            <img className="w-64" src="https://images01.nicepage.com/c461c07a441a5d220e8feb1a/3b242447f922540fbe750cab/fdf.jpg" alt="" />
+                                            <div className="mt-4 text-green-600 text-center">
+                                                <h1 className="text-xl font-bold">Tối ưu hoá doanh thu, Hiểu khách hàng tiềm năng.</h1>
+                                                <p className="mt-4 text-gray-600">Tăng tới 50% tỷ lệ chuyển đổi từ khách hàng. Đo đạc hành vi trên trang của khách hàng, từ đó phân tích thói quen mua hàng. </p>
+                                                {/* <button className="mt-8 mb-4 py-2 px-14 rounded-full bg-green-600 text-white tracking-widest hover:bg-green-500 transition duration-200">MORE</button> */}
+                                            </div>
+                                        </div>
+                                    </div>
+                                    {/* box-3 */}
+                                    <div className="mt-16 py-4 px-4 bg-whit w-72 bg-white rounded-xl shadow-lg hover:shadow-xl transform hover:scale-110 transition duration-500 mx-auto md:mx-0">
+                                        <div className="w-sm">
+                                            <img className="w-64" src="https://images01.nicepage.com/c461c07a441a5d220e8feb1a/8cc47b39e719570b996d9879/dsds.jpg" alt="" />
+                                            <div className="mt-4 text-green-600 text-center">
+                                                <h1 className="text-xl font-bold">Theo dõi, tối ưu chiến dịch quảng cáo.</h1>
+                                                <p className="mt-4 text-gray-600">Đồng bộ hoá dữ liệu khách hàng có được với các chiến dịch quảng cáo, từ đó tối đa hoá hiệu quả dựa trên chi phí bỏ ra.</p>
+                                                {/* <button className="mt-8 mb-4 py-2 px-14 rounded-full bg-green-600 text-white tracking-widest hover:bg-green-500 transition duration-200">MORE</button> */}
+                                            </div>
+                                        </div>
+                                    </div>
+                                    {/* <div className="mt-16 py-4 px-4 bg-whit w-72 bg-white rounded-xl shadow-lg hover:shadow-xl transform hover:scale-110 transition duration-500 mx-auto md:mx-0">
+                                        <div className="w-sm">
+                                            <img className="w-64" src="https://images01.nicepage.com/c461c07a441a5d220e8feb1a/8cc47b39e719570b996d9879/dsds.jpg" alt="" />
+                                            <div className="mt-4 text-green-600 text-center">
+                                                <h1 className="text-xl font-bold">Happy Customers</h1>
+                                                <p className="mt-4 text-gray-600">Nisl purus in mollis nunc sed id semper. Rhoncus aenean vel elit scelerisque mauris.</p>
+                                                <button className="mt-8 mb-4 py-2 px-14 rounded-full bg-green-600 text-white tracking-widest hover:bg-green-500 transition duration-200">MORE</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div className="mt-16 py-4 px-4 bg-whit w-72 bg-white rounded-xl shadow-lg hover:shadow-xl transform hover:scale-110 transition duration-500 mx-auto md:mx-0">
+                                        <div className="w-sm">
+                                            <img className="w-64" src="https://images01.nicepage.com/c461c07a441a5d220e8feb1a/8cc47b39e719570b996d9879/dsds.jpg" alt="" />
+                                            <div className="mt-4 text-green-600 text-center">
+                                                <h1 className="text-xl font-bold">Happy Customers</h1>
+                                                <p className="mt-4 text-gray-600">Nisl purus in mollis nunc sed id semper. Rhoncus aenean vel elit scelerisque mauris.</p>
+                                                <button className="mt-8 mb-4 py-2 px-14 rounded-full bg-green-600 text-white tracking-widest hover:bg-green-500 transition duration-200">MORE</button>
+                                            </div>
+                                        </div>
+                                    </div> */}
                                 </div>
-                                    <div className="shadow dark:shadow-none rounded-xl">
-                                        <img loading="lazy" className="rounded-xl" src="https://tailwinduikit.com/img/home/component-2.jpg" alt="tailwind css components and templates" /></div></div><div className="mt-8"><a href="/templates"><div className="flex items-center cursor-pointer">
-                                            <p id="i3" className="text-base lg:text-xl font-bold border-b border-brand leading-tight text-right text-brand">Browse all templates</p><svg xmlns="http://www.w3.org/2000/svg" className="ml-2 icon icon-tabler icon-tabler-arrow-right" width={20} height={20} viewBox="0 0 24 24" strokeWidth={2} stroke="#FF3568" fill="none" strokeLinecap="round" strokeLinejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none" /><line x1={5} y1={12} x2={19} y2={12} /><line x1={13} y1={18} x2={19} y2={12} /><line x1={13} y1={6} x2={19} y2={12} /></svg></div></a></div></div></div></div></div></div>
 
-                <div className="lg:px-20">
-                    <h2 className="text-[24px] lg:text-6xl text-center font-bold sm:font-black leading-tight text-gray-900 dark:text-gray-50 ls-2 tracking-tight">The only ui library you will ever need</h2>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+
+
+                <div className="lg:px-20 pb-12">
+                    <h2 className="text-[24px] lg:text-6xl text-center font-bold sm:font-black leading-tight text-gray-900 dark:text-gray-50 ls-2 tracking-tight">Cập nhật thông tin mới nhất với Polysu</h2>
                     <div className="mt-4 lg:mt-8 flex justify-center w-full">
-                        <p className="leading-7 w-full md:w-11/12 lg:w-9/12 text-center text-gray-600 dark:text-gray-400">Build your MVP with the best practices, user experiences, and eye-catching interfaces. TUK gives you the functionality that contemporary audiences demand. Our drop-in ready components help you save your most valuable asset, Time.</p></div><div className="mt-24">
-                        <div className="flex flex-col flex-col-reverse md:flex-row items-center w-full justify-between">
+                        <p className="leading-7 w-full md:w-11/12 lg:w-9/12 text-center text-gray-600 dark:text-gray-400">Trải nghiệm của khách hàng luôn là ưu tiên hàng đầu.</p>
+                    </div>
+                    <div className="mt-24">
+                        <div className="flex flex-col flex-col-reverse md:flex-row items-center w-full justify-between bg-yellow-200 rounded-xl transform skew-y-3">
                             <div className="md:pr-12 xl:pr-0 mt-8 md:mt-0 w-full md:w-7/12 text-center md:text-left">
-                                <h3 className="text-xl lg:text-4xl font-bold leading-9 text-gray-900 dark:text-gray-50 tracking-tight">Tested components</h3><p className="text-base lg:text-xl leading-7 text-gray-600 dark:text-gray-400 mt-4 w-full xl:w-10/12">Get a creatively consistent experience on 68 different devices with our responsive and rigorously tested tailwind css elements. Rest assured, we ensure no stone is left unturned to make your life easier.</p></div><img className="w-144 h-144 sm:h-auto sm:w-1/2 lg:w-auto mx-auto md:mx-0 md:pl-6 xl:w-400" src="https://tailwinduikit.com/img/home/cross-browser.svg" alt="tailwind css components and templates" /></div><div className="mt-24 flex flex-col md:flex-row items-center w-full justify-between">
-                            <img className="w-192 h-144 sm:h-auto sm:w-1/2 lg:w-auto mx-auto md:mx-0 md:pr-6 xl:w-400" src="https://tailwinduikit.com/img/home/tested.svg" alt="tailwind css components and templates" /><div className="w-full md:w-1/2 mt-8 md:mt-0 text-center md:text-left"><h3 className="text-xl lg:text-4xl font-bold leading-9 text-gray-900 dark:text-gray-50 tracking-tight">Complete package</h3><p className="text-base lg:text-xl leading-7 text-gray-600 dark:text-gray-400 mt-4">Get the best of both worlds with our tailwind css components that are both beautifully designed and proficiently developed. It is like hiring a designer and a developer at the same time.</p></div></div><div className="flex flex-col flex-col-reverse md:flex-row items-center mt-24 w-full justify-between"><div className="md:pr-12 xl:pr-0 mt-8 md:mt-0 w-full md:w-7/12 text-center md:text-left"><h3 className="text-xl lg:text-4xl font-bold leading-9 text-gray-900 dark:text-gray-50 tracking-tight">Accessible</h3>
-                                <p className="text-base lg:text-xl leading-7 text-gray-600 dark:text-gray-400 mt-4 w-full xl:w-10/12">With the baked-in accessibility, the tailwind css components fit the needs of every user. With these elements, your project is accessible to all sorts of audiences around the world.</p></div><img className="w-182 sm:w-1/2 lg:w-auto h-157 sm:h-auto mx-auto md:mx-0 md:pl-6 xl:w-400" src="https://tailwinduikit.com/img/home/accessibility.svg" alt="tailwind css components and templates" /></div>
-                        <div className="mt-24 flex flex-col md:flex-row items-center w-full justify-between">
-                            <img className="w-187 sm:w-1/2 lg:w-auto h-187 sm:h-auto  mx-auto md:mx-0 md:pr-6 xl:w-400" src="https://tailwinduikit.com/img/home/responsive.svg" alt="tailwind css components and templates" /><div className="w-full md:w-1/2 mt-8 md:mt-0 text-center md:text-left">
-                                <h3 className="text-xl lg:text-4xl font-bold leading-9 text-gray-900 dark:text-gray-50 tracking-tight">Cross browser compatible</h3><p className="text-base lg:text-xl leading-7 text-gray-600 dark:text-gray-400 mt-4">Each component is cross-browser compatible to project your brand in the best possible light across the entire web.</p></div></div></div></div>
+                                <h3 className="text-xl lg:text-4xl font-bold leading-9 text-gray-900 dark:text-gray-50 tracking-tight">Dự kiến ngày ra mắt Polysu</h3>
+                                <p className="text-base lg:text-xl leading-7 text-gray-600 dark:text-gray-400 mt-4 w-full xl:w-10/12">Thông tin ra mắt.</p>
+                                {/* <button className="mt-8 mb-4 py-2 px-14 rounded-full bg-green-600 text-white tracking-widest hover:bg-green-500 transition duration-200">MORE</button> */}
 
-            </main>
+                            </div>
+                            <img className=" animate-bounce w-144 h-144 sm:h-auto sm:w-1/2 lg:w-auto mx-auto md:mx-0 md:pl-6 xl:w-400" src="https://tailwinduikit.com/img/home/cross-browser.svg" alt="tailwind css components and templates" />
+                        </div>
+                        <div className="mt-24 flex flex-col md:flex-row items-center w-full justify-between bg-purple-200 rounded-xl transform -skew-y-3">
+                            <img className="animate-bounce w-192 h-144 sm:h-auto sm:w-1/2 lg:w-auto mx-auto md:mx-0 md:pr-6 xl:w-400" src="https://tailwinduikit.com/img/home/tested.svg" alt="tailwind css components and templates" />
+                            <div className="w-full md:w-1/2 mt-8 md:mt-0 text-center md:text-left">
+                                <h3 className="text-xl lg:text-4xl font-bold leading-9 text-gray-900 dark:text-gray-50 tracking-tight">Những tính năng nổi bật nhất mới ra mắt</h3>
+                                <p className="text-base lg:text-xl leading-7 text-gray-600 dark:text-gray-400 mt-4">Thông tin tính năng.
+                                </p>
+                            </div>
+                        </div>
+                        <div className="flex flex-col flex-col-reverse md:flex-row items-center mt-24 w-full justify-between bg-red-200 rounded-xl transform skew-y-3">
+                            <div className="md:pr-12 xl:pr-0 mt-8 md:mt-0 w-full md:w-7/12 text-center md:text-left"><h3 className="text-xl lg:text-4xl font-bold leading-9 text-gray-900 dark:text-gray-50 tracking-tight">Thống kê của Polysu</h3>
+                                <p className="text-base lg:text-xl leading-7 text-gray-600 dark:text-gray-400 mt-4 w-full xl:w-10/12">Thông tin thống kê.</p>
+                            </div>
+                            <img className="animate-bounce w-182 sm:w-1/2 lg:w-auto h-157 sm:h-auto mx-auto md:mx-0 md:pl-6 xl:w-400" src="https://tailwinduikit.com/img/home/accessibility.svg" alt="tailwind css components and templates" />
+                        </div>
+                        <div className="mt-24 flex flex-col md:flex-row items-center w-full justify-between bg-blue-200 rounded-xl transform -skew-y-3">
+                            <img className="animate-bounce w-187 sm:w-1/2 lg:w-auto h-187 sm:h-auto  mx-auto md:mx-0 md:pr-6 xl:w-400" src="https://tailwinduikit.com/img/home/responsive.svg" alt="tailwind css components and templates" />
+                            <div className="w-full md:w-1/2 mt-8 md:mt-0 text-center md:text-left">
+                                <h3 className="text-xl lg:text-4xl font-bold leading-9 text-gray-900 dark:text-gray-50 tracking-tight">Những thành tựu Polysu</h3><p className="text-base lg:text-xl leading-7 text-gray-600 dark:text-gray-400 mt-4">Thông tin thành tựu.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
+                <div className="px-10 py-6 shadow-xl ">
+                    <div className="mx-10 bg-purple-300 rounded-lg my-16 p-16 bg-indigo-400">
+                        <h1 className="text-3xl font-medium mb-2">Luôn mang lại cảm giác hài lòng nhất cho khách hàng</h1>
+                        <h2 className="font-medium text-lg text-indigo-400 mb-4 uppercase tracking-wide">Góp ý đến nhà phát triển</h2>
+                        {/* <span className="my-5">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Illum illo cupiditate molestias atque consequuntur ea quo cumque, odit velit sint similique? Asperiores ratione aperiam tempora, alias corrupti deleniti quaerat molestiae.</span>  */}
+
+                        <div className="bg-white shadow rounded-lg p-6 ">
+                            <div className="grid lg:grid-cols-2 gap-6">
+                                <div className="border focus-within:border-blue-500 focus-within:text-blue-500 transition-all duration-500 relative rounded p-1">
+                                    <div className="-mt-4 absolute tracking-wider px-1 uppercase text-xs">
+                                        <p>
+                                            <label htmlFor="name" className="bg-white text-gray-600 px-1">Tên bạn là</label>
+                                        </p>
+                                    </div>
+                                    <p>
+                                        <input id="name" autoComplete="false" tabIndex={0} type="text" className="py-1 px-1 text-gray-900 outline-none block h-full w-full" />
+                                    </p>
+                                </div>
+                                <div className="border focus-within:border-blue-500 focus-within:text-blue-500 transition-all duration-500 relative rounded p-1">
+                                    <div className="-mt-4 absolute tracking-wider px-1 uppercase text-xs">
+                                        <p>
+                                            <label htmlFor="lastname" className="bg-white text-gray-600 px-1">Email</label>
+                                        </p>
+                                    </div>
+                                    <p>
+                                        <input id="email" autoComplete="false" tabIndex={0} type="email" className="py-1 px-1 outline-none block h-full w-full" />
+                                    </p>
+                                </div>
+                                <div className="border focus-within:border-blue-500 focus-within:text-blue-500 transition-all duration-500 relative rounded p-1">
+                                    <div className="-mt-4 absolute tracking-wider px-1 uppercase text-xs">
+                                        <p>
+                                            <label htmlFor="username" className="bg-white text-gray-600 px-1">Số điện thoại</label>
+                                        </p>
+                                    </div>
+                                    <p>
+                                        <input id="phone" autoComplete="false" tabIndex={0} type="text" className="py-1 px-1 outline-none block h-full w-full" />
+                                    </p>
+                                </div>
+                                <div className="border focus-within:border-blue-500 focus-within:text-blue-500 transition-all duration-500 relative rounded p-1">
+                                    <div className="-mt-4 absolute tracking-wider px-1 uppercase text-xs">
+                                        <p>
+                                            <label htmlFor="password" className="bg-white text-gray-600 px-1">Chủ đề góp ý</label>
+                                        </p>
+                                    </div>
+                                    <p>
+                                        <input id="text" autoComplete="false" tabIndex={0} type="text" className="py-1 px-1 outline-none block h-full w-full" />
+                                    </p>
+                                </div>
+
+                            </div>
+                            <span className="text-gray-600 my-5" >Nội dung cụ thể</span>
+                            <textarea className="p-4 w-full border h-32 focus-within:border-blue-500 focus-within:text-blue-500" name="" id="" cols="30" rows="10"></textarea>
+                            <div className="border-t mt-6 pt-3">
+                                <button className="rounded text-gray-100 px-3 py-1 bg-blue-500 hover:shadow-inner hover:bg-blue-700 transition-all duration-300">
+                                    Gửi
+                                </button>
+                            </div>
+                        </div>
+
+
+
+                    </div>
+
+                </div>
+
+
+
+            </div>
+            <footer class="py-6 bg-gray-300 text-coolGray-900">
+                <div class="container px-6 mx-auto space-y-6 divide-y divide-gray-400 md:space-y-12 divide-opacity-50">
+                    <div class="grid grid-cols-12">
+                        <div class="pb-6 col-span-full md:pb-0 md:col-span-6">
+                            <a href="#" class="flex justify-center space-x-3 md:justify-start">
+                                <div class="flex items-center justify-center w-12 h-12 rounded-full bg-violet-600">
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" fill="currentColor" class="w-5 h-5 rounded-full text-coolGray-50">
+                                        <path d="M18.266 26.068l7.839-7.854 4.469 4.479c1.859 1.859 1.859 4.875 0 6.734l-1.104 1.104c-1.859 1.865-4.875 1.865-6.734 0zM30.563 2.531l-1.109-1.104c-1.859-1.859-4.875-1.859-6.734 0l-6.719 6.734-6.734-6.734c-1.859-1.859-4.875-1.859-6.734 0l-1.104 1.104c-1.859 1.859-1.859 4.875 0 6.734l6.734 6.734-6.734 6.734c-1.859 1.859-1.859 4.875 0 6.734l1.104 1.104c1.859 1.859 4.875 1.859 6.734 0l21.307-21.307c1.859-1.859 1.859-4.875 0-6.734z"></path>
+                                    </svg>
+                                </div>
+                                <span class="self-center text-2xl font-semibold">FPOLYSU</span>
+                            </a>
+                        </div>
+                        <div class="col-span-6 text-center md:text-left md:col-span-3">
+                            <p class="pb-1 text-lg font-medium">Category</p>
+                            <ul>
+                                <li>
+                                    <a href="#" class="hover:text-violet-600">Link</a>
+                                </li>
+                                <li>
+                                    <a href="#" class="hover:text-violet-600">Link</a>
+                                </li>
+                                <li>
+                                    <a href="#" class="hover:text-violet-600">Link</a>
+                                </li>
+                                <li>
+                                    <a href="#" class="hover:text-violet-600">Link</a>
+                                </li>
+                                <li>
+                                    <a href="#" class="hover:text-violet-600">Link</a>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="col-span-6 text-center md:text-left md:col-span-3">
+                            <p class="pb-1 text-lg font-medium">Category</p>
+                            <ul>
+                                <li>
+                                    <a href="#" class="hover:text-violet-600">Link</a>
+                                </li>
+                                <li>
+                                    <a href="#" class="hover:text-violet-600">Link</a>
+                                </li>
+                                <li>
+                                    <a href="#" class="hover:text-violet-600">Link</a>
+                                </li>
+                                <li>
+                                    <a href="#" class="hover:text-violet-600">Link</a>
+                                </li>
+                                <li>
+                                    <a href="#" class="hover:text-violet-600">Link</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="grid justify-center pt-6 lg:justify-between">
+                        <div class="flex flex-col self-center text-sm text-center md:block lg:col-start-1 md:space-x-6">
+                            <span>©2021 All rights reserved</span>
+                            <a href="#">
+                                <span>Privacy policy</span>
+                            </a>
+                            <a href="#">
+                                <span>Terms of service</span>
+                            </a>
+                        </div>
+                        <div class="flex justify-center pt-4 space-x-4 lg:pt-0 lg:col-end-13">
+                            <a href="#" class="flex items-center justify-center w-10 h-10 rounded-full bg-violet-600 text-coolGray-50">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-5 h-5">
+                                    <path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z"></path>
+                                    <path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z"></path>
+                                </svg>
+                            </a>
+                            <a href="#" class="flex items-center justify-center w-10 h-10 rounded-full bg-violet-600 text-coolGray-50">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 50 50" fill="currentColor" class="w-5 h-5">
+                                    <path d="M 50.0625 10.4375 C 48.214844 11.257813 46.234375 11.808594 44.152344 12.058594 C 46.277344 10.785156 47.910156 8.769531 48.675781 6.371094 C 46.691406 7.546875 44.484375 8.402344 42.144531 8.863281 C 40.269531 6.863281 37.597656 5.617188 34.640625 5.617188 C 28.960938 5.617188 24.355469 10.21875 24.355469 15.898438 C 24.355469 16.703125 24.449219 17.488281 24.625 18.242188 C 16.078125 17.8125 8.503906 13.71875 3.429688 7.496094 C 2.542969 9.019531 2.039063 10.785156 2.039063 12.667969 C 2.039063 16.234375 3.851563 19.382813 6.613281 21.230469 C 4.925781 21.175781 3.339844 20.710938 1.953125 19.941406 C 1.953125 19.984375 1.953125 20.027344 1.953125 20.070313 C 1.953125 25.054688 5.5 29.207031 10.199219 30.15625 C 9.339844 30.390625 8.429688 30.515625 7.492188 30.515625 C 6.828125 30.515625 6.183594 30.453125 5.554688 30.328125 C 6.867188 34.410156 10.664063 37.390625 15.160156 37.472656 C 11.644531 40.230469 7.210938 41.871094 2.390625 41.871094 C 1.558594 41.871094 0.742188 41.824219 -0.0585938 41.726563 C 4.488281 44.648438 9.894531 46.347656 15.703125 46.347656 C 34.617188 46.347656 44.960938 30.679688 44.960938 17.09375 C 44.960938 16.648438 44.949219 16.199219 44.933594 15.761719 C 46.941406 14.3125 48.683594 12.5 50.0625 10.4375 Z"></path>
+                                </svg>
+                            </a>
+                            <a href="#" class="flex items-center justify-center w-10 h-10 rounded-full bg-violet-600 text-coolGray-50">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24" class="w-5 h-5">
+                                    <path d="M10.9,2.1c-4.6,0.5-8.3,4.2-8.8,8.7c-0.5,4.7,2.2,8.9,6.3,10.5C8.7,21.4,9,21.2,9,20.8v-1.6c0,0-0.4,0.1-0.9,0.1 c-1.4,0-2-1.2-2.1-1.9c-0.1-0.4-0.3-0.7-0.6-1C5.1,16.3,5,16.3,5,16.2C5,16,5.3,16,5.4,16c0.6,0,1.1,0.7,1.3,1c0.5,0.8,1.1,1,1.4,1 c0.4,0,0.7-0.1,0.9-0.2c0.1-0.7,0.4-1.4,1-1.8c-2.3-0.5-4-1.8-4-4c0-1.1,0.5-2.2,1.2-3C7.1,8.8,7,8.3,7,7.6C7,7.2,7,6.6,7.3,6 c0,0,1.4,0,2.8,1.3C10.6,7.1,11.3,7,12,7s1.4,0.1,2,0.3C15.3,6,16.8,6,16.8,6C17,6.6,17,7.2,17,7.6c0,0.8-0.1,1.2-0.2,1.4 c0.7,0.8,1.2,1.8,1.2,3c0,2.2-1.7,3.5-4,4c0.6,0.5,1,1.4,1,2.3v2.6c0,0.3,0.3,0.6,0.7,0.5c3.7-1.5,6.3-5.1,6.3-9.3 C22,6.1,16.9,1.4,10.9,2.1z"></path>
+                                </svg>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </footer>
         </>
     )
 }
+
+

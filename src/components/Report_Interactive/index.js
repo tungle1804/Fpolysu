@@ -1,110 +1,188 @@
-import React from 'react'
-import { Doughnut } from 'react-chartjs-2';
-import Barchart from '../BarChart';
-// eslint-disable-next-line import/no-anonymous-default-export
-export default () => (
-   <>
-   <div>
-     <h1 className="text-2xl font-bold m-5">Thống kê tương tác</h1>
-     <div className="grid grid-cols-2 gap-10">
-       <div>
-       <p className="text-lg text-center font-bold m-5">Tỉ lệ nhấp chuột vào menu</p>
-  <table className="rounded-t-lg mx-auto bg-gray-200" >
-    <tbody>
-      <tr className="text-left border-b-2 border-gray-300  ">
-        <th className="px-3 py-1">#</th>
-        <th className="px-3 py-1">Tên Menu</th>
-        <th className="px-3 py-1">Số lần hiển thị	</th>
-        <th className="px-3 py-1">Số lần click</th>
-        <th className="px-3 py-1">Tỉ lệ click</th>
-       
-      </tr>
-      <tr className="bg-gray-100 border-b border-gray-400">
-        <td className="px-1 py-1">1</td>
-        <td className="px-1 py-1">abc</td>
-        <td className="px-1 py-1">50</td>
-        <td className="px-1 py-1">0</td>
-        <td className="px-1 py-1">0</td>
-       
-      </tr>
-    </tbody></table>
-       </div>
-       <div>
-       <p className="text-lg text-center font-bold m-5">Tỉ lệ nhấp chuột vào widget</p>
-       <table className=" mx-auto bg-gray-200">
-    <tbody>
-      <tr className="text-left border-b-2 border-gray-300  ">
-        <th className="px-3 py-1">#</th>
-        <th className="px-3 py-1">Tên Menu</th>
-        <th className="px-3 py-1">Số lần hiển thị	</th>
-        <th className="px-3 py-1">Số lần click</th>
-        <th className="px-3 py-1">Tỉ lệ click</th>
-       
-      </tr>
-      <tr className="bg-gray-100 border-b border-gray-400">
-        <td className="px-1 py-1">1</td>
-        <td className="px-1 py-1">abc</td>
-        <td className="px-1 py-1">50</td>
-        <td className="px-1 py-1">0</td>
-        <td className="px-1 py-1">0</td>
-       
-      </tr>
-    </tbody></table>
-       </div>
-       
-     </div>
-     <div className="grid grid-cols-2 gap-10 pt-20">
-       <div>
-       <p className="text-lg text-center font-bold m-5">Tương tác trên thiết bị</p>
-      <span>Tổng số click trên thiết bị</span>
-        <div>
-          <Barchart/>
-        </div>
+import React, { useState, useEffect } from "react";
+import { CChartBar } from "@coreui/react-chartjs";
+import {
+  CCard,
+  CCardBody,
+  CCardTitle,
+  CFormGroup,
+  CCardHeader,
+  CPagination,
+  CRow,
+  CLabel,
+} from "@coreui/react";
+import {
+  dataYear,
+  dataMonth,
+  dataDay,
+  dataHour,
+  header,
+} from "../CommonData/data";
+import DatePicker from "react-datepicker";
+import axios from "axios";
+function TotalCustomerByMonth() {
+  // const headers = header;
+  const [date, setDate] = useState(new Date());
+  const [year, setYear] = useState(new Date());
+  const [month, setMonth] = useState(new Date());
+  const [day, setDay] = useState(new Date());
 
-       </div>
-      {/* phần 2 */}
-       <div>
-       <p className="text-lg text-center font-bold m-5">Tương tác trên nút</p>
-       <span>Tổng số click trên tất cả kiểu nút trên menu</span>
-       <div>
-       <Barchart/>
-       </div>
-       </div>
-     </div>
-     <div className="grid grid-cols-1 gap-10 pt-10">
-       <div>
-       <p className="text-lg text-center font-bold m-5">Danh sách tất cả click trên từng nút theo thời gian</p>  
-     
-       <table className="rounded-t-lg mx-auto bg-gray-200" >
-    <tbody>
-      <tr className="text-left border-b-2 border-gray-300  ">
-        <th className="px-10 py-1">#</th>
-        <th className="px-10 py-1">Tên Menu</th>
-        <th className="px-10 py-1">Số lần hiển thị	</th>
-        <th className="px-10 py-1">Số lần click</th>
-        <th className="px-10 py-1">Tỉ lệ click</th>
-        <th className="px-10 py-1">Số lần click</th>
-        <th className="px-10 py-1">Tỉ lệ click</th>
-       
-      </tr>
-      <tr className="bg-gray-100 border-b border-gray-400">
-        <td className="px-10 py-1">1</td>
-        <td className="px-10 py-1">abc</td>
-        <td className="px-10 py-1">50</td>
-        <td className="px-10 py-1">0</td>
-        <td className="px-10 py-1">0</td>
-        <td className="px-10 py-1">0</td>
-        <td className="px-10 py-1">0</td>
-       
-      </tr>
-    </tbody></table>
-    </div>
-     </div>
-  </div>
+  const [totalByDay, setTotalByDay] = useState([]);
 
+  const getDataByDay = async () => {
+    console.log("header", header);
+    console.log("window.name", window.name);
+    const username = "vuthanhnam@gmail.com";
+    // this is version official
+    // const username = localStorage.getItem("email");
 
+    console.log("object", username);
+    console.log("date", date.toISOString());
+    let day = date.getDate();
 
+    console.log("day", day);
+    let month = date.getMonth() + 1;
+
+    console.log("month", month);
+    let year = date.getFullYear();
+
+    console.log("year", year);
+
+    if (year !== (undefined | null) && month !== (undefined | null)) {
+      var API_Statistics = `http://localhost:8080/api/v1/statisticAllActionOnThisMenuEnable?email=${username}&day=${day}&month=${month}&year=${year}`;
+      console.log("object API:  ", API_Statistics);
+      axios.get(API_Statistics, { header }).then((response) => {
+        setTotalByDay(response.data);
+        console.log("response:  " + response.data);
+      });
+    }
+  };
+  function handleChangeYear() {
+    let item = document.getElementById("y");
+
+    setYear(item.value);
+    //console.log("this year: " + year);
+  }
+  function handleChangeMonth() {
+    let item = document.getElementById("m");
+
+    setMonth(item.value);
+    //console.log("this year: " + year);
+  }
+  function handleChangeDay() {
+    let item = document.getElementById("d");
+
+    setDay(item.value);
+    // console.log("this year: " + year);
+  }
+  useEffect(() => {
+    getDataByDay();
+  }, [date, year, month, day]);
+
+  return (
+    <>
+      <CRow className="container row-auto">
+        <CCard className="col-3">
+          <CCardBody className="mx-auto p-1 border text-center">
+            <CCardTitle className="text-orange-500">Click chọn ngày</CCardTitle>
+            <DatePicker
+              inline
+              className="text-center"
+              selected={date}
+              onChange={(date) => setDate(date)} //when day is clicked
+              // onChange={handleDateChange} //only when value has changed
+            />
+          </CCardBody>
+        </CCard>
+
+        <CCard className="col-8">
+          <CCardHeader className="text-center font-extrabold">
+            Thống kê tương tác hàng ngày của Menu hiện đang sử dụng:{}
+          </CCardHeader>
+          <CCardBody>
+            <CChartBar
+              datasets={[
+                {
+                  label: "Lượng Khách Hàng",
+                  backgroundColor: "#f87979",
+                  data: totalByDay,
+                },
+              ]}
+              labels={dataHour}
+              options={{
+                tooltips: {
+                  enabled: true,
+                },
+              }}
+            />
+          </CCardBody>
+        </CCard>
+      </CRow>
     </>
-    
-)
+  );
+}
+export default TotalCustomerByMonth;
 
+{
+  /* <div className="row">
+          <div className="col-3 offset-1">
+            <select
+              id="y"
+              className="form-control"
+              placeholder="Chọn tháng"
+              aria-label="Default select example"
+              onChange={handleChangeYear}
+            >
+              <option selected disabled>
+                Select Year
+              </option>
+              {dataYear.map((item) => {
+                return (
+                  <option value={item} key={item}>
+                    {item}
+                  </option>
+                );
+              })}
+            </select>
+          </div>
+          <div className="col-3 offset-1">
+            <select
+              id="m"
+              className="form-control"
+              placeholder="Chọn tháng"
+              aria-label="Default select example"
+              onChange={handleChangeMonth}
+            >
+              <option selected disabled>
+                Select month
+              </option>
+              {dataMonth.map((item) => {
+                return (
+                  <option value={item} key={item}>
+                    {item}
+                  </option>
+                );
+              })}
+            </select>
+          </div>
+          <div className="col-3 offset-1">
+            <select
+              id="d"
+              className="form-control"
+              placeholder="Chọn tháng"
+              aria-label="Default select example"
+              onChange={handleChangeDay}
+            >
+              <option selected disabled>
+                Select Day
+              </option>
+              {dataDay.map((item) => {
+                return (
+                  <option value={item} key={item}>
+                    {item}
+                  </option>
+                );
+              })}
+            </select>
+          </div>
+        </div> */
+}

@@ -4,9 +4,11 @@ import { fetchListMenusFailed, fetchListMenusSuccess, loadMenus, fetchListMenusR
 import * as taskTypesMenus from './../constants/menuConstant'
 import * as taskTypesButtons from './../constants/buttonConstant'
 import * as taskTypesData from './../constants/dataConstanst'
+import * as taskTypesInput from './../constants/InputConstant'
 import { getApi, getApi1 } from './../../util/api'
 import { fetchDataRequest, fetchDataSuccess, fetchDataFailed, saveData, saveDataInfo } from '../actions/dataAction'
 import { fetchListButtonsFailed, fetchListButtonsRequest, fetchListButtonsSuccess, saveDataButtons } from '../actions/buttonAction'
+import { saveInput, fetchInputRequest, fetchInputSuccess, fetchInputFailed, fetchSaveValueInput } from '../actions/InputAction'
 // let email = localStorage.getItem('email')
 // const apiUrl = `http://localhost:8080/api/v1/getMenuByEmail/nhan@gmail.com`
 // const apiUrl1 = `http://localhost:8080/api/v1/getButtonByIDMenu/${id}`
@@ -33,15 +35,18 @@ import { fetchListButtonsFailed, fetchListButtonsRequest, fetchListButtonsSucces
 //         }).then(response=>response.json()).catch((error)=>{throw error})
 //     }
 
-function* fetchMenus() {
+function* fetchMenus({ data }) {
 
     try {
-        let email = localStorage.getItem('email')
+        // let email = localStorage.getItem('email')
+        console.log(data)
         // const menu = yield call(MenuService.getMenuByEmail(email))
         // yield put(loadMenus())
         yield put(fetchListMenusRequest())
         // const menu = yield call(getApi("http://localhost:8080/api/v1/getMenuByEmail/nhan@gmail.com", 'GET'))\
-        const response = yield call(getApi, [`/getMenuByEmail/${email}`]);
+        // const response = yield call(getApi, ['/getMenuByEmail/vuthanhnam@gmail.com']);
+        const response = yield call(getApi, [`/getMenuByEmail/${data.email}`]);
+
         yield put(fetchListMenusSuccess())
         yield put(savelistMenus(response.data))
 
@@ -99,9 +104,33 @@ function* createData({ payload }) {
         yield put(fetchDataSuccess())
     } catch (error) {
 
-        yield put(fetchDataFailed(error))
+        yield put(fetchInputFailed(error))
     }
 }
+function* getLoadInput({ payload }) {
+    try {
+        yield put(fetchInputRequest())
+        const response = yield call(getApi1, [`/getModalByButton/${payload}`])
+        yield put(fetchInputSuccess())
+        yield put(fetchSaveValueInput(response.data))
+    } catch (error) {
+
+        yield put(fetchInputFailed(error))
+    }
+}
+// function* createInput({ payload }) {
+
+//     try {
+//         yield put(fetchInputRequest())
+//         const response = yield call(getApi1, [`/createModal`, payload])
+//         yield put(saveInput(response.data))
+//         yield put(fetchInputSuccess())
+//     } catch (error) {
+
+//         yield put(fetchDataFailed(error))
+//     }
+
+// }
 function* menuSaga() {
 
     yield takeEvery(taskTypesMenus.FETCH_MENUS, fetchMenus)
@@ -109,5 +138,7 @@ function* menuSaga() {
     yield takeEvery(taskTypesData.FETCH_DATA, getDataByUsers)
     yield takeEvery(taskTypesData.FETCH_DATA_INFO, getDataInfo)
     yield takeEvery(taskTypesData.FETCH_CREATE_DATA, createData)
+    yield takeEvery(taskTypesInput.FETCH_LOAD_INPUT, getLoadInput)
+    // yield takeEvery(taskTypesInput.FETCH_SAVE_INPUT, createInput)
 }
 export default menuSaga;

@@ -6,7 +6,8 @@ import {
     FETCH_CREATE_BUTTON_ERROR,
     FETCH_CREATE_BUTTON_DELETE,
     VIEW_BUTTON,
-    UPDATE_BUTTON
+    UPDATE_BUTTON,
+    FETCH_CLEAR,
 } from '../constants/createbuttonAction'
 
 export const createButton = (data) => async dispatch => {
@@ -19,7 +20,6 @@ export const createButton = (data) => async dispatch => {
 
         })
     } catch (error) {
-        console.log(error)
         dispatch({
             type: FETCH_CREATE_BUTTON_ERROR,
             message: error
@@ -92,5 +92,13 @@ export const updateButton = (data) => async dispatch => {
             type: FETCH_CREATE_BUTTON_ERROR,
             message: error
         })
+    }
+}
+export const fetchClear = data => {
+
+    return {
+        type: FETCH_CLEAR,
+        data: data
+
     }
 }
