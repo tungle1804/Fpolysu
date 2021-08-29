@@ -1,5 +1,10 @@
 console.log("window name " + window.name);
 console.log("location.href", window.location.href);
+
+var chatbox = document.getElementById("fb-customer-chat");
+chatbox.setAttribute("page_id", "109725858097691");
+chatbox.setAttribute("attribution", "biz_inbox");
+
 fetch(`http://localhost:8080/api/v1/getMenuByStatus/${window.name}`, {
   method: "GET",
 })
@@ -41,12 +46,13 @@ fetch(`http://localhost:8080/api/v1/getMenuByStatus/${window.name}`, {
         if (!rootElement) {
           let root = document.createElement("div");
           root.id = "metu";
+
           document.body.appendChild(root);
 
           const html = data2
             .map((items) => {
               return `
-                          <div id="metu">
+                          <div id="metu">                        
                           <div style="position: fixed; top: 0px; left: 0px; right: 0px; z-index: 999999"></div>
                           <div class=" mmt-container mmt-container--full">
                             <div class="mmt-app">
@@ -94,6 +100,10 @@ fetch(`http://localhost:8080/api/v1/getMenuByStatus/${window.name}`, {
             var raw = JSON.stringify({
               fromUrl: window.location.href,
               buttonId: it.id,
+              equipment:
+                window.screen.width > 1150 && window.screen.height > 800
+                  ? 0
+                  : 1,
             });
 
             var requestOptions = {

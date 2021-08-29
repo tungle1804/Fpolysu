@@ -1,22 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { CChartBar } from "@coreui/react-chartjs";
-import {
-  CCard,
-  CCardBody,
-  CCardTitle,
-  CFormGroup,
-  CCardHeader,
-  CPagination,
-  CRow,
-  CLabel,
-} from "@coreui/react";
-import {
-  dataYear,
-  dataMonth,
-  dataDay,
-  dataHour,
-  header,
-} from "../CommonData/data";
+import { CCard, CCardBody, CCardTitle, CCardHeader, CRow } from "@coreui/react";
+import { dataHour, header } from "../CommonData/data";
 import DatePicker from "react-datepicker";
 import axios from "axios";
 function TotalCustomerByMonth() {
@@ -25,15 +10,13 @@ function TotalCustomerByMonth() {
   const [year, setYear] = useState(new Date());
   const [month, setMonth] = useState(new Date());
   const [day, setDay] = useState(new Date());
-
   const [totalByDay, setTotalByDay] = useState([]);
-
   const getDataByDay = async () => {
     console.log("header", header);
     console.log("window.name", window.name);
-    const username = "vuthanhnam@gmail.com";
+    //  const username = "vuthanhnam@gmail.com";
     // this is version official
-    // const username = localStorage.getItem("email");
+    const username = localStorage.getItem("email");
 
     console.log("object", username);
     console.log("date", date.toISOString());
@@ -56,24 +39,7 @@ function TotalCustomerByMonth() {
       });
     }
   };
-  function handleChangeYear() {
-    let item = document.getElementById("y");
 
-    setYear(item.value);
-    //console.log("this year: " + year);
-  }
-  function handleChangeMonth() {
-    let item = document.getElementById("m");
-
-    setMonth(item.value);
-    //console.log("this year: " + year);
-  }
-  function handleChangeDay() {
-    let item = document.getElementById("d");
-
-    setDay(item.value);
-    // console.log("this year: " + year);
-  }
   useEffect(() => {
     getDataByDay();
   }, [date, year, month, day]);
@@ -121,68 +87,3 @@ function TotalCustomerByMonth() {
   );
 }
 export default TotalCustomerByMonth;
-
-{
-  /* <div className="row">
-          <div className="col-3 offset-1">
-            <select
-              id="y"
-              className="form-control"
-              placeholder="Chọn tháng"
-              aria-label="Default select example"
-              onChange={handleChangeYear}
-            >
-              <option selected disabled>
-                Select Year
-              </option>
-              {dataYear.map((item) => {
-                return (
-                  <option value={item} key={item}>
-                    {item}
-                  </option>
-                );
-              })}
-            </select>
-          </div>
-          <div className="col-3 offset-1">
-            <select
-              id="m"
-              className="form-control"
-              placeholder="Chọn tháng"
-              aria-label="Default select example"
-              onChange={handleChangeMonth}
-            >
-              <option selected disabled>
-                Select month
-              </option>
-              {dataMonth.map((item) => {
-                return (
-                  <option value={item} key={item}>
-                    {item}
-                  </option>
-                );
-              })}
-            </select>
-          </div>
-          <div className="col-3 offset-1">
-            <select
-              id="d"
-              className="form-control"
-              placeholder="Chọn tháng"
-              aria-label="Default select example"
-              onChange={handleChangeDay}
-            >
-              <option selected disabled>
-                Select Day
-              </option>
-              {dataDay.map((item) => {
-                return (
-                  <option value={item} key={item}>
-                    {item}
-                  </option>
-                );
-              })}
-            </select>
-          </div>
-        </div> */
-}
