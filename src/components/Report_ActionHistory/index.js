@@ -22,6 +22,7 @@ import DisplayResultPagination from "./../DisplayResultPagination/DisplayResultP
 import CustomerDatePicker from "./../CustomerDatePicker/index";
 import ReportRatioActivity from "./index1";
 import ReportActionByEquipment from "./index2";
+import StatisticsClickAllMenu from "./index3";
 function Report_ActionHistory() {
   const headers = header;
   const [pageNo, setPageNo] = useState(1);
@@ -191,13 +192,7 @@ function Report_ActionHistory() {
       <CCard>
         <CCardHeader align={"center"}>Chọn Thời gian</CCardHeader>
         <CCardBody align={"center"}>
-          <CustomerDatePicker
-            startDate={startDate}
-            setStartDate={setStartDate}
-            endDate={endDate}
-            setEndDate={setEndDate}
-            className="border-5 text-center"
-          />
+          <StatisticsClickAllMenu></StatisticsClickAllMenu>
         </CCardBody>
         <CCardFooter></CCardFooter>
       </CCard>

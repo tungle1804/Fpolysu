@@ -1,10 +1,23 @@
 console.log("window name " + window.name);
 console.log("location.href", window.location.href);
-
 var chatbox = document.getElementById("fb-customer-chat");
 chatbox.setAttribute("page_id", "109725858097691");
 chatbox.setAttribute("attribution", "biz_inbox");
 
+fetch(
+  `https://api.ipdata.co/?api-key=c0d47b87f4cea32d0e7a1131837aa74602c7a4c33d07e3846c5b0b84`,
+  { method: "GET",}
+)
+  .then(function (response) {
+    return response.json();
+  })
+  .then((data3) => {
+    console.log("data3:   ", data3);
+  var  ip_addres = data3.ip;
+    user_addres = data3.currency.name;
+     language = data3.languages[0].name;
+     supplie = data3.asn.name;
+  });
 fetch(`http://localhost:8080/api/v1/getMenuByStatus/${window.name}`, {
   method: "GET",
 })
@@ -39,8 +52,6 @@ fetch(`http://localhost:8080/api/v1/getMenuByStatus/${window.name}`, {
         return response.json();
       })
       .then(function (data2) {
-        console.log("bình", data2);
-
         const rootElement = document.getElementById("metu");
 
         if (!rootElement) {
@@ -87,16 +98,16 @@ fetch(`http://localhost:8080/api/v1/getMenuByStatus/${window.name}`, {
             })
             .join("");
           root.innerHTML = html;
-          console.log("root", root);
+          //  console.log("root", root);
         }
       })
       .then(() => {
-        const tab = document.getElementsByName("metuu");
+        const tab = document.getElementsByName("metuu");    
         for (const it of tab) {
           it.addEventListener("click", () => {
             var myHeaders = new Headers();
-            myHeaders.append("Content-Type", "application/json");
 
+            myHeaders.append("Content-Type", "application/json");
             var raw = JSON.stringify({
               fromUrl: window.location.href,
               buttonId: it.id,
@@ -104,6 +115,10 @@ fetch(`http://localhost:8080/api/v1/getMenuByStatus/${window.name}`, {
                 window.screen.width > 1150 && window.screen.height > 800
                   ? 0
                   : 1,
+              ip_address: ip_addres,
+              languages: language,
+              supplier: supplie,
+              user_address: user_addres,
             });
 
             var requestOptions = {

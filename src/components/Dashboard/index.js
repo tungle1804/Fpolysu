@@ -64,60 +64,72 @@ export default function Dashboard() {
     getTotalButtonCreated();
   }, []);
   return (
-    <div className="mx-auto">
-      <>
-        <section className="text-gray-600 body-font ml-200 w-full ">
-          <div className="bg-gray-300 w-auto mx-auto rounded-2xl mt-5 max-h-full border-2 border-gray-900">
-            <div className="flex flex-col text-center w-full mb-20 pt-20">
-              <h1 className="sm:text-3xl text-2xl font-medium pt-20  title-font text-gray-900">
-                Tổng quan MENU
-              </h1>
-            </div>
-            <div className="container px-5 py-10 mx-auto">
-              <div className="flex flex-wrap mx-auto  text-center">
-                <div className="p-4 sm:w-1/3 w-1/2">
-                  <img
-                    className="max-h-16 mx-auto"
-                    src="images/Mouse.png"
-                    alt=""
-                  />
-                  <p className="leading-relaxed">Tổng số tương tác</p>
-                  <h2 className="title-font font-medium sm:text-4xl text-3xl text-gray-900">
-                    {totalClickByUser}
-                  </h2>
-                </div>
-                <div className="p-4 sm:w-1/3 w-1/2">
-                  <img
-                    className="max-h-16 mx-auto"
-                    src="images/Menu.png"
-                    alt=""
-                  />
-                  <p className="leading-relaxed">Tổng menu đã tạo</p>
-                  <h2 className="title-font font-medium sm:text-4xl text-3xl text-gray-900">
-                    {totalMenuCreated}
-                  </h2>
-                </div>
-                <div className="p-4 sm:w-1/3 w-1/2">
-                  <img
-                    className="max-h-16 mx-auto"
-                    src="images/Box.png"
-                    alt=""
-                  />
-                  <p className="leading-relaxed">Tổng số nút đang dùng</p>
-                  <h2 className="title-font font-medium sm:text-4xl text-3xl text-gray-900">
-                    {totalButtonCreated}
-                  </h2>
-                </div>
-                {/* <div className="p-4 sm:w-1/4 w-1/2">
-                                <p className="leading-relaxed">Products</p>
-                                <h2 className="title-font font-medium sm:text-4xl text-3xl text-gray-900">4</h2>
-                            </div> */}
+    <div>
+      {/*-===================== FIRST ROW CONTAINING THE  STATS CARD STARTS HERE =============================*/}
+      <div className="flex justify-between rounded-lg bg-white py-10 p-6 w-full">
+        {/*-== First Stats Container ====-*/}
+        <div className="container mx-auto pr-4">
+          <div className="w-auto bg-gray-100 max-w-xs mx-auto rounded-sm overflow-hidden shadow-md hover:shadow-2xl transition duration-500 transform hover:scale-100 cursor-pointer">
+            <div className="h-full py-4 bg-red-400 my-auto">
+              <div className="flex justify-start ml-2">
+                <i class="fas fa-mouse-pointer fa-2x bg-white py-2 px-3 border-2 border-black rounded-lg my-auto"></i>
+                <p className="mr-0 text-white text-lg pl-2 my-auto">
+                  Tổng số tương tác
+                </p>
               </div>
             </div>
+            <div className="flex justify-between px-5 pt-6 mb-2 text-sm text-gray-600">
+              <p className="border-b-2 border-black">TOTAL</p>
+            </div>
+            <p className="py-4 text-3xl ml-5">{totalClickByUser}</p>
+            {/* <hr > */}
           </div>
-        </section>
+        </div>
+        {/*-== First Stats Container ====-*/}
+        {/*-== Second Stats Container ====-*/}
+        <div className="container mx-auto pr-4">
+          <div className="w-auto bg-gray-100 max-w-xs mx-auto rounded-sm overflow-hidden shadow-md hover:shadow-2xl transition duration-500 transform hover:scale-100 cursor-pointer">
+            <div className="h-full py-4 bg-blue-400 my-auto">
+              <div className="flex justify-start ml-2">
+                <i class="fas fa-bars fa-2x bg-white py-2 px-3 border-2 border-black rounded-lg my-auto"></i>
+                <p className="mr-0 text-white text-lg pl-2 my-auto">
+                  Tổng menu đã tạo
+                </p>
+              </div>
+            </div>
+            <div className="flex justify-between px-5 pt-6 mb-2 text-sm text-gray-600">
+              <p className="border-b-2 border-black">TOTAL</p>
+            </div>
+            <p className="py-4 text-3xl ml-5">{totalMenuCreated}</p>
+            {/* <hr > */}
+          </div>
+        </div>
+        {/*-== Second Stats Container ====-*/}
+        {/*-== Third Stats Container ====-*/}
+        <div className="container mx-auto pr-4">
+          <div className="w-auto bg-gray-100 max-w-xs mx-auto rounded-sm overflow-hidden shadow-md hover:shadow-2xl transition duration-500 transform hover:scale-100 cursor-pointer">
+            <div className="h-full py-4 bg-purple-400 my-auto">
+              <div className="flex justify-start ml-2">
+                <i class="fas fa-box fa-2x bg-white py-2 px-3 border-2 border-black rounded-lg my-auto"></i>
+                <p className="mr-0 text-white text-lg pl-2 my-auto">
+                  Tổng số nút đang dùng
+                </p>
+              </div>
+            </div>
+            <div className="flex justify-between px-5 pt-6 mb-2 text-sm text-gray-600">
+              <p className="border-b-2 border-black">TOTAL</p>
+            </div>
+            <p className="py-4 text-3xl ml-5">{totalButtonCreated}</p>
+            {/* <hr > */}
+          </div>
+        </div>
+
+        {/*-== Fourth Stats Container ====-*/}
+      </div>
+      <hr />
+      <div className="mx-auto w-full">
         <Statistics></Statistics>
-      </>
+      </div>
     </div>
   );
 }

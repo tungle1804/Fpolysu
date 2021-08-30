@@ -196,8 +196,8 @@ function Report_Menu() {
     <CContainer>
       <div className="row justify-content-center">
         <h2>
-          Thống kê tương tác theo
-          <CBadge color="secondary"> Menu</CBadge>
+          Thống kê tương tác theo &nbsp;
+          <CBadge color="primary"> Menu</CBadge>
         </h2>
       </div>
       <br />
@@ -242,12 +242,15 @@ function Report_Menu() {
       <hr />
       <CRow className="container row-auto">
         <CCard className="col-3">
-          <CCardHeader className="text-center bg-blue-200 text-orange-300">
+          <CCardHeader
+            className="text-center bg-blue-200 text-blue-500 font-weight-bold"
+            style={{ color: "6699FF" }}
+          >
             Tổng số Tương tác{" "}
           </CCardHeader>
           <CCardBody>
             <h1 className="text-lg-center px-3">
-              <CBadge color="secondary">{dataMenu}</CBadge>
+              <CBadge color="primary">{dataMenu}</CBadge>
             </h1>
           </CCardBody>
           <CCardFooter></CCardFooter>
@@ -259,7 +262,7 @@ function Report_Menu() {
               datasets={[
                 {
                   label: "Lượng Tương tác",
-                  backgroundColor: "#f87979",
+                  backgroundColor: "#6699FF",
                   data: dataActionOfMenuByDay,
                 },
               ]}

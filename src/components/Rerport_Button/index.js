@@ -185,8 +185,8 @@ function Report_Button() {
     <CContainer>
       <div className="row justify-content-center">
         <h2>
-          Thống kê tương tác theo
-          <CBadge color="secondary"> Nút </CBadge>
+          Thống kê tương tác theo &nbsp;
+          <CBadge color="primary"> Nút </CBadge>
         </h2>
       </div>
       <br />
@@ -268,7 +268,7 @@ function Report_Button() {
               datasets={[
                 {
                   label: "Lượng Tương tác",
-                  backgroundColor: "#f87979",
+                  backgroundColor: "#6699FF",
                   data: dataActionOfButtonByDay,
                 },
               ]}
