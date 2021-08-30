@@ -3078,6 +3078,11 @@
   "resolved" "https://registry.npmjs.org/balanced-match/-/balanced-match-1.0.2.tgz"
   "version" "1.0.2"
 
+"base-64@^1.0.0":
+  "integrity" "sha512-kwDPIFCGx0NZHog36dj+tHiwP4QMzsZ3AgMViUBKI0+V5n4U0ufTCUMhnQ04diaRI8EX/QcPfql7zlhZ7j4zgg=="
+  "resolved" "https://registry.npmjs.org/base-64/-/base-64-1.0.0.tgz"
+  "version" "1.0.0"
+
 "base@^0.11.1":
   "integrity" "sha512-5T6P4xPgpp0YDFvSWwEZ4NoE3aM4QBQXDzmVbraCkFj8zHM+mba8SyqB5DbZWyR7mYHo6Y7BdQo3MoA4m0TeQg=="
   "resolved" "https://registry.npmjs.org/base/-/base-0.11.2.tgz"
@@ -9866,6 +9871,16 @@
     "prop-types" "^15.7.2"
     "react-fast-compare" "^3.1.1"
     "react-side-effect" "^2.1.0"
+
+"react-hook-form@^7.14.1":
+  "integrity" "sha512-NcKsxUokZhvpKBdxjnpIn/9v6IlmML63I3PI5aWlnI75ptswYvQeIaaOK8fMohr9Z2HZeeiYBjYDlv+ooffI4Q=="
+  "resolved" "https://registry.npmjs.org/react-hook-form/-/react-hook-form-7.14.1.tgz"
+  "version" "7.14.1"
+
+"react-hook@^0.0.1":
+  "integrity" "sha512-2/Guf88/dGyFgUT7QDtBJ1l7V5yqTcAHlNRIZNTu2xg0KkDjaiYZp79ah49NDaLMI/J7voWcKLU8wMONG4A/1g=="
+  "resolved" "https://registry.npmjs.org/react-hook/-/react-hook-0.0.1.tgz"
+  "version" "0.0.1"
 
 "react-iframe@^1.8.0":
   "integrity" "sha512-NYi89+rEqREwQxW9sDf+akh6/dtwWd3bOjByoVEIQ7SicOxVawRMer3pLdWjFaHXpuxTB9NqobPf/Ohj2iAKkg=="

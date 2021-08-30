@@ -9,7 +9,7 @@ export default ({ children }) => {
                 <AdminHeader />
                 <div className="flex">
                     <AdminMenu />
-                    <div className="flex w-4/5 mt-24 h-auto">
+                    <div className="w-4/5 mt-16 h-auto">
                         {children}
                     </div>
                 </div>

@@ -8,7 +8,7 @@ import * as taskTypesInput from './../constants/InputConstant'
 import { getApi, getApi1 } from './../../util/api'
 import { fetchDataRequest, fetchDataSuccess, fetchDataFailed, saveData, saveDataInfo } from '../actions/dataAction'
 import { fetchListButtonsFailed, fetchListButtonsRequest, fetchListButtonsSuccess, saveDataButtons } from '../actions/buttonAction'
-import { saveInput, fetchInputRequest, fetchInputSuccess, fetchInputFailed } from '../actions/InputAction'
+import { saveInput, fetchInputRequest, fetchInputSuccess, fetchInputFailed, fetchSaveValueInput } from '../actions/InputAction'
 // let email = localStorage.getItem('email')
 // const apiUrl = `http://localhost:8080/api/v1/getMenuByEmail/nhan@gmail.com`
 // const apiUrl1 = `http://localhost:8080/api/v1/getButtonByIDMenu/${id}`
@@ -107,7 +107,17 @@ function* createData({ payload }) {
         yield put(fetchInputFailed(error))
     }
 }
+function* getLoadInput({ payload }) {
+    try {
+        yield put(fetchInputRequest())
+        const response = yield call(getApi1, [`/getModalByButton/${payload}`])
+        yield put(fetchInputSuccess())
+        yield put(fetchSaveValueInput(response.data))
+    } catch (error) {
 
+        yield put(fetchInputFailed(error))
+    }
+}
 // function* createInput({ payload }) {
 
 //     try {
@@ -128,6 +138,7 @@ function* menuSaga() {
     yield takeEvery(taskTypesData.FETCH_DATA, getDataByUsers)
     yield takeEvery(taskTypesData.FETCH_DATA_INFO, getDataInfo)
     yield takeEvery(taskTypesData.FETCH_CREATE_DATA, createData)
+    yield takeEvery(taskTypesInput.FETCH_LOAD_INPUT, getLoadInput)
     // yield takeEvery(taskTypesInput.FETCH_SAVE_INPUT, createInput)
 }
 export default menuSaga;

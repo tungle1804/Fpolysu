@@ -1,10 +1,11 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { Modal, Button, Form } from 'react-bootstrap'
 import { useDispatch, useSelector } from 'react-redux';
 import { deleteInput, updateInput } from '../../../redux/actions/InputAction';
 
 export default function Modals() {
     const [inputValue, setInputValue] = useState()
+    const [id_input, setIdInput] = useState()
     const dispatch = useDispatch();
     const data = useSelector(state => state.input.data)
     const ondelete = (id) => {
@@ -12,6 +13,7 @@ export default function Modals() {
         dispatch(deleteInput(id))
     }
     const onHandleChangeinput = (e, id_input) => {
+        setIdInput(id_input)
         const { name } = e.target;
         console.log(e.target.value)
         setInputValue({
@@ -19,12 +21,13 @@ export default function Modals() {
             [name]: e.target.value
 
         })
-        const editInput = { id_input: id_input, name_input: inputValue, value_input: null }
-        console.log(editInput)
-        dispatch(updateInput(editInput))
+
 
     }
-
+    useEffect(() => {
+        const editInput = { id_input: id_input, name_input: inputValue, value_input: null }
+        dispatch(updateInput(editInput))
+    }, [inputValue])
     return (
 
         <>

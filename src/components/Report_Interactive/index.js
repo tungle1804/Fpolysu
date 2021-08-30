@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from "react";
-import { CChartBar } from "@coreui/react-chartjs";
+import { CChartBar, CChartLine } from "@coreui/react-chartjs";
 import { CCard, CCardBody, CCardTitle, CCardHeader, CRow } from "@coreui/react";
 import { dataHour, header } from "../CommonData/data";
 import DatePicker from "react-datepicker";
 import axios from "axios";
+import ReportUsers from "./index2";
+import ReportIp from "./index3";
 function TotalCustomerByMonth() {
   // const headers = header;
   const [date, setDate] = useState(new Date());
@@ -45,7 +47,7 @@ function TotalCustomerByMonth() {
   }, [date, year, month, day]);
 
   return (
-    <>
+    <div className="container row-auto">
       <CRow className="container row-auto">
         <CCard className="col-3">
           <CCardBody className="mx-auto p-1 border text-center">
@@ -60,12 +62,12 @@ function TotalCustomerByMonth() {
           </CCardBody>
         </CCard>
 
-        <CCard className="col-8">
+        <CCard className="col-8 offset-1">
           <CCardHeader className="text-center font-extrabold">
             Thống kê tương tác hàng ngày của Menu hiện đang sử dụng:{}
           </CCardHeader>
           <CCardBody>
-            <CChartBar
+            <CChartLine
               datasets={[
                 {
                   label: "Lượng Khách Hàng",
@@ -83,7 +85,12 @@ function TotalCustomerByMonth() {
           </CCardBody>
         </CCard>
       </CRow>
-    </>
+      <br />
+
+      <ReportUsers></ReportUsers>
+      <br />
+      <ReportIp></ReportIp>
+    </div>
   );
 }
 export default TotalCustomerByMonth;
