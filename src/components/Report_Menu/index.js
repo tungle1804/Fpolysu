@@ -30,8 +30,8 @@ function Report_Menu() {
   const [menus, setMenus] = useState([]);
   const [listCalender, setListCalender] = useState([]);
   // let menus = [];
-  const [startDate, setStartDate] = useState(new Date("2021-08-01"));
-  const [endDate, setEndDate] = useState(new Date());
+  const [startDate, setStartDate] = useState(new Date("2021-09-01"));
+  const [endDate, setEndDate] = useState(new Date("2021-09-01"));
 
   const arr = [];
 
@@ -63,13 +63,6 @@ function Report_Menu() {
   // console.log(menus);
 
   const getListCalenderbyTimeRange = () => {
-    var data = JSON.stringify({
-      id: 1,
-      name_menu: "alo",
-      color_menu: "red",
-      status: true,
-    });
-
     var config = {
       method: "get",
       url: `http://localhost:8080/api/v1/getListCalenderByRangeTime?start=${startDate
@@ -78,16 +71,18 @@ function Report_Menu() {
       header,
       data: data,
     };
-    //  console.log("API", config.url);
-    axios(config)
-      .then(function (response) {
-        console.log(JSON.stringify(response.data));
-        setListCalender(response.data);
-        //  console.log("dataCalender", listCalender);
-      })
-      .catch(function (error) {
-        console.log(error);
-      });
+    console.log("API", config.url);
+    if (startDate && endDate) {
+      axios(config)
+        .then(function (response) {
+          console.log(JSON.stringify(response.data));
+          setListCalender(response.data);
+          //  console.log("dataCalender", listCalender);
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+    }
   };
   // console.log("test", menus);
   const getDataMenu = () => {
