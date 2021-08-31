@@ -21,7 +21,7 @@ export default function Display() {
 
                 <div style={{ position: 'fixed', top: '0px', left: '0px', right: '0px', zIndex: 999999 }} />
                 <div className="mmt-container  mmt-container--full">
-                    <div className="mmt-app">
+                    <div className="mmt-app" > 
                         {data.map(items => (
                             <>
 

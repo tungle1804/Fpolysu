@@ -16,48 +16,33 @@ function ManagerMenu({
   dataButton,
   requestingButton,
 }) {
-  // const { loadMenus } = MenusAction
   const [idMenu, setIDMenu] = useState();
-
-  // const data = useSelector(state => state.posts.data)
-  // console.log(data + 'data')
-  // const requesting = useSelector(state => state.posts.requesting)
-  // const dispatch = useDispatch();
   const history = useHistory();
   useEffect(() => {
-    let email = localStorage.getItem('email')
+    let email = localStorage.getItem("email");
     dispatch(loadMenus({ email }));
   }, []);
   const onlistbutton = (id) => {
     dispatch(loadButtons({ id }));
     setIDMenu(id);
-    // dispatch(viewPost(id))
   };
   return (
     <>
-      {/* {requesting ? <h1>hiiiiii</h1> : (data && data.length > 0) ? <View onlistbutton={onlistbutton} posts={data} /> : <div>Data is empty</div>} */}
-
-      {/* {data && data.length > 0 ? ( */}
-      <View
-        onlistbutton={onlistbutton}
-        posts={data}
-        requesting={requesting}
-      />
-      {/* ) : (
-        <div>Data is empty</div>
-      )} */}
-      {/* <Route path="/admin"><View /> </Route>
-
-                    <Route path="/create-menu">   <CreateMenu /></Route> */}
-
-      {/* {requesting ? <ReactLoading type="balls" color="#ffff" height="667" width="375" /> : idmenu ? <MenuDetails idmenu={idmenu} /> : <h1>not data</h1>} */}
-      {
-        <MenuDetails
-          idMenu={idMenu}
-          dataButton={dataButton}
-          requestingButton={requestingButton}
+      <div className="block lg:flex justify-between w-auto ml-3">
+        <View
+          onlistbutton={onlistbutton}
+          posts={data}
+          requesting={requesting}
         />
-      }
+
+        {
+          <MenuDetails
+            idMenu={idMenu}
+            dataButton={dataButton}
+            requestingButton={requestingButton}
+          />
+        }
+      </div>
     </>
   );
 }
