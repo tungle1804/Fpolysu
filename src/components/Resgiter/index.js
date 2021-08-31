@@ -2,6 +2,7 @@ import React, { useContext, useState } from 'react'
 import { callApi } from '../../service/Apis';
 import Swal from 'sweetalert2'
 import { useHistory } from 'react-router';
+import {useForm} from 'react-hook-form';
 
 export default function Resgiter() {
 
@@ -41,6 +42,17 @@ export default function Resgiter() {
         document.getElementById("form").reset();
     }
 
+    /* Validation */
+
+const { register, handleSubmit, formState: { errors } } = useForm();
+const tagViewError = (messageError) => {
+  return(
+    <p style = {{color: "red"}}><i class="fas fa-exclamation-triangle" style = {{color: "#b40404", marginRight: "10px"}}></i><span>{messageError}</span></p>
+    )
+  }
+
+/* End - Validation */
+
     return (
         <>
             <div>
@@ -56,21 +68,29 @@ export default function Resgiter() {
                                     <p>Nhập thông tin của bạn để đăng ký</p>
                                 </div>
                                 <div>
-                                    <form onSubmit={onclickResgiter} id="form" >
+                                    <form onSubmit= {handleSubmit(onclickResgiter)} id="form" >
                                         <div className="flex -mx-3">
                                             <div className="w-3/5 px-3 mb-3">
                                                 <label htmlFor className="text-xs font-semibold px-1">Họ và tên</label>
                                                 <div className="flex">
                                                     <div className="w-10 z-10 pl-1 text-center pointer-events-none flex items-center justify-center"><i className="mdi mdi-account-outline text-gray-400 text-lg" /></div>
-                                                    <input onChange={onhandleResgiter} name="fullName" id="hoten" type="text" className="w-full -ml-10 pl-3 pr-3 py-2 rounded-lg border-2 border-gray-200 outline-none focus:border-indigo-500" placeholder="John" />
+                                                    <input {...register("fullName", { required: true, minLength: 5  })} 
+                                                            onChange={onhandleResgiter} name="fullName" id="hoten" type="text" className="w-full -ml-10 pl-3 pr-3 py-2 rounded-lg border-2 border-gray-200 outline-none focus:border-indigo-500" placeholder="John" />
                                                 </div>
+                                                {errors.fullName?.type === 'required' && tagViewError("Họ tên không được bỏ trống")}
+                                                {errors.fullName?.type === 'minLength' && tagViewError("Họ tên không được ít hơn 5 kí tự")}
+                                              
                                             </div>
                                             <div className="w-2/5 px-3 mb-3">
                                                 <label htmlFor className="text-xs font-semibold px-1">Số điện thoại</label>
                                                 <div className="flex">
                                                     <div className="w-10 z-10 pl-1 text-center pointer-events-none flex items-center justify-center"><i className="mdi mdi-account-outline text-gray-400 text-lg" /></div>
-                                                    <input onChange={onhandleResgiter} name="phone" id="sdt" type="text" className="w-full -ml-10 pl-3 pr-3 py-2 rounded-lg border-2 border-gray-200 outline-none focus:border-indigo-500" />
+                                                    <input {...register("phone", { required: true, pattern: /^0\d{9}$/})} onChange={onhandleResgiter} name="phone" id="sdt" type="text" className="w-full -ml-10 pl-3 pr-3 py-2 rounded-lg border-2 border-gray-200 outline-none focus:border-indigo-500" />
                                                 </div>
+                                                {errors.phone?.type === 'required' && tagViewError("Số điện thoại không được bỏ trống")}
+                                                {errors.phone?.type === 'pattern' && tagViewError("Số điện thoại không đúng định dạng")}
+                                           
+                                                
                                             </div>
                                         </div>
                                         <div className="flex -mx-3">
@@ -78,8 +98,11 @@ export default function Resgiter() {
                                                 <label htmlFor className="text-xs font-semibold px-1">Tên doanh nghiệp</label>
                                                 <div className="flex">
                                                     <div className="w-10 z-10 pl-1 text-center pointer-events-none flex items-center justify-center"><i className="mdi mdi-email-outline text-gray-400 text-lg" /></div>
-                                                    <input onChange={onhandleResgiter} name="business" id="tenDN" type="text" className="w-full -ml-10 pl-3 pr-3 py-2 rounded-lg border-2 border-gray-200 outline-none focus:border-indigo-500" placeholder="công ty abc" />
+                                                    <input {...register("business", { required: true, minLength: 5})} onChange={onhandleResgiter} name="business" id="tenDN" type="text" className="w-full -ml-10 pl-3 pr-3 py-2 rounded-lg border-2 border-gray-200 outline-none focus:border-indigo-500" placeholder="công ty abc" />
                                                 </div>
+                                                {errors.business?.type === 'required' && tagViewError("Tên doanh nghiệp không được bỏ trống")}
+                                                {errors.business?.type === 'minLength' && tagViewError("Tên doanh nghiệp phải ít nhất 5 kí tự")}
+                                           
                                             </div>
                                         </div>
                                         <div className="flex -mx-3">
@@ -87,8 +110,10 @@ export default function Resgiter() {
                                                 <label htmlFor className="text-xs font-semibold px-1">Email</label>
                                                 <div className="flex">
                                                     <div className="w-10 z-10 pl-1 text-center pointer-events-none flex items-center justify-center"><i className="mdi mdi-email-outline text-gray-400 text-lg" /></div>
-                                                    <input onChange={onhandleResgiter} name="email" id="email" type="email" className="w-full -ml-10 pl-3 pr-3 py-2 rounded-lg border-2 border-gray-200 outline-none focus:border-indigo-500" placeholder="johnsmith@example.com" />
+                                                    <input {...register("email", { required: true, pattern: /^\w+@+\w+(\.\w+){1,2}$/ })} onChange={onhandleResgiter} name="email" id="email" type="email" className="w-full -ml-10 pl-3 pr-3 py-2 rounded-lg border-2 border-gray-200 outline-none focus:border-indigo-500" placeholder="johnsmith@example.com" />
                                                 </div>
+                                                {errors.email?.type === 'required' && tagViewError("Email không được bỏ trống")}
+                                                {errors.email?.type === 'pattern' && tagViewError("Email không đúng định dạng")}
                                             </div>
                                         </div>
                                         <div className="flex -mx-3">
@@ -96,8 +121,11 @@ export default function Resgiter() {
                                                 <label htmlFor className="text-xs font-semibold px-1">Mật khẩu</label>
                                                 <div className="flex">
                                                     <div className="w-10 z-10 pl-1 text-center pointer-events-none flex items-center justify-center"><i className="mdi mdi-lock-outline text-gray-400 text-lg" /></div>
-                                                    <input onChange={onhandleResgiter} name="password" id="password1" type="password" className="w-full -ml-10 pl-3 pr-3 py-2 rounded-lg border-2 border-gray-200 outline-none focus:border-indigo-500" placeholder="************" />
+                                                    <input {...register("password", { required: true, minLength: 5, maxLength: 20 })} onChange={onhandleResgiter} name="password" id="password1" type="password" className="w-full -ml-10 pl-3 pr-3 py-2 rounded-lg border-2 border-gray-200 outline-none focus:border-indigo-500" placeholder="************" />
                                                 </div>
+                                                {errors.password?.type === 'required' && tagViewError("Mật khẩu không được bỏ trống")}
+                                                {errors.password?.type === 'minLength' && tagViewError("Mật khẩu ít nhất 5 kí tự")}
+                                                {errors.password?.type === 'maxLength' && tagViewError("Mật khẩu không vượt quá 20 kí tự")}
                                             </div>
                                         </div>
 

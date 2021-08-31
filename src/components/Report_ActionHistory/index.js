@@ -1,28 +1,35 @@
 import React, { useState, useEffect } from "react";
 import { CChartBar } from "@coreui/react-chartjs";
-import translate from "translate"; // New wave
+import translate from "translate";
+import moment from "moment";
 import {
   CCard,
   CPagination,
   CDropdown,
+  CInput,
   CDropdownItem,
   CDropdownMenu,
   CDropdownToggle,
+  CCardFooter,
+  CCardBody,
   CCardHeader,
   CRow,
+  CContainer,
 } from "@coreui/react";
 import { header } from "./../CommonData/data";
 import axios from "axios";
 import DisplayResultPagination from "./../DisplayResultPagination/DisplayResultPagination";
+import CustomerDatePicker from "./../CustomerDatePicker/index";
 function Report_ActionHistory() {
-  translate.engine = "google";
-  translate.key = process.env.TRANSLATE_KEY;
   const headers = header;
   const [pageNo, setPageNo] = useState(1);
   const [totalPage, setTotalPage] = useState();
   const [totalRecord, setTotalRecord] = useState();
   const [data, setData] = useState([]);
   const [limit, setLimit] = useState(5);
+  const [startDate, setStartDate] = useState(new Date("2020-08-01"));
+  const [endDate, setEndDate] = useState(new Date());
+  const [search, setSearch] = useState("");
   // const getTotalPage = () => {
   //   const API_getTotalPage = "http://localhost:8080/customers/countAllRecord";
   //   axios
@@ -39,9 +46,15 @@ function Report_ActionHistory() {
   const getData = async () => {
     const username = "vuthanhnam@gmail.com";
     //const username= window.name;
-    const API = `http://localhost:8080/api/v1/getStatisticInformationOfAction?email=${username}&pageNo=${
-      pageNo - 1
-    }&limit=${limit}`;
+    if (pageNo === 0) {
+      setPageNo(1);
+    }
+    const API = `http://localhost:8080/api/v1/getStatisticInformationOfAction?email=${username}&start=${startDate
+      .toISOString()
+      .slice(0, 10)}&end=${endDate
+      .toISOString()
+      .slice(0, 10)}&search=${search}&pageNo=${pageNo - 1}&limit=${limit}`;
+
     console.log("API: ", API);
 
     await axios
@@ -60,26 +73,56 @@ function Report_ActionHistory() {
         console.log(error);
       });
   };
-
-  // useEffect(() => {
-  //   getTotalPage();
-  //   // return () => {
-  //   //   cleanup
-  //   // }
-  // }, []);
+  const handleChange = (e) => {
+    if (e.key === "Enter") {
+     // setData([]);
+      setPageNo(1);
+      setSearch(e.target.value);
+      console.log("seảch", search);
+    }
+  };
+  useEffect(() => {
+    setPageNo(1);
+    // return () => {
+    //   cleanup
+    // }
+  }, []);
   useEffect(() => {
     getData();
     // return () => {
     //   cleanup
     // }
-  }, [pageNo, limit]);
+  }, [pageNo, limit, startDate, endDate, search]);
   console.log("list Data now 2: ", data);
   return (
-    <div className="row">
-      <CCard style={{}} className="col-12">
-        <CCardHeader className="font-weight-bolder text-center bg-blue-500">
-          Thống kê Tương tác
-        </CCardHeader>
+    <CContainer style={{ marginLeft: "10px" }}>
+      <CCard>
+        <CCardHeader align={"center"}>Chọn Thời gian</CCardHeader>
+        <CCardBody align={"center"}>
+          <CustomerDatePicker
+            startDate={startDate}
+            setStartDate={setStartDate}
+            endDate={endDate}
+            setEndDate={setEndDate}
+            className="border-5 text-center"
+          />
+        </CCardBody>
+        <CCardFooter></CCardFooter>
+      </CCard>
+      <CCard>
+        <div className="row ">
+          <CInput
+            style={{ marginLeft: "12px", height: "50px" }}
+            className="col-3"
+            placeholder="Tìm kiếm theo tên,url..."
+            size="md"
+            onKeyPress={handleChange}
+          />
+          <CCardHeader className="font-weight-bolder text-center bg-blue-500 col-6 offset-2">
+            Thống kê Tương tác
+          </CCardHeader>
+        </div>
+
         <table
           className=" table table-striped table-bordered "
           style={{ border: "none" }}
@@ -170,7 +213,7 @@ function Report_ActionHistory() {
           </CDropdownItem>
         </CDropdownMenu>
       </CDropdown> */}
-    </div>
+    </CContainer>
   );
 }
 

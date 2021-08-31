@@ -96,7 +96,6 @@ export default function ViewCreateMenu() {
   const [show1, setShow1] = useState(false);
   const [valueButton, setValueButton] = useState(initstateValueButton);
   const [test1, setTest1] = useContext(ButtonContext);
-  const [input, setInput] = useContext(InputContext);
   const [images, setImages] = useState();
   const [colormenu, setColorMenu] = useState();
   const [displayActive, setDisplayActive] = useState();
