@@ -1,6 +1,7 @@
 import React from "react";
-
+import { encode } from '../../utils/index';
 const Integrated = () => {
+
   return (
     <>
       <div className="flex flex-col h-screen bg-center bg-cover bg-no-repeat bg-gray-100">
@@ -33,8 +34,8 @@ const Integrated = () => {
                 <i className="far fa-copy text-white pr-2"></i> Sao chép
               </span>
               <span id="tichhop" className="inline-flex px-2">
-                &lt;script&gt;window.name="{localStorage.getItem("email")}
-                "&lt;/script&gt;&lt;script src="index.js"&gt;&lt;/script&gt;
+                &lt;script&gt;window.name="{encode(window.localStorage.getItem("email") ? window.localStorage.getItem("email") : "")}
+                "&lt;/script&gt;&lt;script type="text/babel" src="index.js"&gt;&lt;/script&gt;
               </span>
             </div>
           </div>

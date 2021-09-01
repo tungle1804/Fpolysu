@@ -32,12 +32,17 @@ import Report_ActionHistory from "../components/Report_ActionHistory";
 import Report_Button from "../components/Rerport_Button";
 import PaymentSuccess from "../components/PaymentSuccess";
 import PaymentFailed from "../components/PaymentFailed";
-import AdminDashboard from './../components/admin/components/AdminDashboard/index';
-import AdminStaff from './../components/admin/components/AdminStaff/index';
-import AdminCustomer from './../components/admin/components/AdminCustomer/index';
-import AdminServiceFee from './../components/admin/components/AdminServiceFee/index';
-import AdminDataOfCustomer from './../components/admin/components/AdminDataOfCustomer/index';
-import AdminStatistical from './../components/admin/components/AdminStatistical/index';
+import AdminCustomer from '../components/admin/components/AdminCustomer';
+import AdminStaff from '../components/admin/components/AdminStaff';
+import AdminServiceFee from '../components/admin/components/AdminServiceFee';
+import AdminDataOfCustomer from '../components/admin/components/AdminDataOfCustomer';
+import AdminStatistical from '../components/admin/components/AdminStatistical';
+import AdminDashboard from '../components/admin/components/AdminDashboard';
+import UpdateCustomer from '../components/admin/components/AdminCustomer/UpdateCustomer';
+import ViewDataOfCustomer from '../components/admin/components/AdminCustomer/ViewDataOfCustomer';
+import AddService from "./../components/admin/components/AdminServiceFee/AddService";
+import UpdateService from "./../components/admin/components/AdminServiceFee/UpdateService";
+
 
 export default function Routers() {
 
@@ -54,10 +59,14 @@ export default function Routers() {
                     <Route exact path='/admin/manage/staffs' component={AdminStaff} />
                     <Route exact path='/admin/manage/customers' component={AdminCustomer} />
                     <Route exact path='/admin/manage/services-fee' component={AdminServiceFee} />
+                    <Route exact path='/admin/manage/services-fee/add' component={AddService} />
+                    <Route exact path='/admin/manage/services-fee/:id' component={UpdateService} />
                     <Route exact path='/admin/manage/data-of-customers' component={AdminDataOfCustomer} />
                     <Route exact path='/admin/manage/statistical' component={AdminStatistical} />
                     <Route exact path='/admin/manage/staffs/add' component={AddStaff} />
                     <Route exact path='/admin/manage/staffs/:id' component={UpdateStaff} />
+                    <Route exact path='/admin/manage/customers/:id' component={UpdateCustomer} />
+                    <Route exact path='/admin/manage/data-customers' component={ViewDataOfCustomer} />
                   </Switch>
                 </AdminManage>
               </Route>
