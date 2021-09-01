@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import { CChartBar } from "@coreui/react-chartjs";
-import translate from "translate"; // New wave
 import Select from "react-select";
 import {
   CCard,
