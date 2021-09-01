@@ -34,7 +34,7 @@ export default function Display() {
             {(() => {
                 if (displayMenu == "1") {
                     return (<>
-                        <img src="../images/background.jpg" style={{ width: '820px', height: '520px' }}></img>
+                        <img src="../images/backgroundFinal.jpg" style={{ width: '820px', height: '520px' }}></img>
                         <div id="metu">
                             <div style={{ position: 'fixed', top: '0px', left: '0px', right: '0px', zIndex: 999999 }} />
                             <div className="mmt-container  mmt-container--full">
@@ -66,7 +66,7 @@ export default function Display() {
                     </>)
                 } else if (displayMenu == "2") {
                     return (<>
-                        <img src="../images/background.jpg" style={{ width: '820px', height: '520px' }}></img>
+                        <img src="../images/backgroundFinal.jpg" style={{ width: '820px', height: '520px' }}></img>
                         <div id="metu">
                             <div style={{ position: 'fixed', top: '0px', left: '0px', right: '0px', zIndex: 999999 }} />
                             <div className="mmt-container  mmt-container--fit">
@@ -99,7 +99,7 @@ export default function Display() {
 
                 } else if (displayMenu == "3") {
 
-                    return (<> <img src="../images/background.jpg" style={{ width: '820px', height: '520px' }}></img>
+                    return (<> <img src="../images/backgroundFinal.jpg" style={{ width: '820px', height: '520px' }}></img>
                         <div id="metu">
                             <div style={{ position: 'fixed', top: '0px', left: '0px', right: '0px', zIndex: 999999 }} />
                             <div className="mmt-container  ">
@@ -130,7 +130,7 @@ export default function Display() {
                 }
                 else if (displayMenu == "4") {
 
-                    return (<> <img src="../images/background.jpg" style={{ width: '820px', height: '520px' }}></img>
+                    return (<> <img src="../images/backgroundFinal.jpg" style={{ width: '820px', height: '520px' }}></img>
                         <div id="metu">
                             <div style={{ position: 'fixed', top: '0px', left: '0px', right: '0px', zIndex: 999999 }} />
                             <div className="mmt-container  ">
