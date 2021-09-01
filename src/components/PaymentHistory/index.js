@@ -3,12 +3,12 @@ import { callApi } from '../../service/Apis'
 
 function PaymentHistory() {
     const [history, setHistory] = useState([]);
-    const [email, setEmail] = useState(JSON.parse(localStorage.getItem('email')));
+    const [email, setEmail] = useState(localStorage.getItem('email'));
     console.log(email)
     useEffect(() => {
         callApi('get', `paypal/payment-history/${email}`)
             .then(function (response) {
-                setHistory(response.data)
+                setHistory(...history, response.data)
                 console.log(response.data);
             })
             .catch(function (err) {
@@ -24,7 +24,7 @@ function PaymentHistory() {
                         <nav className="list-none mb-10 ">
                             {history.map(h =>
                                 <li>
-                                    <p>POLYSU PRO {h.serviceFee.nameService} </p>
+                                    <p>PRO {h.serviceFee.nameService} </p>
                                 </li>
                             )}
 
@@ -47,7 +47,7 @@ function PaymentHistory() {
                         <nav className="list-none mb-10">
                             {history.map(h =>
                                 <li>
-                                    <p>{h.serviceFee.price} USD</p>
+                                    <p>{h.totalPrice} USD</p>
                                 </li>
                             )}
 
