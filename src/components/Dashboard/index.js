@@ -6,10 +6,10 @@ export default function Dashboard() {
     <div className="mx-auto w-full">
       <div>
         {/*-===================== FIRST ROW CONTAINING THE  STATS CARD STARTS HERE =============================*/}
-        <div className="flex justify-between rounded-lg bg-white py-10 p-6 w-full">
+        <div className="block lg:flex space-y-4 lg:space-y-0 justify-between rounded-lg bg-white py-10 p-6 w-full">
           {/*-== First Stats Container ====-*/}
-          <div className="container mx-auto pr-4">
-            <div className="w-auto bg-gray-100 max-w-xs mx-auto rounded-sm overflow-hidden shadow-md hover:shadow-2xl transition duration-500 transform hover:scale-100 cursor-pointer">
+          <div className=" container mx-auto pr-4">
+            <div className="w-auto bg-gray-100  mx-auto rounded-sm overflow-hidden shadow-md hover:shadow-2xl transition duration-500 transform hover:scale-100 cursor-pointer">
               <div className="h-full py-4 bg-red-400 my-auto">
                 <div className="flex justify-start ml-2">
                   <i class="fas fa-mouse-pointer fa-2x bg-white py-2 px-3 border-2 border-black rounded-lg my-auto"></i>
@@ -26,7 +26,7 @@ export default function Dashboard() {
           {/*-== First Stats Container ====-*/}
           {/*-== Second Stats Container ====-*/}
           <div className="container mx-auto pr-4">
-            <div className="w-auto bg-gray-100 max-w-xs mx-auto rounded-sm overflow-hidden shadow-md hover:shadow-2xl transition duration-500 transform hover:scale-100 cursor-pointer">
+            <div className="w-auto bg-gray-100  mx-auto rounded-sm overflow-hidden shadow-md hover:shadow-2xl transition duration-500 transform hover:scale-100 cursor-pointer">
               <div className="h-full py-4 bg-blue-400 my-auto">
                 <div className="flex justify-start ml-2">
                   <i class="fas fa-bars fa-2x bg-white py-2 px-3 border-2 border-black rounded-lg my-auto"></i>
@@ -44,7 +44,7 @@ export default function Dashboard() {
           {/*-== Second Stats Container ====-*/}
           {/*-== Third Stats Container ====-*/}
           <div className="container mx-auto pr-4">
-            <div className="w-auto bg-gray-100 max-w-xs mx-auto rounded-sm overflow-hidden shadow-md hover:shadow-2xl transition duration-500 transform hover:scale-100 cursor-pointer">
+            <div className="w-auto bg-gray-100  mx-auto rounded-sm overflow-hidden shadow-md hover:shadow-2xl transition duration-500 transform hover:scale-100 cursor-pointer">
               <div className="h-full py-4 bg-purple-400 my-auto">
                 <div className="flex justify-start ml-2">
                   <i class="fas fa-box fa-2x bg-white py-2 px-3 border-2 border-black rounded-lg my-auto"></i>
@@ -63,7 +63,7 @@ export default function Dashboard() {
           {/*-== Fourth Stats Container ====-*/}
         </div>
         {/* content */}
-        <div className="flex w-full justify-between mt-4 mx-auto gap-5">
+        <div className="block lg:flex lg:flex space-y-4 lg:space-y-0 w-full justify-between mt-4 mx-auto gap-5">
           <div className="flex-1 bg-white rounded-lg px-3">
             <div className="py-4 border-b-2 border-gray-200 flex justify-between">
               <span className="mr-3">

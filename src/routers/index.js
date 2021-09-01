@@ -11,6 +11,8 @@ import Display from "../components/Display";
 import DisplayCreateDetails from "../components/Display/displaycreatedetails";
 import Dashboard from "../components/Dashboard";
 import ManagerMenu from "../components/ManagerMenu";
+import AddStaff from '../components/admin/components/AdminStaff/AddStaff';
+import UpdateStaff from '../components/admin/components/AdminStaff/UpdateStaff';
 import CreateMenu from "../components/CreateMenu/index";
 import { ButtonProvider } from "../service/ButtonContext";
 import { MenuProvider } from "../service/MenuContext";
@@ -28,8 +30,14 @@ import AdminManage from "./../components/admin/components/AdminManage";
 import Report_Menu from "../components/Report_Menu";
 import Report_ActionHistory from "../components/Report_ActionHistory";
 import Report_Button from "../components/Rerport_Button";
-
-// eslint-disable-next-line import/no-anonymous-default-export
+import PaymentSuccess from "../components/PaymentSuccess";
+import PaymentFailed from "../components/PaymentFailed";
+import AdminDashboard from "../components/admin/components/AdminDashboard"
+import AdminStaff from "../components/admin/components/AdminStaff"
+import AdminCustomer from "../components/admin/components/AdminCustomer"
+import AdminServiceFee from "../components/admin/components/AdminServiceFee"
+import AdminDataOfCustomer from "../components/admin/components/AdminDataOfCustomer"
+import AdminStatistical from "../components/admin/components/AdminStatistical"
 export default function Routers() {
 
   return (
@@ -38,8 +46,19 @@ export default function Routers() {
         <MenuProvider>
           <Router>
             <Switch>
-              <Route path="/admin/manage">
-                <AdminManage />
+              <Route path="/admin/manage/:path?/:path?" exact>
+                <AdminManage>
+                  <Switch>
+                    <Route exact path='/admin/manage/dashboard' component={AdminDashboard} />
+                    <Route exact path='/admin/manage/staffs' component={AdminStaff} />
+                    <Route exact path='/admin/manage/customers' component={AdminCustomer} />
+                    <Route exact path='/admin/manage/services-fee' component={AdminServiceFee} />
+                    <Route exact path='/admin/manage/data-of-customers' component={AdminDataOfCustomer} />
+                    <Route exact path='/admin/manage/statistical' component={AdminStatistical} />
+                    <Route exact path='/admin/manage/staffs/add' component={AddStaff} />
+                    <Route exact path='/admin/manage/staffs/:id' component={UpdateStaff} />
+                  </Switch>
+                </AdminManage>
               </Route>
               <Route path="/login">
                 <Login />
@@ -85,6 +104,8 @@ export default function Routers() {
                       component={UpgradeAccount}
                     />
                     <Route path="/admin/bill" component={Bill} />
+                    <Route path="/admin/success" component={PaymentSuccess} />
+                    <Route path="/admin/failed" component={PaymentFailed} />
                     <Route path="/admin/list-menu">
                       <ManagerMenu />
                     </Route>
@@ -121,5 +142,6 @@ export default function Routers() {
       </ButtonProvider>
     </>
   );
+
 
 }

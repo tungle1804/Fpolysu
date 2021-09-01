@@ -32,8 +32,6 @@ export default function MenuDetails({ idMenu, dataButton, requestingButton }) {
 
     return (
         <>
-
-
             <div className="lg:ml-10 bg-white rounded shadow-xl p-6 w-screen lg:w-full ">
                 <div className="mb-5">
                     <div className="mb-5 mt-3 border-b-2 border-gray-200 pb-4 text-base  text-black font-semibold antialiased tracking-normal">
@@ -52,11 +50,39 @@ export default function MenuDetails({ idMenu, dataButton, requestingButton }) {
                                 Điện thoại
                             </div>
                         </button>
-                        
+
                     </div>
                 </div>
                 {/* <button className="border border-teal-500 bg-teal-500 text-white rounded-md px-4 py-2 m-2 transition duration-500 ease select-none hover:bg-teal-600 focus:outline-none focus:shadow-outline" onClick={onchangeClick}>{iframe ? 'Không hiển thị' : 'Hiển thị'}</button> */}
                 <div className="flex flex-wrap mt-1 ifame mx-auto" >
+                    {/* {dataButton && dataButton.length > 0 ? dataButton.map((items) => {
+                        return (
+                            <div class="p-2 ">
+
+                                <div style={{ backgroundColor: items.color_background }} className={`flex items-center p-1  rounded-lg shadow-xs cursor-pointer hover:bg-blue-500 hover:text-gray-100`}>
+
+                                    <button classname={`flex items-center bg-gray-200 rounded-lg shadow-xs cursor-pointer hover:bg-blue-500 hover:text-gray-100`}>
+
+                                        <img className="h-12" src={`../images/${items.icon}`} />
+
+                                        <div>
+
+                                            <p className="text-xs font-medium mt-2 ml-2" style={{ color: items.color_text }}>
+                                                {items.name_button}
+                                            </p>
+
+                                        </div>
+                                    </button>
+
+                                </div>
+                            </div>
+                        )
+                    })
+                        : ""} */}
+
+                    {/* <div className="  relative ml-10  pt-8  " style={{ width: '620px' }}>
+
+                <div className="flex    flex-wrap mt-1">
                     {dataButton && dataButton.length > 0 ? dataButton.map((items) => {
                         return (
                             <div class="p-2 ">
@@ -81,50 +107,21 @@ export default function MenuDetails({ idMenu, dataButton, requestingButton }) {
                         )
                     })
 
+                        : ""} */}
 
 
 
-
-
-
-
-
-
-
-
-
-
-                        // <div class="p-2 md:w-40 ">
-                        //     <div className="flex items-center p-4 bg-gray-200 rounded-lg shadow-xs cursor-pointer hover:bg-blue-500 hover:text-gray-100">
-
-                        //         <a className="flex items-center p-4 bg-blue-200 rounded-lg shadow-xs cursor-pointer hover:bg-blue-500 hover:text-gray-100">
-
-
-                        //             <div>
-                        //                 <p className=" text-xs font-medium ml-2 ">
-                        //                     {item.name_button}
-                        //                 </p>
-                        //             </div>
-                        //         </a>
-                        //     </div>
-                        // </div>
-
-
-                        : ""}
-
-
-
-                    <div className="app-preview__body desktop xl:px-5">
+                    <div className="app-preview__body desktop mt-5">
                         <div className="preview-image">
-                            <img src="../../../images/desktop.png" alt=""/>
-                            {/* width="692px" height="407px" */}
+                            <img src="../../../images/desktop.png" alt="" />
 
                             {/* <Ifram iframe={demos["soundcloud"]}></Ifram> */}
                             {requestingButton ? '' : <Iframe frameborder="0" src={`http://localhost:3000/view/${idMenu}`} />}
                         </div>
                     </div>
-
-                    {/* <img classname="object-center"
+                </div>
+            </div>
+            {/* <img classname="object-center"
                         src="images/desktop.png"
 
                     />
@@ -132,8 +129,8 @@ export default function MenuDetails({ idMenu, dataButton, requestingButton }) {
                         src="images/bg_preview.jpg"
 
                     /> */}
-                </div>
-                {/* <div className="absolute hover:text-blue-500 mb-64 right-0 top-0 underline cursor-pointer mr-16 mt-5 text-sm text-gray-700  font-semibold antialiased tracking-normal">Give feedback</div>
+            {/* </div> */}
+            {/* <div className="absolute hover:text-blue-500 mb-64 right-0 top-0 underline cursor-pointer mr-16 mt-5 text-sm text-gray-700  font-semibold antialiased tracking-normal">Give feedback</div>
                 <div className="flex w-full justify-between px-1 text-center items-center">
                     <div className="p-2 flex">
                         <div className="py-3 cursor-pointer text-sm text-gray-600  font-normal antialiased tracking-normal">
@@ -355,7 +352,7 @@ export default function MenuDetails({ idMenu, dataButton, requestingButton }) {
                         </div>
                     </div>
                 </div> */}
-            </div>
+            {/* </div> */}
 
         </>
     )

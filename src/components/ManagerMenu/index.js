@@ -16,22 +16,15 @@ function ManagerMenu({
   dataButton,
   requestingButton,
 }) {
-  // const { loadMenus } = MenusAction
   const [idMenu, setIDMenu] = useState();
-
-  // const data = useSelector(state => state.posts.data)
-  // console.log(data + 'data')
-  // const requesting = useSelector(state => state.posts.requesting)
-  // const dispatch = useDispatch();
   const history = useHistory();
   useEffect(() => {
-    let email = JSON.parse(localStorage.getItem('email'))
+    let email = localStorage.getItem("email");
     dispatch(loadMenus({ email }));
   }, []);
   const onlistbutton = (id) => {
     dispatch(loadButtons({ id }));
     setIDMenu(id);
-    // dispatch(viewPost(id))
   };
   return (
     <>

@@ -1,7 +1,12 @@
 
 
+<<<<<<< HEAD
 console.log("window name " + window.name);
 console.log("location.href", window.location.href);
+=======
+console.log("window name "+ window.name)
+
+>>>>>>> 4afe2d74b2001e861a5f9aefa05e1bf71a92c82e
 fetch(`http://localhost:8080/api/v1/getMenuByStatus/${window.name}`, {
   method: "GET",
 })
