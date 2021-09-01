@@ -112,8 +112,10 @@ export default function View({ posts, onlistbutton, requesting }) {
       {requesting ? (
         <ReactLoading type="balls" color="#f32" height={467} width={275} />
       ) : (
-
-        <div cclassName=" bg-white rounded shadow-xl p-6 lg:h-full lg:w-full w-screen mb-3 lg:my-0" style={{ width: "500px" }}>
+        <div className=" bg-white rounded shadow-xl p-6 lg:h-full lg:w-full w-screen mb-3 lg:my-0" >
+          {/* <div className="text-sm text-gray-600 font-normal antialiased tracking-normal">
+            Projects &nbsp; / &nbsp; Biltrax IT Project
+          </div> */}
           <div className="flex mt-3 pb-4 justify-between border-b-2 border-gray-200">
             <div className="text-base  text-black font-semibold antialiased tracking-normal ">
               Danh Sách Menu
@@ -134,10 +136,10 @@ export default function View({ posts, onlistbutton, requesting }) {
               placeholder="Tìm Kiếm Menu ..."
             />
           </div>
-          <div className="bg-gray-100 mt-4 rounded">
+          <div className="bg-white mt-4 rounded">
             <div className=" bg-gray-100 rounded">
               <div
-                className="overflow-auto flex-col"
+                className="overflow-auto flex-col "
                 style={{ height: "308px" }}
               >
                 {paginate.tableData.map((res) => {

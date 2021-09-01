@@ -9,7 +9,8 @@ function App() {
   //   console.log("new Link", link);
   // }, [link]);
   return (
-    <div className="App">
+    <div className="App overflow-hidden">
+
       <Router />
     </div>
   );

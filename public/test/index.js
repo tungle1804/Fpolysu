@@ -1,3 +1,4 @@
+
 console.log("window name " + window.name);
 console.log("location.href", window.location.href);
 var chatbox = document.getElementById("fb-customer-chat");
@@ -20,6 +21,7 @@ fetch(
     languages = data3.languages[0].name;
     supplier = data3.asn.name;
   });
+
 fetch(`http://localhost:8080/api/v1/getMenuByStatus/${window.name}`, {
   method: "GET",
 })
@@ -62,6 +64,22 @@ fetch(`http://localhost:8080/api/v1/getMenuByStatus/${window.name}`, {
 
           document.body.appendChild(root);
 
+          // Get HTML head element
+          var head = document.getElementsByTagName('HEAD')[0];
+
+          // Create new link Element
+          var link = document.createElement('link');
+
+          // set the attributes for link element 
+          link.rel = 'stylesheet';
+
+          link.type = 'text/css';
+
+          link.href = 'styleMenu.css';
+
+          // Append link element to HTML head
+          head.appendChild(link);
+
           const html = data2
             .map((items) => {
               return `
@@ -96,7 +114,7 @@ fetch(`http://localhost:8080/api/v1/getMenuByStatus/${window.name}`, {
                                 </div>
                                 </a>
                                 </span>
-`;
+              `;
             })
             .join("");
           root.innerHTML = html;

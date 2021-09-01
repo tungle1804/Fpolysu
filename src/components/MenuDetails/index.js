@@ -1,6 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react'
 import { MenuContext } from '../../service/MenuContext'
 import Iframe from 'react-iframe'
+import './styleResponsive.css'
 import Ifram from '../CreateDetailsMenu/iframe'
 import { useDispatch, useSelector } from 'react-redux'
 import { viewButtonByIDMenu } from '../../redux/actions/buttonAction'

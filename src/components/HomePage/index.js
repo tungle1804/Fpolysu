@@ -89,59 +89,70 @@ export default function HomePage() {
                     </div> */}
                     <nav id="header" className="fixed bg-white shadow-xl text-white w-full  z-20 top-0">
                         <div id="progress" className="h-1 z-40 top-0" style={{ background: 'linear-gradient(to right, #FFC100 var(--scroll), transparent 0)' }} />
-                        <div className="flex ">
-                            <div className="font-black my-auto mx-auto lg:block hidden text-blue-900 text-4xl flex items-start">
-                                Polysu<span className="w-3 h-3 rounded-full bg-purple-600 ml-2" />
+                        <div className="flex justify-between">
+                            <div className="flex font-black mb-3 lg:block hidden text-blue-900 text-5xl items-start ml-4">
+                                <span>Polysu</span>
+                                <div className="text-sm animate-pulse">Tùy Biến Nút - Hút Khách Hàng</div>
                             </div>
-                            <div className="w-full md:max-w-4xl mx-auto bg-white flex flex-wrap items-center justify-between mt-0 py-3">
-                                <div className="block lg:hidden pl-8  p-2">
-                                    <div className="font-black text-blue-900 text-4xl flex items-start">
-                                        Polysu<span className="w-3 h-3 rounded-full bg-purple-600 ml-2" />
+                            
+                            <div className="w-full md:max-w-4xl  bg-white flex flex-wrap items-center justify-between mt-0 py-3">
+                                <div>
+                                    <div className="block lg:hidden ">
+                                        <div className="font-black text-blue-900 text-4xl flex items-start">
+                                            Polysu<span className="w-3 h-3 rounded-full bg-purple-600 " />
+                                        </div>
+                                    </div>
+                                    <div className="block lg:hidden pr-4">
+                                        <button id="nav-toggle" className="flex items-center px-3 py-2 text-black border-gray-600 focus:outline-none">
+                                            <svg fill="text-black" viewBox="0 0 20 20" className="w-6 h-6 fill-current">
+                                                <title>Menu</title>
+                                                <path fillRule="evenodd" d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM9 15a1 1 0 011-1h6a1 1 0 110 2h-6a1 1 0 01-1-1z" clipRule="evenodd" />
+                                            </svg>
+                                        </button>
                                     </div>
                                 </div>
-                                <div className="block lg:hidden pr-4">
-                                    <button id="nav-toggle" className="flex items-center px-3 py-2 text-black border-gray-600 focus:outline-none">
-                                        <svg fill="text-black" viewBox="0 0 20 20" className="w-6 h-6 fill-current">
-                                            <title>Menu</title>
-                                            <path fillRule="evenodd" d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM9 15a1 1 0 011-1h6a1 1 0 110 2h-6a1 1 0 01-1-1z" clipRule="evenodd" />
-                                        </svg>
-                                    </button>
-                                </div>
-                                <div className="w-full flex-grow px-4 lg:flex lg:items-center lg:w-auto hidden lg:block  bg-white  z-20" id="nav-content">
-                                    <ul className="list-reset lg:flex justify-center flex-1 items-center my-auto">
-                                        <li class="mr-3">
-                                            <a class="inline-block lg:text-xl text-base py-2 px-4 text-black hover:text-purple-700 hover:bg-gray-300 rounded font-bold transition duration-150 ease-in-out transform hover:scale-125"
-                                                href="#">Home</a>
-                                        </li>
-                                        <li class="mr-3">
+                                <div className="flex">
+                                    <div className="w-full flex-grow px-4 lg:flex lg:items-center lg:w-auto hidden lg:block  bg-white  z-20" id="nav-content">
+                                        <ul className="list-reset lg:flex justify-center flex-1 gap-1 items-center my-auto">
+                                            <li class="mr-2">
+                                                <a class="inline-block lg:text-xl text-base py-2 px-2 text-black hover:text-purple-700 hover:bg-gray-300 rounded font-bold transition duration-150 ease-in-out transform hover:scale-125"
+                                                    href="#" style={{textDecoration:"none"}}>Trang chủ</a>
+                                            </li>
+                                            {/* <li class="mr-3">
                                             <a class="inline-block lg:text-xl text-base text-black hover:text-purple-700 hover:bg-gray-300 rounded py-2 px-4 transition duration-150 ease-in-out transform hover:scale-125" href="#">Contact us</a>
-                                        </li>
-                                        <li class="mr-3">
-                                            <a onClick={() => history.push('/hssd')} class=" inline-block lg:text-xl text-base text-black hover:text-purple-700 hover:bg-gray-300 rounded py-2 px-4 transition duration-150 ease-in-out transform hover:scale-125" href="#">Hướng dẫn sử dụng</a>
-                                        </li>
-                                        <li class="mr-3">
-                                            <a onClick={() => history.push('/contact')} class="inline-block lg:text-xl text-base text-black hover:text-purple-700 hover:bg-gray-300 rounded py-2 px-4 transition duration-150 ease-in-out transform hover:scale-125" href="#">Liên Hệ</a>
-                                        </li>
-                                        <li class="mr-3 ">
-                                            <a onClick={() => history.push('/price-list')} class="inline-block lg:text-xl text-base text-black hover:text-purple-700 hover:bg-gray-300 rounded py-2 px-4 transition duration-150 ease-in-out transform hover:scale-125" href="#">Bảng giá</a>
-                                        </li>
-                                        <li class="mr-3 lg:hidden block">
-                                            <a onClick={() => history.push('/login')} class="inline-block lg:text-xl text-base text-black hover:text-purple-700 hover:bg-gray-300 rounded py-2 px-4 transition duration-150 ease-in-out transform hover:scale-125" href="#">Đăng nhập</a>
-                                        </li>
-                                        <li class="mr-3 lg:hidden block">
-                                            <a onClick={() => history.push('/resgiter')} class="inline-block lg:text-xl text-base text-black hover:text-purple-700 hover:bg-gray-300 rounded py-2 px-4 transition duration-150 ease-in-out transform hover:scale-125" href="#">Đăng ký</a>
-                                        </li>
-                                        
-                                    </ul>
+                                        </li> */}
+                                            <li class="mr-2">
+                                                <a onClick={() => history.push('/hssd')} class=" inline-block  lg:text-xl text-base text-black hover:text-purple-700 hover:bg-gray-300 rounded py-2 px-2 transition duration-150 ease-in-out transform hover:scale-125" href="#" style={{textDecoration:"none"}}>Cách sử dụng</a>
+                                            </li>
+                                            <li class="mr-2">
+                                                <a onClick={() => history.push('/contact')} class="inline-block lg:text-xl text-base text-black hover:text-purple-700 hover:bg-gray-300 rounded py-2 px-2 transition duration-150 ease-in-out transform hover:scale-125" href="#" style={{textDecoration:"none"}}>Liên Hệ</a>
+                                            </li>
+                                            <li class="mr-2 ">
+                                                <a onClick={() => history.push('/price-list')} class="inline-block lg:text-xl text-base text-black hover:text-purple-700 hover:bg-gray-300 rounded py-2 px-2 transition duration-150 ease-in-out transform hover:scale-125" href="#" style={{textDecoration:"none"}}>Bảng giá</a>
+                                            </li>
+                                            <li class="mr-2 ">
+                                                <a onClick={() => history.push('/login')} class="inline-block lg:text-xl text-base text-black hover:text-purple-700 hover:bg-gray-300 rounded py-2 px-2 transition duration-150 ease-in-out transform hover:scale-125" href="#" style={{textDecoration:"none"}}>Đăng nhập</a>
+                                            </li>
+                                            <li class="mr-2 lg:hidden block">
+                                                <a onClick={() => history.push('/login')} class="inline-block lg:text-xl text-base text-black hover:text-purple-700 hover:bg-gray-300 rounded py-2 px-2 transition duration-150 ease-in-out transform hover:scale-125" href="#" style={{textDecoration:"none"}}>Đăng nhập</a>
+                                            </li>
+                                            <li class="mr-2 lg:hidden block">
+                                                <a onClick={() => history.push('/resgiter')} class="inline-block lg:text-xl text-base text-black hover:text-purple-700 hover:bg-gray-300 rounded py-2 px-2 transition duration-150 ease-in-out transform hover:scale-125" href="#" style={{textDecoration:"none"}}>Đăng ký</a>
+                                            </li>
+                                            
+
+                                        </ul>
+                                    </div>
+
+                                    <div className="lg:flex hidden my-auto ">
+                                        {/* <button  className="flex-1 lg:h-14 h-10 w-16 py-2 px-3 mx-2 hover:text-white bg-red-500 rounded transition duration-150 ease-in-out transform hover:scale-110 bg-emerald-600 text-black font-semibold">
+                                            
+                                        </button> */}
+                                        <button onClick={() => history.push('/resgiter')} className="flex-1 lg:h-14 h-10 py-2 w-40 px-3 mx-2 hover:text-white bg-red-500 rounded transition duration-150 ease-in-out transform hover:scale-110 bg-emerald-600 text-black font-semibold">
+                                            Đăng ký
+                                        </button>
+                                    </div>
                                 </div>
-                            </div>
-                            <div className="lg:flex hidden my-auto mr-5">
-                                <button onClick={() => history.push('/login')} className="flex-1 lg:h-14 h-10 w-16 py-2 px-3 mx-2 hover:text-white bg-red-500 rounded transition duration-150 ease-in-out transform hover:scale-110 bg-emerald-600 text-black font-semibold">
-                                    Đăng nhập
-                                </button>
-                                <button onClick={() => history.push('/resgiter')} className="flex-1 lg:h-14 h-10 py-2 w-40 px-3 mx-2 hover:text-white bg-red-500 rounded transition duration-150 ease-in-out transform hover:scale-110 bg-emerald-600 text-black font-semibold">
-                                    Đăng ký
-                                </button>
                             </div>
                         </div>
                     </nav>
