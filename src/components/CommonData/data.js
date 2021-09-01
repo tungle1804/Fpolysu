@@ -36,9 +36,11 @@ export const dataHour = [
 ];
 export const header = {
   Authorization: "Bearer " + localStorage.getItem("token"),
+  "Content-Type": "application/json",
 };
 export const dataRecord = [
   { value: 5, label: "5" },
   { value: 10, label: "10" },
   { value: 20, label: "20" },
 ];
+export const dataEquipment = ["Máy tính", "Mobiel"];

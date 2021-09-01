@@ -1,32 +1,20 @@
 import React, { useState, useEffect } from "react";
 import { CChartBar } from "@coreui/react-chartjs";
-import translate from "translate"; // New wave
 import Select from "react-select";
 import {
   CCard,
-  CHeader,
   CLabel,
-  CCardGroup,
   CCol,
-  CIcon,
   CContainer,
-  CPagination,
-  CDropdown,
-  CDropdownItem,
-  CDropdownMenu,
-  CDropdownToggle,
   CCardHeader,
   CCardBody,
   CCardFooter,
   CRow,
-  CCardTitle,
   CBadge,
 } from "@coreui/react";
 import { header } from "./../CommonData/data";
 import axios from "axios";
-import DisplayResultPagination from "./../DisplayResultPagination/DisplayResultPagination";
 import CustomerDatePicker from "./../CustomerDatePicker/index";
-
 function Report_Button() {
   const [dataButton, setDataButton] = useState([]);
   const [menuId, setMenuId] = useState();
@@ -36,8 +24,8 @@ function Report_Button() {
   const [buttons, setButtons] = useState([{ value: "", label: "" }]);
   const [listCalender, setListCalender] = useState([]);
   // let menus = [];
-  const [startDate, setStartDate] = useState(new Date("2021-08-01"));
-  const [endDate, setEndDate] = useState(new Date());
+  const [startDate, setStartDate] = useState(new Date("2021-09-01"));
+  const [endDate, setEndDate] = useState(new Date("2021-09-01"));
 
   const arr = [];
   const arrbt = [];
@@ -47,10 +35,7 @@ function Report_Button() {
     const config = {
       method: "get",
       url: `http://localhost:8080/api/v1/getMenuByEmail/${username}`,
-      headers: {
-        Authorization: `Bearer ${localStorage.getItem("token")}`,
-        "Content-Type": "application/json",
-      },
+      header,
     };
 
     await axios(config)
@@ -76,10 +61,7 @@ function Report_Button() {
     const config = {
       method: "get",
       url: `http://localhost:8080/api/v1/getButtonByIDMenu/${menuId}`,
-      headers: {
-        Authorization: `Bearer ${localStorage.getItem("token")}`,
-        "Content-Type": "application/json",
-      },
+      header,
     };
 
     await axios(config)
@@ -114,10 +96,7 @@ function Report_Button() {
       url: `http://localhost:8080/api/v1/getListCalenderByRangeTime?start=${startDate
         .toISOString()
         .slice(0, 10)}&end=${endDate.toISOString().slice(0, 10)}`,
-      headers: {
-        Authorization: `Bearer ${localStorage.getItem("token")}`,
-        "Content-Type": "application/json",
-      },
+      header,
       data: data,
     };
     //  console.log("API", config.url);
@@ -142,10 +121,7 @@ function Report_Button() {
         .slice(0, 10)}&end=${endDate
         .toISOString()
         .slice(0, 10)}&buttonId=${buttonId}`,
-      headers: {
-        Authorization: `Bearer ${localStorage.getItem("token")}`,
-        "Content-Type": "application/json",
-      },
+      header,
     };
 
     axios(config)
@@ -170,10 +146,7 @@ function Report_Button() {
         .toISOString()
         .slice(0, 10)}&end=${endDate.toISOString().slice(0, 10)}`,
       // url: "http://localhost:8080/api/v1/statisticAllActionOnThisMenuByDay?email=vuthanhnam@gmail.com&idMenu=6&end=2021-08-24&start=2021-08-15",
-      headers: {
-        Authorization: `Bearer ${localStorage.getItem("token")}`,
-        "Content-Type": "application/json",
-      },
+      header,
     };
 
     axios(config)
@@ -206,17 +179,13 @@ function Report_Button() {
     getListCalenderbyTimeRange();
     getDataActionOfMenuByDay();
   }, [startDate, endDate]);
-  // const menus = [
-  //   { value: "under", label: "Dưới 18 tuổi" },
-  //   { value: "between", label: "18 đến 35 tuổi" },
-  //   { value: "over", label: "Trên 35 tuổi" },
-  // ];
+
   return (
     <CContainer>
       <div className="row justify-content-center">
         <h2>
-          Thống kê tương tác theo
-          <CBadge color="secondary"> Nút </CBadge>
+          Thống kê tương tác theo &nbsp;
+          <CBadge color="primary"> Nút </CBadge>
         </h2>
       </div>
       <br />
@@ -298,7 +267,7 @@ function Report_Button() {
               datasets={[
                 {
                   label: "Lượng Tương tác",
-                  backgroundColor: "#f87979",
+                  backgroundColor: "#6699FF",
                   data: dataActionOfButtonByDay,
                 },
               ]}
