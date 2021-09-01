@@ -796,7 +796,7 @@ export default function ViewCreateMenu() {
               <section className="my-1 grid grid-cols-2 xl:grid-cols-3 gap-2 mr-1">
                 <div className="flex-1 bg-white text-gray-600 font-bold rounded border-2 border-green-500 hover:border-green-700 hover:text-black shadow-md py-2 px-2  items-center">
                   <button
-                    onClick={() => handleShow("message.png", "2")}
+                    onClick={() => handleShow("fa fa-phone-volume", "2")}
                     className="px-3 "
                   >
                     <div className="flex mx-auto my-auto">
@@ -807,7 +807,7 @@ export default function ViewCreateMenu() {
                 </div>
                 <div className="flex-1 bg-white text-gray-600 font-bold rounded border-2 border-green-500 hover:border-green-700 hover:text-black shadow-md py-2 px-2  items-center">
                   <button
-                    onClick={() => handleShow("message.png")}
+                    onClick={() => handleShow("fab fa-facebook-messenger", "2")}
                     className="px-3"
                   >
                     <div className="flex mx-auto my-auto">
@@ -821,7 +821,7 @@ export default function ViewCreateMenu() {
                 </div>
                 <div className="flex-1 bg-white text-gray-600 font-bold rounded border-2 border-green-500 hover:border-green-700  hover:text-black shadow-md py-2 px-1  items-center">
                   <button
-                    onClick={() => handleShow("zalo.png", "1")}
+                    onClick={() => handleShow("fa fa-comment-alt", "2")}
                     className="px-3"
                   >
                     <div className="flex mx-auto my-auto">
@@ -835,7 +835,7 @@ export default function ViewCreateMenu() {
                 </div>
                 <div className="flex-1 bg-white text-gray-600 font-bold rounded border-2 border-green-500 hover:border-green-700  hover:text-black shadow-md py-2 px-2 items-center">
                   <button
-                    onClick={() => handleShow("seemore.png")}
+                    onClick={() => handleShow("fas fa-shopping-cart", "2")}
                     className="px-3"
                   >
                     <div className="flex mx-auto my-auto">
@@ -849,7 +849,7 @@ export default function ViewCreateMenu() {
                 </div>
                 <div className="flex-1 bg-white text-gray-600 font-bold rounded border-2 border-green-500 hover:border-green-700  hover:text-black shadow-md py-2 px-2 items-center">
                   <button
-                    onClick={() => handleShow("email.png", "3")}
+                    onClick={() => handleShow("fas fa-envelope-open-text", "3")}
                     className="px-3"
                   >
                     <div className="flex mx-auto my-auto">
@@ -1098,19 +1098,83 @@ export default function ViewCreateMenu() {
           <Form>
             <Form.Group controlId="formBasicEmail">
               <div class=" flex  space-x-2">
-                <div class="flex-1 mt-5">
+                <div class="flex-1 mt-3">
                   {" "}
-                  <Form.Label>Biểu tượng nút</Form.Label>
-                  <img
+                  <div style={{ display: "grid" }}>
+                    <Form.Label>Biểu tượng nút</Form.Label>
+                    <i className={` mr-1 my-auto fa-5x ${images}`}></i>
+                  </div>
+                  {/* <img
                     className="h-12 bg-gray-400"
                     src={`../images/${images}`}
-                  />
+                  /> */}
                 </div>
                 <div class="flex-1 ">
                   <div className="flex  flex-wrap mt-1 ">
                     <div class="p-2 text-right ml-5 mt-3">
                       <Form.Label>Hiển thị</Form.Label>
-                      <div
+                      <div className="flex  flex-wrap mt-1">
+                        <div
+                          class="flex-1  font-bold rounded border-2  hover:border-green-700 hover:text-black shadow-md py-2 px-2  items-center"
+                          style={{
+                            background: `rgba(${
+                              valueButton.color_background &&
+                              valueButton.color_background.r
+                            },
+                                            ${
+                                              valueButton.color_background &&
+                                              valueButton.color_background.g
+                                            }, 
+                                            ${
+                                              valueButton.color_background &&
+                                              valueButton.color_background.b
+                                            })`,
+                          }}
+                        >
+                          <button class="px-3 ">
+                            <div class="flex mx-auto my-auto">
+                              <i
+                                style={{
+                                  color: `rgba(${
+                                    valueButton.color_icon &&
+                                    valueButton.color_icon.r
+                                  },
+                                                    ${
+                                                      valueButton.color_icon &&
+                                                      valueButton.color_icon.g
+                                                    }, 
+                                                    ${
+                                                      valueButton.color_icon &&
+                                                      valueButton.color_icon.b
+                                                    })`,
+                                }}
+                                class={`${images} mr-1 my-auto`}
+                              ></i>
+                              <span
+                                class="text-sm"
+                                style={{
+                                  color: `rgba(${
+                                    valueButton.color_text &&
+                                    valueButton.color_text.r
+                                  },
+                                            ${
+                                              valueButton.color_text &&
+                                              valueButton.color_text.g
+                                            }, 
+                                            ${
+                                              valueButton.color_text &&
+                                              valueButton.color_text.b
+                                            })`,
+                                }}
+                              >
+                                {" "}
+                                {valueButton && valueButton.name_button}
+                              </span>
+                            </div>
+                          </button>
+                        </div>
+                      </div>
+                      {/* <div
                         style={{
                           background: `rgba(${
                             valueButton.color_background &&
@@ -1156,7 +1220,7 @@ export default function ViewCreateMenu() {
                             </p>
                           </div>
                         </button>
-                      </div>
+                      </div> */}
                     </div>
                   </div>
                 </div>
