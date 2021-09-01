@@ -29,7 +29,9 @@ const AdminStaff = () => {
   useEffect(() => {
     callApi('get', 'api/v1/admin/users')
       .then(response => {
+        console.log("Bình test staff ", response.data);
         setStaff(response.data);
+        
       })
   }, []);
 
