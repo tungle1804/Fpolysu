@@ -21,81 +21,28 @@ export default function Navbar() {
 
   return (
     <>
-      <div className="flex justify-between items-center bg-white border-b-2 shadow-xl ">
+    <div className="h-screen">
+      <div className="flex sticky top-0 justify-between items-center bg-white border-b-2 shadow-xl ">
         <HeaderLanding sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} />
       </div>
       <Router>
-        <div className="flex h-screen bg-white">
-          <div className="flex-1 flex flex-col  overflow-hidden">
+        <div className="flex bg-white">
+          <div className="flex-1 flex flex-col">
 
             {/* <div class="relative min-h-screen md:flex"></div> */}
-            <div className="flex h-full">
-              {/* <div className="sidebar space-y-5 py-5 text-black overflow-y-auto mb-10 bg-gray-300 w-auto space-y-6 py-7 px-4 absolute inset-y-0 left-0 transform -translate-x-full md:relative md:translate-x-0 transition duration-200 ease-in-out">
-                
+            <div className="flex h-screen">
 
-                <nav className="">
-                  <div>
-                    <span className="text-xl text-gray-500 uppercase  font-bold">Tổng quan về Polysu</span>
-                    <Link to="/hssd1" className="" >
-                      <a href="#" className="font-medium block text-black mb-2 py-2 px-4 rounded transition duration-200 hover:bg-blue-700 hover:text-white focus:bg-blue-500 focus:text-white">Polysu là gì?</a>
-                    </Link>
-                    <Link to="/hssd2" className="" >
-                      <a href="#" className="font-medium block text-black mb-2 py-2 px-4 rounded transition duration-200 hover:bg-blue-700 hover:text-white focus:bg-blue-500 focus:text-white">
-                        Tổng quan &amp; Vai trò
-                      </a>
-                    </Link>
-                  </div>
-                  <div className="mt-10">
-                    <span className="text-xl text-gray-500 uppercase font-bold">SỬ DỤNG POLYSU</span>
-                    <a href="#" className="font-medium block text-black mb-2 py-2 px-4 rounded transition duration-200 hover:bg-blue-700 hover:text-white">
-                      Tạo Menu
-                    </a>
-                    <a href="#" className="font-medium block text-black mb-2 py-2 px-4 rounded transition duration-200 hover:bg-blue-700 hover:text-white">
-                      Cấu hình nút
-                    </a>
-                    <a href="#" className="font-medium block text-black mb-2 py-2 px-4 rounded transition duration-200 hover:bg-blue-700 hover:text-white">
-                      Cài đặt Polysu lên website
-                    </a>
-                    <a href="#" className="font-medium block text-black mb-2 py-2 px-4 rounded transition duration-200 hover:bg-blue-700 hover:text-white">
-                      Tạo Menu
-                    </a>
-                    <a href="#" className="font-medium block text-black mb-2 py-2 px-4 rounded transition duration-200 hover:bg-blue-700 hover:text-white">
-                      Cấu hình nút
-                    </a>
-                    <a href="#" className="font-medium block text-black mb-2 py-2 px-4 rounded transition duration-200 hover:bg-blue-700 hover:text-white">
-                      Cài đặt Polysu lên website
-                    </a>
-                    <a href="#" className="font-medium block text-black mb-2 py-2 px-4 rounded transition duration-200 hover:bg-blue-700 hover:text-white">
-                      Tạo Menu
-                    </a>
-                    <a href="#" className="font-medium block text-black mb-2 py-2 px-4 rounded transition duration-200 hover:bg-blue-700 hover:text-white">
-                      Cấu hình nút
-                    </a>
-                    <a href="#" className="font-medium block text-black mb-2 py-2 px-4 rounded transition duration-200 hover:bg-blue-700 hover:text-white">
-                      Cài đặt Polysu lên website
-                    </a>
-
-                  </div>
-                </nav>
-
-              </div> */}
               {/* sidebar */}
-              <Sidebar sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} />
-
+              <div className="">
+                <Sidebar sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} />
+              </div>
 
               {/* main */}
 
-              <main className="flex flex-col w-full bg-white overflow-x-hidden overflow-y-auto mb-14">
-                {/* <h2 className="flex py-4 px-4 sticky top-0 border-b bg-white items-center justify-between">
-                  <h1 className="font-bold tracking-wide text-2xl ">
-                    Noi dung 1
-                  </h1>
-                  <div className="text-blue-400">
-                    <i className="fa fa-dot-circle-o" />
-                  </div>
-                </h2> */}
+              <main className="flex flex-col w-full bg-white overflow-y-auto mb-14">
+
                 <div className="flex w-full mx-auto px-6 py-8">
-                  <div className="flex flex-col w-full h-full text-gray-900 text-xl border-4 border-gray-900 ">
+                  <div className="flex flex-col w-full text-gray-900 text-xl border-4 border-gray-900 ">
 
                     <Switch>
                       <Route exact path="/hssd1">
@@ -202,6 +149,7 @@ export default function Navbar() {
           }}
         />
       </Router>
+      </div>
     </>
   );
 };

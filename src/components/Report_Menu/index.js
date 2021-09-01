@@ -3,22 +3,13 @@ import { CChartBar } from "@coreui/react-chartjs";
 import Select from "react-select";
 import {
   CCard,
-  CHeader,
-  CLabel,
-  CCardGroup,
   CCol,
-  CIcon,
   CContainer,
   CPagination,
-  CDropdown,
-  CDropdownItem,
-  CDropdownMenu,
-  CDropdownToggle,
   CCardHeader,
   CCardBody,
   CCardFooter,
   CRow,
-  CCardTitle,
   CBadge,
 } from "@coreui/react";
 import { header } from "./../CommonData/data";
@@ -27,14 +18,20 @@ import DisplayResultPagination from "./../DisplayResultPagination/DisplayResultP
 import CustomerDatePicker from "./../CustomerDatePicker/index";
 
 function Report_Menu() {
+  const [pageNo, setPageNo] = useState(1);
+  const [totalPage, setTotalPage] = useState();
+  const [totalRecord, setTotalRecord] = useState();
+  const [data, setData] = useState([]);
+  const [limit, setLimit] = useState(5);
+
   const [dataMenu, setDataMenu] = useState([]);
   const [menuId, setMenuId] = useState();
   const [dataActionOfMenuByDay, setDataActionOfMenuByDay] = useState();
   const [menus, setMenus] = useState([]);
   const [listCalender, setListCalender] = useState([]);
   // let menus = [];
-  const [startDate, setStartDate] = useState(new Date('2021-08-01'));
-  const [endDate, setEndDate] = useState(new Date());
+  const [startDate, setStartDate] = useState(new Date("2021-09-01"));
+  const [endDate, setEndDate] = useState(new Date("2021-09-01"));
 
   const arr = [];
 
@@ -44,10 +41,7 @@ function Report_Menu() {
     var config = {
       method: "get",
       url: `http://localhost:8080/api/v1/getMenuByEmail/${username}`,
-      headers: {
-        Authorization: `Bearer ${localStorage.getItem("token")}`,
-        "Content-Type": "application/json",
-      },
+      header,
     };
 
     await axios(config)
@@ -69,34 +63,26 @@ function Report_Menu() {
   // console.log(menus);
 
   const getListCalenderbyTimeRange = () => {
-    var data = JSON.stringify({
-      id: 1,
-      name_menu: "alo",
-      color_menu: "red",
-      status: true,
-    });
-
     var config = {
       method: "get",
       url: `http://localhost:8080/api/v1/getListCalenderByRangeTime?start=${startDate
         .toISOString()
         .slice(0, 10)}&end=${endDate.toISOString().slice(0, 10)}`,
-      headers: {
-        Authorization: `Bearer ${localStorage.getItem("token")}`,
-        "Content-Type": "application/json",
-      },
+      header,
       data: data,
     };
-    //  console.log("API", config.url);
-    axios(config)
-      .then(function (response) {
-        console.log(JSON.stringify(response.data));
-        setListCalender(response.data);
-        //  console.log("dataCalender", listCalender);
-      })
-      .catch(function (error) {
-        console.log(error);
-      });
+    console.log("API", config.url);
+    if (startDate && endDate) {
+      axios(config)
+        .then(function (response) {
+          console.log(JSON.stringify(response.data));
+          setListCalender(response.data);
+          //  console.log("dataCalender", listCalender);
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+    }
   };
   // console.log("test", menus);
   const getDataMenu = () => {
@@ -109,10 +95,7 @@ function Report_Menu() {
         .slice(0, 10)}&end=${endDate
         .toISOString()
         .slice(0, 10)}&menuId=${menuId}`,
-      headers: {
-        Authorization: `Bearer ${localStorage.getItem("token")}`,
-        "Content-Type": "application/json",
-      },
+      header,
     };
 
     axios(config)
@@ -129,8 +112,8 @@ function Report_Menu() {
     var data = JSON.stringify({
       menuId: 8,
     });
-
     const username = "vuthanhnam@gmail.com";
+    // const username = localStorage.getItem("email")
     const baseHref =
       "http://localhost:8080/api/v1/statisticAllActionOnThisMenuByDay";
     var config = {
@@ -140,10 +123,7 @@ function Report_Menu() {
         .toISOString()
         .slice(0, 10)}&end=${endDate.toISOString().slice(0, 10)}`,
       // url: "http://localhost:8080/api/v1/statisticAllActionOnThisMenuByDay?email=vuthanhnam@gmail.com&idMenu=6&end=2021-08-24&start=2021-08-15",
-      headers: {
-        Authorization: `Bearer ${localStorage.getItem("token")}`,
-        "Content-Type": "application/json",
-      },
+      header,
       data: data,
     };
 
@@ -157,6 +137,34 @@ function Report_Menu() {
         console.log(error);
       });
   };
+
+  const getDataClickByUrl = () => {
+    const username = "vuthanhnam@gmail.com";
+    // const username = localStorage.getItem("email")
+
+    var config = {
+      method: "get",
+      url: `http://localhost:8080/api/v1/countTotalClickBuFromUrl?email=${username}&start=${startDate
+        .toISOString()
+        .slice(0, 10)}&end=${endDate.toISOString().slice(0, 10)}`,
+      header,
+    };
+
+    axios(config)
+      .then(function (response) {
+        console.log("dataClick:  ", JSON.stringify(response.data));
+        setData(response.data.content);
+        setTotalRecord(response.data.totalElements);
+        console.log("totalElement", totalRecord);
+
+        setTotalPage(response.data.totalPages);
+        console.log("list Data now: ", data);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  };
+
   useEffect(() => {
     getListMenu();
 
@@ -169,6 +177,7 @@ function Report_Menu() {
     getDataMenu();
     getListCalenderbyTimeRange();
     getDataActionOfMenuByDay();
+    getDataClickByUrl();
     // return () => {
     //   cleanup
     // }
@@ -182,8 +191,8 @@ function Report_Menu() {
     <CContainer>
       <div className="row justify-content-center">
         <h2>
-          Thống kê tương tác theo
-          <CBadge color="secondary"> Menu</CBadge>
+          Thống kê tương tác theo &nbsp;
+          <CBadge color="primary"> Menu</CBadge>
         </h2>
       </div>
       <br />
@@ -228,12 +237,15 @@ function Report_Menu() {
       <hr />
       <CRow className="container row-auto">
         <CCard className="col-3">
-          <CCardHeader className="text-center bg-blue-200 text-orange-300">
+          <CCardHeader
+            className="text-center bg-blue-200 text-blue-500 font-weight-bold"
+            style={{ color: "6699FF" }}
+          >
             Tổng số Tương tác{" "}
           </CCardHeader>
           <CCardBody>
             <h1 className="text-lg-center px-3">
-              <CBadge color="secondary">{dataMenu}</CBadge>
+              <CBadge color="primary">{dataMenu}</CBadge>
             </h1>
           </CCardBody>
           <CCardFooter></CCardFooter>
@@ -245,7 +257,7 @@ function Report_Menu() {
               datasets={[
                 {
                   label: "Lượng Tương tác",
-                  backgroundColor: "#f87979",
+                  backgroundColor: "#6699FF",
                   data: dataActionOfMenuByDay,
                 },
               ]}
@@ -259,6 +271,62 @@ function Report_Menu() {
           </CCardBody>
         </CCard>
       </CRow>
+      <CCard>
+        <div className="row ">
+          <CCardHeader className="font-weight-bolder text-center bg-blue-500 col-6 offset-2">
+            Thống kê số Click đường dẫn
+          </CCardHeader>
+        </div>
+
+        <table
+          className=" table table-striped table-bordered "
+          style={{ border: "none" }}
+        >
+          <thead>
+            <tr>
+              <th>Link</th>
+              <th>Total Click</th>
+            </tr>
+          </thead>
+          <tbody>
+            {/* {
+              !data.length(
+                <tr className="text-center">
+                  <td colSpan={3}>No Student</td>
+                </tr>
+              )
+            } */}
+            {data.map((item, index) => {
+              return (
+                <tr key={index}>
+                  <td>
+                    <a href={item[0]}>{item[0]}</a>
+                  </td>
+                  <td>{item[1]}</td>
+                </tr>
+              );
+            })}
+          </tbody>
+        </table>
+        <CRow className="row">
+          <CPagination
+            className="col-5 mx-0 px-3"
+            addListClass="some-class"
+            activePage={pageNo}
+            pages={totalPage}
+            onActivePageChange={setPageNo}
+          />
+          <div className="col-6 right">
+            <DisplayResultPagination
+              page={pageNo}
+              setPage={setPageNo}
+              limit={limit}
+              setLimit={setLimit}
+              totalElements={totalRecord}
+            ></DisplayResultPagination>
+          </div>
+        </CRow>
+      </CCard>
     </CContainer>
   );
 }

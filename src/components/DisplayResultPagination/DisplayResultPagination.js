@@ -9,7 +9,7 @@ function DisplayResultPagination({
   setLimit,
   totalElements,
 }) {
-  console.log("heheh", totalElements);
+ // console.log("heheh", totalElements);
   useEffect(() => {
     setPage(page < 0 ? 1 : page);
     // return () => {

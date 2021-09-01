@@ -6,7 +6,7 @@ const callApi = (method, urlController, data) => {
     method: method,
     url: `http://localhost:8080/${urlController}`,
     headers: {
-      'Authorization': `Bearer ${JSON.parse(localStorage.getItem("token"))}`,
+      'Authorization': `Bearer ${localStorage.getItem("token")}`,
       'Content-Type': 'application/json'
     },
     data: data

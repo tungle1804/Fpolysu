@@ -37,6 +37,12 @@ import Grid from "@material-ui/core/Grid";
 import DateFnsUtils from "@date-io/date-fns";
 import "./style.css";
 import { makeid } from "../../utils/index.js";
+
+// import 'bootstrap/dist/css/bootstrap.css';
+import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
+import Tooltip from 'react-bootstrap/Popover'
+// import Button from 'react-bootstrap/Button';
+
 export function useStyle() {
   return <> text-blue-500 border-b-2 font-medium border-blue-500</>;
 }
@@ -118,9 +124,8 @@ export default function ViewCreateMenu() {
       width: "36px",
       height: "14px",
       borderRadius: "2px",
-      background: `rgba(${colorPicker.color && colorPicker.color.r}, ${
-        colorPicker.color && colorPicker.color.g
-      }, ${colorPicker.color && colorPicker.color.b})`,
+      background: `rgba(${colorPicker.color && colorPicker.color.r}, ${colorPicker.color && colorPicker.color.g
+        }, ${colorPicker.color && colorPicker.color.b})`,
     },
     swatch: {
       padding: "5px",
@@ -147,9 +152,8 @@ export default function ViewCreateMenu() {
       width: "36px",
       height: "14px",
       borderRadius: "2px",
-      background: `rgba(${colorText.color && colorText.color.r}, ${
-        colorText.color && colorText.color.g
-      }, ${colorText.color && colorText.color.b})`,
+      background: `rgba(${colorText.color && colorText.color.r}, ${colorText.color && colorText.color.g
+        }, ${colorText.color && colorText.color.b})`,
     },
     swatch: {
       padding: "5px",
@@ -176,9 +180,8 @@ export default function ViewCreateMenu() {
       width: "36px",
       height: "14px",
       borderRadius: "2px",
-      background: `rgba(${colorBackground.color && colorBackground.color.r}, ${
-        colorBackground.color && colorBackground.color.g
-      }, ${colorBackground.color && colorBackground.color.b})`,
+      background: `rgba(${colorBackground.color && colorBackground.color.r}, ${colorBackground.color && colorBackground.color.g
+        }, ${colorBackground.color && colorBackground.color.b})`,
     },
     swatch: {
       padding: "5px",
@@ -205,9 +208,8 @@ export default function ViewCreateMenu() {
       width: "36px",
       height: "14px",
       borderRadius: "2px",
-      background: `rgba(${colorIcon.color && colorIcon.color.r}, ${
-        colorIcon.color && colorIcon.color.g
-      }, ${colorIcon.color && colorIcon.color.b})`,
+      background: `rgba(${colorIcon.color && colorIcon.color.r}, ${colorIcon.color && colorIcon.color.g
+        }, ${colorIcon.color && colorIcon.color.b})`,
     },
     swatch: {
       padding: "5px",
@@ -412,10 +414,10 @@ export default function ViewCreateMenu() {
           color_menu: colormenu
             ? colormenu
             : rgbToHex(
-                colorPicker.color.r,
-                colorPicker.color.g,
-                colorPicker.color.b
-              ),
+              colorPicker.color.r,
+              colorPicker.color.g,
+              colorPicker.color.b
+            ),
           menuType: displayMenu ? displayMenu : "1",
           menuLocation: displayMenuV2 ? displayMenuV2 : null,
           menuCode: makeid(15),
@@ -497,10 +499,10 @@ export default function ViewCreateMenu() {
       ),
       color_icon: valueButton.color_icon
         ? rgbToHex(
-            valueButton.color_icon.r,
-            valueButton.color_icon.g,
-            valueButton.color_icon.b
-          )
+          valueButton.color_icon.r,
+          valueButton.color_icon.g,
+          valueButton.color_icon.b
+        )
         : null,
       link: valueButton.link,
       icon: images,
@@ -544,23 +546,23 @@ export default function ViewCreateMenu() {
       <>
         <button
           onClick={() => onhandleColor("black")}
-          className="h-6 w-12 mr-2  rounded-md bg-gray-900"
+          className="h-6 w-12 mr-2  rounded-sm bg-gray-900"
         ></button>
         <button
           onClick={() => onhandleColor("#EE0000")}
-          className="h-6 w-12 mr-2   rounded-md bg-red-600"
+          className="h-6 w-12 mr-2   rounded-sm bg-red-600"
         ></button>
         <button
           onClick={() => onhandleColor("fuchsia")}
-          className="h-6 w-12 mr-2  rounded-md bg-pink-700"
+          className="h-6 w-12 mr-2  rounded-sm bg-pink-700"
         ></button>
         <button
           onClick={() => onhandleColor("gray")}
-          className="h-6 w-12  mr-2  rounded-md bg-gray-500"
+          className="h-6 w-12  mr-2  rounded-sm bg-gray-500"
         ></button>
         <button
           onClick={() => onhandleColor("aqua")}
-          className="h-6 w-12 mr-2   rounded-md bg-teal-400"
+          className="h-6 w-12 mr-2   rounded-sm bg-teal-400"
         ></button>
       </>
     );
@@ -624,14 +626,13 @@ export default function ViewCreateMenu() {
     } else if (displayMenu === "3" || displayMenu === "4") {
       return (
         <>
-          <div className="container mx-auto px-6 my-1 flex flex-wrap -m-4 mt-3 mb-5">
+          <div className="container mx-auto px-6 my-1 gap-3 flex flex-wrap -m-4 mt-3 mb-5">
             <div onClick={onChangeDisplay} class="mat-radio-label-content">
               <div
                 class="shape-type-image1"
                 style={{
-                  backgroundImage: `url("https://admin.metu.vn/assets_metu/media/menu/position/right-bottom${
-                    displayActive === "1" ? "-active" : ""
-                  }.png")`,
+                  backgroundImage: `url("https://admin.metu.vn/assets_metu/media/menu/position/right-bottom${displayActive === "1" ? "-active" : ""
+                    }.png")`,
                 }}
               />
             </div>
@@ -639,9 +640,8 @@ export default function ViewCreateMenu() {
               <div
                 class="shape-type-image1"
                 style={{
-                  backgroundImage: `url("https://admin.metu.vn/assets_metu/media/menu/position/right-mid${
-                    displayActive === "2" ? "-active" : ""
-                  }.png")`,
+                  backgroundImage: `url("https://admin.metu.vn/assets_metu/media/menu/position/right-mid${displayActive === "2" ? "-active" : ""
+                    }.png")`,
                 }}
               />
             </div>
@@ -649,9 +649,8 @@ export default function ViewCreateMenu() {
               <div
                 class="shape-type-image1"
                 style={{
-                  backgroundImage: `url("https://admin.metu.vn/assets_metu/media/menu/position/right-top${
-                    displayActive === "3" ? "-active" : ""
-                  }.png")`,
+                  backgroundImage: `url("https://admin.metu.vn/assets_metu/media/menu/position/right-top${displayActive === "3" ? "-active" : ""
+                    }.png")`,
                 }}
               />
             </div>
@@ -659,9 +658,8 @@ export default function ViewCreateMenu() {
               <div
                 class="shape-type-image1"
                 style={{
-                  backgroundImage: `url("https://admin.metu.vn/assets_metu/media/menu/position/left-bottom${
-                    displayActive === "4" ? "-active" : ""
-                  }.png")`,
+                  backgroundImage: `url("https://admin.metu.vn/assets_metu/media/menu/position/left-bottom${displayActive === "4" ? "-active" : ""
+                    }.png")`,
                 }}
               />
             </div>
@@ -669,9 +667,8 @@ export default function ViewCreateMenu() {
               <div
                 class="shape-type-image1"
                 style={{
-                  backgroundImage: `url("https://admin.metu.vn/assets_metu/media/menu/position/left-mid${
-                    displayActive === "5" ? "-active" : ""
-                  }.png")`,
+                  backgroundImage: `url("https://admin.metu.vn/assets_metu/media/menu/position/left-mid${displayActive === "5" ? "-active" : ""
+                    }.png")`,
                 }}
               />
             </div>
@@ -679,9 +676,8 @@ export default function ViewCreateMenu() {
               <div
                 class="shape-type-image1"
                 style={{
-                  backgroundImage: `url("https://admin.metu.vn/assets_metu/media/menu/position/left-top${
-                    displayActive === "6" ? "-active" : ""
-                  }.png")`,
+                  backgroundImage: `url("https://admin.metu.vn/assets_metu/media/menu/position/left-top${displayActive === "6" ? "-active" : ""
+                    }.png")`,
                 }}
               />
             </div>
@@ -750,9 +746,37 @@ export default function ViewCreateMenu() {
   const onChangeDisplayMenu3 = () => {
     dispatch(saveDisplayMenu("4"));
   };
+
+
+  // popover
+
+  const renderColor = (props) => (
+
+    <Tooltip id="button-tooltip" {...props}>
+      <div className="bg-gray-100 rounded px-3 shadow-sm py-1">Màu sắc cho menu và nút</div>
+    </Tooltip>
+  );
+
+  const renderSys = (props) => (
+
+    <Tooltip id="button-tooltip" {...props}>
+      <div className="bg-gray-100 rounded px-3 shadow-sm py-1">Chọn thiết bị bạn muốn cho menu hiển thị.</div>
+    </Tooltip>
+  );
+
+  const renderDisplay = (props) => (
+
+    <Tooltip id="button-tooltip" {...props}>
+      <div className="bg-gray-100 rounded px-3 shadow-sm py-1">Tùy chọn giao diện hiển thị menu.</div>
+    </Tooltip>
+  );
+
+  
+
+
   return (
     <>
-      <div className=" bg-white p-6 h-full rounded shadow-xl w-full max-w-lg">
+      <div className=" bg-white p-6 rounded shadow-xl lg:h-full lg:w-full w-screen mb-3 lg:my-0 ">
         <div className="text-2xl mt-3 text-black font-semibold antialiased tracking-normal justify-between">
           <button>Tạo Menu</button>
         </div>
@@ -792,8 +816,11 @@ export default function ViewCreateMenu() {
                   class="w-full px-3 py-2 placeholder-gray-300 border border-gray-300 rounded-md focus:outline-none focus:ring focus:ring-indigo-100 focus:border-indigo-300 dark:bg-gray-700 dark:text-white dark:placeholder-gray-500 dark:border-gray-600 dark:focus:ring-gray-900 dark:focus:border-gray-500"
                 />
               </div>
-              <label>Danh sách các nút để chọn:</label>
-              <section className="my-1 grid grid-cols-2 xl:grid-cols-3 gap-2 mr-1">
+
+              <label>Danh sách các nút để chọn:
+                
+              </label>
+              <section className="my-1 grid grid-cols-2 sm:grid-cols-3 gap-2 mr-1">
                 <div className="flex-1 bg-white text-gray-600 font-bold rounded border-2 border-green-500 hover:border-green-700 hover:text-black shadow-md py-2 px-2  items-center">
                   <button
                     onClick={() => handleShow("fa fa-phone-volume", "2")}
@@ -854,7 +881,7 @@ export default function ViewCreateMenu() {
                   >
                     <div className="flex mx-auto my-auto">
                       <i class="fas fa-envelope-open-text mr-1 my-auto"></i>
-                      <span className="text-sm">Thông tin</span>
+                      <span className="text-sm">Gửi mail</span>
                     </div>
                   </button>
                 </div>
@@ -862,22 +889,28 @@ export default function ViewCreateMenu() {
                   <i className="fas fa-plus"></i>
                 </button>
               </section>
-              <label>Màu sắc:</label>
-              <div className="mr-1 mt-1 border-2 border-gray-200 rounded-lg">
+              <label className="mt-3">Màu sắc:
+              <OverlayTrigger
+                  placement="top"
+                  delay={{ show: 250, hide: 400 }}
+                  overlay={renderColor}
+                >
+                  <Button variant=""><i className="far fa-question-circle opacity-50"></i></Button>
+                </OverlayTrigger>
+              </label>
+              <div className="mr-1 border-2 border-gray-200 rounded-lg">
                 <nav class="flex  sm:flex-row ">
                   <button
                     onClick={onChangeViewColorLeft}
-                    className={`text-gray-600 py-2 px-4 block hover:text-blue-500 focus:outline-none ${
-                      displayTab === 1 && style
-                    } `}
+                    className={`text-gray-600 py-2 px-4 block hover:text-blue-500 focus:outline-none ${displayTab === 1 && style
+                      } `}
                   >
                     Mặc định
                   </button>
                   <button
                     onClick={onChangeViewColorRight}
-                    className={`text-gray-600 py-4 px-6 block hover:text-blue-500 focus:outline-none ${
-                      displayTab === 2 && style
-                    }`}
+                    className={`text-gray-600 py-4 px-6 block hover:text-blue-500 focus:outline-none ${displayTab === 2 && style
+                      }`}
                   >
                     Tùy chỉnh
                   </button>
@@ -885,204 +918,177 @@ export default function ViewCreateMenu() {
                 <div className="container mx-auto px-6 my-1 flex flex-wrap py-3">
                   {displayTab === 1 ? viewColorLeft() : viewColorRight()}
                 </div>
-                <label>Tùy chỉnh giao diện cho máy tính:</label>
-                <nav class="flex flex-col sm:flex-row mb-3">
-                  <button
-                    onClick={onChangeViewDisplayLeft}
-                    className={`text-gray-600 py-2 px-4 block hover:text-blue-500 focus:outline-none ${
-                      displayTab1 === 1 && style
+
+              </div>
+            </div>
+
+            <label className="mt-4">Chọn thiết bị bạn muốn hiển thị:
+              <OverlayTrigger
+                placement="top"
+                delay={{ show: 250, hide: 400 }}
+                overlay={renderSys}
+              >
+                <Button variant=""><i className="far fa-question-circle opacity-50"></i></Button>
+              </OverlayTrigger>
+            </label>
+            <div className="flex  gap-1 mr-1">
+              <button class="flex-1 inline-block border-2 border-blue-500 px-3 py-2 text-xs font-medium leading-6 text-center text-gray-600 transition rounded-sm  ripple hover:shadow-lg hover:text-black hover:border-blue-700 focus:outline-none waves-effect">
+                <i className="fas fa-laptop-house mr-1"></i>
+                Mọi thiết bị
+              </button>
+              <button class="flex-1 inline-block border-2 border-blue-500  px-3 py-2 text-xs font-medium leading-6 text-center text-gray-600  transition rounded-sm  ripple hover:shadow-lg hover:text-black hover:border-blue-700 focus:outline-none waves-effect">
+                <i className="fas fa-mobile-alt mr-1"></i>
+                Điện thoại
+              </button>
+              <button class="flex-1 inline-block border-2 border-blue-500  px-3 py-2 text-xs font-medium leading-6 text-center text-gray-600  transition rounded-sm  ripple hover:shadow-lg hover:text-black hover:border-blue-700 focus:outline-none waves-effect">
+                <i className="fas fa-desktop mr-1"></i>
+                Máy tính
+              </button>
+            </div>
+
+            <label className="mt-4">Tùy chỉnh giao diện cho máy tính:
+              <OverlayTrigger
+                placement="top"
+                delay={{ show: 250, hide: 400 }}
+                overlay={renderDisplay}
+              >
+                <Button variant=""><i className="far fa-question-circle opacity-50"></i></Button>
+              </OverlayTrigger>
+            </label>
+            <div className="border-2 border-gray-200 mr-1">
+              <nav class="flex flex-row mb-3">
+                <button
+                  onClick={onChangeViewDisplayLeft}
+                  className={`text-gray-600 py-2 px-4 block hover:text-blue-500 focus:outline-none ${displayTab1 === 1 && style
                     } `}
-                  >
-                    Hình dạng
-                  </button>
-                  <button
-                    onClick={onChangeViewDisplayRight}
-                    className={`text-gray-600 py-4 px-6 block hover:text-blue-500 focus:outline-none ${
-                      displayTab1 === 2 && style
+                >
+                  Hình dạng
+                </button>
+                <button
+                  onClick={onChangeViewDisplayRight}
+                  className={`text-gray-600 py-4 px-6 block hover:text-blue-500 focus:outline-none ${displayTab1 === 2 && style
                     }`}
-                  >
-                    Vị Trí
-                  </button>
-                </nav>
+                >
+                  Vị Trí
+                </button>
+              </nav>
 
-                {displayTab1 === 1 ? viewDisplayLeft() : viewDisplayRight()}
+              {displayTab1 === 1 ? viewDisplayLeft() : viewDisplayRight()}
+            </div>
 
-                <label className="mt-3">Chọn thiết bị bạn muốn hiển thị:</label>
-                <div className="flex mt-2 gap-1 mr-1">
-                  <button class="flex-1 inline-block border-2 border-blue-500 px-3 py-2 text-xs font-medium leading-6 text-center text-gray-600 transition rounded-sm  ripple hover:shadow-lg hover:text-black hover:border-blue-700 focus:outline-none waves-effect">
-                    <i className="fas fa-laptop-house mr-1"></i>
-                    Mọi thiết bị
-                  </button>
-                  <button class="flex-1 inline-block border-2 border-blue-500  px-3 py-2 text-xs font-medium leading-6 text-center text-gray-600  transition rounded-sm  ripple hover:shadow-lg hover:text-black hover:border-blue-700 focus:outline-none waves-effect">
-                    <i className="fas fa-mobile-alt mr-1"></i>
-                    Điện thoại
-                  </button>
-                  <button class="flex-1 inline-block border-2 border-blue-500  px-3 py-2 text-xs font-medium leading-6 text-center text-gray-600  transition rounded-sm  ripple hover:shadow-lg hover:text-black hover:border-blue-700 focus:outline-none waves-effect">
-                    <i className="fas fa-desktop mr-1"></i>
-                    Máy tính
-                  </button>
-                </div>
-                {/* <div className="mt-3 mr-1">
+
+            {/* <div className="mt-3 mr-1">
                                     <div className="mt-4">Tùy chỉnh giao diện cho máy tính:</div>
                                     <TabsRender />
                                 </div> */}
-                {/* drop */}
+            {/* drop */}
 
-                <div className="w-full px-3 mb-5 mx-auto">
-                  <section className=" row ">
-                    <div className="drop mr-1">
-                      <div className="border-b drop">
-                        <div className="border-l-2 bg-gray-200 rounded-lg w-full border-2 border-gray-400 relative">
-                          <input
-                            className="w-full absolute z-10 cursor-pointer opacity-0 h-10 w-10 top-6"
-                            type="checkbox"
-                            id="chck1"
-                          />
-                          <header
-                            className="flex justify-between items-center p-2 pl-8 pr-8 cursor-pointer select-none drop-label"
-                            htmlFor="chck1"
+            <div className="w-screen lg:w-full px-3 mb-5 mx-auto mt-3">
+              <section className=" row ">
+                <div className="drop mr-1">
+                  <div className="border-b drop">
+                    <div className="border-l-2 bg-gray-200 rounded-lg w-full border-2 border-gray-400 relative">
+                      <input
+                        className="w-full absolute z-10 cursor-pointer opacity-0 h-10 w-10 top-6"
+                        type="checkbox"
+                        id="chck1"
+                      />
+                      <header
+                        className="flex justify-between items-center p-2 pl-8 pr-8 cursor-pointer select-none drop-label"
+                        htmlFor="chck1"
+                      >
+                        <span className="mr-48">Nâng cao:</span>
+                        <div className="rounded-full border border-grey w-7 h-7 flex items-center justify-center test">
+                          {/* icon by feathericons.com */}
+                          <svg
+                            aria-hidden="true"
+                            className
+                            data-reactid={266}
+                            fill="none"
+                            height={24}
+                            stroke="#606F7B"
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            strokeWidth={2}
+                            viewBox="0 0 24 24"
+                            width={24}
+                            xmlns="http://www.w3.org/2000/svg"
                           >
-                            <span className="mr-48">Nâng cao:</span>
-                            <div className="rounded-full border border-grey w-7 h-7 flex items-center justify-center test">
-                              {/* icon by feathericons.com */}
-                              <svg
-                                aria-hidden="true"
-                                className
-                                data-reactid={266}
-                                fill="none"
-                                height={24}
-                                stroke="#606F7B"
-                                strokeLinecap="round"
-                                strokeLinejoin="round"
-                                strokeWidth={2}
-                                viewBox="0 0 24 24"
-                                width={24}
-                                xmlns="http://www.w3.org/2000/svg"
-                              >
-                                <polyline points="6 9 12 15 18 9"></polyline>
-                              </svg>
-                            </div>
-                          </header>
-                          <div className="drop-content">
-                            <div className="pl-8 pr-8 pb-5 text-grey-darkest">
-                              <div className="mt-2">
-                                Thời gian hiển thị menu:
+                            <polyline points="6 9 12 15 18 9"></polyline>
+                          </svg>
+                        </div>
+                      </header>
+                      <div className="drop-content">
+                        <div className="pl-8 pr-8 pb-5 text-grey-darkest">
+                          <div className="mt-2">
+                            Thời gian hiển thị menu:
+                          </div>
+                          <ul className="flex  w-full">
+                            <MuiPickersUtilsProvider utils={DateFnsUtils}>
+                              <Grid container justifyContent="space-around">
+                                <KeyboardTimePicker
+                                  margin="normal"
+                                  id="time-picker"
+                                  label="Bắt đầu"
+                                  value={selectedDate}
+                                  onChange={handleDateChange}
+                                  KeyboardButtonProps={{
+                                    "aria-label": "change time",
+                                  }}
+                                />
+                              </Grid>
+                            </MuiPickersUtilsProvider>
+                            {/* <div className="mx-2 my-auto rounded-full bg-gray-400 p-2">Đến</div> */}
+                            <i className="fas fa-arrow-circle-right mx-4 my-auto"></i>
+                            <MuiPickersUtilsProvider utils={DateFnsUtils}>
+                              <Grid container justifyContent="space-around">
+                                <KeyboardTimePicker
+                                  margin="normal"
+                                  id="time-picker"
+                                  label="Kết thúc"
+                                  value={selectedDate}
+                                  onChange={handleDateChange}
+                                  KeyboardButtonProps={{
+                                    "aria-label": "change time",
+                                  }}
+                                />
+                              </Grid>
+                            </MuiPickersUtilsProvider>
+                          </ul>
+                          <div>Thời gian ẩn hiện menu</div>
+                          <div className="block mt-2">
+                            <div className="flex mb-2 border-2 border-gray-400 w-full rounded">
+                              <div className="flex-1 p-2 text-sm bg-gray-400 ">
+                                Hiện sau:
                               </div>
-                              <ul className="flex  w-full">
-                                <MuiPickersUtilsProvider utils={DateFnsUtils}>
-                                  <Grid container justifyContent="space-around">
-                                    <KeyboardTimePicker
-                                      margin="normal"
-                                      id="time-picker"
-                                      label="Bắt đầu"
-                                      value={selectedDate}
-                                      onChange={handleDateChange}
-                                      KeyboardButtonProps={{
-                                        "aria-label": "change time",
-                                      }}
-                                    />
-                                  </Grid>
-                                </MuiPickersUtilsProvider>
-                                {/* <div className="mx-2 my-auto rounded-full bg-gray-400 p-2">Đến</div> */}
-                                <i className="fas fa-arrow-circle-right mx-4 my-auto"></i>
-                                <MuiPickersUtilsProvider utils={DateFnsUtils}>
-                                  <Grid container justifyContent="space-around">
-                                    <KeyboardTimePicker
-                                      margin="normal"
-                                      id="time-picker"
-                                      label="Kết thúc"
-                                      value={selectedDate}
-                                      onChange={handleDateChange}
-                                      KeyboardButtonProps={{
-                                        "aria-label": "change time",
-                                      }}
-                                    />
-                                  </Grid>
-                                </MuiPickersUtilsProvider>
-                              </ul>
-                              <div>Thời gian ẩn hiện menu</div>
-                              <div className="block mt-2">
-                                <div className="flex mb-2 border-2 border-gray-400 w-full rounded">
-                                  <div className="flex-1 p-2 text-sm bg-gray-400 ">
-                                    Hiện sau:
-                                  </div>
-                                  <input
-                                    className="text-center"
-                                    type="Number"
-                                  />
-                                  <div className="flex-1 text-sm bg-gray-400 text-center">
-                                    Giây
-                                  </div>
-                                </div>
-                                <div className="flex border-2 border-gray-400 w-full rounded">
-                                  <div className="flex-1 p-2 text-sm bg-gray-400 ">
-                                    Ẩn sau:
-                                  </div>
-                                  <input
-                                    className="text-center"
-                                    type="Number"
-                                  />
-                                  <div className="flex-1 text-sm bg-gray-400 text-center">
-                                    Giây
-                                  </div>
-                                </div>
+                              <input
+                                className="text-center"
+                                type="Number"
+                              />
+                              <div className="flex-1 text-sm bg-gray-400 text-center">
+                                Giây
+                              </div>
+                            </div>
+                            <div className="flex border-2 border-gray-400 w-full rounded">
+                              <div className="flex-1 p-2 text-sm bg-gray-400 ">
+                                Ẩn sau:
+                              </div>
+                              <input
+                                className="text-center"
+                                type="Number"
+                              />
+                              <div className="flex-1 text-sm bg-gray-400 text-center">
+                                Giây
                               </div>
                             </div>
                           </div>
                         </div>
                       </div>
                     </div>
-                  </section>
-                  {/* <nav class="flex flex-col sm:flex-row">
-                                <div class="relative shadow-xl mx-auto h-24 w-24 -my-12 border-white rounded-full overflow-hidden border-4">
-                                    <img class="object-cover w-full h-full" src="https://admin.metu.vn/assets_metu/media/menu/shape/full.png" />
-                                </div>
-                               
-                            </nav> */}
-
-                  {/* <sesction>
-                            <label>Chọn thiết bị bạn muốn hiển thị:</label> <br /><br />
-                            <button onClick={onChangeDisplayMenu} class="inline-block px-6 py-2 text-xs font-medium leading-6 text-center text-white uppercase transition bg-blue-700 rounded-full shadow ripple hover:shadow-lg hover:bg-blue-800 focus:outline-none waves-effect">
-                                Mọi thiết bị
-                            </button>
-                            <button onClick={onChangeDisplayMenu1} class="inline-block px-6 py-2 text-xs font-medium leading-6 text-center text-white uppercase transition bg-blue-700 rounded-full shadow ripple hover:shadow-lg hover:bg-blue-800 focus:outline-none waves-effect">
-                                Điện thoại
-                            </button>
-                            <button onClick={onChangeDisplayMenu2} class="inline-block px-6 py-2 text-xs font-medium leading-6 text-center text-white uppercase transition bg-blue-700 rounded-full shadow ripple hover:shadow-lg hover:bg-blue-800 focus:outline-none waves-effect">
-                                Máy tính
-                            </button>
-                            <br />
-                            <label>Cấu hình đường dẫn hiển thị</label>
-                            <button class="inline-block px-6 py-2 text-xs font-medium leading-6 text-center text-white uppercase transition bg-blue-700 rounded-full shadow ripple hover:shadow-lg hover:bg-blue-800 focus:outline-none waves-effect">
-                                Đường dẫn tùy chỉnh
-                            </button>
-                            <button class=" mb-5 inline-block px-6 py-2 text-xs font-medium leading-6 text-center text-white uppercase transition bg-blue-700 rounded-full shadow ripple hover:shadow-lg hover:bg-blue-800 focus:outline-none waves-effect">
-                                Đường dẫn ladipage
-                            </button>
-                            <button class="inline-block px-6 py-2 text-xs font-medium leading-6 text-center text-white uppercase transition bg-blue-700 rounded-full shadow ripple hover:shadow-lg hover:bg-blue-800 focus:outline-none waves-effect">
-                                Đường dẫn haravan
-                            </button>
-                            <button class="inline-block px-6 py-2 text-xs font-medium leading-6 text-center text-white uppercase transition bg-blue-700 rounded-full shadow ripple hover:shadow-lg hover:bg-blue-800 focus:outline-none waves-effect">
-                                Đường dẫn động
-                            </button>
-                            </sesction> */}
+                  </div>
                 </div>
-              </div>
+              </section>
             </div>
-          </div>
-          <div className="flex  justify-between px-1 text-center items-center">
-            {/* <div className="p-2">
-                        <button className="flex rounded px-4 py-2 focus:outline-none text-gray-500 hover:bg-blue-100 justify-around">
-
-                            <svg className="h-4 w-4 " xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
-                                <path fillRule="evenodd" d="M5.516 14.224c-2.262-2.432-2.222-6.244.128-8.611a6.074 6.074 0 013.414-1.736L8.989 1.8a8.112 8.112 0 00-4.797 2.351c-3.149 3.17-3.187 8.289-.123 11.531l-1.741 1.752 5.51.301-.015-5.834-2.307 2.323zm6.647-11.959l.015 5.834 2.307-2.322c2.262 2.434 2.222 6.246-.128 8.611a6.07 6.07 0 01-3.414 1.736l.069 2.076a8.122 8.122 0 004.798-2.35c3.148-3.172 3.186-8.291.122-11.531l1.741-1.754-5.51-.3z" />
-                            </svg>
-                        </button>
-                    </div>
-
-                    <div className="flex px-3 py-1 self-center text-sm antialiased rounded-md text-gray-600 ">
-                        issue 48 of 88
-                    </div> */}
           </div>
         </div>
       </div>
@@ -1176,20 +1182,17 @@ export default function ViewCreateMenu() {
                       </div>
                       {/* <div
                         style={{
-                          background: `rgba(${
-                            valueButton.color_background &&
+                          background: `rgba(${valueButton.color_background &&
                             valueButton.color_background.r
-                          },
-                                                    ${
-                                                      valueButton.color_background &&
-                                                      valueButton
-                                                        .color_background.g
-                                                    }, 
-                                                    ${
-                                                      valueButton.color_background &&
-                                                      valueButton
-                                                        .color_background.b
-                                                    })`,
+                            },
+                                                    ${valueButton.color_background &&
+                            valueButton
+                              .color_background.g
+                            }, 
+                                                    ${valueButton.color_background &&
+                            valueButton
+                              .color_background.b
+                            })`,
                         }}
                         className={`flex items-center p-1  rounded-lg shadow-xs cursor-pointer hover:bg-blue-500 hover:text-gray-100`}
                       >
@@ -1202,18 +1205,15 @@ export default function ViewCreateMenu() {
                             <p
                               className="text-xs font-medium mt-2 ml-2"
                               style={{
-                                color: `rgba(${
-                                  valueButton.color_text &&
+                                color: `rgba(${valueButton.color_text &&
                                   valueButton.color_text.r
-                                },
-                                                    ${
-                                                      valueButton.color_text &&
-                                                      valueButton.color_text.g
-                                                    }, 
-                                                    ${
-                                                      valueButton.color_text &&
-                                                      valueButton.color_text.b
-                                                    })`,
+                                  },
+                                                    ${valueButton.color_text &&
+                                  valueButton.color_text.g
+                                  }, 
+                                                    ${valueButton.color_text &&
+                                  valueButton.color_text.b
+                                  })`,
                               }}
                             >
                               {valueButton && valueButton.name_button}

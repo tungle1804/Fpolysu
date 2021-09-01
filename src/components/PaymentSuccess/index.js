@@ -2,8 +2,8 @@ import React, { useEffect, useState } from 'react'
 import { callApi } from '../../service/Apis';
 
 function PaymentSuccess() {
-    const email = JSON.parse(localStorage.getItem('email'));
-    const price = JSON.parse(localStorage.getItem('price'));
+    const email = localStorage.getItem('email');
+    const price = localStorage.getItem('price');
     console.log(price)
 
     const [history, setHistory] = useState({ email, price });
@@ -11,14 +11,14 @@ function PaymentSuccess() {
 
 
     var data = JSON.stringify(history);
+
     useEffect(() => {
         callApi('post', 'paypal/save-history', data)
             .then(function (response) {
                 console.log(response.data)
                 localStorage.removeItem('price')
             });
-
-    })
+    }, []);
 
     return (
 

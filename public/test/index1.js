@@ -1,7 +1,7 @@
 
 
-// var x = 'https://caodang.fpt.edu.vn/tuyen-sinh-cao-dang-xet-tuyen?utm_source=FGS&utm_medium=CDF_exact&utm_campaign=poly.edu&gclid=Cj0KCQjw38-DBhDpARIsADJ3kjnngDlw7xfpjzIMNz7MYqMYp70w7HJNl7FrGBWwcIGf9jDXQxtZRvUaAh-CEALw_wcB';
-var x = window.location.search;
+ var x = 'https://caodang.fpt.edu.vn/tuyen-sinh-cao-dang-xet-tuyen?utm_source=FGS&utm_medium=CDF_exact&utm_campaign=poly.edu&gclid=Cj0KCQjw38-DBhDpARIsADJ3kjnngDlw7xfpjzIMNz7MYqMYp70w7HJNl7FrGBWwcIGf9jDXQxtZRvUaAh-CEALw_wcB';
+ x = window.location.search;
 var pairs = x.substring(1).split("&"),
   obj = {},
   pair,
