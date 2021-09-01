@@ -32,6 +32,14 @@ import Report_ActionHistory from "../components/Report_ActionHistory";
 import Report_Button from "../components/Rerport_Button";
 import PaymentSuccess from "../components/PaymentSuccess";
 import PaymentFailed from "../components/PaymentFailed";
+import AdminCustomer from '../components/admin/components/AdminCustomer';
+import AdminStaff from '../components/admin/components/AdminStaff';
+import AdminServiceFee from '../components/admin/components/AdminServiceFee';
+import AdminDataOfCustomer from '../components/admin/components/AdminDataOfCustomer';
+import AdminStatistical from '../components/admin/components/AdminStatistical';
+import AdminDashboard from '../components/admin/components/AdminDashboard';
+import UpdateCustomer from '../components/admin/components/AdminCustomer/UpdateCustomer';
+import ViewDataOfCustomer from '../components/admin/components/AdminCustomer/ViewDataOfCustomer';
 
 export default function Routers() {
 
@@ -52,6 +60,8 @@ export default function Routers() {
                     <Route exact path='/admin/manage/statistical' component={AdminStatistical} />
                     <Route exact path='/admin/manage/staffs/add' component={AddStaff} />
                     <Route exact path='/admin/manage/staffs/:id' component={UpdateStaff} />
+                    <Route exact path='/admin/manage/customers/:id' component={UpdateCustomer} />
+                    <Route exact path='/admin/manage/data-customers' component={ViewDataOfCustomer} />
                   </Switch>
                 </AdminManage>
               </Route>
