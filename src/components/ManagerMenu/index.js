@@ -32,7 +32,7 @@ function ManagerMenu({
       {/* {requesting ? <h1>hiiiiii</h1> : (data && data.length > 0) ? <View onlistbutton={onlistbutton} posts={data} /> : <div>Data is empty</div>} */}
 
       {/* {data && data.length > 0 ? ( */}
-      <div className="block lg:flex justify-between w-auto">
+      <div className="block lg:flex justify-between w-full">
         <View 
           onlistbutton={onlistbutton}
           posts={data}
