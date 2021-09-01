@@ -40,6 +40,9 @@ import AdminStatistical from '../components/admin/components/AdminStatistical';
 import AdminDashboard from '../components/admin/components/AdminDashboard';
 import UpdateCustomer from '../components/admin/components/AdminCustomer/UpdateCustomer';
 import ViewDataOfCustomer from '../components/admin/components/AdminCustomer/ViewDataOfCustomer';
+import AddService from "./../components/admin/components/AdminServiceFee/AddService";
+import UpdateService from "./../components/admin/components/AdminServiceFee/UpdateService";
+
 
 export default function Routers() {
 
@@ -56,6 +59,8 @@ export default function Routers() {
                     <Route exact path='/admin/manage/staffs' component={AdminStaff} />
                     <Route exact path='/admin/manage/customers' component={AdminCustomer} />
                     <Route exact path='/admin/manage/services-fee' component={AdminServiceFee} />
+                    <Route exact path='/admin/manage/services-fee/add' component={AddService} />
+                    <Route exact path='/admin/manage/services-fee/:id' component={UpdateService} />
                     <Route exact path='/admin/manage/data-of-customers' component={AdminDataOfCustomer} />
                     <Route exact path='/admin/manage/statistical' component={AdminStatistical} />
                     <Route exact path='/admin/manage/staffs/add' component={AddStaff} />
