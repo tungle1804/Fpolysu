@@ -7,6 +7,33 @@ import {
     Link
 
 } from "react-router-dom";
+import './style.css'
+// import {
+//     Accordion,
+//     AccordionItem,
+//     AccordionItemHeading,
+//     AccordionItemButton,
+//     AccordionItemPanel,
+// } from 'react-accessible-accordion';
+// import "react-accessible-accordion/dist/fancy-example.css";
+// import 'react-accessible-accordion/dist/minimal-example.css';
+
+import { makeStyles } from '@material-ui/core/styles';
+import Accordion from '@material-ui/core/Accordion';
+import AccordionSummary from '@material-ui/core/AccordionSummary';
+import AccordionDetails from '@material-ui/core/AccordionDetails';
+import Typography from '@material-ui/core/Typography';
+import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+
+const useStyles = makeStyles((theme) => ({
+    root: {
+        width: '100%',
+    },
+    heading: {
+
+    },
+}));
+
 
 export default function AdminSidebar({ sidebarAdminOpen,
     setSidebarAdminOpen }) {
@@ -17,6 +44,7 @@ export default function AdminSidebar({ sidebarAdminOpen,
 
     const trigger = useRef(null);
     const sidebar = useRef(null);
+    const classes = useStyles();
 
     // close on click outside
     useEffect(() => {
@@ -38,6 +66,19 @@ export default function AdminSidebar({ sidebarAdminOpen,
         document.addEventListener('keydown', keyHandler);
         return () => document.removeEventListener('keydown', keyHandler);
     });
+
+    useEffect(() => {
+        const script = document.createElement('script');
+
+        script.src = "script/location.js";
+        script.async = true;
+
+        document.body.appendChild(script);
+
+        return () => {
+            document.body.removeChild(script);
+        }
+    }, []);
 
 
     return (
@@ -89,7 +130,7 @@ export default function AdminSidebar({ sidebarAdminOpen,
                         </NavLink>
 
                     </div>
-                    <div className="relative text-lg bg-transparent text-gray-800 my-5 block lg:hidden">
+                    {/* <div className="relative text-lg bg-transparent text-gray-800 my-5 block lg:hidden">
                         <div className="flex items-center border-b border-b-2 border-teal-500 py-2">
                             <input className="bg-transparent border-none mr-3 px-2 leading-tight focus:outline-none" type="text" placeholder="Search" />
                             <button type="submit" className="absolute right-0 top-0 mt-3 mr-4">
@@ -98,14 +139,16 @@ export default function AdminSidebar({ sidebarAdminOpen,
                                 </svg>
                             </button>
                         </div>
-                    </div>
+                    </div> */}
+
+
 
 
 
 
                     {/* Links */}
                     <nav className="">
-                        <Link to="/admin" style={{textDecoration:"none"}}>
+                        <Link to="/admin" style={{ textDecoration: "none" }}>
                             {/* <div className="items-center ml-2 py-4  mb-1 text-sm font-medium text-gray-700">
                                 Tổng Quan
                             </div> */}
@@ -116,7 +159,39 @@ export default function AdminSidebar({ sidebarAdminOpen,
                                 <span className="text-gray-900 pl-3">Tổng Quan</span>
                             </div>
                         </Link>
-                        <Link to="/admin/list-menu" style={{textDecoration:"none"}}>
+
+
+                        {/* test */}
+
+
+
+
+                        {/* <div className="tab py-3 px-4 hover:bg-blue-200 cursor-pointer">
+                            <input className="absolute opacity-0" id="tab-single-one" type="radio" name="tabs2" />
+                            <label className="block leading-normal cursor-pointer" htmlFor="tab-single-one">
+                                <div className="flex">
+                                    <div className="w-6">
+                                        <i className="fas fa-tv text-blue-700"></i>
+                                    </div>
+                                    <span className="text-gray-900 pl-3">Tổng Quan</span>
+                                </div>
+                            </label>
+                            <div className="tab-content overflow-hidden border-l-2 bg-gray-100 border-indigo-500 leading-normal">
+                                <p className="p-5">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Tenetur, architecto, explicabo perferendis nostrum, maxime impedit atque odit sunt pariatur illo obcaecati soluta molestias iure facere dolorum adipisci eum? Saepe, itaque.</p>
+                            </div>
+                        </div> */}
+
+
+
+
+
+
+
+
+
+
+
+                        <Link to="/admin/list-menu" style={{ textDecoration: "none" }}>
                             {/* <div className="py-3 px-3 hover:bg-blue-100 cursor-pointer rounded text-sm text-gray-600  font-normal antialiased tracking-normal">
                                 Quản lí Menu
                             </div> */}
@@ -127,40 +202,69 @@ export default function AdminSidebar({ sidebarAdminOpen,
                                 <span className="text-gray-900 pl-3">Quản lí Menu</span>
                             </div>
                         </Link>
-                        <Link to="/admin/report-interactive" style={{textDecoration:"none"}}>
-                            {/* <div className="py-3 px-3 hover:bg-blue-100 cursor-pointer rounded text-sm text-gray-600  font-normal antialiased tracking-normal">
-                                Thông Kê Tương tác
-                            </div> */}
-                            <div className="flex py-3 px-4 hover:bg-blue-200 cursor-pointer">
-                                <div className="w-6">
-                                    <i className="fas fa-chart-line text-blue-700"></i>
-                                </div>
-                                <span className="text-gray-900 pl-3">Thông Kê Tương tác</span>
-                            </div>
-                        </Link>
-                        <Link to="/admin/report-menu" style={{textDecoration:"none"}}>
-                            {/* <div className="py-3 px-3 hover:bg-blue-100 cursor-pointer rounded text-sm text-gray-600  font-normal antialiased tracking-normal">
-                                Thông kê menu
-                            </div> */}
-                            <div className="flex py-3 px-4 hover:bg-blue-200 cursor-pointer">
-                                <div className="w-6">
-                                    <i className="far fa-window-maximize text-blue-700"></i>
-                                </div>
-                                <span className="text-gray-900 pl-3">Thông kê menu</span>
-                            </div>
-                        </Link>
-                        <Link to="/admin/report-button" style={{textDecoration:"none"}}>
-                            {/* <div className="py-3 px-3 hover:bg-blue-100 cursor-pointer rounded text-sm text-gray-600  font-normal antialiased tracking-normal">
-                                Thống kê nút
-                            </div> */}
-                            <div className="flex py-3 px-4 hover:bg-blue-200 cursor-pointer">
-                                <div className="w-6">
-                                    <i className="fas fa-dot-circle text-blue-700"></i>
-                                </div>
-                                <span className="text-gray-900 pl-3">Thống kê nút</span>
-                            </div>
-                        </Link>
-                        <Link to="/admin/report-action" style={{textDecoration:"none"}}>
+
+
+                        {/* <Accordion preExpanded={[1, 2]} allowMultipleExpanded>
+                            <AccordionItem uuid={1}>
+                                <AccordionItemHeading>
+                                    <AccordionItemButton >
+                                        <div className="flex hover:bg-blue-200 justify-between transition duration-300 ">
+
+                                            <div className="flex py-3 px-4  cursor-pointer">
+                                                <div className="w-6">
+                                                    <i className="fas fa-chart-line text-blue-700"></i>
+                                                </div>
+                                                <span className="text-gray-900 pl-3">Thông Kê</span>
+                                            </div>
+                                            <i class="fas fa-list-ul my-auto mr-3 opacity-50"></i>
+                                        </div>
+                                    </AccordionItemButton>
+                                </AccordionItemHeading>
+                                <AccordionItemPanel>
+                                    <div className=" bg-gray-200 border-b-2 border-gray-600 border-opacity-50">
+                                        <Link to="/admin/report-interactive" style={{ textDecoration: "none" }}>
+
+                                            <div className=" py-3 px-4 hover:bg-blue-200 cursor-pointer">
+                                                <div className="flex ml-3">
+                                                    <div className="w-6">
+                                                        <i className="fas fa-circle text-blue-700"></i>
+                                                    </div>
+                                                    <span className="text-gray-900 pl-3">Thông Kê Tương tác</span>
+                                                </div>
+                                            </div>
+                                        </Link>
+                                        <Link to="/admin/report-menu" style={{ textDecoration: "none" }}>
+
+                                            <div className="flex py-3 px-4 hover:bg-blue-200 cursor-pointer">
+                                                <div className="flex ml-3">
+                                                    <div className="w-6">
+                                                        <i className="fas fa-circle text-blue-700"></i>
+                                                    </div>
+                                                    <span className="text-gray-900 pl-3">Thông kê menu</span>
+                                                </div>
+                                            </div>
+                                        </Link>
+                                        <Link to="/admin/report-button" style={{ textDecoration: "none" }}>
+
+                                            <div className="flex py-3 px-4 hover:bg-blue-200 cursor-pointer">
+                                                <div className="flex ml-3">
+                                                    <div className="w-6">
+                                                        <i className="fas fa-circle text-blue-700"></i>
+                                                    </div>
+                                                    <span className="text-gray-900 pl-3">Thống kê nút</span>
+                                                </div>
+                                            </div>
+                                        </Link>
+                                    </div>
+                                </AccordionItemPanel>
+                            </AccordionItem>
+
+                        </Accordion> */}
+
+
+
+
+                        <Link to="/admin/report-action" style={{ textDecoration: "none" }}>
                             {/* <div className="py-3 px-3 hover:bg-blue-100 cursor-pointer rounded text-sm text-gray-600  font-normal antialiased tracking-normal">
                                 Thống kê lịch sử tương tác
                             </div> */}
@@ -171,7 +275,7 @@ export default function AdminSidebar({ sidebarAdminOpen,
                                 <span className="text-gray-900 pl-3">Lịch sử tương tác</span>
                             </div>
                         </Link>
-                        <Link to="/admin/customer-management" style={{textDecoration:"none"}}>
+                        <Link to="/admin/customer-management" style={{ textDecoration: "none" }}>
 
                             {/* <div className="py-3 px-4 hover:bg-blue-100 cursor-pointer">
                             <i className="fas fa-tasks text-blue-700"></i>
@@ -185,13 +289,13 @@ export default function AdminSidebar({ sidebarAdminOpen,
                             </div>
                         </Link>
 
-                        <Link to="/admin/integrared" style={{textDecoration:"none"}}>
+                        <Link to="/admin/integrared" style={{ textDecoration: "none" }}>
                             {/* <div className="py-3 px-3 hover:bg-blue-100 cursor-pointer rounded text-sm text-gray-600  font-normal antialiased tracking-normal">
                                 Tích Hợp
                             </div> */}
                             <div className="flex py-3 px-4 hover:bg-blue-200 cursor-pointer">
                                 <div className="w-6">
-                                    <i className="far fa-object-group text-blue-700"></i>
+                                    <i className="fas fa-download text-blue-700"></i>
                                 </div>
                                 <span className="text-gray-900 pl-3">Tích Hợp</span>
                             </div>
@@ -202,12 +306,76 @@ export default function AdminSidebar({ sidebarAdminOpen,
                             </div>
                             <span className="text-gray-900 pl-3">Cài Đặt Kết Nối</span>
                         </div>
+
                         <div className="flex py-3 px-4 hover:bg-blue-200 cursor-pointer mb-3">
                             <div className="w-6">
                                 <i className="fas fa-book-open text-blue-700"></i>
                             </div>
                             <span className="text-gray-900 pl-3">Hướng Dẫn Sử Dụng</span>
                         </div>
+
+                        <div className="-mt-3 ">
+                            <div className={classes.root}>
+                                <Accordion>
+                                    <div className="hover:bg-blue-200">
+                                        <AccordionSummary
+                                            expandIcon={<ExpandMoreIcon />}
+                                            aria-controls="panel1a-content"
+                                            id="panel1a-header"
+                                        >
+                                            <Typography className={classes.heading}>
+                                                <div className="flex py-1 px-2  cursor-pointer">
+                                                    <div className="w-6">
+                                                        <i className="fas fa-chart-line text-blue-700"></i>
+                                                    </div>
+                                                    <span className="text-gray-900 pl-3">Thống kê</span>
+                                                </div>
+                                            </Typography>
+                                        </AccordionSummary>
+                                    </div>
+                                    <AccordionDetails>
+                                        <Typography>
+                                            <div className="">
+                                                <Link to="/admin/report-interactive" style={{ textDecoration: "none" }}>
+
+                                                    <div className=" py-3 px-2 hover:bg-blue-200 cursor-pointer">
+                                                        <div className="flex ml-3">
+                                                            <div className="w-6">
+                                                                <div className="h-2 w-2 mt-2 ml-1 rounded-full bg-blue-700"></div>
+                                                            </div>
+                                                            <span className="text-gray-900 pl-3">Thống kê tương tác</span>
+                                                        </div>
+                                                    </div>
+                                                </Link>
+                                                <Link to="/admin/report-menu" style={{ textDecoration: "none" }}>
+
+                                                    <div className="flex py-3 px-2 hover:bg-blue-200 cursor-pointer">
+                                                        <div className="flex ml-3">
+                                                            <div className="w-6">
+                                                                <div className="h-2 w-2 mt-2 ml-1 rounded-full bg-blue-700"></div>
+                                                            </div>
+                                                            <span className="text-gray-900 pl-3">Thống kê menu</span>
+                                                        </div>
+                                                    </div>
+                                                </Link>
+                                                <Link to="/admin/report-button" style={{ textDecoration: "none" }}>
+
+                                                    <div className="flex py-3 px-2 hover:bg-blue-200 cursor-pointer">
+                                                        <div className="flex ml-3">
+                                                            <div className="w-6">
+                                                                <div className="h-2 w-2 mt-2 ml-1 rounded-full bg-blue-700"></div>
+                                                            </div>
+                                                            <span className="text-gray-900 pl-3">Thống kê nút</span>
+                                                        </div>
+                                                    </div>
+                                                </Link>
+                                            </div>
+                                        </Typography>
+                                    </AccordionDetails>
+                                </Accordion>
+                            </div>
+                        </div>
+
                         <div className="border border-gray-300" />
                         <Link to="/admin/upgrade-account" style={{ textDecoration: "none" }}>
                             <div className="flex py-3 px-4  hover:bg-blue-200 cursor-pointer mt-3">

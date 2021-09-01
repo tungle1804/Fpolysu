@@ -1,5 +1,15 @@
 import React from 'react';
 import { useHistory } from 'react-router';
+import Search from './Search';
+import AppBar from '@material-ui/core/AppBar';
+import Toolbar from '@material-ui/core/Toolbar';
+import IconButton from '@material-ui/core/IconButton';
+import Typography from '@material-ui/core/Typography';
+import InputBase from '@material-ui/core/InputBase';
+import { alpha, makeStyles } from '@material-ui/core/styles';
+import MenuIcon from '@material-ui/icons/Menu';
+import SearchIcon from '@material-ui/icons/Search';
+
 
 export default function AdminHeader({
     sidebarAdminOpen,
@@ -20,6 +30,63 @@ export default function AdminHeader({
 
     }
 
+    const useStyles = makeStyles((theme) => ({
+        root: {
+            flexGrow: 1,
+        },
+        menuButton: {
+            marginRight: theme.spacing(2),
+        },
+        title: {
+            flexGrow: 1,
+            display: 'none',
+            [theme.breakpoints.up('sm')]: {
+                display: 'block',
+            },
+        },
+        search: {
+            position: 'relative',
+            borderRadius: theme.shape.borderRadius,
+            backgroundColor: alpha(theme.palette.common.white, 0.15),
+            '&:hover': {
+                backgroundColor: alpha(theme.palette.common.white, 0.25),
+            },
+            marginLeft: 0,
+            width: '100%',
+            [theme.breakpoints.up('sm')]: {
+                marginLeft: theme.spacing(1),
+                width: 'auto',
+            },
+        },
+        searchIcon: {
+            padding: theme.spacing(0, 2),
+            height: '100%',
+            position: 'absolute',
+            pointerEvents: 'none',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+        },
+        inputRoot: {
+            color: 'inherit',
+        },
+        inputInput: {
+            padding: theme.spacing(1, 1, 1, 0),
+            // vertical padding + font size from searchIcon
+            paddingLeft: `calc(1em + ${theme.spacing(4)}px)`,
+            transition: theme.transitions.create('width'),
+            width: '100%',
+            [theme.breakpoints.up('sm')]: {
+                width: '12ch',
+                '&:focus': {
+                    width: '20ch',
+                },
+            },
+        },
+    }));
+
+    const classes = useStyles();
+
     // const history = useHistory();
 
     return (
@@ -35,7 +102,7 @@ export default function AdminHeader({
                         </div>
                     </div>
                     <div className="hidden md:block my-auto">
-                        <div className="flex items-center ml-3 ">
+                        {/* <div className="flex items-center ml-3 ">
                             <a href="#" className="px-3 py-1 ml-2 self-center text-sm font-medium text-gray-800 antialiased rounded-md focus:outline-none hover:bg-blue-100 hover:text-blue-500 focus:bg-blue-100">Công việc
                             </a>
                             <div className="flex px-3 py-1 ml-2 self-center text-sm font-medium text-gray-800 antialiased rounded-md focus:outline-none bg-blue-100 text-blue-500 focus:bg-blue-100">
@@ -64,7 +131,7 @@ export default function AdminHeader({
                                 </svg>
                             </div>
                             <a href="#" className="px-3 py-1 self-center ml-2 text-sm font-medium antialiased rounded bg-blue-800 text-white">Tạo</a>
-                        </div>
+                        </div> */}
                     </div>
                 </div>
                 <div className="block lg:hidden ml-3 my-4">
@@ -102,12 +169,32 @@ export default function AdminHeader({
                     <div className="flex items-center ml-4 md:ml-6">
                         <div className="relative mx-auto my-auto text-gray-600 hidden md:block">
                             <div className="font-sans text-black bg-white flex items-center justify-center m-3 rounded w-52">
-                                <div className="border rounded overflow-hidden flex">
+                                {/* <div className="border rounded overflow-hidden flex">
                                     <input type="text" className="px-4 py-2" placeholder="Search..." />
                                     <button className="flex items-center justify-center px-4 border-l">
                                         <svg className="h-4 w-4 text-grey-dark" fill="currentColor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M16.32 14.9l5.39 5.4a1 1 0 0 1-1.42 1.4l-5.38-5.38a8 8 0 1 1 1.41-1.41zM10 16a6 6 0 1 0 0-12 6 6 0 0 0 0 12z" /></svg>
                                     </button>
+                                </div> */}
+                                {/* <Search /> */}
+                                <div className={classes.root}>
+                                    <div className="bg-white rounded-lg border-2 border-gray-600">
+                                        <div className={classes.search}>
+                                            <div className={classes.searchIcon}>
+                                                <div><SearchIcon /></div>
+                                            </div>
+                                            <InputBase
+                                                placeholder="Search…"
+                                                classes={{
+                                                    root: classes.inputRoot,
+                                                    input: classes.inputInput,
+                                                }}
+                                                inputProps={{ 'aria-label': 'search' }}
+                                            />
+                                        </div>
+
+                                    </div>
                                 </div>
+
                             </div>
                         </div>
                         {/* <input type="text" className="hidden px-4 py-1 text-sm text-gray-600 border-2 rounded focus:outline-none focus:shadow-none lg:block" placeholder="Tìm kiếm ..." /> */}

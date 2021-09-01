@@ -527,16 +527,11 @@ export default function ViewCreateMenu() {
                 {/* <div className="text-sm text-gray-600 font-normal antialiased tracking-normal">
                     Projects &nbsp; / &nbsp; Biltrax IT Project
                 </div> */}
-
                 <div className="text-2xl mt-3 text-black font-semibold antialiased tracking-normal justify-between">
                     <button >Tạo Menu</button>
-                    {/* <Link to='/admin/list-menu' className=" px-3 py-1 self-center text-sm font-medium antialiased rounded bg-white text-black border-2 border-gray-200">Quay lại</Link> */}
                 </div>
-
                 <div className="flex mt-3 border-b-2 border-gray-200 pb-3">
-                    {/* <Link to='/admin/list-menu' className=" px-3 py-1 self-center text-sm font-medium antialiased rounded bg-blue-800 text-white">Quay lại</Link> */}
                     <Link to='/admin/list-menu' className=" px-3 py-2 mr-2 self-center text-sm font-medium antialiased rounded bg-white text-black border-2 border-gray-200"><i class="fas fa-arrow-left mr-2"></i> Quay lại</Link>
-
                     <button onClick={handleShow1} to="create-menu" className=" px-3 py-2 self-center text-sm font-medium antialiased rounded bg-blue-800 text-white">
                         <i className="fas fa-plus-square mr-2"></i>Lưu Menu
                     </button>
