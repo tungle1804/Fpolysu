@@ -5,17 +5,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { setStaff } from '../../../../redux/actions/staffs';
 import { useHistory } from 'react-router';
 import Swal from 'sweetalert2'
-import {decode as base64_decode, encode as base64_encode} from 'base-64';
 
 const AdminStaff = () => {
-
-// const binh = localStorage.getItem("email")
-// const encoded = encodeURI(binh);
-// console.log("Binh mã hóa ",encoded);
-let encoded = base64_encode(localStorage.getItem("email"));
-let decoded = base64_decode(encoded);
-console.log("bình mã hóa 1", encoded);
-console.log("bình mã hóa 4", decoded);
 
   /* Viết theo kiểu Redux
   
