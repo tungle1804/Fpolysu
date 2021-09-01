@@ -32,6 +32,7 @@ import Report_ActionHistory from "../components/Report_ActionHistory";
 import Report_Button from "../components/Rerport_Button";
 import PaymentSuccess from "../components/PaymentSuccess";
 import PaymentFailed from "../components/PaymentFailed";
+
 import AdminDashboard from "./../components/admin/components/AdminDashboard";
 import AdminStaff from "./../components/admin/components/AdminStaff";
 import AdminCustomer from "./../components/admin/components/AdminCustomer";
@@ -40,6 +41,8 @@ import AdminDataOfCustomer from "./../components/admin/components/AdminDataOfCus
 import AdminStatistical from "./../components/admin/components/AdminStatistical";
 import AddService from "./../components/admin/components/AdminServiceFee/AddService";
 import UpdateService from "./../components/admin/components/AdminServiceFee/UpdateService";
+
+
 export default function Routers() {
 
   return (
@@ -61,7 +64,7 @@ export default function Routers() {
                     <Route exact path='/admin/manage/statistical' component={AdminStatistical} />
                     <Route exact path='/admin/manage/staffs/add' component={AddStaff} />
                     <Route exact path='/admin/manage/staffs/:id' component={UpdateStaff} />
-                   
+
                   </Switch>
                 </AdminManage>
               </Route>

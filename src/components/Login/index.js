@@ -25,11 +25,8 @@ export default function Login() {
         } else {
           history.push("/admin/manage");
         }
-        localStorage.setItem("token", (response.data.token));
-        localStorage.setItem(
-          "fullName",
-         (response.data.fullName)
-        );
+        localStorage.setItem("token", response.data.token);
+        localStorage.setItem("fullName",response.data.fullName);
         //  localStorage.setItem("email", JSON.stringify(response.data.email));
         localStorage.setItem("email", response.data.email);
         //  setJwt(data.token);
