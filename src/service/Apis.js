@@ -4,9 +4,9 @@ import axios from 'axios';
 const callApi = (method, urlController, data) => {
   var config = {
     method: method,
-    url: `http://localhost:8081/${urlController}`,
+    url: `http://localhost:8080/${urlController}`,
     headers: {
-      'Authorization': `Bearer ${localStorage.getItem("token")}`,
+      'Authorization': `Bearer ${(localStorage.getItem("token"))}`,
       'Content-Type': 'application/json'
     },
     data: data
