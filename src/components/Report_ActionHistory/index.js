@@ -20,29 +20,22 @@ import { header } from "./../CommonData/data";
 import axios from "axios";
 import DisplayResultPagination from "./../DisplayResultPagination/DisplayResultPagination";
 import CustomerDatePicker from "./../CustomerDatePicker/index";
+import ReportRatioActivity from "./index1";
+import ReportActionByEquipment from "./index2";
+import StatisticsClickAllMenu from "./index3";
 function Report_ActionHistory() {
   const headers = header;
   const [pageNo, setPageNo] = useState(1);
   const [totalPage, setTotalPage] = useState();
   const [totalRecord, setTotalRecord] = useState();
   const [data, setData] = useState([]);
+  const [dataMenu, setDataMenu] = useState([]);
+  const [dataWidget, setDataWidget] = useState([]);
   const [limit, setLimit] = useState(5);
   const [startDate, setStartDate] = useState(new Date("2020-08-01"));
   const [endDate, setEndDate] = useState(new Date());
   const [search, setSearch] = useState("");
-  // const getTotalPage = () => {
-  //   const API_getTotalPage = "http://localhost:8080/customers/countAllRecord";
-  //   axios
-  //     .get(API_getTotalPage)
-  //     .then((response) => {
-  //       console.log("response", response.data);
-  //       setTotalRecord(response.data);
-  //       setTotalPage(totalRecord / limit);
-  //     })
-  //     .catch((error) => {
-  //       console.log("error:  " + error);
-  //     });
-  // };
+
   const getData = async () => {
     const username = "vuthanhnam@gmail.com";
     //const username= window.name;
@@ -55,34 +48,134 @@ function Report_ActionHistory() {
       .toISOString()
       .slice(0, 10)}&search=${search}&pageNo=${pageNo - 1}&limit=${limit}`;
 
-    console.log("API: ", API);
+    // console.log("API: ", API);
 
     await axios
-      .get(API, { headers })
+      .get(API, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+          "Content-Type": "application/json",
+        },
+      })
       .then((response) => {
-        console.log("response  ", response);
+        //   console.log("response  ", response);
         setData(response.data.content);
-        console.log("data:  ", data);
+        //   console.log("data:  ", data);
         setTotalRecord(response.data.totalElements);
-        console.log("totalElement", totalRecord);
+        //    console.log("totalElement", totalRecord);
 
         setTotalPage(response.data.totalPages);
-        console.log("list Data now: ", data);
+        //   console.log("list Data now: ", data);
       })
       .catch((error) => {
         console.log(error);
       });
   };
+  const getDataMenu = async () => {
+    const username = "vuthanhnam@gmail.com";
+    //const username= window.name;
+    var config = {
+      method: "get",
+      url: `http://localhost:8080/api/v1/getTotalNumberActionDisplayOnMenu?email=${username}`,
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+        "Content-Type": "application/json",
+      },
+    };
+    var config2 = {
+      method: "get",
+      url: `http://localhost:8080/api/v1/getTotalNumberClickOnMenu?email=${username}`,
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+        "Content-Type": "application/json",
+      },
+    };
+    let datax = [];
+    await axios(config)
+      .then(function (response) {
+        //  console.log(JSON.stringify(response.data));
+        datax = response.data.content;
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+    await axios(config2)
+      .then(function (response) {
+        let dt = response.data.content;
+        let datax2 = [];
+        for (let index = 0; index < dt.length; index++) {
+          let element = dt[index][1];
+          console.log("element", element);
+          let test = datax[index];
+          test = [...test, element];
+          datax2 = [...datax2, test];
+        }
+        console.log(":...", datax2);
+        setDataMenu(datax2);
+        console.log("new:  ", dataMenu);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  };
+  const getDataWidget = async () => {
+    const username = "vuthanhnam@gmail.com";
+    //const username= window.name;
+    var config = {
+      method: "get",
+      url: `http://localhost:8080/api/v1/statisticActionButtonByRangeTimeSelect?email=${username}`,
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+        "Content-Type": "application/json",
+      },
+    };
+    var config2 = {
+      method: "get",
+      url: `http://localhost:8080/api/v1/getTotalNumberClickOnButtonByRangeTimeSelect?email=${username}`,
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+        "Content-Type": "application/json",
+      },
+    };
+    let datax = [];
+    await axios(config)
+      .then(function (response) {
+        datax = response.data;
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+
+    await axios(config2)
+      .then(function (response) {
+        let dt = response.data;
+        let datax2 = [];
+        for (let index = 0; index < dt.length; index++) {
+          let element = dt[index][1];
+          let test = datax[index];
+          test = [...test, element];
+          datax2 = [...datax2, test];
+        }
+        //  console.log(":...", datax2);
+        setDataWidget(datax2);
+        // console.log("new:  ", dataWidget);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  };
   const handleChange = (e) => {
     if (e.key === "Enter") {
-     // setData([]);
+      // setData([]);
       setPageNo(1);
       setSearch(e.target.value);
-      console.log("seảch", search);
+      //  console.log("seảch", search);
     }
   };
   useEffect(() => {
     setPageNo(1);
+    getDataWidget();
+    getDataMenu();
     // return () => {
     //   cleanup
     // }
@@ -93,22 +186,21 @@ function Report_ActionHistory() {
     //   cleanup
     // }
   }, [pageNo, limit, startDate, endDate, search]);
-  console.log("list Data now 2: ", data);
+  //  console.log("list Data now 2: ", data);
   return (
     <CContainer style={{ marginLeft: "10px" }}>
       <CCard>
         <CCardHeader align={"center"}>Chọn Thời gian</CCardHeader>
         <CCardBody align={"center"}>
-          <CustomerDatePicker
-            startDate={startDate}
-            setStartDate={setStartDate}
-            endDate={endDate}
-            setEndDate={setEndDate}
-            className="border-5 text-center"
-          />
+          <StatisticsClickAllMenu></StatisticsClickAllMenu>
         </CCardBody>
         <CCardFooter></CCardFooter>
       </CCard>
+      <br />
+      <ReportRatioActivity></ReportRatioActivity>
+      <br />
+      <ReportActionByEquipment></ReportActionByEquipment>
+      <br />
       <CCard>
         <div className="row ">
           <CInput
@@ -178,41 +270,6 @@ function Report_ActionHistory() {
           </div>
         </CRow>
       </CCard>
-      {/* <CDropdown className="m-1 float-right offset-8">
-        <CDropdownToggle color="secondary" size="sm">
-          Bản ghi
-        </CDropdownToggle>
-        <CDropdownMenu>
-          <CDropdownItem header>Chọn số bản ghi hiển thị</CDropdownItem>
-          <CDropdownItem
-            onClick={() => {
-              setPageNo(1);
-              setTotalPage(totalRecord / 3);
-              setLimit(3);
-            }}
-          >
-            5
-          </CDropdownItem>
-          <CDropdownItem
-            onClick={() => {
-              setPageNo(1);
-              setTotalPage(totalRecord / 8);
-              setLimit(8);
-            }}
-          >
-            8
-          </CDropdownItem>
-          <CDropdownItem
-            onClick={() => {
-              setPageNo(1);
-              setTotalPage(totalRecord / 10);
-              setLimit(10);
-            }}
-          >
-            10
-          </CDropdownItem>
-        </CDropdownMenu>
-      </CDropdown> */}
     </CContainer>
   );
 }
