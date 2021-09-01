@@ -32,6 +32,12 @@ import Report_ActionHistory from "../components/Report_ActionHistory";
 import Report_Button from "../components/Rerport_Button";
 import PaymentSuccess from "../components/PaymentSuccess";
 import PaymentFailed from "../components/PaymentFailed";
+import AdminDashboard from "../components/admin/components/AdminDashboard"
+import AdminStaff from "../components/admin/components/AdminStaff"
+import AdminCustomer from "../components/admin/components/AdminCustomer"
+import AdminServiceFee from "../components/admin/components/AdminServiceFee"
+import AdminDataOfCustomer from "../components/admin/components/AdminDataOfCustomer"
+import AdminStatistical from "../components/admin/components/AdminStatistical"
 
 export default function Routers() {
 

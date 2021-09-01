@@ -25,10 +25,10 @@ export default function Login() {
         } else {
           history.push("/admin/manage");
         }
-        localStorage.setItem("token", JSON.stringify(response.data.token));
+        localStorage.setItem("token", response.data.token);
         localStorage.setItem(
           "fullName",
-          JSON.stringify(response.data.fullName)
+          response.data.fullName
         );
         //  localStorage.setItem("email", JSON.stringify(response.data.email));
         localStorage.setItem("email", response.data.email);
