@@ -3,13 +3,13 @@ import { Link } from "react-router-dom";
 import ButtonService from "../../service/Button/ButtonService";
 import MenuService from "../../service/Menu/MenuService";
 import { MenuContext } from "../../service/MenuContext";
-import * as ReactBootStrap from 'react-bootstrap';
+import * as ReactBootStrap from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { loadPosts, viewPost } from "../../redux/actions/menuAction";
-import { encode, reverseString } from '../../utils/index';
+import { encode, reverseString } from "../../utils/index";
 import ReactPaginate from "react-paginate";
 import ReactLoading from "react-loading";
-import "./style.css"
+import "./style.css";
 export default function View({ posts, onlistbutton, requesting }) {
   const [radio, setRadio] = useState();
   const [listmenu, setListMenu] = useState({});
@@ -78,9 +78,8 @@ export default function View({ posts, onlistbutton, requesting }) {
   };
 
   const onChangeGetCode = (menuCode) => {
-
-    setMenuCode(menuCode)
-  }
+    setMenuCode(menuCode);
+  };
   // const [listbutton, setListButton] = useContext(MenuContext)
 
   // useEffect(() => {
@@ -105,14 +104,13 @@ export default function View({ posts, onlistbutton, requesting }) {
     menuCode.select();
     navigator.clipboard.writeText(menuCode.value);
     // document.execCommand("copy");
-
-  }
+  };
   return (
     <>
       {requesting ? (
         <ReactLoading type="balls" color="#f32" height={467} width={275} />
       ) : (
-        <div className=" bg-white rounded shadow-xl p-6 lg:h-full lg:w-full w-screen mb-3 lg:my-0" >
+        <div className=" bg-white rounded shadow-xl p-6 lg:h-full lg:w-full w-screen mb-3 lg:my-0">
           {/* <div className="text-sm text-gray-600 font-normal antialiased tracking-normal">
             Projects &nbsp; / &nbsp; Biltrax IT Project
           </div> */}
@@ -143,7 +141,6 @@ export default function View({ posts, onlistbutton, requesting }) {
                 style={{ height: "308px" }}
               >
                 {paginate.tableData.map((res) => {
-
                   return (
                     <>
                       <div style={{ textAlign: "right" }}>
@@ -158,17 +155,52 @@ export default function View({ posts, onlistbutton, requesting }) {
                           onClick={() => onChangeGetCode(res.menuCode)}
                         >
                           {/* <ReactBootStrap.NavDropdown id="collasible-nav-dropdown"> */}
-                          <ReactBootStrap.NavDropdown.Item   >
+                          <ReactBootStrap.NavDropdown.Item>
                             {/* <span id="tichhop" className="inline-flex px-2">
                             &lt;script&gt;window.name="{window.localStorage.getItem("email") ? encode(window.localStorage.getItem("email")).concat(menuCode) : ""}
                             "&lt;/script&gt;&lt;script type="text/babel" src="index.js"&gt;&lt;/script&gt;
                           </span> */}
                             <div onClick={copy} className="copy">
-                              <input id="url" type="text" data-autoselect readonly value={`<script>window.name = "${window.localStorage.getItem("email") ? encode(window.localStorage.getItem("email")).concat(menuCode) : ""}"</script><script type="text/babel" src="index.js"></script>`}></input>
+                              <input
+                                id="url"
+                                type="text"
+                                data-autoselect
+                                readonly
+                                value={`<script>window.name = "${
+                                  window.localStorage.getItem("email")
+                                    ? encode(
+                                        window.localStorage.getItem("email")
+                                      ).concat(menuCode)
+                                    : ""
+                                }"</script><script type="text/babel" src="index.js"></script>`}
+                              ></input>
                               <div class="input-group-button">
-                                <clipboard-copy value="https://github.com/tungle1804/Fpolysu.git" aria-label="Copied!" class="btn btn-sm js-clipboard-copy tooltipped-no-delay ClipboardButton" data-copy-feedback="Copied!" data-tooltip-direction="n" data-hydro-click="{&quot;event_type&quot;:&quot;clone_or_download.click&quot;,&quot;payload&quot;:{&quot;feature_clicked&quot;:&quot;COPY_URL&quot;,&quot;git_repository_type&quot;:&quot;REPOSITORY&quot;,&quot;repository_id&quot;:378593816,&quot;originating_url&quot;:&quot;https://github.com/tungle1804/Fpolysu&quot;,&quot;user_id&quot;:64072868}}" data-hydro-click-hmac="638d55352c2c04ad8e05bd56248b3fd141aafdbc6fa38c3ee4e6efad653c7dd6" tabindex="0" role="button"><svg aria-hidden="true" height="16" viewBox="0 0 16 16" version="1.1" width="16" data-view-component="true" class="octicon octicon-paste js-clipboard-clippy-icon d-inline-block">
-                                  <path fill-rule="evenodd" d="M5.75 1a.75.75 0 00-.75.75v3c0 .414.336.75.75.75h4.5a.75.75 0 00.75-.75v-3a.75.75 0 00-.75-.75h-4.5zm.75 3V2.5h3V4h-3zm-2.874-.467a.75.75 0 00-.752-1.298A1.75 1.75 0 002 3.75v9.5c0 .966.784 1.75 1.75 1.75h8.5A1.75 1.75 0 0014 13.25v-9.5a1.75 1.75 0 00-.874-1.515.75.75 0 10-.752 1.298.25.25 0 01.126.217v9.5a.25.25 0 01-.25.25h-8.5a.25.25 0 01-.25-.25v-9.5a.25.25 0 01.126-.217z"></path>
-                                </svg></clipboard-copy>
+                                <clipboard-copy
+                                  value="https://github.com/tungle1804/Fpolysu.git"
+                                  aria-label="Copied!"
+                                  class="btn btn-sm js-clipboard-copy tooltipped-no-delay ClipboardButton"
+                                  data-copy-feedback="Copied!"
+                                  data-tooltip-direction="n"
+                                  data-hydro-click='{"event_type":"clone_or_download.click","payload":{"feature_clicked":"COPY_URL","git_repository_type":"REPOSITORY","repository_id":378593816,"originating_url":"https://github.com/tungle1804/Fpolysu","user_id":64072868}}'
+                                  data-hydro-click-hmac="638d55352c2c04ad8e05bd56248b3fd141aafdbc6fa38c3ee4e6efad653c7dd6"
+                                  tabindex="0"
+                                  role="button"
+                                >
+                                  <svg
+                                    aria-hidden="true"
+                                    height="16"
+                                    viewBox="0 0 16 16"
+                                    version="1.1"
+                                    width="16"
+                                    data-view-component="true"
+                                    class="octicon octicon-paste js-clipboard-clippy-icon d-inline-block"
+                                  >
+                                    <path
+                                      fill-rule="evenodd"
+                                      d="M5.75 1a.75.75 0 00-.75.75v3c0 .414.336.75.75.75h4.5a.75.75 0 00.75-.75v-3a.75.75 0 00-.75-.75h-4.5zm.75 3V2.5h3V4h-3zm-2.874-.467a.75.75 0 00-.752-1.298A1.75 1.75 0 002 3.75v9.5c0 .966.784 1.75 1.75 1.75h8.5A1.75 1.75 0 0014 13.25v-9.5a1.75 1.75 0 00-.874-1.515.75.75 0 10-.752 1.298.25.25 0 01.126.217v9.5a.25.25 0 01-.25.25h-8.5a.25.25 0 01-.25-.25v-9.5a.25.25 0 01.126-.217z"
+                                    ></path>
+                                  </svg>
+                                </clipboard-copy>
                               </div>
                             </div>
                           </ReactBootStrap.NavDropdown.Item>
@@ -249,7 +281,8 @@ export default function View({ posts, onlistbutton, requesting }) {
                           <div className="flex  justify-center  ">
                             <label className="flex items-center cursor-pointer">
                               <div className="relative">
-                                <input onClick={() => onlistbutton(res.id)}
+                                <input
+                                  onClick={() => onlistbutton(res.id)}
                                   id="toogleA"
                                   className="hidden"
                                   type="checkbox"
@@ -258,18 +291,13 @@ export default function View({ posts, onlistbutton, requesting }) {
                                     posts.map((data) => {
                                       if (data.id === res.id) {
                                         data.status = checked;
-
                                       }
-                                      MenuService.updateMenu(
-                                        data,
-                                        data.id
-                                      );
+                                      MenuService.updateMenu(data, data.id);
                                       // setRadio(data.status)
                                       console.log(data);
 
                                       return data;
-                                    })
-
+                                    });
                                   }}
                                   checked={res.status}
                                 ></input>
@@ -337,9 +365,8 @@ export default function View({ posts, onlistbutton, requesting }) {
               </div>
             </div>
           </div>
-        </div >
-      )
-      }
+        </div>
+      )}
     </>
   );
 }

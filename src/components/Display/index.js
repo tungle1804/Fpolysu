@@ -35,8 +35,20 @@ function Display({ loadInput, requesting, displayMenu }) {
     if (email != null) {
       ButtonService.getButtonByIDMenu(id).then((res) => {
         setButton(res.data);
-        setdisplayType(res.data[0].menu.menuType);
-        setDisplayTypeV2(res.data[0].menu.menuLocation);
+        setdisplayType(
+          res.data[0]
+            ? res.data[0].menu.menuType
+              ? res.data[0].menu.menuType
+              : ""
+            : ""
+        );
+        setDisplayTypeV2(
+          res.data[0]
+            ? res.data[0].menu.menuType
+              ? res.data[0].menu.menuLocation
+              : ""
+            : ""
+        );
       });
     }
   }, [id]);
@@ -256,6 +268,7 @@ function Display({ loadInput, requesting, displayMenu }) {
                                     src={`../images/${items.icon}`}
                                     className="mmt-button__icon"
                                   />
+
                                   <span
                                     className="mmt-button__label"
                                     style={{ color: `${items.color_text}` }}
