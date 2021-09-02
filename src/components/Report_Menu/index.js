@@ -34,10 +34,10 @@ function Report_Menu() {
   const [endDate, setEndDate] = useState(new Date("2021-09-01"));
 
   const arr = [];
-
-  const getListMenu = async () => {
     // const username = localStorage.getItem("email");
     const username = "vuthanhnam@gmail.com";
+  const getListMenu = async () => {
+
     var config = {
       method: "get",
       url: `http://localhost:8080/api/v1/getMenuByEmail/${username}`,
@@ -86,8 +86,7 @@ function Report_Menu() {
   };
   // console.log("test", menus);
   const getDataMenu = () => {
-    const username = "vuthanhnam@gmail.com";
-    // const username = localStorage.getItem("email")
+
     var config = {
       method: "get",
       url: `http://localhost:8080/api/v1/getTotalNumberClickOnMenu?email=${username}&start=${startDate
@@ -108,12 +107,7 @@ function Report_Menu() {
       });
   };
   const getDataActionOfMenuByDay = () => {
-    //var axios = require('axios');
-    var data = JSON.stringify({
-      menuId: 8,
-    });
-    const username = "vuthanhnam@gmail.com";
-    // const username = localStorage.getItem("email")
+
     const baseHref =
       "http://localhost:8080/api/v1/statisticAllActionOnThisMenuByDay";
     var config = {
@@ -139,8 +133,7 @@ function Report_Menu() {
   };
 
   const getDataClickByUrl = () => {
-    const username = "vuthanhnam@gmail.com";
-    // const username = localStorage.getItem("email")
+ 
 
     var config = {
       method: "get",
