@@ -7,7 +7,6 @@ import {
   CCardHeader,
   CRow,
 } from "@coreui/react";
-
 import { header } from "./../CommonData/data";
 import axios from "axios";
 import DisplayResultPagination from "./../DisplayResultPagination/DisplayResultPagination";
