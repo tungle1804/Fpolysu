@@ -68,7 +68,7 @@ function Statistics() {
   return (
     <div>
       {/* content */}
-      <div className="flex w-full justify-between mt-4 mx-auto gap-5 px-10">
+      <div className="block lg:flex lg:flex space-y-4 lg:space-y-0 w-full justify-between mt-4 mx-auto gap-5">
         <div className="flex-1 bg-white rounded-lg px-3">
           <div className="py-4 border-b-2 border-gray-200 flex justify-between">
             <span className="mr-3 font-bold">Đường dẫn click cao nhất</span>

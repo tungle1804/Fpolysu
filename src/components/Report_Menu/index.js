@@ -12,7 +12,7 @@ import {
   CRow,
   CBadge,
 } from "@coreui/react";
-import { header } from "./../CommonData/data";
+import { header, username } from "./../CommonData/data";
 import axios from "axios";
 import DisplayResultPagination from "./../DisplayResultPagination/DisplayResultPagination";
 import CustomerDatePicker from "./../CustomerDatePicker/index";
@@ -29,13 +29,12 @@ function Report_Menu() {
   const [dataActionOfMenuByDay, setDataActionOfMenuByDay] = useState();
   const [menus, setMenus] = useState([]);
   const [listCalender, setListCalender] = useState([]);
-  // let menus = [];
+
   const [startDate, setStartDate] = useState(new Date("2021-08-01"));
   const [endDate, setEndDate] = useState(new Date());
 
   const arr = [];
-  // const username = localStorage.getItem("email");
-  const username = "vuthanhnam@gmail.com";
+
   const getListMenu = async () => {
     var config = {
       method: "get",
@@ -46,9 +45,8 @@ function Report_Menu() {
     await axios(config)
       .then(function (response) {
         const datas = response.data;
-        // console.log("datas", datas);
+
         datas.map((item) => {
-          // console.log("item", item);
           const mn = { value: item.id, label: item.name_menu };
           arr.push(mn);
         });
@@ -59,16 +57,7 @@ function Report_Menu() {
       });
   };
 
-  // console.log(menus);
-
   const getListCalenderbyTimeRange = () => {
-    var data = JSON.stringify({
-      id: 1,
-      name_menu: "alo",
-      color_menu: "red",
-      status: true,
-    });
-
     var config = {
       method: "get",
       url: `http://localhost:8080/api/v1/getListCalenderByRangeTime?start=${startDate
@@ -77,18 +66,16 @@ function Report_Menu() {
       header,
       data: data,
     };
-    //  console.log("API", config.url);
+
     axios(config)
       .then(function (response) {
-        console.log(JSON.stringify(response.data));
         setListCalender(response.data);
-        //  console.log("dataCalender", listCalender);
       })
       .catch(function (error) {
         console.log(error);
       });
   };
-  // console.log("test", menus);
+
   const getDataMenu = () => {
     var config = {
       method: "get",
@@ -103,7 +90,6 @@ function Report_Menu() {
     axios(config)
       .then(function (response) {
         setDataMenu(response.data.content);
-        //   console.log("data", dataMenu);
       })
       .catch(function (error) {
         console.log(error);
@@ -113,21 +99,18 @@ function Report_Menu() {
     const baseHref =
       "http://localhost:8080/api/v1/statisticAllActionOnThisMenuByDay";
     var config = {
-      // const username = localStorage.getItem("eamil")
       method: "get",
       url: `${baseHref}?email=${username}&idMenu=${menuId}&start=${startDate
         .toISOString()
         .slice(0, 10)}&end=${endDate.toISOString().slice(0, 10)}`,
-      // url: "http://localhost:8080/api/v1/statisticAllActionOnThisMenuByDay?email=vuthanhnam@gmail.com&idMenu=6&end=2021-08-24&start=2021-08-15",
+
       header,
       data: data,
     };
 
     axios(config)
       .then(function (response) {
-        console.log(JSON.stringify(response.data));
         setDataActionOfMenuByDay(response.data);
-        console.log("DataActionOfMenuByDay", dataActionOfMenuByDay);
       })
       .catch(function (error) {
         console.log(error);
@@ -145,13 +128,10 @@ function Report_Menu() {
 
     axios(config)
       .then(function (response) {
-        console.log("dataClick:  ", JSON.stringify(response.data));
         setData(response.data.content);
         setTotalRecord(response.data.totalElements);
-        console.log("totalElement", totalRecord);
 
         setTotalPage(response.data.totalPages);
-        console.log("list Data now: ", data);
       })
       .catch(function (error) {
         console.log(error);
@@ -160,10 +140,6 @@ function Report_Menu() {
 
   useEffect(() => {
     getListMenu();
-
-    // return () => {
-    //   cleanup
-    // }
   }, []);
 
   useEffect(() => {
@@ -171,15 +147,8 @@ function Report_Menu() {
     getListCalenderbyTimeRange();
     getDataActionOfMenuByDay();
     getDataClickByUrl();
-    // return () => {
-    //   cleanup
-    // }
   }, [menuId, startDate, endDate]);
-  // const menus = [
-  //   { value: "under", label: "Dưới 18 tuổi" },
-  //   { value: "between", label: "18 đến 35 tuổi" },
-  //   { value: "over", label: "Trên 35 tuổi" },
-  // ];
+
   return (
     <CContainer>
       <div className="row justify-content-center">
@@ -199,9 +168,7 @@ function Report_Menu() {
                 name="menu"
                 options={menus}
                 placeholder="Chọn Menu"
-                //  defaultValue={{ value: menus[0].value, label: menus[0].label }}
                 onChange={(e) => {
-                  //  setPage(1);
                   setMenuId(e.value);
                   console.log("this menu select", e.value);
                 }}
@@ -282,13 +249,6 @@ function Report_Menu() {
             </tr>
           </thead>
           <tbody>
-            {/* {
-              !data.length(
-                <tr className="text-center">
-                  <td colSpan={3}>No Student</td>
-                </tr>
-              )
-            } */}
             {data.map((item, index) => {
               return (
                 <tr key={index}>

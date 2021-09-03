@@ -1,5 +1,6 @@
 (function () {
   "use strict";
+
   // eslint-disable-next-line no-undef
   // class DisplayWebsite extends React.Component {
   //     constructor(props) {
@@ -347,8 +348,50 @@
     const [email, setEmail] = React.useState("");
     const [typeButton, setTypeButton] = React.useState("");
     const [typeLink, setTypeLink] = React.useState("");
-    console.log(typeButton);
+
+    // React.useEffect(() => {
+    //   console.log("ssssss");
+    //   const script = document.createElement("script");
+    //   script.src = "https://unpkg.com/react@16/umd/react.production.min.js";
+    //   script.async = true;
+
+    //   const script1 = document.createElement("script");
+    //   script1.src =
+    //     "https://unpkg.com/react-dom@16/umd/react-dom.production.min.js";
+    //   script1.async = true;
+
+    //   const script2 = document.createElement("script");
+    //   script2.src = "https://unpkg.com/@babel/standalone/babel.min.js";
+    //   script2.async = true;
+
+    //   document.body.appendChild(script);
+
+    //   document.body.appendChild(script1);
+
+    //   document.body.appendChild(script2);
+    // }, []);
+    let ip_address;
+    let user_address;
+    let languages;
+    let supplier;
+    React.useEffect(() => {
+      const script = document.createElement("script");
+      script.src = "https://use.fontawesome.com/releases/v5.15.4/js/all.js";
+      script.async = true;
+      // const script1 = document.createElement("script");
+      // script1.src = "/your-path-to-fontawesome/js/solid.js";
+      // script1.async = true;
+      // const script2 = document.createElement("script");
+      // script2.src = "/your-path-to-fontawesome/js/fontawesome.js";
+      // script2.async = true;
+      document.body.appendChild(script);
+      // document.body.appendChild(script1);
+      // document.body.appendChild(script2);
+    }, []);
+
     const showModal = (id) => {
+      // import Swal from "sweetalert2";
+
       setShow(true);
       fetch(`http://localhost:8080/api/v1/getModalByButton/${id}`, {
         method: "POST",
@@ -379,8 +422,9 @@
         return "mmt-app--circle-top-left";
       }
     };
+
     React.useEffect(() => {
-      if (!window.name.length > 21) {
+      if (!(window.name.length > 21)) {
         fetch(
           `http://localhost:8080/api/v1/getMenuByStatus/${decode(window.name)}`,
           {
@@ -509,9 +553,22 @@
           });
       }
     }, []);
-
+    React.useEffect(() => {
+      fetch(
+        `https://api.ipdata.co/?api-key=c0d47b87f4cea32d0e7a1131837aa74602c7a4c33d07e3846c5b0b84`,
+        { method: "GET" }
+      )
+        .then(function (response) {
+          return response.json();
+        })
+        .then((data3) => {
+          ip_address = data3.ip;
+          user_address = data3.city;
+          languages = data3.languages[0].name;
+          supplier = data3.asn.name;
+        });
+    }, []);
     const onHandleChange = (e) => {
-      console.log(e);
       const { name } = e.target;
       setCreateData({
         ...createData,
@@ -524,7 +581,6 @@
         ...idInput,
         [name]: e.target.value,
       });
-      console.log(idInput);
     };
     const handleCreateData = () => {
       var newArray = Object.keys(idInput);
@@ -569,6 +625,413 @@
 
       // dispatch(fetchCreateData(data))
     };
+
+    const displayType1Link = (items) => {
+      return (
+        <>
+          <a href={items.link}>
+            <span
+              className="mmt-button call"
+              style={{
+                backgroundColor: `${items.color_background}`,
+              }}
+            >
+              {/* <img
+                alt="url"
+                style={{
+                  height: "30px",
+                  marginRight: "20px",
+                }}
+                src={`../images/${items.icon}`}
+                className="mmt-button__icon"
+              /> */}
+              <i
+                style={{ color: items.color_icon }}
+                className={` mr-1 my-auto  ${items.icon}`}
+              />
+              <span
+                className="mmt-button__label"
+                style={{
+                  color: `${items.color_text}`,
+                }}
+              >
+                {items.name_button}
+              </span>
+            </span>
+          </a>
+        </>
+      );
+    };
+    const displayType1Call = (items) => {
+      return (
+        <>
+          <a href={`tel:${items.link}`}>
+            <span
+              className="mmt-button call"
+              style={{
+                backgroundColor: `${items.color_background}`,
+              }}
+            >
+              {/* <img
+                alt="url"
+                style={{
+                  height: "30px",
+                  marginRight: "20px",
+                }}
+                src={`../images/${items.icon}`}
+                className="mmt-button__icon"
+              /> */}
+              <i
+                style={{ color: items.color_icon }}
+                className={` mr-1 my-auto  ${items.icon}`}
+              />
+              <span
+                className="mmt-button__label"
+                style={{
+                  color: `${items.color_text}`,
+                }}
+              >
+                {items.name_button}
+              </span>
+            </span>
+          </a>
+        </>
+      );
+    };
+    function displayType1Modal(items) {
+      return (
+        <>
+          <span
+            onClick={() => showModal(items.id)}
+            className="mmt-button call"
+            style={{
+              backgroundColor: `${items.color_background}`,
+            }}
+          >
+            {/* <img
+              alt="url"
+              style={{
+                height: "30px",
+                marginRight: "20px",
+              }}
+              src={`../images/${items.icon}`}
+              className="mmt-button__icon"
+            /> */}
+            <i
+              style={{ color: items.color_icon }}
+              className={` mr-1 my-auto  ${items.icon}`}
+            />
+            <span
+              className="mmt-button__label"
+              style={{
+                color: `${items.color_text}`,
+              }}
+            >
+              {items.name_button}
+            </span>
+          </span>
+        </>
+      );
+    }
+    const displayType2Link = (items) => {
+      return (
+        <>
+          <a href={items.link}>
+            <span
+              className="mmt-button call"
+              style={{
+                backgroundColor: `${items.color_background}`,
+              }}
+            >
+              <img
+                alt="url"
+                style={{
+                  height: "30px",
+                  marginRight: "20px",
+                }}
+                src={`../images/${items.icon}`}
+                className="mmt-button__icon"
+              />
+              <span
+                className="mmt-button__label"
+                style={{ color: `${items.color_text}` }}
+              >
+                {items.name_button}
+              </span>
+            </span>
+          </a>
+        </>
+      );
+    };
+    const displayType2Call = (items) => {
+      return (
+        <>
+          <a href={`tel:${items.link}`}>
+            <span
+              className="mmt-button call"
+              style={{
+                backgroundColor: `${items.color_background}`,
+              }}
+            >
+              <img
+                alt="url"
+                style={{
+                  height: "30px",
+                  marginRight: "20px",
+                }}
+                src={`../images/${items.icon}`}
+                className="mmt-button__icon"
+              />
+              <span
+                className="mmt-button__label"
+                style={{ color: `${items.color_text}` }}
+              >
+                {items.name_button}
+              </span>
+            </span>
+          </a>
+        </>
+      );
+    };
+    const displayType2Modal = (items) => {
+      return (
+        <>
+          <span
+            onClick={() => showModal(items.id)}
+            className="mmt-button call"
+            style={{
+              backgroundColor: `${items.color_background}`,
+            }}
+          >
+            <img
+              alt="url"
+              style={{
+                height: "30px",
+                marginRight: "20px",
+              }}
+              src={`../images/${items.icon}`}
+              className="mmt-button__icon"
+            />
+            <span
+              className="mmt-button__label"
+              style={{ color: `${items.color_text}` }}
+            >
+              {items.name_button}
+            </span>
+          </span>
+        </>
+      );
+    };
+    const displayType3Link = (items) => {
+      return (
+        <>
+          <a href={items.link}>
+            <span className="mmt-button call mmt-button--circle">
+              <span
+                style={{
+                  backgroundColor: `${items.menu.color_menu}`,
+                  opacity: 1,
+                  position: "absolute",
+                  width: "100%",
+                  height: "100%",
+                  top: "0px",
+                  left: "0px",
+                  borderRadius: "20px",
+                  zIndex: "-1",
+                }}
+              ></span>
+              <img
+                alt="url"
+                style={{ height: "30px" }}
+                src={`../images/${items.icon}`}
+                className="mmt-button__icon"
+              />
+              <span
+                className="mmt-button__label"
+                style={{ color: `${items.color_text}` }}
+              >
+                {items.name_button}
+              </span>
+            </span>
+          </a>
+        </>
+      );
+    };
+    const displayType3Call = (items) => {
+      return (
+        <>
+          <a href={`tel:${items.link}`}>
+            <span className="mmt-button call mmt-button--circle">
+              <span
+                style={{
+                  backgroundColor: `${items.menu.color_menu}`,
+                  opacity: 1,
+                  position: "absolute",
+                  width: "100%",
+                  height: "100%",
+                  top: "0px",
+                  left: "0px",
+                  borderRadius: "20px",
+                  zIndex: "-1",
+                }}
+              ></span>
+              <img
+                alt="url"
+                style={{ height: "30px" }}
+                src={`../images/${items.icon}`}
+                className="mmt-button__icon"
+              />
+              <span
+                className="mmt-button__label"
+                style={{ color: `${items.color_text}` }}
+              >
+                {items.name_button}
+              </span>
+            </span>
+          </a>
+        </>
+      );
+    };
+    const displayType3Modal = (items) => {
+      return (
+        <>
+          <span
+            onClick={() => showModal(items.id)}
+            className="mmt-button call mmt-button--circle"
+          >
+            <span
+              style={{
+                backgroundColor: `${items.menu.color_menu}`,
+                opacity: 1,
+                position: "absolute",
+                width: "100%",
+                height: "100%",
+                top: "0px",
+                left: "0px",
+                borderRadius: "20px",
+                zIndex: "-1",
+              }}
+            ></span>
+            <img
+              alt="url"
+              style={{ height: "30px" }}
+              src={`../images/${items.icon}`}
+              className="mmt-button__icon"
+            />
+            <span
+              className="mmt-button__label"
+              style={{ color: `${items.color_text}` }}
+            >
+              {items.name_button}
+            </span>
+          </span>
+        </>
+      );
+    };
+    const displayType4Link = (items) => {
+      return (
+        <>
+          <a href={items.link}>
+            <span className="mmt-button call mmt-button--circle">
+              <span
+                style={{
+                  backgroundColor: `${items.menu.color_menu}`,
+                  opacity: 1,
+                  position: "absolute",
+                  width: "100%",
+                  height: "100%",
+                  top: "0px",
+                  left: "0px",
+                  zIndex: "-1",
+                }}
+              ></span>
+              <img
+                alt="url"
+                style={{ height: "30px" }}
+                src={`../images/${items.icon}`}
+                className="mmt-button__icon"
+              />
+              <span
+                className="mmt-button__label"
+                style={{ color: `${items.color_text}` }}
+              >
+                {items.name_button}
+              </span>
+            </span>
+          </a>
+        </>
+      );
+    };
+    const displayType4Call = (items) => {
+      return (
+        <>
+          <a href={`tel:${items.link}`}>
+            <span className="mmt-button call mmt-button--circle">
+              <span
+                style={{
+                  backgroundColor: `${items.menu.color_menu}`,
+                  opacity: 1,
+                  position: "absolute",
+                  width: "100%",
+                  height: "100%",
+                  top: "0px",
+                  left: "0px",
+                  zIndex: "-1",
+                }}
+              ></span>
+              <img
+                alt="url"
+                style={{ height: "30px" }}
+                src={`../images/${items.icon}`}
+                className="mmt-button__icon"
+              />
+              <span
+                className="mmt-button__label"
+                style={{ color: `${items.color_text}` }}
+              >
+                {items.name_button}
+              </span>
+            </span>
+          </a>
+        </>
+      );
+    };
+    const displayType4Modal = (items) => {
+      return (
+        <>
+          <span
+            onClick={() => showModal(items.id)}
+            className="mmt-button call mmt-button--circle"
+          >
+            <span
+              style={{
+                backgroundColor: `${items.menu.color_menu}`,
+                opacity: 1,
+                position: "absolute",
+                width: "100%",
+                height: "100%",
+                top: "0px",
+                left: "0px",
+                zIndex: "-1",
+              }}
+            ></span>
+            {/* <img
+              alt="url"
+              style={{ height: "30px" }}
+              src={`../images/${items.icon}`}
+              className="mmt-button__icon"
+            /> */}
+
+            <span
+              className="mmt-button__label"
+              style={{ color: `${items.color_text}` }}
+            >
+              {items.name_button}
+            </span>
+          </span>
+        </>
+      );
+    };
     return (
       <>
         {(() => {
@@ -582,9 +1045,7 @@
                   onHandleChange={onHandleChange}
                   onHandleChangeInput={onHandleChangeInput}
                   handleCreateData={handleCreateData}
-                >
-                  <p>tubnganhle</p>
-                </Modals>
+                ></Modals>
                 <div id="metu">
                   <div
                     style={{
@@ -617,109 +1078,59 @@
                               <span
                                 className="mmt-menu__item"
                                 style={{ display: "flex" }}
+                                onClick={() => {
+                                  var myHeaders = new Headers();
+
+                                  myHeaders.append(
+                                    "Content-Type",
+                                    "application/json"
+                                  );
+                                  let raw = JSON.stringify({
+                                    fromUrl: window.location.href,
+                                    buttonId: items.id,
+                                    equipment:
+                                      window.screen.width > 1150 &&
+                                      window.screen.height > 800
+                                        ? 0
+                                        : 1,
+                                    ipAddress: ip_address,
+                                    languages: languages,
+                                    supplier: supplier,
+                                    userAddress: user_address,
+                                  });
+
+                                  let requestOptions = {
+                                    method: "POST",
+                                    headers: myHeaders,
+                                    body: raw,
+                                    redirect: "follow",
+                                  };
+
+                                  fetch(
+                                    "http://localhost:8080/api/v1/activityButton",
+                                    requestOptions
+                                  )
+                                    .then((response) => response.text())
+                                    .then((result) => console.log(result))
+                                    .catch((error) =>
+                                      console.log("error", error)
+                                    );
+                                }}
                               >
                                 <div className="mt-tooltip">
                                   {(() => {
                                     if (items && items.typeButton == "1") {
-                                      return (
-                                        <>
-                                          <a href={items.link}>
-                                            <span
-                                              className="mmt-button call"
-                                              style={{
-                                                backgroundColor: `${items.color_background}`,
-                                              }}
-                                            >
-                                              <img
-                                                alt="url"
-                                                style={{
-                                                  height: "30px",
-                                                  marginRight: "20px",
-                                                }}
-                                                src={`../images/${items.icon}`}
-                                                className="mmt-button__icon"
-                                              />
-                                              <span
-                                                className="mmt-button__label"
-                                                style={{
-                                                  color: `${items.color_text}`,
-                                                }}
-                                              >
-                                                {items.name_button}
-                                              </span>
-                                            </span>
-                                          </a>
-                                        </>
-                                      );
+                                      return <> {displayType1Link(items)}</>;
                                     } else if (
                                       items &&
                                       items.typeButton == "2"
                                     ) {
-                                      return (
-                                        <>
-                                          <a href={`tel:${items.link}`}>
-                                            <span
-                                              className="mmt-button call"
-                                              style={{
-                                                backgroundColor: `${items.color_background}`,
-                                              }}
-                                            >
-                                              <img
-                                                alt="url"
-                                                style={{
-                                                  height: "30px",
-                                                  marginRight: "20px",
-                                                }}
-                                                src={`../images/${items.icon}`}
-                                                className="mmt-button__icon"
-                                              />
-                                              <span
-                                                className="mmt-button__label"
-                                                style={{
-                                                  color: `${items.color_text}`,
-                                                }}
-                                              >
-                                                {items.name_button}
-                                              </span>
-                                            </span>
-                                          </a>
-                                        </>
-                                      );
+                                      return <>{displayType1Call(items)}</>;
                                     } else if (
                                       items &&
                                       items.typeButton == "3"
                                     ) {
-                                      return (
-                                        <>
-                                          <span
-                                            onClick={() =>
-                                              showModal(items.id_button)
-                                            }
-                                            className="mmt-button call"
-                                            style={{
-                                              backgroundColor: `${items.color_background}`,
-                                            }}
-                                          >
-                                            <img
-                                              alt="url"
-                                              style={{
-                                                height: "30px",
-                                                marginRight: "20px",
-                                              }}
-                                              src={`../images/${items.icon}`}
-                                              className="mmt-button__icon"
-                                            />
-                                            <span
-                                              className="mmt-button__label"
-                                              style={{
-                                                color: `${items.color_text}`,
-                                              }}
-                                            >
-                                              {items.name_button}
-                                            </span>
-                                          </span>
-                                        </>
-                                      );
+                                      return <>{displayType1Modal(items)}</>;
                                     }
                                   })()}
                                 </div>
@@ -735,6 +1146,14 @@
           } else if (displayType == "2") {
             return (
               <>
+                <Modals
+                  show={show}
+                  handleClose={hideModal}
+                  input={input}
+                  onHandleChange={onHandleChange}
+                  onHandleChangeInput={onHandleChangeInput}
+                  handleCreateData={handleCreateData}
+                ></Modals>
                 <div id="metu">
                   <div
                     style={{
@@ -765,39 +1184,68 @@
                                 }}
                               />
                               <span
-                                onClick={() => onclick(items.id_button)}
                                 className="mmt-menu__item"
                                 style={{ display: "flex" }}
+                                onClick={() => {
+                                  var myHeaders = new Headers();
+
+                                  myHeaders.append(
+                                    "Content-Type",
+                                    "application/json"
+                                  );
+                                  let raw = JSON.stringify({
+                                    fromUrl: window.location.href,
+                                    buttonId: items.id,
+                                    equipment:
+                                      window.screen.width > 1150 &&
+                                      window.screen.height > 800
+                                        ? 0
+                                        : 1,
+                                    ipAddress: ip_address,
+                                    languages: languages,
+                                    supplier: supplier,
+                                    userAddress: user_address,
+                                  });
+
+                                  let requestOptions = {
+                                    method: "POST",
+                                    headers: myHeaders,
+                                    body: raw,
+                                    redirect: "follow",
+                                  };
+
+                                  fetch(
+                                    "http://localhost:8080/api/v1/activityButton",
+                                    requestOptions
+                                  )
+                                    .then((response) => response.text())
+                                    .then((result) => console.log(result))
+                                    .catch((error) =>
+                                      console.log("error", error)
+                                    );
+                                }}
                               >
                                 <div className="mt-tooltip">
-                                  <span
-                                    className="mmt-button call"
-                                    style={{
-                                      backgroundColor: `${items.color_background}`,
-                                    }}
-                                  >
-                                    <img
-                                      alt="url"
-                                      style={{
-                                        height: "30px",
-                                        marginRight: "20px",
-                                      }}
-                                      src={`../images/${items.icon}`}
-                                      className="mmt-button__icon"
-                                    />
-                                    <span
-                                      className="mmt-button__label"
-                                      style={{ color: `${items.color_text}` }}
-                                    >
-                                      {items.name_button}
-                                    </span>
-                                  </span>
-
-                                  {items.captionContent && (
+                                  {(() => {
+                                    if (items && items.typeButton == "1") {
+                                      return <> {displayType2Link(items)}</>;
+                                    } else if (
+                                      items &&
+                                      items.typeButton == "2"
+                                    ) {
+                                      return <>{displayType2Call(items)}</>;
+                                    } else if (
+                                      items &&
+                                      items.typeButton == "3"
+                                    ) {
+                                      return <>{displayType2Modal(items)}</>;
+                                    }
+                                  })()}
+                                  {/* {items.captionContent && (
                                     <div className="mt-tooltip_text">
                                       <span>{items.captionContent}</span>
                                     </div>
-                                  )}
+                                  )} */}
                                 </div>
                               </span>
                             </>
@@ -811,6 +1259,14 @@
           } else if (displayType == "3") {
             return (
               <>
+                <Modals
+                  show={show}
+                  handleClose={hideModal}
+                  input={input}
+                  onHandleChange={onHandleChange}
+                  onHandleChangeInput={onHandleChangeInput}
+                  handleCreateData={handleCreateData}
+                ></Modals>
                 <div className="mmt-container">
                   <div
                     className={`mmt-app mmt-app--circle ${viewDisplayV2(
@@ -827,37 +1283,55 @@
                             <span
                               className="mmt-menu__item"
                               style={{ display: "flex" }}
+                              onClick={() => {
+                                var myHeaders = new Headers();
+
+                                myHeaders.append(
+                                  "Content-Type",
+                                  "application/json"
+                                );
+                                let raw = JSON.stringify({
+                                  fromUrl: window.location.href,
+                                  buttonId: items.id,
+                                  equipment:
+                                    window.screen.width > 1150 &&
+                                    window.screen.height > 800
+                                      ? 0
+                                      : 1,
+                                  ipAddress: ip_address,
+                                  languages: languages,
+                                  supplier: supplier,
+                                  userAddress: user_address,
+                                });
+
+                                let requestOptions = {
+                                  method: "POST",
+                                  headers: myHeaders,
+                                  body: raw,
+                                  redirect: "follow",
+                                };
+
+                                fetch(
+                                  "http://localhost:8080/api/v1/activityButton",
+                                  requestOptions
+                                )
+                                  .then((response) => response.text())
+                                  .then((result) => console.log(result))
+                                  .catch((error) =>
+                                    console.log("error", error)
+                                  );
+                              }}
                             >
                               {/* <div className="mt-tooltip"> */}
-                              <span className="mmt-button call mmt-button--circle">
-                                <span
-                                  style={{
-                                    backgroundColor: `${items.menu.color_menu}`,
-                                    opacity: 1,
-                                    position: "absolute",
-                                    width: "100%",
-                                    height: "100%",
-                                    top: "0px",
-                                    left: "0px",
-                                    borderRadius: "20px",
-                                    zIndex: "-1",
-                                  }}
-                                ></span>
-                                <img
-                                  alt="url"
-                                  style={{ height: "30px" }}
-                                  src={`../images/${items.icon}`}
-                                  className="mmt-button__icon"
-                                />
-                                <span
-                                  className="mmt-button__label"
-                                  style={{ color: `${items.color_text}` }}
-                                >
-                                  {items.name_button}
-                                </span>
-                              </span>
-
-                              {/* </div> */}
+                              {(() => {
+                                if (items && items.typeButton == "1") {
+                                  return <> {displayType3Link(items)}</>;
+                                } else if (items && items.typeButton == "2") {
+                                  return <>{displayType3Call(items)}</>;
+                                } else if (items && items.typeButton == "3") {
+                                  return <>{displayType3Modal(items)}</>;
+                                }
+                              })()}
                             </span>
                           </>
                         ))
@@ -869,7 +1343,14 @@
           } else if (displayType === "4") {
             return (
               <>
-                {" "}
+                <Modals
+                  show={show}
+                  handleClose={hideModal}
+                  input={input}
+                  onHandleChange={onHandleChange}
+                  onHandleChangeInput={onHandleChangeInput}
+                  handleCreateData={handleCreateData}
+                ></Modals>
                 <div className="mmt-container">
                   <div
                     className={`mmt-app mmt-app--circle ${viewDisplayV2(
@@ -884,37 +1365,57 @@
                                             backgroundColor: `${dataColorMenu ? dataColorMenu : ""}`, opacity: 1, color: 'rgb(255, 255, 255)', pointerEvents: 'none', zIndex: -1
                                         }} /> */}
                             <span
-                              onClick={() => onclick(items.id_button)}
                               className="mmt-menu__item"
                               style={{ display: "flex" }}
+                              onClick={() => {
+                                var myHeaders = new Headers();
+
+                                myHeaders.append(
+                                  "Content-Type",
+                                  "application/json"
+                                );
+                                let raw = JSON.stringify({
+                                  fromUrl: window.location.href,
+                                  buttonId: items.id,
+                                  equipment:
+                                    window.screen.width > 1150 &&
+                                    window.screen.height > 800
+                                      ? 0
+                                      : 1,
+                                  ipAddress: ip_address,
+                                  languages: languages,
+                                  supplier: supplier,
+                                  userAddress: user_address,
+                                });
+
+                                let requestOptions = {
+                                  method: "POST",
+                                  headers: myHeaders,
+                                  body: raw,
+                                  redirect: "follow",
+                                };
+
+                                fetch(
+                                  "http://localhost:8080/api/v1/activityButton",
+                                  requestOptions
+                                )
+                                  .then((response) => response.text())
+                                  .then((result) => console.log(result))
+                                  .catch((error) =>
+                                    console.log("error", error)
+                                  );
+                              }}
                             >
                               {/* <div className="mt-tooltip"> */}
-                              <span className="mmt-button call mmt-button--circle">
-                                <span
-                                  style={{
-                                    backgroundColor: `${items.menu.color_menu}`,
-                                    opacity: 1,
-                                    position: "absolute",
-                                    width: "100%",
-                                    height: "100%",
-                                    top: "0px",
-                                    left: "0px",
-                                    zIndex: "-1",
-                                  }}
-                                ></span>
-                                <img
-                                  alt="url"
-                                  style={{ height: "30px" }}
-                                  src={`../images/${items.icon}`}
-                                  className="mmt-button__icon"
-                                />
-                                <span
-                                  className="mmt-button__label"
-                                  style={{ color: `${items.color_text}` }}
-                                >
-                                  {items.name_button}
-                                </span>
-                              </span>
+                              {(() => {
+                                if (items && items.typeButton == "1") {
+                                  return <> {displayType4Link(items)}</>;
+                                } else if (items && items.typeButton == "2") {
+                                  return <>{displayType4Call(items)}</>;
+                                } else if (items && items.typeButton == "3") {
+                                  return <>{displayType4Modal(items)}</>;
+                                }
+                              })()}
 
                               {/* </div> */}
                             </span>
@@ -1176,15 +1677,6 @@
     let seconds = newDate.getSeconds();
     return `${year}-${month}-${date} ${hours}:${minutes}:${seconds}`;
   }
-  <script
-    src="https://unpkg.com/react@16/umd/react.production.min.js"
-    crossorigin
-  ></script>;
-  <script
-    src="https://unpkg.com/react-dom@16/umd/react-dom.production.min.js"
-    crossorigin
-  ></script>;
-  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>;
-  // eslint-disable-next-line no-undef
+
   ReactDOM.render(<DisplayWebsite />, document.getElementById("metu"));
 })();

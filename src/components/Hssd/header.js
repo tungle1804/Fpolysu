@@ -10,7 +10,7 @@ function Header({
 
   return (
     <>
-      <a >
+      <a>
         <div className="font-black my-auto px-16 border-r-2 border-purple-500 border-opacity-50 lg:block hidden text-blue-900 text-4xl flex items-start">
           Polysu<span className="w-3 h-3 rounded-full bg-purple-600 ml-2" />
         </div>

@@ -1,43 +1,29 @@
 import React, { useState, useEffect } from "react";
-import { CChartBar, CChartLine } from "@coreui/react-chartjs";
+import { CChartLine } from "@coreui/react-chartjs";
 import { CCard, CCardBody, CCardTitle, CCardHeader, CRow } from "@coreui/react";
-import { dataHour, header } from "../CommonData/data";
+import { dataHour, header, username } from "../CommonData/data";
 import DatePicker from "react-datepicker";
 import axios from "axios";
 import ReportUsers from "./index2";
 import ReportIp from "./index3";
 function TotalCustomerByMonth() {
-  // const headers = header;
   const [date, setDate] = useState(new Date());
   const [year, setYear] = useState(new Date());
   const [month, setMonth] = useState(new Date());
   const [day, setDay] = useState(new Date());
   const [totalByDay, setTotalByDay] = useState([]);
   const getDataByDay = async () => {
-    console.log("header", header);
-    console.log("window.name", window.name);
-    //  const username = "vuthanhnam@gmail.com";
-    // this is version official
-    const username = localStorage.getItem("email");
-
-    console.log("object", username);
-    console.log("date", date.toISOString());
     let day = date.getDate();
 
-    console.log("day", day);
     let month = date.getMonth() + 1;
 
-    console.log("month", month);
     let year = date.getFullYear();
-
-    console.log("year", year);
 
     if (year !== (undefined | null) && month !== (undefined | null)) {
       var API_Statistics = `http://localhost:8080/api/v1/statisticAllActionOnThisMenuEnable?email=${username}&day=${day}&month=${month}&year=${year}`;
-      console.log("object API:  ", API_Statistics);
+
       axios.get(API_Statistics, { header }).then((response) => {
         setTotalByDay(response.data);
-        console.log("response:  " + response.data);
       });
     }
   };

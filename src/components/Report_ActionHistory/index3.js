@@ -1,18 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { CChartBar } from "@coreui/react-chartjs";
-import Select from "react-select";
-import {
-  CCard,
-  CCol,
-  CContainer,
-  CPagination,
-  CCardHeader,
-  CCardBody,
-  CCardFooter,
-  CRow,
-  CBadge,
-} from "@coreui/react";
-import { header } from "./../CommonData/data";
+import { CCard, CContainer, CCardBody, CRow } from "@coreui/react";
+import { header, username } from "./../CommonData/data";
 import axios from "axios";
 import CustomerDatePicker from "./../CustomerDatePicker/index";
 
@@ -30,12 +19,10 @@ function StatisticsClickAllMenu() {
         .slice(0, 10)}&end=${endDate.toISOString().slice(0, 10)}`,
       header,
     };
-    //  console.log("API", config.url);
     axios(config)
       .then(function (response) {
         console.log(JSON.stringify(response.data));
         setListCalender(response.data);
-        //  console.log("dataCalender", listCalender);
       })
       .catch(function (error) {
         console.log(error);
@@ -43,8 +30,6 @@ function StatisticsClickAllMenu() {
   };
 
   const getDataActionOfMenuByDay = () => {
-    const username = "vuthanhnam@gmail.com";
-    // const username = localStorage.getItem("email")
     const baseHref =
       "http://localhost:8080/api/v1/statisticAllActionOnThisMenuByDay";
     var config = {
@@ -59,9 +44,7 @@ function StatisticsClickAllMenu() {
 
     axios(config)
       .then(function (response) {
-        console.log(JSON.stringify(response.data));
         setDataActionOfMenuByDay(response.data);
-        console.log("DataActionOfMenuByDay", dataActionOfMenuByDay);
       })
       .catch(function (error) {
         console.log(error);

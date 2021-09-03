@@ -1,20 +1,23 @@
-@media only screen and (max-width: 1290px) and (min-width: 1024px) {
-    .ifame {
+@media only screen and (max-width: 1290px) and (min-width: 1024px)  {
+    .ifame{
         width: 550px;
         height: 400px;
     }
+    
 }
 
 @media only screen and (max-width: 1024px) and (min-width: 768px) {
-    .ifame {
+    .ifame{
         width: 650px;
         height: 450px;
     }
+    
 }
 
 @media only screen and (max-width: 768px) {
-    .ifame {
+    .ifame{
         width: 450px;
         height: 380px;
     }
+    
 }

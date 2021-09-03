@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { CChartBar } from "@coreui/react-chartjs";
+
 import {
   CCard,
   CContainer,
@@ -7,7 +7,7 @@ import {
   CCardHeader,
   CRow,
 } from "@coreui/react";
-import { header } from "./../CommonData/data";
+import { header, username } from "./../CommonData/data";
 import axios from "axios";
 import DisplayResultPagination from "./../DisplayResultPagination/DisplayResultPagination";
 function ReportIp() {
@@ -18,8 +18,6 @@ function ReportIp() {
   const [limit, setLimit] = useState(5);
 
   const getDataIp = () => {
-    const username = "vuthanhnam@gmail.com";
-    // const username = localStorage.getItem("email")
     var config = {
       method: "get",
       url: `http://localhost:8080/api/v1/statisticsActivityByIp?email=${username}&pageNo=${
@@ -32,10 +30,8 @@ function ReportIp() {
       .then(function (response) {
         setData(response.data.content);
         setTotalRecord(response.data.totalElements);
-        //    console.log("totalElement", totalRecord);
 
         setTotalPage(response.data.totalPages);
-        //   console.log("list Data now: ", data);
       })
       .catch(function (error) {
         console.log(error);
@@ -67,13 +63,6 @@ function ReportIp() {
             </tr>
           </thead>
           <tbody>
-            {/* {
-              !data.length(
-                <tr className="text-center">
-                  <td colSpan={3}>No Student</td>
-                </tr>
-              )
-            } */}
             {data.map((item, index) => {
               return (
                 <tr key={index}>

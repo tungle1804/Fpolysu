@@ -1,16 +1,15 @@
 import React, { useState, useEffect } from "react";
 import { CChartPie, CChart } from "@coreui/react-chartjs";
-import { CCard, CCardBody, CCardHeader, CRow, CContainer } from "@coreui/react";
-import { header } from "../CommonData/data";
+import { CCard, CCardBody, CCardHeader, CRow } from "@coreui/react";
+import { header, username } from "./../CommonData/data";
 import axios from "axios";
 function ReportUsers() {
   const [data, setData] = useState([]);
   const [dataLabelAddress, setDataLabelAddress] = useState([]);
   const [data2, setData2] = useState([]);
   const [dataLabelSupplier, setDataLabelSupplier] = useState([]);
+
   const getDataByAddress = () => {
-    const username = "vuthanhnam@gmail.com";
-    //const username= window.name;
     var config = {
       method: "get",
       url: `http://localhost:8080/api/v1/statisticsActivityByAddress?email=${username}`,
@@ -56,8 +55,6 @@ function ReportUsers() {
       });
   };
   const getDataBySupplier = () => {
-    const username = "vuthanhnam@gmail.com";
-    //const username= window.name;
     var config = {
       method: "get",
       url: `http://localhost:8080/api/v1/statisticsActivityBySupplier?email=${username}`,
@@ -70,10 +67,8 @@ function ReportUsers() {
         const dt2 = [];
         const res = response.data;
         for (let index = 0; index < res.length; index++) {
-          console.log("object:  ", res[index]);
           dt.push(res[index][1]);
           dt2.push(res[index][0]);
-          console.log("dt", dt2);
         }
 
         setDataLabelSupplier(dt2);

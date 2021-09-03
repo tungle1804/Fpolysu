@@ -16,8 +16,10 @@ export default function CreateMenu() {
 
     return (
         <>
-            <ViewCreateMenu />
-            <CreateDetailsMenu data={data} />
+            <div className="block lg:flex justify-between w-auto">
+                <ViewCreateMenu />
+                <CreateDetailsMenu data={data} />
+            </div>
         </>
 
     )
