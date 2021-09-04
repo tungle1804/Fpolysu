@@ -75,6 +75,7 @@ function TotalCustomerByMonth() {
 
       <ReportUsers></ReportUsers>
       <br />
+
       <ReportIp></ReportIp>
     </div>
   );

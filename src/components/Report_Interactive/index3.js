@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 
 import {
   CCard,
-  CContainer,
+  CCardBody,
   CPagination,
   CCardHeader,
   CRow,
@@ -43,14 +43,13 @@ function ReportIp() {
   }, []);
 
   return (
-    <CContainer>
-      <CCard>
-        <div className="row ">
-          <CCardHeader className="font-weight-bolder text-center bg-blue-500 col-6 offset-2">
-            Thống kê lượt tương tác theo địa chỉ IP của người dùng
-          </CCardHeader>
-        </div>
-
+    <CCard className="row">
+      <div className="row container ">
+        <CCardHeader className="font-bold justify-content-center text-center">
+          Thống kê lượt tương tác theo địa chỉ IP của người dùng
+        </CCardHeader>
+      </div>
+      <CCardBody>
         <table
           className=" table table-striped table-bordered "
           style={{ border: "none" }}
@@ -74,26 +73,27 @@ function ReportIp() {
             })}
           </tbody>
         </table>
-        <CRow className="row">
-          <CPagination
-            className="col-5 mx-0 px-3"
-            addListClass="some-class"
-            activePage={pageNo}
-            pages={totalPage}
-            onActivePageChange={setPageNo}
-          />
-          <div className="col-6 right">
-            <DisplayResultPagination
-              page={pageNo}
-              setPage={setPageNo}
-              limit={limit}
-              setLimit={setLimit}
-              totalElements={totalRecord}
-            ></DisplayResultPagination>
-          </div>
-        </CRow>
-      </CCard>
-    </CContainer>
+      </CCardBody>
+
+      <CRow>
+        <CPagination
+          className="col-5 mx-0 px-3"
+          addListClass="some-class"
+          activePage={pageNo}
+          pages={totalPage}
+          onActivePageChange={setPageNo}
+        />
+        <div className="col-6 right">
+          <DisplayResultPagination
+            page={pageNo}
+            setPage={setPageNo}
+            limit={limit}
+            setLimit={setLimit}
+            totalElements={totalRecord}
+          ></DisplayResultPagination>
+        </div>
+      </CRow>
+    </CCard>
   );
 }
 
