@@ -117,7 +117,7 @@ export default ({ children }) => {
                     </div>
                 </div>
 
-                <div className="xl:block hidden">
+                {/* <div className="xl:block hidden">
                     <Button onClick={handleVisibility}>Toggle Speed Dial</Button>
                     <Backdrop open={open} />
                     <SpeedDial
@@ -139,7 +139,7 @@ export default ({ children }) => {
                             />
                         ))}
                     </SpeedDial>
-                </div>
+                </div> */}
 
                 <style
                     dangerouslySetInnerHTML={{

@@ -977,7 +977,7 @@ export default function ViewCreateMenu() {
               <section className="my-1 grid grid-cols-2 sm:grid-cols-3 gap-2 mr-1">
                 <div className="flex-1 bg-white text-gray-600 font-bold rounded border-2 border-green-500 hover:border-green-700 hover:text-black shadow-md py-2 px-2  items-center">
                   <button
-                    onClick={() => handleShow("fa fa-phone-volume", "2")}
+                    onClick={() => handleShow("fa fa-phone-volume ", "2")}
                     className="px-3 "
                   >
                     <div className="flex mx-auto my-auto">
