@@ -36,7 +36,11 @@ function CustomerManagement({
         }
       }
     }
+    return () => {
+      setDataModal(null);
+    };
   }, [dataInfo]);
+
   // useEffect(() => {
   //   setExportData(dataInfo);
   // }, [dataInfo]);
@@ -58,42 +62,15 @@ function CustomerManagement({
   const DataSet = [
     {
       columns: [
-        {
-          title: "Country Region",
-          style: { font: { sz: "18", bold: true } },
-          width: { wch: 30 },
-        }, // width in characters
-        {
-          title: "Confirmed",
-          style: { font: { sz: "18", bold: true } },
-          width: { wpx: 100 },
-        }, // width in pixels
-        {
-          title: "Deaths",
-          style: { font: { sz: "18", bold: true } },
-          width: { wpx: 125 },
-        }, // width in pixels
-        {
-          title: "Recovered",
-          style: { font: { sz: "18", bold: true } },
-          width: { wpx: 100 },
-        }, // width in pixel
-
-        {
-          title: exportData.length > 0 ? exportData[0].fullname : "",
-          style: { font: { sz: "18", bold: true } },
-          width: { wpx: 125 },
-        }, // width in pixels
-
-        exportData.length > 0
-          ? exportData[0].modal.length > 0
-            ? exportData[0].modal.map((item) => ({
-                title: item.length > 0 ? item.inputName : "",
-                style: { font: { sz: "18", bold: true } },
-                width: { wpx: 125 },
-              }))
-            : ""
-          : "",
+        // exportData.length > 0
+        //   ? exportData[0].modal.length > 0
+        //     ? exportData[0].modal.map((item) => ({
+        //         title: item.length > 0 ? item.inputName : "",
+        //         style: { font: { sz: "18", bold: true } },
+        //         width: { wpx: 125 },
+        //       }))
+        //     : ""
+        //   : "",
         // exportData
         //   ? exportData.map((item) => ({
         //       title: item.inputName ? item.inputName : "",
@@ -101,41 +78,41 @@ function CustomerManagement({
         //       width: { wpx: 125 },
         //     }))
         //   : "",
-        // {
-        //   title: "Email",
-        //   style: { font: { sz: "18", bold: true } },
-        //   width: { wpx: 125 },
-        // }, // width in pixels
-        // {
-        //   title: "Fullname",
-        //   style: { font: { sz: "18", bold: true } },
-        //   width: { wch: 30 },
-        // }, // width in characters
-        // {
-        //   title: "Phone",
-        //   style: { font: { sz: "18", bold: true } },
-        //   width: { wpx: 100 },
-        // }, // width in pixels
-        // {
-        //   title: "Address",
-        //   style: { font: { sz: "18", bold: true } },
-        //   width: { wpx: 100 },
-        // }, // width in pixels
-        // {
-        //   title: "Content",
-        //   style: { font: { sz: "18", bold: true } },
-        //   width: { wpx: 125 },
-        // }, // width in pixels
-        // {
-        //   title: "Notes",
-        //   style: { font: { sz: "18", bold: true } },
-        //   width: { wch: 30 },
-        // }, // width in characters
-        // {
-        //   title: "CreateDate",
-        //   style: { font: { sz: "18", bold: true } },
-        //   width: { wpx: 125 },
-        // }, // width in pixels
+        {
+          title: "Email",
+          style: { font: { sz: "18", bold: true } },
+          width: { wpx: 125 },
+        }, // width in pixels
+        {
+          title: "Fullname",
+          style: { font: { sz: "18", bold: true } },
+          width: { wch: 30 },
+        }, // width in characters
+        {
+          title: "Phone",
+          style: { font: { sz: "18", bold: true } },
+          width: { wpx: 100 },
+        }, // width in pixels
+        {
+          title: "Address",
+          style: { font: { sz: "18", bold: true } },
+          width: { wpx: 100 },
+        }, // width in pixels
+        {
+          title: "Content",
+          style: { font: { sz: "18", bold: true } },
+          width: { wpx: 125 },
+        }, // width in pixels
+        {
+          title: "Notes",
+          style: { font: { sz: "18", bold: true } },
+          width: { wch: 30 },
+        }, // width in characters
+        {
+          title: "CreateDate",
+          style: { font: { sz: "18", bold: true } },
+          width: { wpx: 125 },
+        }, // width in pixels
 
         // item.modal.map((items) => ({
         //   title: items.inputName ? items.inputName : "",
@@ -489,13 +466,13 @@ function CustomerManagement({
                     : ""}
                 </tbody>
                 <thead>
-                  <button
+                  {/* <button
                     onClick={onSave}
                     type="button"
                     className="border border-green-500 bg-green-500 text-white rounded-md px-4 py-2 m-2 transition duration-500 ease select-none hover:bg-green-600 focus:outline-none focus:shadow-outline"
                   >
                     cập nhập
-                  </button>
+                  </button> */}
                   <div style={{ textlAign: "-webkit - right" }}>
                     {dataInfo.length !== 0 ? (
                       <ExcelFile
