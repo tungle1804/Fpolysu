@@ -11,7 +11,7 @@ import * as taskTypesMenus from "./../constants/menuConstant";
 import * as taskTypesButtons from "./../constants/buttonConstant";
 import * as taskTypesData from "./../constants/dataConstanst";
 import * as taskTypesInput from "./../constants/InputConstant";
-import { getApi, getApi1 } from "./../../util/api";
+import { getApi, getApi1, getApi2 } from "./../../util/api";
 import {
   fetchDataRequest,
   fetchDataSuccess,
@@ -134,6 +134,21 @@ function* getLoadInput({ payload }) {
     yield put(fetchInputFailed(error));
   }
 }
+function* fetchUpdateMenu({ data }) {
+  try {
+    yield put(fetchListMenusRequest());
+    const response = yield call(getApi2, [`/menu`, data.data.menu[0]]);
+    yield put(fetchListMenusSuccess(response));
+    yield put(fetchListMenusRequest());
+
+    for (let i = 0; i < data.data.buttons.length; i++) {
+      const response1 = yield call(getApi2, [`/button`, data.data.buttons[i]]);
+      yield put(fetchListMenusSuccess(response1));
+    }
+  } catch (error) {
+    yield put(fetchListMenusFailed(error));
+  }
+}
 // function* createInput({ payload }) {
 
 //     try {
@@ -154,6 +169,7 @@ function* menuSaga() {
   yield takeEvery(taskTypesData.FETCH_DATA_INFO, getDataInfo);
   yield takeEvery(taskTypesData.FETCH_CREATE_DATA, createData);
   yield takeEvery(taskTypesInput.FETCH_LOAD_INPUT, getLoadInput);
+  yield takeEvery(taskTypesMenus.FETCH_UPDATE_MENU, fetchUpdateMenu);
   // yield takeEvery(taskTypesInput.FETCH_SAVE_INPUT, createInput)
 }
 export default menuSaga;

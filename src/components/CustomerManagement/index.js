@@ -3,29 +3,26 @@ import { connect, useDispatch, useSelector } from "react-redux";
 import { loadData, loadDataInfo } from "../../redux/actions/dataAction";
 import DataService from "../../service/DataService";
 import ReactExport from "react-data-export";
-import PropTypes from 'prop-types';
-import { makeStyles, lighten } from '@material-ui/core/styles';
-import AppBar from '@material-ui/core/AppBar';
-import Tabs from '@material-ui/core/Tabs';
-import Tab from '@material-ui/core/Tab';
-import Typography from '@material-ui/core/Typography';
-import Box from '@material-ui/core/Box';
-import InputBase from '@material-ui/core/InputBase';
-import { alpha } from '@material-ui/core/styles';
-import MenuIcon from '@material-ui/icons/Menu';
-import SearchIcon from '@material-ui/icons/Search';
-import Paper from '@material-ui/core/Paper';
-import Table from '@material-ui/core/Table';
-import TableBody from '@material-ui/core/TableBody';
-import TableCell from '@material-ui/core/TableCell';
-import TableContainer from '@material-ui/core/TableContainer';
-import TableHead from '@material-ui/core/TableHead';
-import TablePagination from '@material-ui/core/TablePagination';
-import TableRow from '@material-ui/core/TableRow';
-import './style.css'
-
-
-
+import PropTypes from "prop-types";
+import { makeStyles, lighten } from "@material-ui/core/styles";
+import AppBar from "@material-ui/core/AppBar";
+import Tabs from "@material-ui/core/Tabs";
+import Tab from "@material-ui/core/Tab";
+import Typography from "@material-ui/core/Typography";
+import Box from "@material-ui/core/Box";
+import InputBase from "@material-ui/core/InputBase";
+import { alpha } from "@material-ui/core/styles";
+import MenuIcon from "@material-ui/icons/Menu";
+import SearchIcon from "@material-ui/icons/Search";
+import Paper from "@material-ui/core/Paper";
+import Table from "@material-ui/core/Table";
+import TableBody from "@material-ui/core/TableBody";
+import TableCell from "@material-ui/core/TableCell";
+import TableContainer from "@material-ui/core/TableContainer";
+import TableHead from "@material-ui/core/TableHead";
+import TablePagination from "@material-ui/core/TablePagination";
+import TableRow from "@material-ui/core/TableRow";
+import "./style.css";
 
 const ExcelFile = ReactExport.ExcelFile;
 const ExcelSheet = ReactExport.ExcelFile.ExcelSheet;
@@ -39,7 +36,6 @@ function CustomerManagement({
   dataInfo,
   props,
 }) {
-
   const [exportData, setExportData] = useState([]);
   const [dataModal, setDataModal] = useState();
   useEffect(() => {
@@ -61,7 +57,11 @@ function CustomerManagement({
         }
       }
     }
+    return () => {
+      setDataModal(null);
+    };
   }, [dataInfo]);
+
   const onSave = () => {
     let data = {
       fullName: "Le duc beoooo",
@@ -80,29 +80,54 @@ function CustomerManagement({
   const DataSet = [
     {
       columns: [
+        // exportData.length > 0
+        //   ? exportData[0].modal.length > 0
+        //     ? exportData[0].modal.map((item) => ({
+        //         title: item.length > 0 ? item.inputName : "",
+        //         style: { font: { sz: "18", bold: true } },
+        //         width: { wpx: 125 },
+        //       }))
+        //     : ""
+        //   : "",
+        // exportData
+        //   ? exportData.map((item) => ({
+        //       title: item.inputName ? item.inputName : "",
+        //       style: { font: { sz: "18", bold: true } },
+        //       width: { wpx: 125 },
+        //     }))
+        //   : "",
         {
-          title: "Country Region",
-          style: { font: { sz: "18", bold: true } },
-          width: { wch: 30 },
-        }, // width in characters
-        {
-          title: "Confirmed",
-          style: { font: { sz: "18", bold: true } },
-          width: { wpx: 100 },
-        }, // width in pixels
-        {
-          title: "Deaths",
+          title: "Email",
           style: { font: { sz: "18", bold: true } },
           width: { wpx: 125 },
         }, // width in pixels
         {
-          title: "Recovered",
+          title: "Fullname",
+          style: { font: { sz: "18", bold: true } },
+          width: { wch: 30 },
+        }, // width in characters
+        {
+          title: "Phone",
           style: { font: { sz: "18", bold: true } },
           width: { wpx: 100 },
-        }, // width in pixel
-
+        }, // width in pixels
         {
-          title: exportData.length > 0 ? exportData[0].fullname : "",
+          title: "Address",
+          style: { font: { sz: "18", bold: true } },
+          width: { wpx: 100 },
+        }, // width in pixels
+        {
+          title: "Content",
+          style: { font: { sz: "18", bold: true } },
+          width: { wpx: 125 },
+        }, // width in pixels
+        {
+          title: "Notes",
+          style: { font: { sz: "18", bold: true } },
+          width: { wch: 30 },
+        }, // width in characters
+        {
+          title: "CreateDate",
           style: { font: { sz: "18", bold: true } },
           width: { wpx: 125 },
         }, // width in pixels
@@ -110,10 +135,10 @@ function CustomerManagement({
         exportData.length > 0
           ? exportData[0].modal.length > 0
             ? exportData[0].modal.map((item) => ({
-              title: item.length > 0 ? item.inputName : "",
-              style: { font: { sz: "18", bold: true } },
-              width: { wpx: 125 },
-            }))
+                title: item.length > 0 ? item.inputName : "",
+                style: { font: { sz: "18", bold: true } },
+                width: { wpx: 125 },
+              }))
             : ""
           : "",
       ],
@@ -165,7 +190,6 @@ function CustomerManagement({
     },
   ];
 
-
   // tabs
   function TabPanel(props) {
     const { children, value, index, ...other } = props;
@@ -196,7 +220,7 @@ function CustomerManagement({
   function a11yProps(index) {
     return {
       id: `wrapped-tab-${index}`,
-      'aria-controls': `wrapped-tabpanel-${index}`,
+      "aria-controls": `wrapped-tabpanel-${index}`,
     };
   }
 
@@ -208,7 +232,7 @@ function CustomerManagement({
   }));
 
   const classes = useStyles();
-  const [value, setValue] = React.useState('one');
+  const [value, setValue] = React.useState("one");
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
@@ -223,47 +247,47 @@ function CustomerManagement({
     },
     title: {
       flexGrow: 1,
-      display: 'none',
-      [theme.breakpoints.up('sm')]: {
-        display: 'block',
+      display: "none",
+      [theme.breakpoints.up("sm")]: {
+        display: "block",
       },
     },
     search: {
-      position: 'relative',
+      position: "relative",
       borderRadius: theme.shape.borderRadius,
       backgroundColor: alpha(theme.palette.common.white, 0.15),
-      '&:hover': {
+      "&:hover": {
         backgroundColor: alpha(theme.palette.common.white, 0.25),
       },
       marginLeft: 0,
-      width: '100%',
-      [theme.breakpoints.up('sm')]: {
+      width: "100%",
+      [theme.breakpoints.up("sm")]: {
         marginLeft: theme.spacing(1),
-        width: 'auto',
+        width: "auto",
       },
     },
     searchIcon: {
       padding: theme.spacing(0, 2),
-      height: '100%',
-      position: 'absolute',
-      pointerEvents: 'none',
-      display: 'flex',
-      alignItems: 'center',
-      justifyContent: 'center',
+      height: "100%",
+      position: "absolute",
+      pointerEvents: "none",
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "center",
     },
     inputRoot: {
-      color: 'inherit',
+      color: "inherit",
     },
     inputInput: {
       padding: theme.spacing(1, 1, 1, 0),
       // vertical padding + font size from searchIcon
       paddingLeft: `calc(1em + ${theme.spacing(4)}px)`,
-      transition: theme.transitions.create('width'),
-      width: '100%',
-      [theme.breakpoints.up('sm')]: {
-        width: '12ch',
-        '&:focus': {
-          width: '20ch',
+      transition: theme.transitions.create("width"),
+      width: "100%",
+      [theme.breakpoints.up("sm")]: {
+        width: "12ch",
+        "&:focus": {
+          width: "20ch",
         },
       },
     },
@@ -274,27 +298,27 @@ function CustomerManagement({
   // table
 
   const columns = [
-    { id: 'name', label: 'Name', minWidth: 170 },
-    { id: 'code', label: 'ISO\u00a0Code', minWidth: 100 },
+    { id: "name", label: "Name", minWidth: 170 },
+    { id: "code", label: "ISO\u00a0Code", minWidth: 100 },
     {
-      id: 'population',
-      label: 'Population',
+      id: "population",
+      label: "Population",
       minWidth: 170,
-      align: 'right',
-      format: (value) => value.toLocaleString('en-US'),
+      align: "right",
+      format: (value) => value.toLocaleString("en-US"),
     },
     {
-      id: 'size',
-      label: 'Size\u00a0(km\u00b2)',
+      id: "size",
+      label: "Size\u00a0(km\u00b2)",
       minWidth: 170,
-      align: 'right',
-      format: (value) => value.toLocaleString('en-US'),
+      align: "right",
+      format: (value) => value.toLocaleString("en-US"),
     },
     {
-      id: 'density',
-      label: 'Density',
+      id: "density",
+      label: "Density",
       minWidth: 170,
-      align: 'right',
+      align: "right",
       format: (value) => value.toFixed(2),
     },
   ];
@@ -305,26 +329,26 @@ function CustomerManagement({
   }
 
   const rows = [
-    createData('India', 'IN', 1324171354, 3287263),
-    createData('China', 'CN', 1403500365, 9596961),
-    createData('Italy', 'IT', 60483973, 301340),
-    createData('United States', 'US', 327167434, 9833520),
-    createData('Canada', 'CA', 37602103, 9984670),
-    createData('Australia', 'AU', 25475400, 7692024),
-    createData('Germany', 'DE', 83019200, 357578),
-    createData('Ireland', 'IE', 4857000, 70273),
-    createData('Mexico', 'MX', 126577691, 1972550),
-    createData('Japan', 'JP', 126317000, 377973),
-    createData('France', 'FR', 67022000, 640679),
-    createData('United Kingdom', 'GB', 67545757, 242495),
-    createData('Russia', 'RU', 146793744, 17098246),
-    createData('Nigeria', 'NG', 200962417, 923768),
-    createData('Brazil', 'BR', 210147125, 8515767),
+    createData("India", "IN", 1324171354, 3287263),
+    createData("China", "CN", 1403500365, 9596961),
+    createData("Italy", "IT", 60483973, 301340),
+    createData("United States", "US", 327167434, 9833520),
+    createData("Canada", "CA", 37602103, 9984670),
+    createData("Australia", "AU", 25475400, 7692024),
+    createData("Germany", "DE", 83019200, 357578),
+    createData("Ireland", "IE", 4857000, 70273),
+    createData("Mexico", "MX", 126577691, 1972550),
+    createData("Japan", "JP", 126317000, 377973),
+    createData("France", "FR", 67022000, 640679),
+    createData("United Kingdom", "GB", 67545757, 242495),
+    createData("Russia", "RU", 146793744, 17098246),
+    createData("Nigeria", "NG", 200962417, 923768),
+    createData("Brazil", "BR", 210147125, 8515767),
   ];
 
   const useStylesTable = makeStyles({
     root: {
-      width: '100%',
+      width: "100%",
     },
     container: {
       maxHeight: 493,
@@ -344,21 +368,17 @@ function CustomerManagement({
     setPage(0);
   };
 
-
-
-
   return (
     <>
       <div className={classes.root}>
         <AppBar position="static">
-          <Tabs value={value} onChange={handleChange} aria-label="wrapped label tabs example">
-            <Tab
-              value="one"
-              label="Danh sách"
-              wrapped
-              {...a11yProps('one')}
-            />
-            <Tab value="two" label="Bảng danh sách" {...a11yProps('two')} />
+          <Tabs
+            value={value}
+            onChange={handleChange}
+            aria-label="wrapped label tabs example"
+          >
+            <Tab value="one" label="Danh sách" wrapped {...a11yProps("one")} />
+            <Tab value="two" label="Bảng danh sách" {...a11yProps("two")} />
             {/* <Tab value="three" label="Item Three" {...a11yProps('three')} /> */}
           </Tabs>
         </AppBar>
@@ -374,7 +394,9 @@ function CustomerManagement({
                     <div className="bg-white rounded-lg border-2 border-gray-600">
                       <div className={classesSearch.search}>
                         <div className={classesSearch.searchIcon}>
-                          <div><SearchIcon /></div>
+                          <div>
+                            <SearchIcon />
+                          </div>
                         </div>
                         <InputBase
                           placeholder="Search…"
@@ -382,10 +404,9 @@ function CustomerManagement({
                             root: classesSearch.inputRoot,
                             input: classesSearch.inputInput,
                           }}
-                          inputProps={{ 'aria-label': 'search' }}
+                          inputProps={{ "aria-label": "search" }}
                         />
                       </div>
-
                     </div>
                   </div>
                 </div>
@@ -394,35 +415,37 @@ function CustomerManagement({
                 <ul className="mt-3 ">
                   {data && data.length > 0
                     ? data.map((item) => {
-                      return (
-                        <>
-                          <div onClick={() => onchangebyId(item.id)}>
-                            <li className="py-3 border-b px-3 transition hover:bg-indigo-100">
-                              <div className="flex justify-center items-center content-center bg-gradient-to-br from-pink-300 to-pink-600 shadow-md hover:shadow-lg h-10 w-10 rounded-full fill-current text-white">
-                                <svg
-                                  xmlns="http://www.w3.org/2000/svg"
-                                  className="h-8 w-8"
-                                  viewBox="0 0 20 20"
-                                  fill="currentColor"
-                                >
-                                  <path
-                                    fillRule="evenodd"
-                                    d="M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z"
-                                    clipRule="evenodd"
-                                  />
-                                </svg>
-                              </div>
-                              <div className="flex justify-between items-center">
-                                <h3 className="text-lg font-semibold">
-                                  {item.phone}
-                                </h3>
-                                <p className="text-md text-gray-400">23m ago</p>
-                              </div>
-                            </li>
-                          </div>
-                        </>
-                      );
-                    })
+                        return (
+                          <>
+                            <div onClick={() => onchangebyId(item.id)}>
+                              <li className="py-3 border-b px-3 transition hover:bg-indigo-100">
+                                <div className="flex justify-center items-center content-center bg-gradient-to-br from-pink-300 to-pink-600 shadow-md hover:shadow-lg h-10 w-10 rounded-full fill-current text-white">
+                                  <svg
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    className="h-8 w-8"
+                                    viewBox="0 0 20 20"
+                                    fill="currentColor"
+                                  >
+                                    <path
+                                      fillRule="evenodd"
+                                      d="M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z"
+                                      clipRule="evenodd"
+                                    />
+                                  </svg>
+                                </div>
+                                <div className="flex justify-between items-center">
+                                  <h3 className="text-lg font-semibold">
+                                    {item.phone}
+                                  </h3>
+                                  <p className="text-md text-gray-400">
+                                    23m ago
+                                  </p>
+                                </div>
+                              </li>
+                            </div>
+                          </>
+                        );
+                      })
                     : ""}
                 </ul>
               </section>
@@ -525,7 +548,10 @@ function CustomerManagement({
                   </ul>
                 </div>
               </div>
-              <section className="overflow-y-auto mt-2 pr-2" style={{ height: "550px" }}>
+              <section
+                className="overflow-y-auto mt-2 pr-2"
+                style={{ height: "550px" }}
+              >
                 <label>Thời gian: </label>
 
                 <input
@@ -611,13 +637,10 @@ function CustomerManagement({
                   defaultValue={""}
                 />
 
-                <div>
-                  {dataModal && dataModal.length > 0
-                    ? dataModal.map((item) => (
+                {dataModal && dataModal.length > 0
+                  ? dataModal.map((item) => (
                       <div>
-                        <label>
-                          {item.inputName}
-                        </label>
+                        <label>{item.inputName}</label>
                         <input
                           value={item.inputValue}
                           type="text"
@@ -627,8 +650,13 @@ function CustomerManagement({
                         />
                       </div>
                     ))
-                    : ""}
-                </div>
+                  : ""}
+
+                {/* <div style={{ textlAign: "-webkit - right" }}>
+                    {dataInfo.length !== 0 ? (
+                      <ExcelFile
+                        filename="Thong_tin_khach_hang"
+                        element={ */}
 
                 {/* <div>
                   <div className="max-w-xs w-full bg-white shadow-md rounded-lg overflow-hidden mx-auto">
@@ -658,6 +686,7 @@ function CustomerManagement({
                             : ""}
                         </tbody>
                         <thead>
+
                           <button
                             onClick={onSave}
                             type="button"
@@ -692,17 +721,25 @@ function CustomerManagement({
                 </div> */}
               </section>
             </section>
-
           </main>
-
-
         </TabPanel>
         <TabPanel value={value} index="two">
           <div className="font-sans text-black bg-white flex items-center mb-3">
             <div className="border rounded overflow-hidden flex">
-              <input type="text" className="px-4 py-2" placeholder="Search..." />
+              <input
+                type="text"
+                className="px-4 py-2"
+                placeholder="Search..."
+              />
               <button className="flex items-center justify-center px-4 border-l">
-                <svg className="h-4 w-4 text-grey-dark" fill="currentColor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M16.32 14.9l5.39 5.4a1 1 0 0 1-1.42 1.4l-5.38-5.38a8 8 0 1 1 1.41-1.41zM10 16a6 6 0 1 0 0-12 6 6 0 0 0 0 12z" /></svg>
+                <svg
+                  className="h-4 w-4 text-grey-dark"
+                  fill="currentColor"
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 24 24"
+                >
+                  <path d="M16.32 14.9l5.39 5.4a1 1 0 0 1-1.42 1.4l-5.38-5.38a8 8 0 1 1 1.41-1.41zM10 16a6 6 0 1 0 0-12 6 6 0 0 0 0 12z" />
+                </svg>
               </button>
             </div>
           </div>
@@ -724,20 +761,29 @@ function CustomerManagement({
                   </TableRow>
                 </TableHead>
                 <TableBody>
-                  {rows.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((row) => {
-                    return (
-                      <TableRow hover role="checkbox" tabIndex={-1} key={row.code}>
-                        {columns.map((column) => {
-                          const value = row[column.id];
-                          return (
-                            <TableCell key={column.id} align={column.align}>
-                              {column.format && typeof value === 'number' ? column.format(value) : value}
-                            </TableCell>
-                          );
-                        })}
-                      </TableRow>
-                    );
-                  })}
+                  {rows
+                    .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+                    .map((row) => {
+                      return (
+                        <TableRow
+                          hover
+                          role="checkbox"
+                          tabIndex={-1}
+                          key={row.code}
+                        >
+                          {columns.map((column) => {
+                            const value = row[column.id];
+                            return (
+                              <TableCell key={column.id} align={column.align}>
+                                {column.format && typeof value === "number"
+                                  ? column.format(value)
+                                  : value}
+                              </TableCell>
+                            );
+                          })}
+                        </TableRow>
+                      );
+                    })}
                 </TableBody>
               </Table>
             </TableContainer>

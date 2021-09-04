@@ -186,3 +186,33 @@
     background-color: transparent;
     background-color: initial;
 }
+.mt-tooltip__text:after {
+    content: " ";
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    margin-left: -5px;
+    border: 5px solid transparent;
+    border-top-color: #232f34;
+}
+#metu .mmt-button:hover{background-color:rgba(27,27,27,.2)}
+.mt-tooltip__text {
+    position: absolute;
+    visibility: hidden;
+    z-index: 1;
+    background: #232f34;
+    color: #fff;
+    text-align: center;
+    padding: 4px 8px;
+    border-radius: 4px;
+    min-width: 120px;
+    max-width: 240px;
+    bottom: calc(100% + 5px);
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 12px;
+    box-sizing: border-box;
+}
+.mt-tooltip:hover .mt-tooltip__text {
+    visibility: visible;
+}
