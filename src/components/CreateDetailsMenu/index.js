@@ -95,6 +95,9 @@ function CreateDetailsMenu({ data, color }) {
             }
             
              </style>
+             <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css"
+             integrity="sha512-HK5fgLBL+xu6dm/Ii3z4xhlSUyZgTT9tuc/hSrtw6uzJOvgRr2a9jyxxT1ely+B+xFAmJKVSTbpM/CuL7qxO8w=="
+             crossOrigin="anonymous" />
             </head>
             <body >
               <div id="page" ></div>
@@ -184,6 +187,9 @@ function CreateDetailsMenu({ data, color }) {
             }
             
              </style>
+             <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css"
+             integrity="sha512-HK5fgLBL+xu6dm/Ii3z4xhlSUyZgTT9tuc/hSrtw6uzJOvgRr2a9jyxxT1ely+B+xFAmJKVSTbpM/CuL7qxO8w=="
+             crossOrigin="anonymous" />
             </head>
             <body >
               <div id="page" ></div>
@@ -317,6 +323,9 @@ function CreateDetailsMenu({ data, color }) {
             }
             
              </style>
+             <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css"
+             integrity="sha512-HK5fgLBL+xu6dm/Ii3z4xhlSUyZgTT9tuc/hSrtw6uzJOvgRr2a9jyxxT1ely+B+xFAmJKVSTbpM/CuL7qxO8w=="
+             crossOrigin="anonymous" />
             </head>
             <body >
               <div id="page" ></div>
@@ -352,6 +361,7 @@ function CreateDetailsMenu({ data, color }) {
   const [colorBackground, setColorBackground] = useState(initstateBackground);
   const [editButton, setEditButton] = useState({});
   const [show, setShow] = useState(false);
+  const [step, setStep] = useState("1");
 
   const stylesText = {
     color: {
@@ -597,7 +607,12 @@ function CreateDetailsMenu({ data, color }) {
       return initialContent2();
     }
   };
-
+  const onStep1 = () => {
+    setStep("1");
+  };
+  const onStep2 = () => {
+    setStep("2");
+  };
   return (
     <>
       <div className=" lg:ml-10 bg-white rounded shadow-xl p-6 w-screen lg:w-full ">
@@ -621,12 +636,14 @@ function CreateDetailsMenu({ data, color }) {
               >
                 <button class="px-3 ">
                   <div class="flex mx-auto my-auto">
-                    <i class="fas fa-phone-volume mr-1 my-auto"></i>
+                    <i
+                      style={{ color: `${item.color_icon}` }}
+                      className={` ${item.icon} mr-1 my-auto `}
+                    />
                     <span
                       class="text-sm"
                       style={{ color: `${item.color_text}` }}
                     >
-                      {" "}
                       {item.name_button}
                     </span>
                   </div>
@@ -659,32 +676,66 @@ function CreateDetailsMenu({ data, color }) {
         </section>
 
         <div className="flex mt-3 border-b-2 border-gray-200 pb-4">
-          <button class="flex px-4 py-2 hover:bg-red-500  w-auto self-center text-sm font-medium antialiased rounded bg-blue-800 text-white">
+          <button
+            onClick={onStep1}
+            class="flex px-4 py-2 hover:bg-red-500  w-auto self-center text-sm font-medium antialiased rounded bg-blue-800 text-white"
+          >
             <i class="fas fa-tv mr-3 my-auto"></i>
             <div>Máy tính</div>
           </button>
-          <button class="flex ml-2 px-4 py-2 hover:bg-red-500 w-auto self-center  text-sm font-medium antialiased rounded bg-blue-800 text-white">
+          <button
+            onClick={onStep2}
+            class="flex ml-2 px-4 py-2 hover:bg-red-500 w-auto self-center  text-sm font-medium antialiased rounded bg-blue-800 text-white"
+          >
             <i class="fas fa-mobile-alt mr-3 my-auto"></i>
             <div>Điện thoại</div>
           </button>
         </div>
-        <button
+
+        {/* <button
           style={{ backgroundColor: color }}
           className={`h-12 w-12 mx-auto rounded-md `}
-        ></button>
-        <div className="app-preview__body desktop">
-          <div className="preview-image">
-            <img
-              src="../../../../images/desktop.png"
-              alt=""
-              width="692px"
-              height="409px"
-            />
-            <Frame initialContent={initialContentView()}>
-              <Display />
-            </Frame>
-          </div>
-        </div>
+        ></button> */}
+
+        {(() => {
+          if (step == "1") {
+            return (
+              <>
+                <div className="app-preview__body desktop">
+                  <div className="preview-image">
+                    <img
+                      src="../../../../images/desktop.png"
+                      alt=""
+                      width="692px"
+                      height="409px"
+                    />
+                    <Frame initialContent={initialContentView()}>
+                      <Display />
+                    </Frame>
+                  </div>
+                </div>
+              </>
+            );
+          } else {
+            return (
+              <>
+                <div className="app-preview__body desktop">
+                  <div
+                    className="preview-image"
+                    style={{ textAlign: "-webkit-center" }}
+                  >
+                    <img
+                      src="../../../../images/mobile.png"
+                      alt=""
+                      width="210px"
+                      height="100px"
+                    />
+                  </div>
+                </div>
+              </>
+            );
+          }
+        })()}
       </div>
 
       <Modal show={show}>
@@ -700,9 +751,13 @@ function CreateDetailsMenu({ data, color }) {
                 <div class="flex-1 mt-5">
                   {" "}
                   <Form.Label>Biểu tượng nút</Form.Label>
-                  <img
+                  {/* <img
                     className="h-12 bg-gray-400"
                     src={`../images/${editButton.icon}`}
+                  /> */}
+                  <i
+                    style={{ color: `${editButton.color_icon}` }}
+                    className="fas fa-phone-volume mr-1 my-auto "
                   />
                 </div>
                 <div class="flex-1 ">
