@@ -3,6 +3,7 @@ import { Modal, Button, Form } from "react-bootstrap";
 import { ButtonContext } from "../../service/ButtonContext";
 import * as ReactBootStrap from "react-bootstrap";
 import "./style.css";
+
 import ButtonFake from "../../service/ButtonFake";
 import Ifram from "./iframe";
 import DisplayCreateDetails from "../Display/displaycreatedetails";
@@ -28,6 +29,8 @@ import Popper from "@material-ui/core/Popper";
 import MenuList from "@material-ui/core/MenuList";
 import { makeStyles } from "@material-ui/core/styles";
 import { styles } from "@material-ui/pickers/views/Calendar/Calendar";
+import Modals from "../ViewCreateMenu/Modals";
+import { CreateInput } from "../../redux/actions/InputAction";
 const useStyles = makeStyles((theme) => ({
   root: {
     display: "flex",
@@ -606,7 +609,7 @@ function CreateDetailsMenu({ data, color }) {
       name_button: editButton.name_button,
       link: editButton.link,
       icon: editButton.icon,
-      TypeButton: editButton.TypeButton,
+      typeButton: editButton.typeButton,
       captionContent: editButton.captionContent,
       color_text: rgbToHex(
         valueButton.color_text
@@ -781,6 +784,14 @@ function CreateDetailsMenu({ data, color }) {
     setOpen(false);
     // onedit(item.id_button)}
   };
+  const getRandomInt = (min, max) => {
+    return Number(Math.floor(Math.random() * (max - min)) + min);
+  };
+  const InsertInput = () => {
+    const id = getRandomInt(4, 1000);
+    let tshirt = { id_input: id, inputName: null };
+    dispatch(CreateInput(tshirt));
+  };
   return (
     <>
       <div className=" lg:ml-10 bg-white rounded shadow-xl p-6 w-screen lg:w-full ">
@@ -921,17 +932,19 @@ function CreateDetailsMenu({ data, color }) {
           if (step == "1") {
             return (
               <>
-                <div className="app-preview__body desktop">
-                  <div className="preview-image">
-                    <img
-                      src="../../../../images/desktop.png"
-                      alt=""
-                      width="692px"
-                      height="409px"
-                    />
-                    <Frame initialContent={initialContentView()}>
-                      <Display />
-                    </Frame>
+                <div className="iframe">
+                  <div className="app-preview__body desktop">
+                    <div className="preview-image">
+                      <img
+                        src="../../../../images/desktop.png"
+                        alt=""
+                        width="692px"
+                        height="409px"
+                      />
+                      <Frame initialContent={initialContentView()}>
+                        <Display />
+                      </Frame>
+                    </div>
                   </div>
                 </div>
               </>
@@ -1081,7 +1094,7 @@ function CreateDetailsMenu({ data, color }) {
               </div>
             </Form.Group>
             {(() => {
-              if (editButton.TypeButton == "1") {
+              if (editButton.typeButton == "1") {
                 return (
                   <>
                     <Form.Group controlId="formLink">
@@ -1096,7 +1109,7 @@ function CreateDetailsMenu({ data, color }) {
                     </Form.Group>
                   </>
                 );
-              } else if (editButton.TypeButton == "2") {
+              } else if (editButton.typeButton == "2") {
                 return (
                   <>
                     <Form>
@@ -1131,18 +1144,18 @@ function CreateDetailsMenu({ data, color }) {
                     </Form>
                   </>
                 );
-              } else if (editButton.TypeButton == "3") {
+              } else if (editButton.typeButton == "3") {
                 return (
                   <>
                     <Form.Group controlId="formBasicCheckbox">
                       <div class="cursor-pointer text-blue-400 ml-1 ">
-                        {/* <Modals />
+                        <Modals />
                         <p
                           onClick={() => InsertInput()}
                           class="inline hover:bg-blue-100 px-4 py-3 rounded-full"
                         >
                           <i class="fas fa-globe"></i>Thêm trường thông tin
-                        </p> */}
+                        </p>
                       </div>
                     </Form.Group>
                   </>

@@ -7,12 +7,19 @@ import {
   SAVE_DATA_MENU,
   FETCH_UPDATE_MENU,
   CHECK_TOTAL_MENU,
+  CREATE_MEMU,
 } from "../constants/menuConstant";
 import MenuService from "../../service/Menu/MenuService";
 
 export const loadMenus = (data) => {
   return {
     type: FETCH_MENUS,
+    data: data,
+  };
+};
+export const createMenu = (data) => {
+  return {
+    type: CREATE_MEMU,
     data: data,
   };
 };
