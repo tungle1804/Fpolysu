@@ -47,6 +47,7 @@ import Moment from "react-moment";
 // import 'bootstrap/dist/css/bootstrap.css';
 import OverlayTrigger from "react-bootstrap/OverlayTrigger";
 import { Checkbox, FormControlLabel } from "@material-ui/core";
+import { createMenu } from "../../redux/actions/menuAction";
 
 // import Button from 'react-bootstrap/Button';
 
@@ -494,7 +495,7 @@ export default function ViewCreateMenu() {
         color_icon: dataButton[i].color_icon,
         link: dataButton[i].link,
         icon: dataButton[i].icon,
-        TypeButton: dataButton[i].typeButton,
+        typeButton: dataButton[i].typeButton,
         captionContent: dataButton[i].captionContent,
       };
       data.buttons.push(button);
@@ -558,17 +559,18 @@ export default function ViewCreateMenu() {
         }).then((result) => {
           /* Read more about isConfirmed, isDenied below */
           if (result.isConfirmed) {
-            history.push("/admin/list-metu");
-            ButtonService.createButton(data);
+            // history.push("/admin/list-metu");
+            dispatch(createMenu({ data, history, Swal }));
             setShow1(false);
           } else if (result.isDenied) {
             Swal.fire("Changes are not saved", "", "info");
           }
         });
       } else {
-        ButtonService.createButton(data);
+        // ButtonService.createButton(data);
+        dispatch(createMenu({ data, history, Swal }));
         setShow1(false);
-        history.push("/admin/list-metu");
+        // history.push("/admin/list-metu");
       }
     }
   };

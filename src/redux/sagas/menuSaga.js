@@ -136,18 +136,39 @@ function* getLoadInput({ payload }) {
   }
 }
 function* fetchUpdateMenu({ data }) {
+  debugger;
   try {
     yield put(fetchListMenusRequest());
     const response = yield call(getApi2, [`/menu`, data.data.menu[0]]);
     yield put(fetchListMenusSuccess(response));
     yield put(fetchListMenusRequest());
-
+    let response1;
     for (let i = 0; i < data.data.buttons.length; i++) {
-      const response1 = yield call(getApi2, [`/button`, data.data.buttons[i]]);
+      response1 = yield call(getApi2, [`/button`, data.data.buttons[i]]);
       yield put(fetchListMenusSuccess(response1));
+    }
+    if (response.status == 200 && response1.status == 200) {
+      yield put(fetchListMenusSuccess());
+      data.history.push("/admin/list-menu");
+      data.Swal.fire({
+        position: "center",
+        icon: "success",
+        title: "Sửa Menu thành công",
+        showConfirmButton: false,
+        timer: 1000,
+      });
     }
   } catch (error) {
     yield put(fetchListMenusFailed(error));
+    yield put(fetchListMenusFailed(error));
+    data.history.push("/admin/list-menu");
+    data.Swal.fire({
+      position: "center",
+      icon: "error",
+      title: "Có lỗi xin mời bạn thử lại",
+      showConfirmButton: false,
+      timer: 1000,
+    });
   }
 }
 function* checkTotalMenu({ data }) {
@@ -164,12 +185,62 @@ function* checkTotalMenu({ data }) {
       data.Swal.fire({
         icon: "error",
         title: "Oops...",
-        text: "Tài khoản này tối đa là 10 Menu, bạn phải nâng cấp tài khoản để được tạo mới",
+        text: "Tài khoản này tối đa là 5 Menu, bạn phải nâng cấp tài khoản để được tạo mới",
         footer: '<a href="">Why do I have this issue?</a>',
       });
     }
   } catch (error) {
     yield put(fetchListMenusFailed(error));
+  }
+}
+function* createMenu({ data }) {
+  try {
+    yield put(fetchListMenusRequest());
+    const response = yield call(getApi1, [`/button`, data.data]);
+    console.log(response);
+    if (response.status == 200) {
+      yield put(fetchListMenusSuccess());
+      data.history.push("/admin/list-menu");
+      data.Swal.fire({
+        position: "center",
+        icon: "success",
+        title: "Tạo Menu thành công",
+        showConfirmButton: false,
+        timer: 1000,
+      });
+    } else {
+      yield put(fetchListMenusFailed());
+      data.history.push("/admin/list-menu");
+      data.Swal.fire({
+        position: "center",
+        icon: "error",
+        title: "Tạo Menu không thành công",
+        showConfirmButton: false,
+        timer: 1000,
+      });
+    }
+    // if (response.data == "OK") {
+    //   yield put(fetchListMenusSuccess());
+    //   data.history.push("/admin/create-menu");
+    // } else {
+    //   yield put(fetchListMenusFailed());
+    //   data.Swal.fire({
+    //     icon: "error",
+    //     title: "Oops...",
+    //     text: "Tài khoản này tối đa là 10 Menu, bạn phải nâng cấp tài khoản để được tạo mới",
+    //     footer: '<a href="">Why do I have this issue?</a>',
+    //   });
+    // }
+  } catch (error) {
+    yield put(fetchListMenusFailed(error));
+    data.history.push("/admin/list-menu");
+    data.Swal.fire({
+      position: "center",
+      icon: "error",
+      title: "Có lỗi xin mời bạn thử lại",
+      showConfirmButton: false,
+      timer: 1000,
+    });
   }
 }
 // function* createInput({ payload }) {
@@ -194,6 +265,7 @@ function* menuSaga() {
   yield takeEvery(taskTypesInput.FETCH_LOAD_INPUT, getLoadInput);
   yield takeEvery(taskTypesMenus.FETCH_UPDATE_MENU, fetchUpdateMenu);
   yield takeEvery(taskTypesMenus.CHECK_TOTAL_MENU, checkTotalMenu);
+  yield takeEvery(taskTypesMenus.CREATE_MEMU, createMenu);
   // yield takeEvery(taskTypesInput.FETCH_SAVE_INPUT, createInput)
 }
 export default menuSaga;
