@@ -416,7 +416,10 @@
       const script2 = document.createElement("script");
       script2.src = "//cdn.jsdelivr.net/npm/sweetalert2@11";
       document.body.appendChild(script2);
-
+      // <script src="https://example.com/example-framework.js" crossorigin="anonymous"></script>
+      // const script3 = document.createElement("script");
+      // script3.src = "https://example.com/example-framework.js";
+      // document.head.appendChild(script3);
       // document.head.appendChild(script2);
       // document.body.appendChild(script1);
       // document.body.appendChild(script2);
@@ -426,7 +429,7 @@
       // import Swal from "sweetalert2";
 
       setShow(true);
-      fetch(`http://localhost:8080/api/v1/getModalByButton/${id}`, {
+      fetch(`http://192.168.1.7:8080/api/v1/getModalByButton/${id}`, {
         method: "POST",
       })
         .then(function (response) {
@@ -462,7 +465,9 @@
       // if (timer == "38") {
       if (!(window.name.length > 21)) {
         fetch(
-          `http://localhost:8080/api/v1/getMenuByStatus/${decode(window.name)}`,
+          `http://192.168.1.7:8080/api/v1/getMenuByStatus/${decode(
+            window.name
+          )}`,
           {
             method: "GET",
           }
@@ -499,11 +504,11 @@
               redirect: "follow",
             };
 
-            fetch("http://localhost:8080/api/v1/activityMenu", requestOptions)
+            fetch("http://192.168.1.7:8080/api/v1/activityMenu", requestOptions)
               .then((response) => response.text())
               .then((result) => console.log("getActivityMenu", result))
               .catch((error) => console.log("error", error));
-            fetch(`http://localhost:8080/api/v1/getButtonByIDMenu/${maMN}`, {
+            fetch(`http://192.168.1.7:8080/api/v1/getButtonByIDMenu/${maMN}`, {
               method: "GET",
             })
               .then(function (response) {
@@ -526,9 +531,12 @@
         console.log(decode(email));
         // const menuCode = reverseString((menuSplit).concat('MU'));
         console.log(menuSplit);
-        fetch(`http://localhost:8080/api/v1/getMenuByStatus/${decode(email)}`, {
-          method: "GET",
-        })
+        fetch(
+          `http://192.168.1.7:8080/api/v1/getMenuByStatus/${decode(email)}`,
+          {
+            method: "GET",
+          }
+        )
           .then(function (response) {
             return response.json();
           })
@@ -540,7 +548,7 @@
                 (menuSplit && menuSplit.trim())
               ) {
                 fetch(
-                  `http://localhost:8080/api/v1/getMenuByMenuCode/${menuSplit}`,
+                  `http://192.168.1.7:8080/api/v1/getMenuByMenuCode/${menuSplit}`,
                   {
                     method: "POST",
                   }
@@ -576,14 +584,14 @@
                     };
 
                     fetch(
-                      "http://localhost:8080/api/v1/activityMenu",
+                      "http://192.168.1.7:8080/api/v1/activityMenu",
                       requestOptions
                     )
                       .then((response) => response.text())
                       .then((result) => console.log("getActivityMenu", result))
                       .catch((error) => console.log("error", error));
                     fetch(
-                      `http://localhost:8080/api/v1/getButtonByIDMenu/${maMN}`,
+                      `http://192.168.1.7:8080/api/v1/getButtonByIDMenu/${maMN}`,
                       {
                         method: "GET",
                       }
@@ -643,7 +651,8 @@
             phone: createData.phone,
             emailCustomer: createData.emailCustomer,
             address: createData.address,
-            conTent: createData.notes,
+            conTent: createData.content,
+            notes: createData.notes,
             users: { email: email },
             createDate: getCurrentDate(),
           },
@@ -666,18 +675,19 @@
           headers: myHeaders,
           body: raw,
         };
-        fetch(`http://localhost:8080/api/v1/dataofcustomer`, requestOptions)
+        fetch(`http://192.168.1.7:8080/api/v1/dataofcustomer`, requestOptions)
           .then((response) => response.text())
           .then((result) => {
             console.log("saveDataCustomer", result);
             Swal.fire(
               "Thành công",
               "Bạn đã gửi thông tin thành công",
-              "question"
+              "success"
             );
           });
         setShow(false).catch((error) => console.log("error", error));
       } catch (error) {
+        Swal.fire("Lỗi hệ thống", "Lỗi hệ thống,vui lòng thử lại sau", "error");
         console.error(error);
       }
 
@@ -1152,397 +1162,413 @@
     return (
       <>
         {(() => {
-          if (displayType == "1") {
-            return (
-              <>
-                <Modals
-                  show={show}
-                  handleClose={hideModal}
-                  input={input}
-                  onHandleChange={onHandleChange}
-                  onHandleChangeInput={onHandleChangeInput}
-                  handleCreateData={handleCreateData}
-                ></Modals>
-                <div id="metu">
-                  <div
-                    style={{
-                      position: "fixed",
-                      top: "0px",
-                      left: "0px",
-                      right: "0px",
-                      zIndex: 999999,
-                    }}
-                  />
-                  <div className="mmt-container  mmt-container--full">
-                    <div className="mmt-app">
-                      {button && button.length > 0
-                        ? button.map((items) => (
-                            <>
-                              <div
-                                style={{
-                                  position: "absolute",
-                                  width: "100%",
-                                  height: "100%",
-                                  top: "0px",
-                                  left: "0px",
-                                  backgroundColor: `${items.menu.color_menu}`,
-                                  opacity: 1,
-                                  color: "rgb(255, 255, 255)",
-                                  pointerEvents: "none",
-                                  zIndex: -1,
-                                }}
-                              />
-                              <span
-                                className="mmt-menu__item"
-                                style={{ display: "flex" }}
-                                onClick={() => {
-                                  var myHeaders = new Headers();
-
-                                  myHeaders.append(
-                                    "Content-Type",
-                                    "application/json"
-                                  );
-                                  let raw = JSON.stringify({
-                                    fromUrl: window.location.href,
-                                    buttonId: items.id,
-                                    equipment:
-                                      window.screen.width > 1150 &&
-                                      window.screen.height > 800
-                                        ? 0
-                                        : 1,
-                                    ipAddress: ip_address,
-                                    languages: languages,
-                                    supplier: supplier,
-                                    userAddress: user_address,
-                                  });
-
-                                  let requestOptions = {
-                                    method: "POST",
-                                    headers: myHeaders,
-                                    body: raw,
-                                    redirect: "follow",
-                                  };
-
-                                  fetch(
-                                    "http://localhost:8080/api/v1/activityButton",
-                                    requestOptions
-                                  )
-                                    .then((response) => response.text())
-                                    .then((result) => console.log(result))
-                                    .catch((error) =>
-                                      console.log("error", error)
-                                    );
-                                }}
-                              >
-                                <div className="mt-tooltip">
-                                  {(() => {
-                                    if (items && items.typeButton == "1") {
-                                      return <> {displayType1Link(items)}</>;
-                                    } else if (
-                                      items &&
-                                      items.typeButton == "2"
-                                    ) {
-                                      return <>{displayType1Call(items)}</>;
-                                    } else if (
-                                      items &&
-                                      items.typeButton == "3"
-                                    ) {
-                                      return <>{displayType1Modal(items)}</>;
-                                    }
-                                  })()}
-                                </div>
-                              </span>
-                            </>
-                          ))
-                        : ""}
-                    </div>
-                  </div>
-                </div>
-              </>
-            );
-          } else if (displayType == "2") {
-            return (
-              <>
-                <Modals
-                  show={show}
-                  handleClose={hideModal}
-                  input={input}
-                  onHandleChange={onHandleChange}
-                  onHandleChangeInput={onHandleChangeInput}
-                  handleCreateData={handleCreateData}
-                ></Modals>
-                <div id="metu">
-                  <div
-                    style={{
-                      position: "fixed",
-                      top: "0px",
-                      left: "0px",
-                      right: "0px",
-                      zIndex: 999999,
-                    }}
-                  />
-                  <div className="mmt-container  mmt-container--fit">
-                    <div className="mmt-app">
-                      {button && button.length > 0
-                        ? button.map((items) => (
-                            <>
-                              <div
-                                style={{
-                                  position: "absolute",
-                                  width: "100%",
-                                  height: "100%",
-                                  top: "0px",
-                                  left: "0px",
-                                  backgroundColor: `${items.menu.color_menu}`,
-                                  opacity: 1,
-                                  color: "rgb(255, 255, 255)",
-                                  pointerEvents: "none",
-                                  zIndex: -1,
-                                }}
-                              />
-                              <span
-                                className="mmt-menu__item"
-                                style={{ display: "flex" }}
-                                onClick={() => {
-                                  var myHeaders = new Headers();
-
-                                  myHeaders.append(
-                                    "Content-Type",
-                                    "application/json"
-                                  );
-                                  let raw = JSON.stringify({
-                                    fromUrl: window.location.href,
-                                    buttonId: items.id,
-                                    equipment:
-                                      window.screen.width > 1150 &&
-                                      window.screen.height > 800
-                                        ? 0
-                                        : 1,
-                                    ipAddress: ip_address,
-                                    languages: languages,
-                                    supplier: supplier,
-                                    userAddress: user_address,
-                                  });
-
-                                  let requestOptions = {
-                                    method: "POST",
-                                    headers: myHeaders,
-                                    body: raw,
-                                    redirect: "follow",
-                                  };
-
-                                  fetch(
-                                    "http://localhost:8080/api/v1/activityButton",
-                                    requestOptions
-                                  )
-                                    .then((response) => response.text())
-                                    .then((result) => console.log(result))
-                                    .catch((error) =>
-                                      console.log("error", error)
-                                    );
-                                }}
-                              >
-                                <div className="mt-tooltip">
-                                  {(() => {
-                                    if (items && items.typeButton == "1") {
-                                      return <> {displayType2Link(items)}</>;
-                                    } else if (
-                                      items &&
-                                      items.typeButton == "2"
-                                    ) {
-                                      return <>{displayType2Call(items)}</>;
-                                    } else if (
-                                      items &&
-                                      items.typeButton == "3"
-                                    ) {
-                                      return <>{displayType2Modal(items)}</>;
-                                    }
-                                  })()}
-                                  {/* {items.captionContent && (
-                                    <div className="mt-tooltip_text">
-                                      <span>{items.captionContent}</span>
-                                    </div>
-                                  )} */}
-                                </div>
-                              </span>
-                            </>
-                          ))
-                        : ""}
-                    </div>
-                  </div>{" "}
-                </div>
-              </>
-            );
-          } else if (displayType == "3") {
-            return (
-              <>
-                <Modals
-                  show={show}
-                  handleClose={hideModal}
-                  input={input}
-                  onHandleChange={onHandleChange}
-                  onHandleChangeInput={onHandleChangeInput}
-                  handleCreateData={handleCreateData}
-                ></Modals>
-                <div className="mmt-container">
-                  <div
-                    className={`mmt-app mmt-app--circle ${viewDisplayV2(
-                      displayTypeV2
-                    )}`}
-                  >
-                    {button && button.length > 0
-                      ? button.map((items) => (
-                          <>
-                            {/* <div style={{
-                                        position: 'absolute', width: '100%', height: '100%', top: '0px', left: '0px',
-                                        backgroundColor: `${dataColorMenu ? dataColorMenu : ""}`, opacity: 1, color: 'rgb(255, 255, 255)', pointerEvents: 'none', zIndex: -1
-                                    }} /> */}
-                            <span
-                              className="mmt-menu__item"
-                              style={{ display: "flex" }}
-                              onClick={() => {
-                                var myHeaders = new Headers();
-
-                                myHeaders.append(
-                                  "Content-Type",
-                                  "application/json"
-                                );
-                                let raw = JSON.stringify({
-                                  fromUrl: window.location.href,
-                                  buttonId: items.id,
-                                  equipment:
-                                    window.screen.width > 1150 &&
-                                    window.screen.height > 800
-                                      ? 0
-                                      : 1,
-                                  ipAddress: ip_address,
-                                  languages: languages,
-                                  supplier: supplier,
-                                  userAddress: user_address,
-                                });
-
-                                let requestOptions = {
-                                  method: "POST",
-                                  headers: myHeaders,
-                                  body: raw,
-                                  redirect: "follow",
-                                };
-
-                                fetch(
-                                  "http://localhost:8080/api/v1/activityButton",
-                                  requestOptions
-                                )
-                                  .then((response) => response.text())
-                                  .then((result) => console.log(result))
-                                  .catch((error) =>
-                                    console.log("error", error)
-                                  );
+          if (window.screen.width > 950 && window.screen.height > 700) {
+            if (timer >= fromDisplayTime && timer < toDisplayTime) {
+              return (
+                <>
+                  {(() => {
+                    if (displayType == "1") {
+                      return (
+                        <>
+                          <Modals
+                            show={show}
+                            handleClose={hideModal}
+                            input={input}
+                            onHandleChange={onHandleChange}
+                            onHandleChangeInput={onHandleChangeInput}
+                            handleCreateData={handleCreateData}
+                          ></Modals>
+                          <div id="metu">
+                            <div
+                              style={{
+                                position: "fixed",
+                                top: "0px",
+                                left: "0px",
+                                right: "0px",
+                                zIndex: 999999,
                               }}
-                            >
-                              {/* <div className="mt-tooltip"> */}
-                              {(() => {
-                                if (items && items.typeButton == "1") {
-                                  return <> {displayType3Link(items)}</>;
-                                } else if (items && items.typeButton == "2") {
-                                  return <>{displayType3Call(items)}</>;
-                                } else if (items && items.typeButton == "3") {
-                                  return <>{displayType3Modal(items)}</>;
-                                }
-                              })()}
-                            </span>
-                          </>
-                        ))
-                      : ""}
-                  </div>
-                </div>
-              </>
-            );
-          } else if (displayType === "4") {
-            return (
-              <>
-                <Modals
-                  show={show}
-                  handleClose={hideModal}
-                  input={input}
-                  onHandleChange={onHandleChange}
-                  onHandleChangeInput={onHandleChangeInput}
-                  handleCreateData={handleCreateData}
-                ></Modals>
-                <div className="mmt-container">
-                  <div
-                    className={`mmt-app mmt-app--circle ${viewDisplayV2(
-                      displayTypeV2
-                    )} `}
-                  >
-                    {button && button.length > 0
-                      ? button.map((items) => (
-                          <>
-                            {/* <div style={{
-                                            position: 'absolute', width: '100%', height: '100%', top: '0px', left: '0px',
-                                            backgroundColor: `${dataColorMenu ? dataColorMenu : ""}`, opacity: 1, color: 'rgb(255, 255, 255)', pointerEvents: 'none', zIndex: -1
-                                        }} /> */}
-                            <span
-                              className="mmt-menu__item"
-                              style={{ display: "flex" }}
-                              onClick={() => {
-                                var myHeaders = new Headers();
-
-                                myHeaders.append(
-                                  "Content-Type",
-                                  "application/json"
-                                );
-                                let raw = JSON.stringify({
-                                  fromUrl: window.location.href,
-                                  buttonId: items.id,
-                                  equipment:
-                                    window.screen.width > 1150 &&
-                                    window.screen.height > 800
-                                      ? 0
-                                      : 1,
-                                  ipAddress: ip_address,
-                                  languages: languages,
-                                  supplier: supplier,
-                                  userAddress: user_address,
-                                });
-
-                                let requestOptions = {
-                                  method: "POST",
-                                  headers: myHeaders,
-                                  body: raw,
-                                  redirect: "follow",
-                                };
-
-                                fetch(
-                                  "http://localhost:8080/api/v1/activityButton",
-                                  requestOptions
-                                )
-                                  .then((response) => response.text())
-                                  .then((result) => console.log(result))
-                                  .catch((error) =>
-                                    console.log("error", error)
-                                  );
+                            />
+                            <div className="mmt-container  mmt-container--full">
+                              <div className="mmt-app">
+                                {button && button.length > 0
+                                  ? button.map((items) => (
+                                      <>
+                                        <div
+                                          style={{
+                                            position: "absolute",
+                                            width: "100%",
+                                            height: "100%",
+                                            top: "0px",
+                                            left: "0px",
+                                            backgroundColor: `${items.menu.color_menu}`,
+                                            opacity: `${
+                                              items.menu.opacity
+                                                ? items.menu.opacity
+                                                : "1"
+                                            }`,
+                                            color: "rgb(255, 255, 255)",
+                                            pointerEvents: "none",
+                                            zIndex: -1,
+                                          }}
+                                        />
+                                        <span
+                                          className="mmt-menu__item"
+                                          style={{ display: "flex" }}
+                                        >
+                                          <div className="mt-tooltip">
+                                            {(() => {
+                                              if (
+                                                items &&
+                                                items.typeButton == "1"
+                                              ) {
+                                                return (
+                                                  <>
+                                                    {" "}
+                                                    {displayType1Link(items)}
+                                                  </>
+                                                );
+                                              } else if (
+                                                items &&
+                                                items.typeButton == "2"
+                                              ) {
+                                                return (
+                                                  <>{displayType1Call(items)}</>
+                                                );
+                                              } else if (
+                                                items &&
+                                                items.typeButton == "3"
+                                              ) {
+                                                return (
+                                                  <>
+                                                    {displayType1Modal(items)}
+                                                  </>
+                                                );
+                                              }
+                                            })()}
+                                          </div>
+                                        </span>
+                                      </>
+                                    ))
+                                  : ""}
+                              </div>
+                            </div>
+                          </div>
+                        </>
+                      );
+                    } else if (displayType == "2") {
+                      return (
+                        <>
+                          <Modals
+                            show={show}
+                            handleClose={hideModal}
+                            input={input}
+                            onHandleChange={onHandleChange}
+                            onHandleChangeInput={onHandleChangeInput}
+                            handleCreateData={handleCreateData}
+                          ></Modals>
+                          <div id="metu">
+                            <div
+                              style={{
+                                position: "fixed",
+                                top: "0px",
+                                left: "0px",
+                                right: "0px",
+                                zIndex: 999999,
                               }}
+                            />
+                            <div className="mmt-container  mmt-container--fit">
+                              <div className="mmt-app">
+                                {button && button.length > 0
+                                  ? button.map((items) => (
+                                      <>
+                                        <div
+                                          style={{
+                                            position: "absolute",
+                                            width: "100%",
+                                            height: "100%",
+                                            top: "0px",
+                                            left: "0px",
+                                            backgroundColor: `${items.menu.color_menu}`,
+                                            opacity: `${
+                                              items.menu.opacity
+                                                ? items.menu.opacity
+                                                : "1"
+                                            }`,
+                                            color: "rgb(255, 255, 255)",
+                                            pointerEvents: "none",
+                                            zIndex: -1,
+                                          }}
+                                        />
+                                        <span
+                                          className="mmt-menu__item"
+                                          style={{ display: "flex" }}
+                                        >
+                                          <div className="mt-tooltip">
+                                            {(() => {
+                                              if (
+                                                items &&
+                                                items.typeButton == "1"
+                                              ) {
+                                                return (
+                                                  <>
+                                                    {" "}
+                                                    {displayType2Link(items)}
+                                                  </>
+                                                );
+                                              } else if (
+                                                items &&
+                                                items.typeButton == "2"
+                                              ) {
+                                                return (
+                                                  <>{displayType2Call(items)}</>
+                                                );
+                                              } else if (
+                                                items &&
+                                                items.typeButton == "3"
+                                              ) {
+                                                return (
+                                                  <>
+                                                    {displayType2Modal(items)}
+                                                  </>
+                                                );
+                                              }
+                                            })()}
+                                            {/* {items.captionContent && (
+                                      <div className="mt-tooltip_text">
+                                        <span>{items.captionContent}</span>
+                                      </div>
+                                    )} */}
+                                          </div>
+                                        </span>
+                                      </>
+                                    ))
+                                  : ""}
+                              </div>
+                            </div>{" "}
+                          </div>
+                        </>
+                      );
+                    } else if (displayType == "3") {
+                      return (
+                        <>
+                          <Modals
+                            show={show}
+                            handleClose={hideModal}
+                            input={input}
+                            onHandleChange={onHandleChange}
+                            onHandleChangeInput={onHandleChangeInput}
+                            handleCreateData={handleCreateData}
+                          ></Modals>
+                          <div className="mmt-container">
+                            <div
+                              className={`mmt-app mmt-app--circle ${viewDisplayV2(
+                                displayTypeV2
+                              )}`}
                             >
-                              {/* <div className="mt-tooltip"> */}
-                              {(() => {
-                                if (items && items.typeButton == "1") {
-                                  return <> {displayType4Link(items)}</>;
-                                } else if (items && items.typeButton == "2") {
-                                  return <>{displayType4Call(items)}</>;
-                                } else if (items && items.typeButton == "3") {
-                                  return <>{displayType4Modal(items)}</>;
-                                }
-                              })()}
+                              {button && button.length > 0
+                                ? button.map((items) => (
+                                    <>
+                                      {/* <div style={{
+                                          position: 'absolute', width: '100%', height: '100%', top: '0px', left: '0px',
+                                          backgroundColor: `${dataColorMenu ? dataColorMenu : ""}`, opacity: 1, color: 'rgb(255, 255, 255)', pointerEvents: 'none', zIndex: -1
+                                      }} /> */}
+                                      <span
+                                        className="mmt-menu__item"
+                                        style={{ display: "flex" }}
+                                      >
+                                        {/* <div className="mt-tooltip"> */}
+                                        {(() => {
+                                          if (
+                                            items &&
+                                            items.typeButton == "1"
+                                          ) {
+                                            return (
+                                              <> {displayType3Link(items)}</>
+                                            );
+                                          } else if (
+                                            items &&
+                                            items.typeButton == "2"
+                                          ) {
+                                            return (
+                                              <>{displayType3Call(items)}</>
+                                            );
+                                          } else if (
+                                            items &&
+                                            items.typeButton == "3"
+                                          ) {
+                                            return (
+                                              <>{displayType3Modal(items)}</>
+                                            );
+                                          }
+                                        })()}
+                                      </span>
+                                    </>
+                                  ))
+                                : ""}
+                            </div>
+                          </div>
+                        </>
+                      );
+                    } else if (displayType === "4") {
+                      return (
+                        <>
+                          <Modals
+                            show={show}
+                            handleClose={hideModal}
+                            input={input}
+                            onHandleChange={onHandleChange}
+                            onHandleChangeInput={onHandleChangeInput}
+                            handleCreateData={handleCreateData}
+                          ></Modals>
+                          <div className="mmt-container">
+                            <div
+                              className={`mmt-app mmt-app--circle ${viewDisplayV2(
+                                displayTypeV2
+                              )} `}
+                            >
+                              {button && button.length > 0
+                                ? button.map((items) => (
+                                    <>
+                                      {/* <div style={{
+                                              position: 'absolute', width: '100%', height: '100%', top: '0px', left: '0px',
+                                              backgroundColor: `${dataColorMenu ? dataColorMenu : ""}`, opacity: 1, color: 'rgb(255, 255, 255)', pointerEvents: 'none', zIndex: -1
+                                          }} /> */}
+                                      <span
+                                        onClick={() => onclick(items.id_button)}
+                                        className="mmt-menu__item"
+                                        style={{ display: "flex" }}
+                                      >
+                                        {/* <div className="mt-tooltip"> */}
+                                        {(() => {
+                                          if (
+                                            items &&
+                                            items.typeButton == "1"
+                                          ) {
+                                            return (
+                                              <> {displayType4Link(items)}</>
+                                            );
+                                          } else if (
+                                            items &&
+                                            items.typeButton == "2"
+                                          ) {
+                                            return (
+                                              <>{displayType4Call(items)}</>
+                                            );
+                                          } else if (
+                                            items &&
+                                            items.typeButton == "3"
+                                          ) {
+                                            return (
+                                              <>{displayType4Modal(items)}</>
+                                            );
+                                          }
+                                        })()}
 
-                              {/* </div> */}
-                            </span>
-                          </>
-                        ))
-                      : ""}
-                  </div>
-                </div>
-              </>
-            );
+                                        {/* </div> */}
+                                      </span>
+                                    </>
+                                  ))
+                                : ""}
+                            </div>
+                          </div>
+                        </>
+                      );
+                    }
+                  })()}
+                </>
+              );
+            }
+          } else {
+            if (timer >= fromDisplayTime && timer < toDisplayTime) {
+              return (
+                <>
+                  {(() => {
+                    return (
+                      <>
+                        <Modals
+                          show={show}
+                          handleClose={hideModal}
+                          input={input}
+                          onHandleChange={onHandleChange}
+                          onHandleChangeInput={onHandleChangeInput}
+                          handleCreateData={handleCreateData}
+                        ></Modals>
+                        <div id="metu">
+                          <div
+                            style={{
+                              position: "fixed",
+                              top: "0px",
+                              left: "0px",
+                              right: "0px",
+                              zIndex: 999999,
+                            }}
+                          />
+                          <div className="mmt-container  mmt-container--full">
+                            <div className="mmt-app">
+                              {button && button.length > 0
+                                ? button.map((items) => (
+                                    <>
+                                      <div
+                                        style={{
+                                          position: "absolute",
+                                          width: "100%",
+                                          height: "100%",
+                                          top: "0px",
+                                          left: "0px",
+                                          backgroundColor: `${items.menu.color_menu}`,
+                                          opacity: `${
+                                            items.menu.opacity
+                                              ? items.menu.opacity
+                                              : "1"
+                                          }`,
+                                          color: "rgb(255, 255, 255)",
+                                          pointerEvents: "none",
+                                          zIndex: -1,
+                                        }}
+                                      />
+                                      <span
+                                        className="mmt-menu__item"
+                                        style={{ display: "flex" }}
+                                      >
+                                        <div className="mt-tooltip">
+                                          {(() => {
+                                            if (
+                                              items &&
+                                              items.typeButton == "1"
+                                            ) {
+                                              return (
+                                                <> {displayType1Link(items)}</>
+                                              );
+                                            } else if (
+                                              items &&
+                                              items.typeButton == "2"
+                                            ) {
+                                              return (
+                                                <>{displayType1Call(items)}</>
+                                              );
+                                            } else if (
+                                              items &&
+                                              items.typeButton == "3"
+                                            ) {
+                                              return (
+                                                <>{displayType1Modal(items)}</>
+                                              );
+                                            }
+                                          })()}
+                                        </div>
+                                      </span>
+                                    </>
+                                  ))
+                                : ""}
+                            </div>
+                          </div>
+                        </div>
+                      </>
+                    );
+                  })()}
+                </>
+              );
+            }
           }
         })()}
       </>
@@ -1624,7 +1650,7 @@
                       className="mt-textfield"
                       onChange={onHandleChange}
                       name="fullName"
-                      placeholder="Fullname"
+                      placeholder="Họ và tên"
                       style={{ marginTop: "16px" }}
                     />
                     <input
@@ -1652,14 +1678,14 @@
                       className="mt-textfield"
                       onChange={onHandleChange}
                       name="address"
-                      placeholder="Address"
+                      placeholder="Địa chỉ"
                       style={{ marginTop: "16px" }}
                     />
                     <input
                       className="mt-textfield"
                       onChange={onHandleChange}
-                      name="notes"
-                      placeholder="Content"
+                      name="content"
+                      placeholder="Nội Dung"
                       style={{ marginTop: "16px" }}
                     />
                     <div
@@ -1674,6 +1700,27 @@
                     >
                       Nội dung chưa đúng
                     </div>
+
+                    <input
+                      onChange={onHandleChange}
+                      name="notes"
+                      className="mt-textfield"
+                      placeholder="Ghi Chú"
+                      style={{ marginTop: "16px" }}
+                    />
+                    <div
+                      style={{
+                        display: "none",
+                        fontSize: "12px",
+                        textAlign: "left",
+                        color: "rgb(244, 67, 54)",
+                        margin: "0px",
+                        padding: "0px",
+                      }}
+                    >
+                      Ghi chú
+                    </div>
+
                     {input &&
                       input.length > 0 &&
                       input.map((items) => {

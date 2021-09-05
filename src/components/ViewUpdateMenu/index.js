@@ -27,7 +27,7 @@ import {
   saveDisplayMenu,
   saveDisplayMenuV2,
 } from "../../redux/actions/displayMenuAction";
-
+import Swal from "sweetalert2";
 export function useStyle() {
   return <> text-blue-500 border-b-2 font-medium border-blue-500</>;
 }
@@ -116,6 +116,7 @@ export default function ViewUpdateMenu() {
   const [displayActive, setDisplayActive] = useState();
   const [dataEditMenu, setDataEditMenu] = useState();
   const dispatch = useDispatch();
+  let history = useHistory();
   // useEffect(() => {
   //   dispatch(viewPost(id));
   // }, []);
@@ -530,7 +531,7 @@ export default function ViewUpdateMenu() {
         color_icon: dataButton[i].color_icon,
         link: dataButton[i].link,
         icon: dataButton[i].icon,
-        TypeButton: dataButton[i].typeButton,
+        typeButton: dataButton[i].typeButton,
         captionContent: dataButton[i].captionContent,
       };
       data.buttons.push(button);
@@ -544,7 +545,7 @@ export default function ViewUpdateMenu() {
       data.modal.push(modal);
     }
     console.log(data);
-    dispatch(fetchUpdateMenu({ data }));
+    dispatch(fetchUpdateMenu({ data, history, Swal }));
   };
   const viewDisplayLeft = () => {
     return (
@@ -707,7 +708,7 @@ export default function ViewUpdateMenu() {
     <>
       <div className=" bg-white p-6 rounded shadow-xl lg:h-full lg:w-full w-screen mb-3 lg:my-0 ">
         <div className="text-2xl mt-3 text-black font-semibold antialiased tracking-normal justify-between">
-          <button>Tạo Menu</button>
+          <button>Sửa Menu</button>
         </div>
         <div className="flex mt-3 border-b-2 border-gray-200 pb-3">
           <Link

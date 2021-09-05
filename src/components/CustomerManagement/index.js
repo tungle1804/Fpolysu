@@ -769,7 +769,7 @@ function CustomerManagement({
                     type="button"
                     className="btn btn-success float-right m-3"
                   >
-                    Export Data
+                    Xuất Excel
                   </button>
                 }
               >

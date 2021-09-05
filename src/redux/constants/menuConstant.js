@@ -7,3 +7,4 @@ export const SAVE_DATA_MENU = "SAVE_DATA_MENU";
 export const FETCH_UPDATE_MENU = "FETCH_UPDATE_MENu";
 export const UPDATE_MENU = "UPDATE_MENU";
 export const CHECK_TOTAL_MENU = "CHECK_TOTAL_MENUs";
+export const CREATE_MEMU = "CREATE_MEMU";
