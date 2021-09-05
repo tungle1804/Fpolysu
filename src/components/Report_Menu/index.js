@@ -8,7 +8,7 @@ import {
   CPagination,
   CCardHeader,
   CCardBody,
-  CCardFooter,
+  CButton,
   CRow,
   CBadge,
 } from "@coreui/react";
@@ -32,9 +32,11 @@ function Report_Menu() {
 
   const [startDate, setStartDate] = useState(new Date("2021-08-01"));
   const [endDate, setEndDate] = useState(new Date());
+  const [buttonByUrl, setButtonByUrl] = useState([]);
 
   const arr = [];
-
+  let rs = [];
+  let rs2 = [];
   const getListMenu = async () => {
     var config = {
       method: "get",
@@ -66,14 +68,15 @@ function Report_Menu() {
       header,
       data: data,
     };
-
-    axios(config)
-      .then(function (response) {
-        setListCalender(response.data);
-      })
-      .catch(function (error) {
-        console.log(error);
-      });
+    if (startDate && endDate) {
+      axios(config)
+        .then(function (response) {
+          setListCalender(response.data);
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+    }
   };
 
   const getDataMenu = () => {
@@ -86,14 +89,15 @@ function Report_Menu() {
         .slice(0, 10)}&menuId=${menuId}`,
       header,
     };
-
-    axios(config)
-      .then(function (response) {
-        setDataMenu(response.data.content);
-      })
-      .catch(function (error) {
-        console.log(error);
-      });
+    if (menuId) {
+      axios(config)
+        .then(function (response) {
+          setDataMenu(response.data.content);
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+    }
   };
   const getDataActionOfMenuByDay = () => {
     const baseHref =
@@ -105,37 +109,84 @@ function Report_Menu() {
         .slice(0, 10)}&end=${endDate.toISOString().slice(0, 10)}`,
 
       header,
-      data: data,
     };
-
-    axios(config)
-      .then(function (response) {
-        setDataActionOfMenuByDay(response.data);
-      })
-      .catch(function (error) {
-        console.log(error);
-      });
+    if (menuId) {
+      axios(config)
+        .then(function (response) {
+          setDataActionOfMenuByDay(response.data);
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+    }
   };
 
   const getDataClickByUrl = () => {
     var config = {
       method: "get",
-      url: `http://localhost:8080/api/v1/countTotalClickBuFromUrl?email=${username}&start=${startDate
+      url: `http://localhost:8080/api/v1/countTotalClickBuFromUrl?email=${username}&idMenu=${menuId}&start=${startDate
         .toISOString()
         .slice(0, 10)}&end=${endDate.toISOString().slice(0, 10)}`,
       header,
     };
 
+    axios(config).then(function (response) {
+      setData(response.data.content);
+      setTotalRecord(response.data.totalElements);
+      setTotalPage(response.data.totalPages);
+      //  console.log("thuis is datat:   ", response.data.content);
+      // data.map((item) => {
+      //   rs.push(item);
+    });
+    data.map((item) => {
+      var config = {
+        method: "get",
+        url: `http://localhost:8080/api/v1/statisticsActivityOfOneButtonByAddress?email=${username}&url=${item[0]}`,
+        header,
+      };
+      axios(config)
+        .then(function (response) {
+          const d = response.data;
+          rs.push(d);
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+    });
+    setButtonByUrl(rs);
+    console.log("rs", buttonByUrl[0]);
+  };
+  const getButtons = (url) => {
+    var config = {
+      method: "get",
+      url: `http://localhost:8080/api/v1/statisticsActivityOfOneButtonByAddress?email=${username}&url=${url}`,
+      header,
+    };
+
     axios(config)
       .then(function (response) {
-        setData(response.data.content);
-        setTotalRecord(response.data.totalElements);
-
-        setTotalPage(response.data.totalPages);
+        const data = response.data;
+        setButtonByUrl(data);
       })
       .catch(function (error) {
         console.log(error);
       });
+
+    buttonByUrl.map((it, index) => {
+      return (
+        <CButton
+          className="col-2"
+          key={index}
+          size="sm"
+          shape="pill"
+          color="primary"
+          className="m-2"
+          backgroundColor="infor"
+        >
+          {it[0]} : {it[1]}
+        </CButton>
+      );
+    });
   };
 
   useEffect(() => {
@@ -147,7 +198,7 @@ function Report_Menu() {
     getListCalenderbyTimeRange();
     getDataActionOfMenuByDay();
     getDataClickByUrl();
-  }, [menuId, startDate, endDate]);
+  }, [menuId, startDate, endDate, pageNo, limit]);
 
   return (
     <CContainer>
@@ -170,7 +221,6 @@ function Report_Menu() {
                 placeholder="Chọn Menu"
                 onChange={(e) => {
                   setMenuId(e.value);
-                  console.log("this menu select", e.value);
                 }}
               />
             </CCardBody>
@@ -208,10 +258,12 @@ function Report_Menu() {
               <CBadge color="primary">{dataMenu}</CBadge>
             </h1>
           </CCardBody>
-          <CCardFooter></CCardFooter>
         </CCard>
 
         <CCard className="col-9">
+          <CCardHeader className="text-center font-bold">
+            Thống kê tương tác trên Menu
+          </CCardHeader>
           <CCardBody>
             <CChartBar
               datasets={[
@@ -231,12 +283,11 @@ function Report_Menu() {
           </CCardBody>
         </CCard>
       </CRow>
+      <br />
       <CCard>
-        <div className="row ">
-          <CCardHeader className="font-weight-bolder text-center bg-blue-500 col-6 offset-2">
-            Thống kê số Click đường dẫn
-          </CCardHeader>
-        </div>
+        <CCardHeader className="font-weight-bolder text-center ">
+          Thống kê số Click đường dẫn
+        </CCardHeader>
 
         <table
           className=" table table-striped table-bordered "
@@ -244,18 +295,37 @@ function Report_Menu() {
         >
           <thead>
             <tr>
-              <th>Link</th>
-              <th>Total Click</th>
+              <th className="pl-10">Link</th>
+              <th className="text-center">Total Click</th>
             </tr>
           </thead>
           <tbody>
-            {data.map((item, index) => {
+            {buttonByUrl.map((item, index) => {
               return (
                 <tr key={index}>
                   <td>
-                    <a href={item[0]}>{item[0]}</a>
+                    <a href={data[index][0]} className="row pl-3">
+                      {data[index][0]}
+                    </a>
+                    <CRow>
+                      {item.map((it) => {
+                        return (
+                          <CButton
+                            className="col-2"
+                            key={index}
+                            size="sm"
+                            shape="pill"
+                            color="primary"
+                            className="m-2"
+                            backgroundColor="infor"
+                          >
+                            {it[0]} : {it[1]}
+                          </CButton>
+                        );
+                      })}
+                    </CRow>
                   </td>
-                  <td>{item[1]}</td>
+                  <td className="text-center">{data[index][1]}</td>
                 </tr>
               );
             })}

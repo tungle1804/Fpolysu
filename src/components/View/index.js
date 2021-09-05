@@ -10,6 +10,7 @@ import { encode, reverseString } from "../../utils/index";
 import ReactPaginate from "react-paginate";
 import ReactLoading from "react-loading";
 import "./style.css";
+import "./toggles.css";
 export default function View({ posts, onlistbutton, requesting }) {
   const [radio, setRadio] = useState();
   const [listmenu, setListMenu] = useState({});

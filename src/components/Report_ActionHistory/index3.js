@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { CChartBar } from "@coreui/react-chartjs";
-import { CCard, CContainer, CCardBody, CRow } from "@coreui/react";
+import { CCard, CContainer, CCardBody, CRow, CBadge } from "@coreui/react";
 import { header, username } from "./../CommonData/data";
 import axios from "axios";
 import CustomerDatePicker from "./../CustomerDatePicker/index";
@@ -45,6 +45,7 @@ function StatisticsClickAllMenu() {
     axios(config)
       .then(function (response) {
         setDataActionOfMenuByDay(response.data);
+        console.log("data", response.data);
       })
       .catch(function (error) {
         console.log(error);
@@ -69,27 +70,27 @@ function StatisticsClickAllMenu() {
       </CRow>
 
       <hr />
-      <CRow className="container row-auto">
-        <CCard className="col-12">
-          <CCardBody>
-            <CChartBar
-              datasets={[
-                {
-                  label: "Tổng Tương tác trên Menu",
-                  backgroundColor: "#6699FF",
-                  data: dataActionOfMenuByDay,
-                },
-              ]}
-              labels={listCalender}
-              options={{
-                tooltips: {
-                  enabled: true,
-                },
-              }}
-            />
-          </CCardBody>
-        </CCard>
-      </CRow>
+
+      <CCard className="row" style={{ border: "none" }}>
+        <CCardBody>
+          <CChartBar
+            className="border-none"
+            datasets={[
+              {
+                label: "Tổng Tương tác trên toàn bộ Menu",
+                backgroundColor: "#6699FF",
+                data: dataActionOfMenuByDay,
+              },
+            ]}
+            labels={listCalender}
+            options={{
+              tooltips: {
+                enabled: true,
+              },
+            }}
+          />
+        </CCardBody>
+      </CCard>
     </CContainer>
   );
 }

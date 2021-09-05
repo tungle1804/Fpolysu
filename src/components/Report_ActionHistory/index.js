@@ -1,15 +1,23 @@
 import React, { useState, useEffect } from "react";
+import CIcon from "@coreui/icons-react";
+import { freeSet } from "@coreui/icons";
 import { header, username } from "./../CommonData/data";
 import {
   CCard,
   CPagination,
-  CInput,
+  CLabel,
   CCardFooter,
   CCardBody,
   CCardHeader,
   CRow,
   CContainer,
+  CInputGroup,
+  CInputGroupText,
+  CInputGroupPrepend,
+  CInputGroupAppend,
+  CInput,
 } from "@coreui/react";
+import Select from "react-select";
 import axios from "axios";
 import DisplayResultPagination from "./../DisplayResultPagination/DisplayResultPagination";
 import ReportRatioActivity from "./index1";
@@ -27,7 +35,30 @@ function Report_ActionHistory() {
   const [startDate, setStartDate] = useState(new Date("2020-08-01"));
   const [endDate, setEndDate] = useState(new Date());
   const [search, setSearch] = useState("");
+  const [menu, setMenu] = useState([]);
+  const [idMenu, setIdMenu] = useState();
+  let arr = [];
+  const getListMenu = () => {
+    var config = {
+      method: "get",
+      url: `http://localhost:8080/api/v1/findAllByStatusTrue?email=${username}`,
+      header,
+    };
 
+    axios(config)
+      .then(function (response) {
+        const datas = response.data;
+        arr.push({ value: "", label: "Chọn Menu" });
+        datas.map((item) => {
+          const mn = { value: item.id, label: item.name_menu };
+          arr.push(mn);
+        });
+        setMenu(arr);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  };
   const getData = async () => {
     if (pageNo === 0) {
       setPageNo(1);
@@ -42,7 +73,7 @@ function Report_ActionHistory() {
       .get(API, header)
       .then((response) => {
         setData(response.data.content);
-
+        console.log("ob:   ", data);
         setTotalRecord(response.data.totalElements);
 
         setTotalPage(response.data.totalPages);
@@ -129,10 +160,12 @@ function Report_ActionHistory() {
     if (e.key === "Enter") {
       setPageNo(1);
       setSearch(e.target.value);
+      console.log("object ::  ", search);
     }
   };
   useEffect(() => {
     setPageNo(1);
+    getListMenu();
     getDataWidget();
     getDataMenu();
   }, []);
@@ -141,32 +174,53 @@ function Report_ActionHistory() {
   }, [pageNo, limit, startDate, endDate, search]);
 
   return (
-    <CContainer style={{ marginLeft: "10px" }}>
-      <CCard>
+    <CContainer>
+      <CCard className="row">
         <CCardHeader align={"center"}>Chọn Thời gian</CCardHeader>
         <CCardBody align={"center"}>
           <StatisticsClickAllMenu></StatisticsClickAllMenu>
         </CCardBody>
         <CCardFooter></CCardFooter>
       </CCard>
-      <br />
+
       <ReportRatioActivity></ReportRatioActivity>
       <br />
       <ReportActionByEquipment></ReportActionByEquipment>
       <br />
-      <CCard>
-        <div className="row ">
-          <CInput
-            style={{ marginLeft: "12px", height: "50px" }}
-            className="col-3"
-            placeholder="Tìm kiếm theo tên,url..."
-            size="md"
-            onKeyPress={handleChange}
-          />
-          <CCardHeader className="font-weight-bolder text-center bg-blue-500 col-6 offset-2">
-            Thống kê Tương tác
-          </CCardHeader>
-        </div>
+      <CCard className="row">
+        <CLabel className="font-bold text-center pt-2">
+          Thống kê lịch sử tương tác :
+        </CLabel>
+        <CCardHeader className="row justify-content-center m-0 py-0">
+          <div className="col-4">
+            <CInputGroup>
+              <CInputGroupPrepend>
+                <CInputGroupText className={"bg-info text-white"}>
+                  Search
+                </CInputGroupText>
+              </CInputGroupPrepend>
+              <CInput
+                type="email"
+                id="username"
+                placeholder="Tìm kiếm..."
+                name="username"
+                autoComplete="name"
+                onKeyPress={handleChange}
+              />
+            </CInputGroup>
+          </div>
+          <div className="col-6 offset-2">
+            <Select
+              className="col-6"
+              name="IdMenu"
+              options={menu}
+              placeholder="Chọn Menu"
+              onChange={(e) => {
+                setIdMenu(e.value);
+              }}
+            ></Select>
+          </div>
+        </CCardHeader>
 
         <table
           className=" table table-striped table-bordered "
