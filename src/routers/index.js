@@ -56,7 +56,7 @@ export default function Routers() {
               <Route path="/admin/manage/:path?/:path?" exact>
                 <AdminManage>
                   <Switch>
-                    <Route exact path='/admin/manage/dashboard' component={AdminDashboard} />
+                    <Route exact path='' component={AdminDashboard} />
                     <Route exact path='/admin/manage/staffs' component={AdminStaff} />
                     <Route exact path='/admin/manage/customers' component={AdminCustomer} />
                     <Route exact path='/admin/manage/services-fee' component={AdminServiceFee} />

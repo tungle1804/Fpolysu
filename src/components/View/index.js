@@ -10,6 +10,8 @@ import { encode, reverseString } from "../../utils/index";
 import ReactPaginate from "react-paginate";
 import ReactLoading from "react-loading";
 import "./style.css";
+import "./toggles.css";
+import Swal from "sweetalert2/dist/sweetalert2.js";
 export default function View({ posts, onlistbutton, requesting }) {
   const [radio, setRadio] = useState();
   const [listmenu, setListMenu] = useState({});
@@ -23,20 +25,19 @@ export default function View({ posts, onlistbutton, requesting }) {
     perPage: 5,
     currentPage: 0,
   });
-  // useEffect(() => {
-  //   // setPaginate({
-  //   //   ...paginate,
-  //   //   tableData: posts.filter(post => {
-
-  //   //     return post.name_menu.toLowerCase().includes(search.toLowerCase())
-  //   //   }),
-
-  //   // })
-  //   setFilterMenu(paginate.tableData.filter(post => {
-  //     return post.name_menu.toLowerCase().includes(search.toLowerCase())
-  // }))
-
-  // }, [search]);
+  console.log(paginate);
+  useEffect(() => {
+    setPaginate({
+      ...paginate,
+      tableData: posts.filter((post) => {
+        return post.name_menu.toLowerCase().includes(search.toLowerCase());
+      }),
+    });
+    //   setFilterMenu(paginate.tableData.filter(post => {
+    //     return post.name_menu.toLowerCase().includes(search.toLowerCase())
+    // }
+    // ))
+  }, [search]);
   useEffect(() => {
     // ProductService.getProducts().then(res => {
 
@@ -63,6 +64,7 @@ export default function View({ posts, onlistbutton, requesting }) {
     });
   }, [posts]);
   const handlePageClick = (e) => {
+    setSearch("");
     // console.log(paginate.orgtableData)
     const selectedPage = e.selected;
     const offset = selectedPage * paginate.perPage;
@@ -132,6 +134,7 @@ export default function View({ posts, onlistbutton, requesting }) {
               type="text"
               className="w-full h-10 px-2 text-gray-500 border rounded text-xs"
               placeholder="Tìm Kiếm Menu ..."
+              value={search}
             />
           </div>
           <div className="bg-white mt-4 rounded">
@@ -216,7 +219,54 @@ export default function View({ posts, onlistbutton, requesting }) {
                         </div>
                         <div className="flex px-3 justify-between">
                           <div className="flex">
-                            <div className="bg-red-500 rounded h-4 w-4 p-1">
+                            <i
+                              class="fa fa-clock mr-2"
+                              style={{ fontSize: "20px" }}
+                            ></i>
+                            <span
+                              style={{ fontFamily: "Font Awesome 5 Brands" }}
+                            >
+                              {(() => {
+                                return (
+                                  <>
+                                    {String(
+                                      (String(res.fromDisplayTime).slice(0, -2)
+                                        .length > 0
+                                        ? String(res.fromDisplayTime).slice(
+                                            0,
+                                            -2
+                                          )
+                                        : "0") +
+                                        ":" +
+                                        String(res.fromDisplayTime).slice(-2)
+                                    )}
+                                  </>
+                                );
+                              })()}
+                              -
+                            </span>
+                            <span
+                              style={{ fontFamily: "Font Awesome 5 Brands" }}
+                            >
+                              {(() => {
+                                return (
+                                  <>
+                                    {String(
+                                      (String(res.toDisplayTime).slice(0, -2)
+                                        .length > 0
+                                        ? String(res.toDisplayTime).slice(0, -2)
+                                        : "0") +
+                                        ":" +
+                                        (String(res.toDisplayTime).slice(-2) ==
+                                        "60"
+                                          ? "59"
+                                          : String(res.toDisplayTime).slice(-2))
+                                    )}
+                                  </>
+                                );
+                              })()}
+                            </span>
+                            {/* <div className="bg-red-500 rounded h-4 w-4 p-1">
                               <svg
                                 className="h-2 w-2 text-white"
                                 fill="currentColor "
@@ -231,11 +281,11 @@ export default function View({ posts, onlistbutton, requesting }) {
                             </div>
                             <div className="font-bold text-gray-500 ml-1 text-xs">
                               NITSWEBAPP-01
-                            </div>
+                            </div> */}
                           </div>
 
                           <Link
-                            to={`/admin/update-menu/${res.id_menu}`}
+                            to={`/admin/update-menu/${res.id}`}
                             class=" inline-flex items-center justify-center px-4 py-2 text-base leading-5 rounded-md border font-medium shadow-sm transition ease-in-out duration-150 focus:outline-none focus:shadow-outline bg-blue-600 border-blue-600 text-gray-100 hover:bg-blue-500 hover:border-blue-500 hover:text-gray-100"
                           >
                             <svg
@@ -293,13 +343,18 @@ export default function View({ posts, onlistbutton, requesting }) {
                                         data.status = checked;
                                       }
                                       MenuService.updateMenu(data, data.id);
-                                      // setRadio(data.status)
-                                      console.log(data);
-
+                                      Swal.fire({
+                                        position: "top-end",
+                                        icon: "success",
+                                        title: "Cập nhật thành công",
+                                        showConfirmButton: false,
+                                        timer: 1500,
+                                      });
                                       return data;
                                     });
                                   }}
                                   checked={res.status}
+                                  // defaultChecked="true"
                                 ></input>
 
                                 <div className="toggle__line w-10 h-4 bg-gray-400 rounded-full shadow-inner" />

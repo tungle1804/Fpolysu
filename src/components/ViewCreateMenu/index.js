@@ -1,4 +1,4 @@
-import React, { useContext, useState, useRef } from "react";
+import React, { useContext, useState, useRef, useEffect } from "react";
 import ModalComponent from "../ModalComponent";
 import { Modal, Button, Form } from "react-bootstrap";
 import { Link, useHistory } from "react-router-dom";
@@ -8,12 +8,14 @@ import { ButtonContext } from "../../service/ButtonContext";
 import CreateDetailsMenu from "../CreateDetailsMenu";
 import WelcomeBack from "../viewtest/WelcomeBack";
 import ButtonFake from "../../service/ButtonFake";
+import Slider from "@material-ui/core/Slider";
 import { useDispatch, useSelector } from "react-redux";
 import { createButton } from "../../redux/actions/createbuttonAction";
 import Swal from "sweetalert2";
 // import TabsRender from './location';
 import Modals from "./Modals";
 import { InputContext } from "../../service/InputContext";
+import Tooltip from "@material-ui/core/Tooltip";
 import {
   CreateInput,
   fetchClearInput,
@@ -22,7 +24,11 @@ import {
   saveDataInputTotal,
 } from "../../redux/actions/InputAction";
 import { SketchPicker } from "react-color";
-import { saveBackgroundColor } from "../../redux/actions/backgroundColorAction";
+import {
+  saveBackgroundColor,
+  saveOpacityMenu,
+} from "../../redux/actions/backgroundColorAction";
+import moment from "moment";
 import {
   saveDisplayMenu,
   saveDisplayMenuV2,
@@ -37,10 +43,10 @@ import Grid from "@material-ui/core/Grid";
 import DateFnsUtils from "@date-io/date-fns";
 import "./style.css";
 import { makeid } from "../../utils/index.js";
-
+import Moment from "react-moment";
 // import 'bootstrap/dist/css/bootstrap.css';
-import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
-import Tooltip from 'react-bootstrap/Popover'
+import OverlayTrigger from "react-bootstrap/OverlayTrigger";
+
 // import Button from 'react-bootstrap/Button';
 
 export function useStyle() {
@@ -51,9 +57,9 @@ export default function ViewCreateMenu() {
   const innistall = {
     displayColorPicker: false,
     color: {
-      r: "241",
-      g: "113",
-      b: "19",
+      r: null,
+      g: null,
+      b: null,
     },
   };
   const initstateText = {
@@ -87,6 +93,7 @@ export default function ViewCreateMenu() {
     color_background: null,
     color_icon: null,
     link: null,
+    captionContent: null,
   };
 
   const style = useStyle().props.children;
@@ -114,18 +121,22 @@ export default function ViewCreateMenu() {
   const [colorText, setColorText] = useState(initstateText);
   const [colorBackground, setColorBackground] = useState(initstateBackground);
   const [colorIcon, setColorIcon] = useState(initstateIcon);
-  const [selectedDate, setSelectedDate] = useState(
-    new Date("2014-08-18T21:11:54")
-  );
+  const [selectedFromTime, setSelectedFromTime] = useState(0);
+  const [selectedToTime, setSelectedToTime] = useState(2360);
+  const [seletedValidateFrom, setSeletedValidateFrom] = useState();
+  const [seletedValidateTo, setSeletedValidateTo] = useState();
   const [typeButton, setTypeButton] = useState();
+  const [valueOpacity, setValueOpacity] = useState(1);
 
   const styles = {
     color: {
       width: "36px",
       height: "14px",
       borderRadius: "2px",
-      background: `rgba(${colorPicker.color && colorPicker.color.r}, ${colorPicker.color && colorPicker.color.g
-        }, ${colorPicker.color && colorPicker.color.b})`,
+      border: "1px solid darkslategrey",
+      background: `rgba(${colorPicker.color && colorPicker.color.r}, ${
+        colorPicker.color && colorPicker.color.g
+      }, ${colorPicker.color && colorPicker.color.b})`,
     },
     swatch: {
       padding: "5px",
@@ -152,8 +163,10 @@ export default function ViewCreateMenu() {
       width: "36px",
       height: "14px",
       borderRadius: "2px",
-      background: `rgba(${colorText.color && colorText.color.r}, ${colorText.color && colorText.color.g
-        }, ${colorText.color && colorText.color.b})`,
+      border: "1px solid darkslategrey",
+      background: `rgba(${colorText.color && colorText.color.r}, ${
+        colorText.color && colorText.color.g
+      }, ${colorText.color && colorText.color.b})`,
     },
     swatch: {
       padding: "5px",
@@ -180,8 +193,10 @@ export default function ViewCreateMenu() {
       width: "36px",
       height: "14px",
       borderRadius: "2px",
-      background: `rgba(${colorBackground.color && colorBackground.color.r}, ${colorBackground.color && colorBackground.color.g
-        }, ${colorBackground.color && colorBackground.color.b})`,
+      border: "1px solid darkslategrey",
+      background: `rgba(${colorBackground.color && colorBackground.color.r}, ${
+        colorBackground.color && colorBackground.color.g
+      }, ${colorBackground.color && colorBackground.color.b})`,
     },
     swatch: {
       padding: "5px",
@@ -208,8 +223,10 @@ export default function ViewCreateMenu() {
       width: "36px",
       height: "14px",
       borderRadius: "2px",
-      background: `rgba(${colorIcon.color && colorIcon.color.r}, ${colorIcon.color && colorIcon.color.g
-        }, ${colorIcon.color && colorIcon.color.b})`,
+      border: "1px solid darkslategrey",
+      background: `rgba(${colorIcon.color && colorIcon.color.r}, ${
+        colorIcon.color && colorIcon.color.g
+      }, ${colorIcon.color && colorIcon.color.b})`,
     },
     swatch: {
       padding: "5px",
@@ -250,6 +267,7 @@ export default function ViewCreateMenu() {
       color_background: null,
       color_icon: null,
       link: null,
+      captionContent: null,
     });
     dispatch(fetchClearInput());
   };
@@ -301,8 +319,14 @@ export default function ViewCreateMenu() {
     setValueButton({ ...valueButton, color_icon: color.rgb });
   };
 
-  const handleDateChange = (date) => {
-    setSelectedDate(date);
+  const handleFromTimeChange = (date) => {
+    setSeletedValidateFrom(date);
+    setSelectedFromTime(Number(moment(date, ["h:mm A"]).format("HHmm")));
+    console.log(Number(moment(date, ["h:mm A"]).format("HHmm")));
+  };
+  const handleToTimeChange = (date) => {
+    setSeletedValidateTo(date);
+    setSelectedToTime(Number(moment(date, ["h:mm A"]).format("HHmm")));
   };
   function hexToRgb(hex) {
     var bigint = parseInt(hex, 16);
@@ -320,7 +344,10 @@ export default function ViewCreateMenu() {
   function rgbToHex(r, g, b) {
     return "#" + componentToHex(r) + componentToHex(g) + componentToHex(b);
   }
-
+  const handleSliderChange = (event, newValue) => {
+    setValueOpacity(newValue);
+    dispatch(saveOpacityMenu(newValue));
+  };
   const viewColorRight = () => {
     return (
       <>
@@ -337,10 +364,30 @@ export default function ViewCreateMenu() {
         ) : (
           ""
         )}
+        <div style={{ width: "250px" }}>
+          <Grid item xs>
+            <Slider
+              step={0.001}
+              min={0.01}
+              max={1}
+              value={typeof valueOpacity === "number" ? valueOpacity : 1}
+              aria-labelledby="input-slider"
+              onChange={handleSliderChange}
+            />
+          </Grid>
+        </div>
       </>
     );
   };
+  // function ValueLabelComponent(props) {
+  //   const { children, open, value } = props;
 
+  //   return (
+  //     <Tooltip open={open} enterTouchDelay={0} placement="top" title={value}>
+  //       {children}
+  //     </Tooltip>
+  //   );
+  // }
   const viewColorTextInput = () => {
     return (
       <>
@@ -413,14 +460,23 @@ export default function ViewCreateMenu() {
           status: "false",
           color_menu: colormenu
             ? colormenu
-            : rgbToHex(
-              colorPicker.color.r,
-              colorPicker.color.g,
-              colorPicker.color.b
-            ),
+            : colorPicker.color
+            ? colorPicker.color.r
+              ? colorPicker.color.r
+              : null
+            : null
+            ? rgbToHex(
+                colorPicker.color.r,
+                colorPicker.color.g,
+                colorPicker.color.b
+              )
+            : null,
           menuType: displayMenu ? displayMenu : "1",
           menuLocation: displayMenuV2 ? displayMenuV2 : null,
           menuCode: makeid(15),
+          opacity: valueOpacity ? valueOpacity : "1",
+          fromDisplayTime: selectedFromTime,
+          toDisplayTime: selectedToTime,
         },
       ],
       buttons: [],
@@ -437,16 +493,9 @@ export default function ViewCreateMenu() {
         link: dataButton[i].link,
         icon: dataButton[i].icon,
         TypeButton: dataButton[i].TypeButton,
+        captionContent: dataButton[i].captionContent,
       };
       data.buttons.push(button);
-      // for (let i = 0; i < dataInput.length; i++) {
-      //     if (dataInput.length > 0 && dataInput && test1[i].name_button === dataInput[i].id_button) {
-      //         const modal = { inputName: dataInput[i].name_input, inputValue: dataInput[i].value_input }
-      //         button.modal.push(modal)
-      //     }
-
-      // }
-      // data.button.push(button)
     }
     for (let j = 0; j < dataInputTotal.length; j++) {
       let modal = {
@@ -456,11 +505,8 @@ export default function ViewCreateMenu() {
       };
       data.modal.push(modal);
     }
-    // for (let i = 0; i < dataInputTotal.length; i++) {
-    //     const modal = { buttons: { id: dataInputTotal[i].buttons.id }, dataInputTotal: dataInputTotal[i].inputName, inputValue: null }
-    //     data.modal.push(modal)
-    // }
     console.log(data);
+    let validate = true;
     if (
       (colormenu && colormenu != null) ||
       (colorPicker &&
@@ -468,11 +514,60 @@ export default function ViewCreateMenu() {
         colorPicker.color.g != null &&
         colorPicker.color.b != null)
     ) {
-      ButtonService.createButton(data);
-      // setShow1(false)
-      history.push("/admin/list-metu");
     } else {
-      Swal.fire("Bạn phải chọn màu cho Menu");
+      validate = false;
+      Swal.fire({
+        icon: "error",
+        title: "Oops...",
+        text: "Bạn phải chọn màu cho Menu",
+        footer: '<a href="">Why do I have this issue?</a>',
+      });
+    }
+    if (nameMN && nameMN != "") {
+    } else {
+      validate = false;
+      Swal.fire({
+        icon: "error",
+        title: "Oops...",
+        text: "Bạn phải nhập tên cho Menu",
+        footer: '<a href="">Why do I have this issue?</a>',
+      });
+    }
+
+    if (dataButton.length > 0) {
+    } else {
+      validate = false;
+      Swal.fire({
+        icon: "error",
+        title: "Oops...",
+        text: "Bạn phải tạo Button cho Menu",
+        footer: '<a href="">Why do I have this issue?</a>',
+      });
+    }
+
+    if (validate) {
+      if (selectedFromTime == 0 && selectedToTime == 2360) {
+        Swal.fire({
+          title: "Thời gian hiển thị của Menu là 24h bạn có muốn tiếp tục ?",
+          showDenyButton: true,
+          showCancelButton: true,
+          confirmButtonText: `Save`,
+          denyButtonText: `Don't save`,
+        }).then((result) => {
+          /* Read more about isConfirmed, isDenied below */
+          if (result.isConfirmed) {
+            history.push("/admin/list-metu");
+            ButtonService.createButton(data);
+            setShow1(false);
+          } else if (result.isDenied) {
+            Swal.fire("Changes are not saved", "", "info");
+          }
+        });
+      } else {
+        ButtonService.createButton(data);
+        setShow1(false);
+        history.push("/admin/list-metu");
+      }
     }
   };
   const handleClose2 = () => {
@@ -484,44 +579,100 @@ export default function ViewCreateMenu() {
 
   const onhandleCloses = () => {
     const id = getRandomInt(4, 10000);
-    let tshirt = {
-      id_button: id,
-      name_button: valueButton.name_button,
-      color_text: rgbToHex(
-        valueButton.color_text.r,
-        valueButton.color_text.g,
-        valueButton.color_text.b
-      ),
-      color_background: rgbToHex(
-        valueButton.color_background.r,
-        valueButton.color_background.g,
-        valueButton.color_background.b
-      ),
-      color_icon: valueButton.color_icon
-        ? rgbToHex(
-          valueButton.color_icon.r,
-          valueButton.color_icon.g,
-          valueButton.color_icon.b
-        )
-        : null,
-      link: valueButton.link,
-      icon: images,
-      captionContent: valueButton.captionContent,
-      TypeButton: typeButton,
-    };
-    dispatch(createButton(tshirt));
-    setTest1((currentState) => [...currentState, tshirt]);
-
-    for (let i = 0; i < dataInput.length; i++) {
-      const CreateInputValue = {
-        buttons: { id: id },
-        inputName: dataInput[i].name_input.input_name,
-      };
-
-      dispatch(saveDataInputTotal(CreateInputValue));
+    let checkForm = true;
+    if (typeButton == "1" || typeButton == "2") {
+      if (valueButton.name_button) {
+      } else {
+        checkForm = false;
+        Swal.fire({
+          icon: "error",
+          title: "Oops...",
+          text: "Bạn phải nhập tên nút",
+          footer: '<a href="">Why do I have this issue?</a>',
+        });
+      }
+      if (valueButton.color_text && valueButton.color_text != "") {
+      } else {
+        checkForm = false;
+        Swal.fire({
+          icon: "error",
+          title: "Oops...",
+          text: "Bạn phải chọn màu chữ",
+          footer: '<a href="">Why do I have this issue?</a>',
+        });
+      }
+      if (valueButton.color_background && valueButton.color_background != "") {
+      } else {
+        checkForm = false;
+        Swal.fire({
+          icon: "error",
+          title: "Oops...",
+          text: "Bạn phải chọn màu nền",
+          footer: '<a href="">Why do I have this issue?</a>',
+        });
+      }
+      if (valueButton.color_icon && valueButton.color_icon != "") {
+      } else {
+        checkForm = false;
+        Swal.fire({
+          icon: "error",
+          title: "Oops...",
+          text: "Bạn phải chọn màu Icon",
+          footer: '<a href="">Why do I have this issue?</a>',
+        });
+      }
+      if (valueButton.link && valueButton.link != "") {
+      } else {
+        checkForm = false;
+        Swal.fire({
+          icon: "error",
+          title: "Oops...",
+          text: "Bạn phải chọn thuộc tính cho nút",
+          footer: '<a href="">Why do I have this issue?</a>',
+        });
+      }
     }
 
-    setShow(false);
+    if (checkForm) {
+      let tshirt = {
+        id_button: id,
+        name_button: valueButton.name_button,
+        color_text: rgbToHex(
+          valueButton.color_text.r,
+          valueButton.color_text.g,
+          valueButton.color_text.b
+        ),
+        color_background: rgbToHex(
+          valueButton.color_background.r,
+          valueButton.color_background.g,
+          valueButton.color_background.b
+        ),
+        color_icon: valueButton.color_icon
+          ? rgbToHex(
+              valueButton.color_icon.r,
+              valueButton.color_icon.g,
+              valueButton.color_icon.b
+            )
+          : null,
+        link: valueButton.link,
+        icon: images,
+        captionContent: valueButton.captionContent,
+        TypeButton: typeButton,
+      };
+      dispatch(createButton(tshirt));
+      setTest1((currentState) => [...currentState, tshirt]);
+
+      for (let i = 0; i < dataInput.length; i++) {
+        const CreateInputValue = {
+          buttons: { id: id },
+          inputName: dataInput[i].name_input.input_name,
+        };
+
+        dispatch(saveDataInputTotal(CreateInputValue));
+      }
+
+      setShow(false);
+    }
   };
   const onhandleCloses2 = () => {
     setShow(false);
@@ -631,8 +782,9 @@ export default function ViewCreateMenu() {
               <div
                 class="shape-type-image1"
                 style={{
-                  backgroundImage: `url("https://admin.metu.vn/assets_metu/media/menu/position/right-bottom${displayActive === "1" ? "-active" : ""
-                    }.png")`,
+                  backgroundImage: `url("https://admin.metu.vn/assets_metu/media/menu/position/right-bottom${
+                    displayActive === "1" ? "-active" : ""
+                  }.png")`,
                 }}
               />
             </div>
@@ -640,8 +792,9 @@ export default function ViewCreateMenu() {
               <div
                 class="shape-type-image1"
                 style={{
-                  backgroundImage: `url("https://admin.metu.vn/assets_metu/media/menu/position/right-mid${displayActive === "2" ? "-active" : ""
-                    }.png")`,
+                  backgroundImage: `url("https://admin.metu.vn/assets_metu/media/menu/position/right-mid${
+                    displayActive === "2" ? "-active" : ""
+                  }.png")`,
                 }}
               />
             </div>
@@ -649,8 +802,9 @@ export default function ViewCreateMenu() {
               <div
                 class="shape-type-image1"
                 style={{
-                  backgroundImage: `url("https://admin.metu.vn/assets_metu/media/menu/position/right-top${displayActive === "3" ? "-active" : ""
-                    }.png")`,
+                  backgroundImage: `url("https://admin.metu.vn/assets_metu/media/menu/position/right-top${
+                    displayActive === "3" ? "-active" : ""
+                  }.png")`,
                 }}
               />
             </div>
@@ -658,8 +812,9 @@ export default function ViewCreateMenu() {
               <div
                 class="shape-type-image1"
                 style={{
-                  backgroundImage: `url("https://admin.metu.vn/assets_metu/media/menu/position/left-bottom${displayActive === "4" ? "-active" : ""
-                    }.png")`,
+                  backgroundImage: `url("https://admin.metu.vn/assets_metu/media/menu/position/left-bottom${
+                    displayActive === "4" ? "-active" : ""
+                  }.png")`,
                 }}
               />
             </div>
@@ -667,8 +822,9 @@ export default function ViewCreateMenu() {
               <div
                 class="shape-type-image1"
                 style={{
-                  backgroundImage: `url("https://admin.metu.vn/assets_metu/media/menu/position/left-mid${displayActive === "5" ? "-active" : ""
-                    }.png")`,
+                  backgroundImage: `url("https://admin.metu.vn/assets_metu/media/menu/position/left-mid${
+                    displayActive === "5" ? "-active" : ""
+                  }.png")`,
                 }}
               />
             </div>
@@ -676,8 +832,9 @@ export default function ViewCreateMenu() {
               <div
                 class="shape-type-image1"
                 style={{
-                  backgroundImage: `url("https://admin.metu.vn/assets_metu/media/menu/position/left-top${displayActive === "6" ? "-active" : ""
-                    }.png")`,
+                  backgroundImage: `url("https://admin.metu.vn/assets_metu/media/menu/position/left-top${
+                    displayActive === "6" ? "-active" : ""
+                  }.png")`,
                 }}
               />
             </div>
@@ -747,32 +904,31 @@ export default function ViewCreateMenu() {
     dispatch(saveDisplayMenu("4"));
   };
 
-
   // popover
 
   const renderColor = (props) => (
-
     <Tooltip id="button-tooltip" {...props}>
-      <div className="bg-gray-100 rounded px-3 shadow-sm py-1">Màu sắc cho menu và nút</div>
+      <div className="bg-gray-100 rounded px-3 shadow-sm py-1">
+        Màu sắc cho menu và nút
+      </div>
     </Tooltip>
   );
 
   const renderSys = (props) => (
-
     <Tooltip id="button-tooltip" {...props}>
-      <div className="bg-gray-100 rounded px-3 shadow-sm py-1">Chọn thiết bị bạn muốn cho menu hiển thị.</div>
+      <div className="bg-gray-100 rounded px-3 shadow-sm py-1">
+        Chọn thiết bị bạn muốn cho menu hiển thị.
+      </div>
     </Tooltip>
   );
 
   const renderDisplay = (props) => (
-
     <Tooltip id="button-tooltip" {...props}>
-      <div className="bg-gray-100 rounded px-3 shadow-sm py-1">Tùy chọn giao diện hiển thị menu.</div>
+      <div className="bg-gray-100 rounded px-3 shadow-sm py-1">
+        Tùy chọn giao diện hiển thị menu.
+      </div>
     </Tooltip>
   );
-
-  
-
 
   return (
     <>
@@ -817,13 +973,11 @@ export default function ViewCreateMenu() {
                 />
               </div>
 
-              <label>Danh sách các nút để chọn:
-                
-              </label>
+              <label>Danh sách các nút để chọn:</label>
               <section className="my-1 grid grid-cols-2 sm:grid-cols-3 gap-2 mr-1">
                 <div className="flex-1 bg-white text-gray-600 font-bold rounded border-2 border-green-500 hover:border-green-700 hover:text-black shadow-md py-2 px-2  items-center">
                   <button
-                    onClick={() => handleShow("fa fa-phone-volume", "2")}
+                    onClick={() => handleShow("fa fa-phone-volume ", "2")}
                     className="px-3 "
                   >
                     <div className="flex mx-auto my-auto">
@@ -834,7 +988,7 @@ export default function ViewCreateMenu() {
                 </div>
                 <div className="flex-1 bg-white text-gray-600 font-bold rounded border-2 border-green-500 hover:border-green-700 hover:text-black shadow-md py-2 px-2  items-center">
                   <button
-                    onClick={() => handleShow("fab fa-facebook-messenger", "2")}
+                    onClick={() => handleShow("fab fa-facebook-messenger", "1")}
                     className="px-3"
                   >
                     <div className="flex mx-auto my-auto">
@@ -848,7 +1002,7 @@ export default function ViewCreateMenu() {
                 </div>
                 <div className="flex-1 bg-white text-gray-600 font-bold rounded border-2 border-green-500 hover:border-green-700  hover:text-black shadow-md py-2 px-1  items-center">
                   <button
-                    onClick={() => handleShow("fa fa-comment-alt", "2")}
+                    onClick={() => handleShow("fa fa-comment-alt", "1")}
                     className="px-3"
                   >
                     <div className="flex mx-auto my-auto">
@@ -889,28 +1043,33 @@ export default function ViewCreateMenu() {
                   <i className="fas fa-plus"></i>
                 </button>
               </section>
-              <label className="mt-3">Màu sắc:
-              <OverlayTrigger
+              <label className="mt-3">
+                Màu sắc:
+                <OverlayTrigger
                   placement="top"
                   delay={{ show: 250, hide: 400 }}
                   overlay={renderColor}
                 >
-                  <Button variant=""><i className="far fa-question-circle opacity-50"></i></Button>
+                  <Button variant="">
+                    <i className="far fa-question-circle opacity-50"></i>
+                  </Button>
                 </OverlayTrigger>
               </label>
               <div className="mr-1 border-2 border-gray-200 rounded-lg">
                 <nav class="flex  sm:flex-row ">
                   <button
                     onClick={onChangeViewColorLeft}
-                    className={`text-gray-600 py-2 px-4 block hover:text-blue-500 focus:outline-none ${displayTab === 1 && style
-                      } `}
+                    className={`text-gray-600 py-2 px-4 block hover:text-blue-500 focus:outline-none ${
+                      displayTab === 1 && style
+                    } `}
                   >
                     Mặc định
                   </button>
                   <button
                     onClick={onChangeViewColorRight}
-                    className={`text-gray-600 py-4 px-6 block hover:text-blue-500 focus:outline-none ${displayTab === 2 && style
-                      }`}
+                    className={`text-gray-600 py-4 px-6 block hover:text-blue-500 focus:outline-none ${
+                      displayTab === 2 && style
+                    }`}
                   >
                     Tùy chỉnh
                   </button>
@@ -918,17 +1077,19 @@ export default function ViewCreateMenu() {
                 <div className="container mx-auto px-6 my-1 flex flex-wrap py-3">
                   {displayTab === 1 ? viewColorLeft() : viewColorRight()}
                 </div>
-
               </div>
             </div>
 
-            <label className="mt-4">Chọn thiết bị bạn muốn hiển thị:
+            <label className="mt-4">
+              Chọn thiết bị bạn muốn hiển thị:
               <OverlayTrigger
                 placement="top"
                 delay={{ show: 250, hide: 400 }}
                 overlay={renderSys}
               >
-                <Button variant=""><i className="far fa-question-circle opacity-50"></i></Button>
+                <Button variant="">
+                  <i className="far fa-question-circle opacity-50"></i>
+                </Button>
               </OverlayTrigger>
             </label>
             <div className="flex  gap-1 mr-1">
@@ -946,28 +1107,33 @@ export default function ViewCreateMenu() {
               </button>
             </div>
 
-            <label className="mt-4">Tùy chỉnh giao diện cho máy tính:
+            <label className="mt-4">
+              Tùy chỉnh giao diện cho máy tính:
               <OverlayTrigger
                 placement="top"
                 delay={{ show: 250, hide: 400 }}
                 overlay={renderDisplay}
               >
-                <Button variant=""><i className="far fa-question-circle opacity-50"></i></Button>
+                <Button variant="">
+                  <i className="far fa-question-circle opacity-50"></i>
+                </Button>
               </OverlayTrigger>
             </label>
             <div className="border-2 border-gray-200 mr-1">
               <nav class="flex flex-row mb-3">
                 <button
                   onClick={onChangeViewDisplayLeft}
-                  className={`text-gray-600 py-2 px-4 block hover:text-blue-500 focus:outline-none ${displayTab1 === 1 && style
-                    } `}
+                  className={`text-gray-600 py-2 px-4 block hover:text-blue-500 focus:outline-none ${
+                    displayTab1 === 1 && style
+                  } `}
                 >
                   Hình dạng
                 </button>
                 <button
                   onClick={onChangeViewDisplayRight}
-                  className={`text-gray-600 py-4 px-6 block hover:text-blue-500 focus:outline-none ${displayTab1 === 2 && style
-                    }`}
+                  className={`text-gray-600 py-4 px-6 block hover:text-blue-500 focus:outline-none ${
+                    displayTab1 === 2 && style
+                  }`}
                 >
                   Vị Trí
                 </button>
@@ -975,7 +1141,6 @@ export default function ViewCreateMenu() {
 
               {displayTab1 === 1 ? viewDisplayLeft() : viewDisplayRight()}
             </div>
-
 
             {/* <div className="mt-3 mr-1">
                                     <div className="mt-4">Tùy chỉnh giao diện cho máy tính:</div>
@@ -1020,9 +1185,7 @@ export default function ViewCreateMenu() {
                       </header>
                       <div className="drop-content">
                         <div className="pl-8 pr-8 pb-5 text-grey-darkest">
-                          <div className="mt-2">
-                            Thời gian hiển thị menu:
-                          </div>
+                          <div className="mt-2">Thời gian hiển thị menu:</div>
                           <ul className="flex  w-full">
                             <MuiPickersUtilsProvider utils={DateFnsUtils}>
                               <Grid container justifyContent="space-around">
@@ -1030,15 +1193,14 @@ export default function ViewCreateMenu() {
                                   margin="normal"
                                   id="time-picker"
                                   label="Bắt đầu"
-                                  value={selectedDate}
-                                  onChange={handleDateChange}
+                                  value={seletedValidateFrom}
+                                  onChange={handleFromTimeChange}
                                   KeyboardButtonProps={{
                                     "aria-label": "change time",
                                   }}
                                 />
                               </Grid>
                             </MuiPickersUtilsProvider>
-                            {/* <div className="mx-2 my-auto rounded-full bg-gray-400 p-2">Đến</div> */}
                             <i className="fas fa-arrow-circle-right mx-4 my-auto"></i>
                             <MuiPickersUtilsProvider utils={DateFnsUtils}>
                               <Grid container justifyContent="space-around">
@@ -1046,8 +1208,8 @@ export default function ViewCreateMenu() {
                                   margin="normal"
                                   id="time-picker"
                                   label="Kết thúc"
-                                  value={selectedDate}
-                                  onChange={handleDateChange}
+                                  value={seletedValidateTo}
+                                  onChange={handleToTimeChange}
                                   KeyboardButtonProps={{
                                     "aria-label": "change time",
                                   }}
@@ -1061,10 +1223,7 @@ export default function ViewCreateMenu() {
                               <div className="flex-1 p-2 text-sm bg-gray-400 ">
                                 Hiện sau:
                               </div>
-                              <input
-                                className="text-center"
-                                type="Number"
-                              />
+                              <input className="text-center" type="Number" />
                               <div className="flex-1 text-sm bg-gray-400 text-center">
                                 Giây
                               </div>
@@ -1073,10 +1232,7 @@ export default function ViewCreateMenu() {
                               <div className="flex-1 p-2 text-sm bg-gray-400 ">
                                 Ẩn sau:
                               </div>
-                              <input
-                                className="text-center"
-                                type="Number"
-                              />
+                              <input className="text-center" type="Number" />
                               <div className="flex-1 text-sm bg-gray-400 text-center">
                                 Giây
                               </div>
@@ -1100,7 +1256,6 @@ export default function ViewCreateMenu() {
         <Modal.Body>
           Mô tả : Khách hàng sẽ gọi trực tiếp thông qua tính năng này
           <Modal.Title> Cấu hình hiển thị nút</Modal.Title>
-          {/* <Modal.Text>Biểu tượng nút</Modal.Text> */}
           <Form>
             <Form.Group controlId="formBasicEmail">
               <div class=" flex  space-x-2">
@@ -1110,10 +1265,6 @@ export default function ViewCreateMenu() {
                     <Form.Label>Biểu tượng nút</Form.Label>
                     <i className={` mr-1 my-auto fa-5x ${images}`}></i>
                   </div>
-                  {/* <img
-                    className="h-12 bg-gray-400"
-                    src={`../images/${images}`}
-                  /> */}
                 </div>
                 <div class="flex-1 ">
                   <div className="flex  flex-wrap mt-1 ">
@@ -1180,47 +1331,6 @@ export default function ViewCreateMenu() {
                           </button>
                         </div>
                       </div>
-                      {/* <div
-                        style={{
-                          background: `rgba(${valueButton.color_background &&
-                            valueButton.color_background.r
-                            },
-                                                    ${valueButton.color_background &&
-                            valueButton
-                              .color_background.g
-                            }, 
-                                                    ${valueButton.color_background &&
-                            valueButton
-                              .color_background.b
-                            })`,
-                        }}
-                        className={`flex items-center p-1  rounded-lg shadow-xs cursor-pointer hover:bg-blue-500 hover:text-gray-100`}
-                      >
-                        <button
-                          classname={`flex items-center bg-gray-200 rounded-lg shadow-xs cursor-pointer hover:bg-blue-500 hover:text-gray-100`}
-                        >
-                          <img className="h-12" src={`../images/${images}`} />
-
-                          <div>
-                            <p
-                              className="text-xs font-medium mt-2 ml-2"
-                              style={{
-                                color: `rgba(${valueButton.color_text &&
-                                  valueButton.color_text.r
-                                  },
-                                                    ${valueButton.color_text &&
-                                  valueButton.color_text.g
-                                  }, 
-                                                    ${valueButton.color_text &&
-                                  valueButton.color_text.b
-                                  })`,
-                              }}
-                            >
-                              {valueButton && valueButton.name_button}
-                            </p>
-                          </div>
-                        </button>
-                      </div> */}
                     </div>
                   </div>
                 </div>
@@ -1289,7 +1399,11 @@ export default function ViewCreateMenu() {
                       </Form.Group>
                       <Form.Group controlId="formBasicEmail">
                         <Form.Label>Nhập số điện thoại (*)</Form.Label>
-                        <Form.Control type="text" placeholder="Gọi ngay" />
+                        <Form.Control
+                          name="link"
+                          onChange={onHandleChange}
+                          placeholder="Gọi ngay"
+                        />
                       </Form.Group>
                       <Form.Group controlId="formBasicEmail">
                         <Form.Label>

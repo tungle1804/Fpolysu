@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useState } from "react";
 import { callApi } from "../../service/Apis";
 import { useHistory } from "react-router";
 import * as moment from "moment";
+import Swal from 'sweetalert2'
 import AdminHeader from "./../admin/components/AdminHeader/index";
 
 function Bill() {
@@ -47,6 +48,13 @@ function Bill() {
     };
 
     const onHandleSubmit = (e) => {
+        if (price === "") {
+            Swal.fire({
+                icon: 'error',
+                title: 'Lỗi....',
+                text: 'Vui lòng chọn gói dịch vụ!',
+            })
+        }
         e.preventDefault();
         callApi("post", "paypal/pay", price)
             .then(function (response) {
