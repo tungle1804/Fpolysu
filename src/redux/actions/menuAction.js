@@ -6,6 +6,7 @@ import {
   SAVE_DATA_MENUS,
   SAVE_DATA_MENU,
   FETCH_UPDATE_MENU,
+  CHECK_TOTAL_MENU,
 } from "../constants/menuConstant";
 import MenuService from "../../service/Menu/MenuService";
 
@@ -50,6 +51,12 @@ export const fetchListMenusSuccess = (data) => {
 export const fetchUpdateMenu = (data) => {
   return {
     type: FETCH_UPDATE_MENU,
+    data: data,
+  };
+};
+export const checkTotalMenu = (data) => {
+  return {
+    type: CHECK_TOTAL_MENU,
     data: data,
   };
 };

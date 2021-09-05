@@ -1,17 +1,17 @@
-import React from 'react'
-import axios from 'axios';
+import React from "react";
+import axios from "axios";
 
 const callApi = (method, urlController, data) => {
   var config = {
     method: method,
-    url: `http://localhost:8081/${urlController}`,
+    url: `http://localhost:8080/${urlController}`,
     headers: {
-      'Authorization': `Bearer ${localStorage.getItem("token")}`,
-      'Content-Type': 'application/json'
+      Authorization: `Bearer ${localStorage.getItem("token")}`,
+      "Content-Type": "application/json",
     },
-    data: data
+    data: data,
   };
-  return axios(config)
-}
+  return axios(config);
+};
 
-export { callApi }
+export { callApi };

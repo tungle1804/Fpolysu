@@ -409,6 +409,11 @@
         "https://unpkg.com/@material-ui/core@latest/umd/material-ui.development.js";
 
       document.head.appendChild(link);
+
+      const script2 = document.createElement("script");
+      script2.src = "//cdn.jsdelivr.net/npm/sweetalert2@11";
+      document.body.appendChild(script2);
+
       // document.head.appendChild(script2);
       // document.body.appendChild(script1);
       // document.body.appendChild(script2);
@@ -646,8 +651,15 @@
         };
         fetch(`http://localhost:8080/api/v1/dataofcustomer`, requestOptions)
           .then((response) => response.text())
-          .then((result) => console.log("saveDataCustomer", result))
-          .catch((error) => console.log("error", error));
+          .then((result) => {
+            console.log("saveDataCustomer", result);
+            Swal.fire(
+              "Thành công",
+              "Bạn đã gửi thông tin thành công",
+              "question"
+            );
+          });
+        setShow(false).catch((error) => console.log("error", error));
       } catch (error) {
         console.error(error);
       }

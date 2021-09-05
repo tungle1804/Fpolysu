@@ -46,6 +46,7 @@ import { makeid } from "../../utils/index.js";
 import Moment from "react-moment";
 // import 'bootstrap/dist/css/bootstrap.css';
 import OverlayTrigger from "react-bootstrap/OverlayTrigger";
+import { Checkbox, FormControlLabel } from "@material-ui/core";
 
 // import Button from 'react-bootstrap/Button';
 
@@ -127,7 +128,7 @@ export default function ViewCreateMenu() {
   const [seletedValidateTo, setSeletedValidateTo] = useState();
   const [typeButton, setTypeButton] = useState();
   const [valueOpacity, setValueOpacity] = useState(1);
-
+  const [iconTransaction, setIconTransaction] = useState(false);
   const styles = {
     color: {
       width: "36px",
@@ -255,9 +256,12 @@ export default function ViewCreateMenu() {
       [name]: e.target.value,
     });
   };
-
+  const handleChangeIconTransaction = (event) => {
+    setIconTransaction(event.target.checked);
+  };
   const handleShow = (images, typeButton) => {
     setImages(images);
+    setIconTransaction(false);
     setShow(true);
     setTypeButton(typeButton);
     setValueButton({
@@ -462,15 +466,13 @@ export default function ViewCreateMenu() {
             ? colormenu
             : colorPicker.color
             ? colorPicker.color.r
-              ? colorPicker.color.r
-              : null
-            : null
-            ? rgbToHex(
-                colorPicker.color.r,
-                colorPicker.color.g,
-                colorPicker.color.b
-              )
-            : null,
+              ? rgbToHex(
+                  colorPicker.color.r,
+                  colorPicker.color.g,
+                  colorPicker.color.b
+                )
+              : ""
+            : "",
           menuType: displayMenu ? displayMenu : "1",
           menuLocation: displayMenuV2 ? displayMenuV2 : null,
           menuCode: makeid(15),
@@ -492,7 +494,7 @@ export default function ViewCreateMenu() {
         color_icon: dataButton[i].color_icon,
         link: dataButton[i].link,
         icon: dataButton[i].icon,
-        TypeButton: dataButton[i].TypeButton,
+        TypeButton: dataButton[i].typeButton,
         captionContent: dataButton[i].captionContent,
       };
       data.buttons.push(button);
@@ -580,7 +582,86 @@ export default function ViewCreateMenu() {
   const onhandleCloses = () => {
     const id = getRandomInt(4, 10000);
     let checkForm = true;
+    var vnf_regex = /((09|03|07|08|05)+([0-9]{8})\b)/g;
     if (typeButton == "1" || typeButton == "2") {
+      if (valueButton.name_button) {
+      } else {
+        checkForm = false;
+        Swal.fire({
+          icon: "error",
+          title: "Oops...",
+          text: "Bạn phải nhập tên nút",
+          footer: '<a href="">Why do I have this issue?</a>',
+        });
+      }
+
+      if (valueButton.color_text && valueButton.color_text != "") {
+      } else {
+        checkForm = false;
+        Swal.fire({
+          icon: "error",
+          title: "Oops...",
+          text: "Bạn phải chọn màu chữ",
+          footer: '<a href="">Why do I have this issue?</a>',
+        });
+      }
+      if (valueButton.color_background && valueButton.color_background != "") {
+      } else {
+        checkForm = false;
+        Swal.fire({
+          icon: "error",
+          title: "Oops...",
+          text: "Bạn phải chọn màu nền",
+          footer: '<a href="">Why do I have this issue?</a>',
+        });
+      }
+      if (valueButton.color_icon && valueButton.color_icon != "") {
+      } else {
+        checkForm = false;
+        Swal.fire({
+          icon: "error",
+          title: "Oops...",
+          text: "Bạn phải chọn màu Icon",
+          footer: '<a href="">Why do I have this issue?</a>',
+        });
+      }
+      if (typeButton == "2") {
+        if (valueButton.link && valueButton.link != "") {
+        } else {
+          checkForm = false;
+          Swal.fire({
+            icon: "error",
+            title: "Oops...",
+            text: "Bạn phải chọn thuộc tính cho nút",
+            footer: '<a href="">Why do I have this issue?</a>',
+          });
+        }
+
+        if (vnf_regex.test(valueButton.link) == true) {
+        } else {
+          checkForm = false;
+          Swal.fire({
+            icon: "error",
+            title: "Oops...",
+            text: "Số điện thoại không hợp lệ",
+            footer: '<a href="">Why do I have this issue?</a>',
+          });
+        }
+      }
+      if (typeButton == "1") {
+        if (valueButton.link && valueButton.link != "") {
+        } else {
+          checkForm = false;
+          Swal.fire({
+            icon: "error",
+            title: "Oops...",
+            text: "Bạn phải chọn thuộc tính cho nút",
+            footer: '<a href="">Why do I have this issue?</a>',
+          });
+        }
+      }
+    }
+    if (typeButton == "3") {
       if (valueButton.name_button) {
       } else {
         checkForm = false;
@@ -621,16 +702,6 @@ export default function ViewCreateMenu() {
           footer: '<a href="">Why do I have this issue?</a>',
         });
       }
-      if (valueButton.link && valueButton.link != "") {
-      } else {
-        checkForm = false;
-        Swal.fire({
-          icon: "error",
-          title: "Oops...",
-          text: "Bạn phải chọn thuộc tính cho nút",
-          footer: '<a href="">Why do I have this issue?</a>',
-        });
-      }
     }
 
     if (checkForm) {
@@ -655,9 +726,11 @@ export default function ViewCreateMenu() {
             )
           : null,
         link: valueButton.link,
-        icon: images,
+        icon: iconTransaction
+          ? String(String(images) + String(iconTransaction && " fa-spin"))
+          : images,
         captionContent: valueButton.captionContent,
-        TypeButton: typeButton,
+        typeButton: typeButton,
       };
       dispatch(createButton(tshirt));
       setTest1((currentState) => [...currentState, tshirt]);
@@ -977,7 +1050,7 @@ export default function ViewCreateMenu() {
               <section className="my-1 grid grid-cols-2 sm:grid-cols-3 gap-2 mr-1">
                 <div className="flex-1 bg-white text-gray-600 font-bold rounded border-2 border-green-500 hover:border-green-700 hover:text-black shadow-md py-2 px-2  items-center">
                   <button
-                    onClick={() => handleShow("fa fa-phone-volume ", "2")}
+                    onClick={() => handleShow("fa fa-phone-volume", "2")}
                     className="px-3 "
                   >
                     <div className="flex mx-auto my-auto">
@@ -1263,7 +1336,21 @@ export default function ViewCreateMenu() {
                   {" "}
                   <div style={{ display: "grid" }}>
                     <Form.Label>Biểu tượng nút</Form.Label>
-                    <i className={` mr-1 my-auto fa-5x ${images}`}></i>
+                    <i
+                      className={` mr-1 my-auto fa-5x ${images} ${
+                        iconTransaction && "fa-spin"
+                      }`}
+                    ></i>
+                    <FormControlLabel
+                      control={
+                        <Checkbox
+                          checked={iconTransaction}
+                          onChange={handleChangeIconTransaction}
+                          name="checkedA"
+                        />
+                      }
+                      label="Hiệu ứng động"
+                    />
                   </div>
                 </div>
                 <div class="flex-1 ">
@@ -1305,7 +1392,9 @@ export default function ViewCreateMenu() {
                                                       valueButton.color_icon.b
                                                     })`,
                                 }}
-                                class={`${images} mr-1 my-auto`}
+                                class={`${images} mr-1 my-auto ${
+                                  iconTransaction && "fa-spin"
+                                }`}
                               ></i>
                               <span
                                 class="text-sm"
