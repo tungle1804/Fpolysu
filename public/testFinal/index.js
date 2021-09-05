@@ -374,7 +374,10 @@
 
     //   document.body.appendChild(script2);
     // }, []);
-
+    let ip_address;
+    let user_address;
+    let languages;
+    let supplier;
     React.useEffect(() => {
       const interval = setInterval(() => {
         console.log("This will run every second!");
@@ -609,7 +612,21 @@
       }
       // }
     }, []);
-
+    React.useEffect(() => {
+      fetch(
+        `https://api.ipdata.co/?api-key=c0d47b87f4cea32d0e7a1131837aa74602c7a4c33d07e3846c5b0b84`,
+        { method: "GET" }
+      )
+        .then(function (response) {
+          return response.json();
+        })
+        .then((data3) => {
+          ip_address = data3.ip;
+          user_address = data3.city;
+          languages = data3.languages[0].name;
+          supplier = data3.asn.name;
+        });
+    }, []);
     const onHandleChange = (e) => {
       const { name } = e.target;
       setCreateData({
@@ -665,16 +682,12 @@
             Swal.fire(
               "Thành công",
               "Bạn đã gửi thông tin thành công",
-              "question"
+              "success"
             );
           });
         setShow(false).catch((error) => console.log("error", error));
       } catch (error) {
-        Swal.fire(
-          "Thành công",
-          "Lỗi hệ thống,vui lòng thử lại sau",
-          "question"
-        );
+        Swal.fire("Lỗi hệ thống", "Lỗi hệ thống,vui lòng thử lại sau", "error");
         console.error(error);
       }
 

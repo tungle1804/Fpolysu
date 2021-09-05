@@ -554,8 +554,8 @@ export default function ViewCreateMenu() {
           title: "Thời gian hiển thị của Menu là 24h bạn có muốn tiếp tục ?",
           showDenyButton: true,
           showCancelButton: true,
-          confirmButtonText: `Save`,
-          denyButtonText: `Don't save`,
+          confirmButtonText: `Lưu`,
+          denyButtonText: `Không Lưu`,
         }).then((result) => {
           /* Read more about isConfirmed, isDenied below */
           if (result.isConfirmed) {

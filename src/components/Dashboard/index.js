@@ -1,16 +1,14 @@
 import React, { useState, useEffect } from "react";
 import "./toggle.css";
-import { header } from "./../CommonData/data";
+import { header,username } from "./../CommonData/data";
 import axios from "axios";
 import Statistics from "./index1";
 export default function Dashboard() {
-
   const [totalClickByUser, setTotalClickByUser] = useState();
   const [totalMenuCreated, setTotalMenuCreated] = useState();
   const [totalButtonCreated, setTotalButtonCreated] = useState();
   const getTotalClickByUser = () => {
-    const username = "vuthanhnam@gmail.com";
-    //const username= window.name;
+ 
     var config = {
       method: "get",
       url: `http://localhost:8080/api/v1/getTotalNumberClickByUser?email=${username}`,
@@ -26,8 +24,7 @@ export default function Dashboard() {
       });
   };
   const getTotalMenuCreated = () => {
-    const username = "vuthanhnam@gmail.com";
-    //const username= window.name;
+  
     var config = {
       method: "get",
       url: `http://localhost:8080/api/v1/countSumMenuCreated?email=${username}`,
@@ -43,8 +40,7 @@ export default function Dashboard() {
       });
   };
   const getTotalButtonCreated = () => {
-    const username = "vuthanhnam@gmail.com";
-    //const username= window.name;
+   
     var config = {
       method: "get",
       url: `http://localhost:8080/api/v1/countSumButtonCreated?email=${username}`,
@@ -53,7 +49,10 @@ export default function Dashboard() {
 
     axios(config)
       .then(function (response) {
+        console.log("object", response.data);
         setTotalButtonCreated(response.data);
+
+        console.log("object", totalButtonCreated);
       })
       .catch(function (error) {
         console.log(error);

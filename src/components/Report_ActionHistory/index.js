@@ -1,30 +1,30 @@
 import React, { useState, useEffect } from "react";
-import { CChartBar } from "@coreui/react-chartjs";
-import translate from "translate";
-import moment from "moment";
+import CIcon from "@coreui/icons-react";
+import { freeSet } from "@coreui/icons";
+import { header, username } from "./../CommonData/data";
 import {
   CCard,
   CPagination,
-  CDropdown,
-  CInput,
-  CDropdownItem,
-  CDropdownMenu,
-  CDropdownToggle,
+  CLabel,
   CCardFooter,
   CCardBody,
   CCardHeader,
   CRow,
   CContainer,
+  CInputGroup,
+  CInputGroupText,
+  CInputGroupPrepend,
+  CInputGroupAppend,
+  CInput,
 } from "@coreui/react";
-import { header } from "./../CommonData/data";
+import Select from "react-select";
 import axios from "axios";
 import DisplayResultPagination from "./../DisplayResultPagination/DisplayResultPagination";
-import CustomerDatePicker from "./../CustomerDatePicker/index";
 import ReportRatioActivity from "./index1";
 import ReportActionByEquipment from "./index2";
 import StatisticsClickAllMenu from "./index3";
+
 function Report_ActionHistory() {
-  const headers = header;
   const [pageNo, setPageNo] = useState(1);
   const [totalPage, setTotalPage] = useState();
   const [totalRecord, setTotalRecord] = useState();
@@ -35,10 +35,31 @@ function Report_ActionHistory() {
   const [startDate, setStartDate] = useState(new Date("2020-08-01"));
   const [endDate, setEndDate] = useState(new Date());
   const [search, setSearch] = useState("");
+  const [menu, setMenu] = useState([]);
+  const [idMenu, setIdMenu] = useState();
+  let arr = [];
+  const getListMenu = () => {
+    var config = {
+      method: "get",
+      url: `http://localhost:8080/api/v1/findAllByStatusTrue?email=${username}`,
+      header,
+    };
 
+    axios(config)
+      .then(function (response) {
+        const datas = response.data;
+        arr.push({ value: "", label: "Chọn Menu" });
+        datas.map((item) => {
+          const mn = { value: item.id, label: item.name_menu };
+          arr.push(mn);
+        });
+        setMenu(arr);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  };
   const getData = async () => {
-    const username = "vuthanhnam@gmail.com";
-    //const username= window.name;
     if (pageNo === 0) {
       setPageNo(1);
     }
@@ -48,52 +69,33 @@ function Report_ActionHistory() {
       .toISOString()
       .slice(0, 10)}&search=${search}&pageNo=${pageNo - 1}&limit=${limit}`;
 
-    // console.log("API: ", API);
-
     await axios
-      .get(API, {
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
-          "Content-Type": "application/json",
-        },
-      })
+      .get(API, header)
       .then((response) => {
-        //   console.log("response  ", response);
         setData(response.data.content);
-        //   console.log("data:  ", data);
+        console.log("ob:   ", data);
         setTotalRecord(response.data.totalElements);
-        //    console.log("totalElement", totalRecord);
 
         setTotalPage(response.data.totalPages);
-        //   console.log("list Data now: ", data);
       })
       .catch((error) => {
         console.log(error);
       });
   };
   const getDataMenu = async () => {
-    const username = "vuthanhnam@gmail.com";
-    //const username= window.name;
     var config = {
       method: "get",
       url: `http://localhost:8080/api/v1/getTotalNumberActionDisplayOnMenu?email=${username}`,
-      headers: {
-        Authorization: `Bearer ${localStorage.getItem("token")}`,
-        "Content-Type": "application/json",
-      },
+      header,
     };
     var config2 = {
       method: "get",
       url: `http://localhost:8080/api/v1/getTotalNumberClickOnMenu?email=${username}`,
-      headers: {
-        Authorization: `Bearer ${localStorage.getItem("token")}`,
-        "Content-Type": "application/json",
-      },
+      header,
     };
     let datax = [];
     await axios(config)
       .then(function (response) {
-        //  console.log(JSON.stringify(response.data));
         datax = response.data.content;
       })
       .catch(function (error) {
@@ -105,37 +107,28 @@ function Report_ActionHistory() {
         let datax2 = [];
         for (let index = 0; index < dt.length; index++) {
           let element = dt[index][1];
-          console.log("element", element);
+
           let test = datax[index];
           test = [...test, element];
           datax2 = [...datax2, test];
         }
-        console.log(":...", datax2);
+
         setDataMenu(datax2);
-        console.log("new:  ", dataMenu);
       })
       .catch(function (error) {
         console.log(error);
       });
   };
   const getDataWidget = async () => {
-    const username = "vuthanhnam@gmail.com";
-    //const username= window.name;
     var config = {
       method: "get",
       url: `http://localhost:8080/api/v1/statisticActionButtonByRangeTimeSelect?email=${username}`,
-      headers: {
-        Authorization: `Bearer ${localStorage.getItem("token")}`,
-        "Content-Type": "application/json",
-      },
+      header,
     };
     var config2 = {
       method: "get",
       url: `http://localhost:8080/api/v1/getTotalNumberClickOnButtonByRangeTimeSelect?email=${username}`,
-      headers: {
-        Authorization: `Bearer ${localStorage.getItem("token")}`,
-        "Content-Type": "application/json",
-      },
+      header,
     };
     let datax = [];
     await axios(config)
@@ -156,9 +149,8 @@ function Report_ActionHistory() {
           test = [...test, element];
           datax2 = [...datax2, test];
         }
-        //  console.log(":...", datax2);
+
         setDataWidget(datax2);
-        // console.log("new:  ", dataWidget);
       })
       .catch(function (error) {
         console.log(error);
@@ -166,54 +158,69 @@ function Report_ActionHistory() {
   };
   const handleChange = (e) => {
     if (e.key === "Enter") {
-      // setData([]);
       setPageNo(1);
       setSearch(e.target.value);
-      //  console.log("seảch", search);
+      console.log("object ::  ", search);
     }
   };
   useEffect(() => {
     setPageNo(1);
+    getListMenu();
     getDataWidget();
     getDataMenu();
-    // return () => {
-    //   cleanup
-    // }
   }, []);
   useEffect(() => {
     getData();
-    // return () => {
-    //   cleanup
-    // }
   }, [pageNo, limit, startDate, endDate, search]);
-  //  console.log("list Data now 2: ", data);
+
   return (
-    <CContainer style={{ marginLeft: "10px" }}>
-      <CCard>
+    <CContainer>
+      <CCard className="row">
         <CCardHeader align={"center"}>Chọn Thời gian</CCardHeader>
         <CCardBody align={"center"}>
           <StatisticsClickAllMenu></StatisticsClickAllMenu>
         </CCardBody>
         <CCardFooter></CCardFooter>
       </CCard>
-      <br />
+
       <ReportRatioActivity></ReportRatioActivity>
       <br />
       <ReportActionByEquipment></ReportActionByEquipment>
       <br />
-      <CCard>
-        <div className="row ">
-          <CInput
-            style={{ marginLeft: "12px", height: "50px" }}
-            className="col-3"
-            placeholder="Tìm kiếm theo tên,url..."
-            size="md"
-            onKeyPress={handleChange}
-          />
-          <CCardHeader className="font-weight-bolder text-center bg-blue-500 col-6 offset-2">
-            Thống kê Tương tác
-          </CCardHeader>
-        </div>
+      <CCard className="row">
+        <CLabel className="font-bold text-center pt-2">
+          Thống kê lịch sử tương tác :
+        </CLabel>
+        <CCardHeader className="row justify-content-center m-0 py-0">
+          <div className="col-4">
+            <CInputGroup>
+              <CInputGroupPrepend>
+                <CInputGroupText className={"bg-info text-white"}>
+                  Search
+                </CInputGroupText>
+              </CInputGroupPrepend>
+              <CInput
+                type="email"
+                id="username"
+                placeholder="Tìm kiếm..."
+                name="username"
+                autoComplete="name"
+                onKeyPress={handleChange}
+              />
+            </CInputGroup>
+          </div>
+          <div className="col-6 offset-2">
+            <Select
+              className="col-6"
+              name="IdMenu"
+              options={menu}
+              placeholder="Chọn Menu"
+              onChange={(e) => {
+                setIdMenu(e.value);
+              }}
+            ></Select>
+          </div>
+        </CCardHeader>
 
         <table
           className=" table table-striped table-bordered "
@@ -230,13 +237,6 @@ function Report_ActionHistory() {
             </tr>
           </thead>
           <tbody>
-            {/* {
-              !data.length(
-                <tr className="text-center">
-                  <td colSpan={3}>No Student</td>
-                </tr>
-              )
-            } */}
             {data.map((item, index) => {
               return (
                 <tr key={index}>

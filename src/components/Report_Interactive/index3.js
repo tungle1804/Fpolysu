@@ -1,26 +1,24 @@
 import React, { useState, useEffect } from "react";
-import { CChartBar } from "@coreui/react-chartjs";
 import {
   CCard,
-  CContainer,
+  CCardBody,
   CPagination,
   CCardHeader,
   CRow,
 } from "@coreui/react";
-
-import { header } from "./../CommonData/data";
+import { header, username } from "./../CommonData/data";
 import axios from "axios";
 import DisplayResultPagination from "./../DisplayResultPagination/DisplayResultPagination";
+import Select from "react-select";
 function ReportIp() {
   const [pageNo, setPageNo] = useState(1);
   const [totalPage, setTotalPage] = useState();
   const [totalRecord, setTotalRecord] = useState();
   const [data, setData] = useState([]);
   const [limit, setLimit] = useState(5);
-
-  const getDataIp = () => {
-    const username = "vuthanhnam@gmail.com";
-    // const username = localStorage.getItem("email")
+  const [userAddress, setUserAddress] = useState();
+  const [userAddresss, setUserAddresss] = useState();
+  const getLocations = () => {
     var config = {
       method: "get",
       url: `http://localhost:8080/api/v1/statisticsActivityByIp?email=${username}&pageNo=${
@@ -28,34 +26,63 @@ function ReportIp() {
       }&limit=${limit}`,
       header,
     };
-
+    let arr = [];
+    arr.push({ value: "", label: "All" });
     axios(config)
       .then(function (response) {
         setData(response.data.content);
-        setTotalRecord(response.data.totalElements);
-        //    console.log("totalElement", totalRecord);
 
+        setTotalRecord(response.data.totalElements);
         setTotalPage(response.data.totalPages);
-        //   console.log("list Data now: ", data);
+        data.map((item) => {
+          const dt = { value: item[1], label: item[1] };
+          arr.push(dt);
+        });
+
+        setUserAddresss(arr);
+        console.log("ccc", userAddresss);
       })
       .catch(function (error) {
         console.log(error);
       });
   };
+  const getDataIp = () => {
+    var config = {
+      method: "get",
+      url: userAddress
+        ? `http://localhost:8080/api/v1/statisticsActivityByIp?email=${username}&userAddress=${userAddress}&pageNo=${
+            pageNo - 1
+          }&limit=${limit}`
+        : `http://localhost:8080/api/v1/statisticsActivityByIp?email=${username}&pageNo=${
+            pageNo - 1
+          }&limit=${limit}`,
+      header,
+    };
+
+    axios(config)
+      .then(function (response) {
+        setData(response.data.content);
+        setTotalRecord(response.data.totalElements);
+        setTotalPage(response.data.totalPages);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  };
+  useEffect(() => {
+    getLocations();
+  }, []);
 
   useEffect(() => {
     getDataIp();
-  }, []);
+  }, [userAddress, pageNo, limit]);
 
   return (
-    <CContainer>
-      <CCard>
-        <div className="row ">
-          <CCardHeader className="font-weight-bolder text-center bg-blue-500 col-6 offset-2">
-            Thống kê lượt tương tác theo địa chỉ IP của người dùng
-          </CCardHeader>
-        </div>
-
+    <CCard className="row">
+      <CCardHeader className="font-bold text-center">
+        Thống kê lượt tương tác theo địa chỉ IP của người dùng
+      </CCardHeader>
+      <CCardBody>
         <table
           className=" table table-striped table-bordered "
           style={{ border: "none" }}
@@ -63,18 +90,22 @@ function ReportIp() {
           <thead>
             <tr>
               <th>IP Address</th>
-              <th>Location</th>
+              <th>
+                <Select
+                  className="font-bold"
+                  name="userAddress"
+                  options={userAddresss}
+                  placeholder="Location"
+                  onChange={(e) => {
+                    setPageNo(1);
+                    setUserAddress(e.value);
+                  }}
+                />
+              </th>
               <th>Total Action</th>
             </tr>
           </thead>
           <tbody>
-            {/* {
-              !data.length(
-                <tr className="text-center">
-                  <td colSpan={3}>No Student</td>
-                </tr>
-              )
-            } */}
             {data.map((item, index) => {
               return (
                 <tr key={index}>
@@ -86,26 +117,27 @@ function ReportIp() {
             })}
           </tbody>
         </table>
-        <CRow className="row">
-          <CPagination
-            className="col-5 mx-0 px-3"
-            addListClass="some-class"
-            activePage={pageNo}
-            pages={totalPage}
-            onActivePageChange={setPageNo}
-          />
-          <div className="col-6 right">
-            <DisplayResultPagination
-              page={pageNo}
-              setPage={setPageNo}
-              limit={limit}
-              setLimit={setLimit}
-              totalElements={totalRecord}
-            ></DisplayResultPagination>
-          </div>
-        </CRow>
-      </CCard>
-    </CContainer>
+      </CCardBody>
+
+      <CRow className="mx-2">
+        <CPagination
+          className="col-5 mx-0 px-3"
+          addListClass="some-class"
+          activePage={pageNo}
+          pages={totalPage}
+          onActivePageChange={setPageNo}
+        />
+        <div className="col-6 right">
+          <DisplayResultPagination
+            page={pageNo}
+            setPage={setPageNo}
+            limit={limit}
+            setLimit={setLimit}
+            totalElements={totalRecord}
+          ></DisplayResultPagination>
+        </div>
+      </CRow>
+    </CCard>
   );
 }
 

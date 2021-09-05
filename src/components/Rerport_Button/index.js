@@ -12,7 +12,7 @@ import {
   CRow,
   CBadge,
 } from "@coreui/react";
-import { header } from "./../CommonData/data";
+import { header, username } from "./../CommonData/data";
 import axios from "axios";
 import CustomerDatePicker from "./../CustomerDatePicker/index";
 function Report_Button() {
@@ -23,15 +23,12 @@ function Report_Button() {
   const [menus, setMenus] = useState([]);
   const [buttons, setButtons] = useState([{ value: "", label: "" }]);
   const [listCalender, setListCalender] = useState([]);
-  // let menus = [];
-  const [startDate, setStartDate] = useState(new Date("2021-09-01"));
-  const [endDate, setEndDate] = useState(new Date("2021-09-01"));
+  const [startDate, setStartDate] = useState(new Date("2021-03-01"));
+  const [endDate, setEndDate] = useState(new Date());
 
   const arr = [];
   const arrbt = [];
   const getListMenu = async () => {
-    // const username = localStorage.getItem("email");
-    const username = "vuthanhnam@gmail.com";
     const config = {
       method: "get",
       url: `http://localhost:8080/api/v1/getMenuByEmail/${username}`,
@@ -55,8 +52,6 @@ function Report_Button() {
   };
 
   const getListButtons = async () => {
-    // const username = localStorage.getItem("email");
-    // const username = "vuthanhnam@gmail.com";
     setButtons([]);
     const config = {
       method: "get",
@@ -112,8 +107,6 @@ function Report_Button() {
   };
   // console.log("test", menus);
   const getDataButton = () => {
-    const username = "vuthanhnam@gmail.com";
-    // const username = localStorage.getItem("email")
     const config = {
       method: "get",
       url: `http://localhost:8080/api/v1/getTotalNumberClickOnButtonByRangeTimeSelect?email=${username}&start=${startDate
@@ -134,10 +127,6 @@ function Report_Button() {
       });
   };
   const getDataActionOfMenuByDay = () => {
-    //var axios = require('axios');
-
-    // const username = localStorage.getItem("eamil")
-    const username = "vuthanhnam@gmail.com";
     const baseHref =
       "http://localhost:8080/api/v1/statisticAllActionOnThisButtonByDay";
     const config = {
@@ -145,7 +134,7 @@ function Report_Button() {
       url: `${baseHref}?email=${username}&idButton=${buttonId}&start=${startDate
         .toISOString()
         .slice(0, 10)}&end=${endDate.toISOString().slice(0, 10)}`,
-      // url: "http://localhost:8080/api/v1/statisticAllActionOnThisMenuByDay?email=vuthanhnam@gmail.com&idMenu=6&end=2021-08-24&start=2021-08-15",
+
       header,
     };
 
@@ -207,6 +196,7 @@ function Report_Button() {
                   onChange={(e) => {
                     document.getElementById("button").hidden = false;
                     setMenuId(e.value);
+
                     console.log("this menu select", e.value);
                   }}
                 />
@@ -258,10 +248,12 @@ function Report_Button() {
               <CBadge color="secondary">{dataButton}</CBadge>
             </h1>
           </CCardBody>
-          <CCardFooter></CCardFooter>
         </CCard>
 
         <CCard className="col-9">
+          <CCardHeader className="text-center font-bold">
+            Thống kê tương tác trên Button
+          </CCardHeader>
           <CCardBody>
             <CChartBar
               datasets={[
