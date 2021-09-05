@@ -27,7 +27,7 @@
   //     showModal = (id) => {
   //         this.setState({ show: true });
   //         console.log(id)
-  //         fetch(`http://localhost:8080/api/v1/getModalByButton/${id}`, {
+  //         fetch(`http://192.168.0.107:8080/api/v1/getModalByButton/${id}`, {
   //             method: "POST",
   //         })
   //             .then(function (response) {
@@ -60,7 +60,7 @@
   //     componentDidMount() {
 
   //         if (!window.name.length > 21) {
-  //             fetch(`http://localhost:8080/api/v1/getMenuByStatus/${decode(window.name)}`, {
+  //             fetch(`http://192.168.0.107:8080/api/v1/getMenuByStatus/${decode(window.name)}`, {
   //                 method: "GET",
   //             })
 
@@ -86,11 +86,11 @@
   //                         redirect: "follow",
   //                     };
 
-  //                     fetch("http://localhost:8080/api/v1/activityMenu", requestOptions)
+  //                     fetch("http://192.168.0.107:8080/api/v1/activityMenu", requestOptions)
   //                         .then((response) => response.text())
   //                         .then((result) => console.log("getActivityMenu", result))
   //                         .catch((error) => console.log("error", error));
-  //                     fetch(`http://localhost:8080/api/v1/getButtonByIDMenu/${maMN}`, {
+  //                     fetch(`http://192.168.0.107:8080/api/v1/getButtonByIDMenu/${maMN}`, {
   //                         method: "GET",
   //                     })
   //                         .then(function (response) {
@@ -108,7 +108,7 @@
   //             const menuSplit = reverseString(reverseString(window.name.split('MU')[1]).concat('UM'));
   //             // const menuCode = reverseString((menuSplit).concat('MU'));
   //             console.log(menuSplit)
-  //             fetch(`http://localhost:8080/api/v1/getMenuByStatus/${decode(email)}`, {
+  //             fetch(`http://192.168.0.107:8080/api/v1/getMenuByStatus/${decode(email)}`, {
 
   //                 method: "GET",
   //             })
@@ -119,7 +119,7 @@
   //                     console.log(data)
   //                     for (let i = 0; i < data.length; i++) {
   //                         if ((data[i].menuCode && data[i].menuCode.trim()) === (menuSplit && menuSplit.trim())) {
-  //                             fetch(`http://localhost:8080/api/v1/getMenuByMenuCode/${menuSplit}`, {
+  //                             fetch(`http://192.168.0.107:8080/api/v1/getMenuByMenuCode/${menuSplit}`, {
   //                                 method: "POST",
   //                             })
   //                                 .then(function (response) {
@@ -145,11 +145,11 @@
   //                                         redirect: "follow",
   //                                     };
 
-  //                                     fetch("http://localhost:8080/api/v1/activityMenu", requestOptions)
+  //                                     fetch("http://192.168.0.107:8080/api/v1/activityMenu", requestOptions)
   //                                         .then((response) => response.text())
   //                                         .then((result) => console.log("getActivityMenu", result))
   //                                         .catch((error) => console.log("error", error));
-  //                                     fetch(`http://localhost:8080/api/v1/getButtonByIDMenu/${maMN}`, {
+  //                                     fetch(`http://192.168.0.107:8080/api/v1/getButtonByIDMenu/${maMN}`, {
   //                                         method: "GET",
   //                                     })
   //                                         .then(function (response) {
@@ -380,6 +380,7 @@
     let supplier;
     React.useEffect(() => {
       const interval = setInterval(() => {
+        console.log("window:   ", window.name);
         console.log("This will run every second!");
         var time = Number(
           String(
@@ -426,7 +427,7 @@
       // import Swal from "sweetalert2";
 
       setShow(true);
-      fetch(`http://localhost:8080/api/v1/getModalByButton/${id}`, {
+      fetch(`http://192.168.0.107:8080/api/v1/getModalByButton/${id}`, {
         method: "POST",
       })
         .then(function (response) {
@@ -458,11 +459,13 @@
 
     React.useEffect(() => {
       // console.log(moment("12:30:00 PM", "h:mm:ss a").minutes());
-
+      console.log("window name", window.name.length);
       // if (timer == "38") {
       if (!(window.name.length > 21)) {
         fetch(
-          `http://localhost:8080/api/v1/getMenuByStatus/${decode(window.name)}`,
+          `http://192.168.0.107:8080/api/v1/getMenuByStatus/${decode(
+            window.name
+          )}`,
           {
             method: "GET",
           }
@@ -499,13 +502,19 @@
               redirect: "follow",
             };
 
-            fetch("http://localhost:8080/api/v1/activityMenu", requestOptions)
+            fetch(
+              "http://192.168.0.107:8080/api/v1/activityMenu",
+              requestOptions
+            )
               .then((response) => response.text())
               .then((result) => console.log("getActivityMenu", result))
               .catch((error) => console.log("error", error));
-            fetch(`http://localhost:8080/api/v1/getButtonByIDMenu/${maMN}`, {
-              method: "GET",
-            })
+            fetch(
+              `http://192.168.0.107:8080/api/v1/getButtonByIDMenu/${maMN}`,
+              {
+                method: "GET",
+              }
+            )
               .then(function (response) {
                 return response.json();
               })
@@ -526,10 +535,14 @@
         console.log(decode(email));
         // const menuCode = reverseString((menuSplit).concat('MU'));
         console.log(menuSplit);
-        fetch(`http://localhost:8080/api/v1/getMenuByStatus/${decode(email)}`, {
-          method: "GET",
-        })
+        fetch(
+          `http://192.168.0.107:8080/api/v1/getMenuByStatus/${decode(email)}`,
+          {
+            method: "GET",
+          }
+        )
           .then(function (response) {
+        
             return response.json();
           })
           .then((data) => {
@@ -540,7 +553,7 @@
                 (menuSplit && menuSplit.trim())
               ) {
                 fetch(
-                  `http://localhost:8080/api/v1/getMenuByMenuCode/${menuSplit}`,
+                  `http://192.168.0.107:8080/api/v1/getMenuByMenuCode/${menuSplit}`,
                   {
                     method: "POST",
                   }
@@ -576,14 +589,14 @@
                     };
 
                     fetch(
-                      "http://localhost:8080/api/v1/activityMenu",
+                      "http://192.168.0.107:8080/api/v1/activityMenu",
                       requestOptions
                     )
                       .then((response) => response.text())
                       .then((result) => console.log("getActivityMenu", result))
                       .catch((error) => console.log("error", error));
                     fetch(
-                      `http://localhost:8080/api/v1/getButtonByIDMenu/${maMN}`,
+                      `http://192.168.0.107:8080/api/v1/getButtonByIDMenu/${maMN}`,
                       {
                         method: "GET",
                       }
@@ -666,7 +679,7 @@
           headers: myHeaders,
           body: raw,
         };
-        fetch(`http://localhost:8080/api/v1/dataofcustomer`, requestOptions)
+        fetch(`http://192.168.0.107:8080/api/v1/dataofcustomer`, requestOptions)
           .then((response) => response.text())
           .then((result) => {
             console.log("saveDataCustomer", result);
@@ -1224,7 +1237,7 @@
                                   };
 
                                   fetch(
-                                    "http://localhost:8080/api/v1/activityButton",
+                                    "http://192.168.0.107:8080/api/v1/activityButton",
                                     requestOptions
                                   )
                                     .then((response) => response.text())
@@ -1332,7 +1345,7 @@
                                   };
 
                                   fetch(
-                                    "http://localhost:8080/api/v1/activityButton",
+                                    "http://192.168.0.107:8080/api/v1/activityButton",
                                     requestOptions
                                   )
                                     .then((response) => response.text())
@@ -1429,7 +1442,7 @@
                                 };
 
                                 fetch(
-                                  "http://localhost:8080/api/v1/activityButton",
+                                  "http://192.168.0.107:8080/api/v1/activityButton",
                                   requestOptions
                                 )
                                   .then((response) => response.text())
@@ -1513,7 +1526,7 @@
                                 };
 
                                 fetch(
-                                  "http://localhost:8080/api/v1/activityButton",
+                                  "http://192.168.0.107:8080/api/v1/activityButton",
                                   requestOptions
                                 )
                                   .then((response) => response.text())

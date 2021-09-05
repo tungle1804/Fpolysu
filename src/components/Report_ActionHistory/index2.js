@@ -58,9 +58,13 @@ function ReportActionByEquipment() {
         const dt = [];
         const dt2 = [];
         const res = response.data.content;
+        console.log("res   ",res)
         for (let index = 0; index < res.length; index++) {
           dt.push(res[index][1]);
-          dt2.push(res[index][0]);
+          dt2.push(
+            res[index][0] == 1 ? "Link" : res[index][0] == 2 ? "Call" : "Form"
+          );
+          //  dt2.push(res[index][0]);
         }
         setLabelButtons(dt2);
         setData2([
