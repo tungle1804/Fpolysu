@@ -483,3 +483,12 @@ html {
 .body-banner--show {
     padding-top: 52px !important;
 }
+.mt-tooltip__text:after {
+    content: " ";
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    margin-left: -5px;
+    border: 5px solid transparent;
+    border-top-color: #232f34;
+}

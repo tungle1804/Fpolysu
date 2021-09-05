@@ -99,66 +99,69 @@ function ReportRatioActivity() {
     // }
   }, []);
   return (
-    <CRow>
-      <CCard className="col-6">
-        <CCardHeader align={"center"}>Tỉ lệ nhấp chuột vào Menu</CCardHeader>
-        <CCardBody>
-          <table
-            className=" table table-striped table-bordered "
-            style={{ border: "none" }}
-          >
-            <thead>
-              <tr>
-                <th>STT</th>
-                <th>Tên Menu</th>
-                <th>Số lần hiển thị</th>
-                <th>Số lần Click</th>
-                <th>Tỉ lệ Click</th>
-              </tr>
-            </thead>
-            <tbody>
-              {/* {
+    <CRow className="flex mx-auto w-full justify-between gap-3">
+      <div className="flex-1 w-full">
+        <CCard className="">
+          <CCardHeader align={"center"}>Tỉ lệ nhấp chuột vào Menu</CCardHeader>
+          <CCardBody>
+            <table
+              className=" table table-striped table-bordered "
+              style={{ border: "none" }}
+            >
+              <thead>
+                <tr>
+                  <th>STT</th>
+                  <th>Tên Menu</th>
+                  <th>Số lần hiển thị</th>
+                  <th>Số lần Click</th>
+                  <th>Tỉ lệ Click</th>
+                </tr>
+              </thead>
+              <tbody>
+                {/* {
               !data.length(
                 <tr className="text-center">
                   <td colSpan={3}>No Student</td>
                 </tr>
               )
             } */}
-              {dataMenu.map((item, index) => {
-                return (
-                  <tr key={index}>
-                    <td>{index + 1}</td>
-                    <td>{item[0]}</td>
-                    <td>{item[1]}</td>
-                    <td>{item[2]}</td>
-                    <td>{((item[2] / item[1]) * 100).toFixed(2)}%</td>
-                  </tr>
-                );
-              })}
-            </tbody>
-          </table>
-        </CCardBody>
-      </CCard>
-      <CCard className="col-6">
-        <CCardHeader align={"center"} textColor="red">
-          Tỉ lệ nhấp chuột vào Widget
-        </CCardHeader>
-        <CCardBody>
-          <table
-            className=" table table-striped table-bordered "
-            style={{ border: "none" }}
-          >
-            <thead>
-              <tr>
-                <th>STT</th>
-                <th>Tên Nút</th>
-                <th>Số lần hiển thị</th>
-                <th>Số lần Click</th>
-                <th>Tỉ lệ Click</th>
-              </tr>
-            </thead>
-            <tbody>
-              {/* {
+                {dataMenu.map((item, index) => {
+                  return (
+                    <tr key={index}>
+                      <td>{index + 1}</td>
+                      <td>{item[0]}</td>
+                      <td>{item[1]}</td>
+                      <td>{item[2]}</td>
+                      <td>{((item[2] / item[1]) * 100).toFixed(2)}%</td>
+                    </tr>
+                  );
+                })}
+              </tbody>
+            </table>
+          </CCardBody>
+        </CCard>
+      </div>
+      <div className="flex-1 w-full">
+        <CCard className="">
+          <CCardHeader align={"center"} textColor="red">
+            Tỉ lệ nhấp chuột vào Widget
+          </CCardHeader>
+          <CCardBody>
+            <table
+              className=" table table-striped table-bordered "
+              style={{ border: "none" }}
+            >
+              <thead>
+                <tr>
+                  <th>STT</th>
+                  <th>Tên Nút</th>
+                  <th>Số lần hiển thị</th>
+                  <th>Số lần Click</th>
+                  <th>Tỉ lệ Click</th>
+                </tr>
+              </thead>
+              <tbody>
+                {/* {
               !data.length(
                 <tr className="text-center">
                   <td colSpan={3}>No Student</td>
@@ -166,21 +169,22 @@ function ReportRatioActivity() {
               )
             } */}
 
-              {dataWidget.map((item, index) => {
-                return (
-                  <tr key={index}>
-                    <td>{index + 1}</td>
-                    <td>{item[0]}</td>
-                    <td>{item[1]}</td>
-                    <td>{item[2]}</td>
-                    <td>{((item[2] / item[1]) * 100).toFixed(2)}%</td>
-                  </tr>
-                );
-              })}
-            </tbody>
-          </table>
-        </CCardBody>
-      </CCard>
+                {dataWidget.map((item, index) => {
+                  return (
+                    <tr key={index}>
+                      <td>{index + 1}</td>
+                      <td>{item[0]}</td>
+                      <td>{item[1]}</td>
+                      <td>{item[2]}</td>
+                      <td>{((item[2] / item[1]) * 100).toFixed(2)}%</td>
+                    </tr>
+                  );
+                })}
+              </tbody>
+            </table>
+          </CCardBody>
+        </CCard>
+      </div>
     </CRow>
   );
 }

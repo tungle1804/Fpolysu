@@ -108,26 +108,29 @@ function ReportActionByEquipment() {
   }, []);
 
   return (
-    <CRow>
-      <CCard className="col-6">
-        <CCardHeader>
-          <h2>Tương tác trên thiết bị</h2>
-          <i>Tổng số click trên thiết bị</i>
-        </CCardHeader>
-        <CCardBody className="chart-wrapper">
-          <CChartPie type="pie" datasets={data} labels={dataEquipment} />
-        </CCardBody>
-      </CCard>
-
-      <CCard className="col-6">
-        <CCardHeader>
-          <h2>Tương tác trên nút</h2>
-          <i>Tổng số click trên tất cả các kiểu nút trên menu</i>
-        </CCardHeader>
-        <CCardBody>
-          <CChart type="doughnut" datasets={data2} labels={labelButtons} />
-        </CCardBody>
-      </CCard>
+    <CRow className="block lg:flex mx-auto w-full justify-between gap-3">
+      <div className="flex-1 w-screen lg:w-full">
+        <CCard >
+          <CCardHeader>
+            <h2>Tương tác trên thiết bị</h2>
+            <i>Tổng số click trên thiết bị</i>
+          </CCardHeader>
+          <CCardBody className="chart-wrapper">
+            <CChartPie type="pie" datasets={data} labels={dataEquipment} />
+          </CCardBody>
+        </CCard>
+      </div>
+      <div className="flex-1 w-screen lg:w-full">
+        <CCard >
+          <CCardHeader>
+            <h2>Tương tác trên nút</h2>
+            <i>Tổng số click trên tất cả các kiểu nút trên menu</i>
+          </CCardHeader>
+          <CCardBody>
+            <CChart type="doughnut" datasets={data2} labels={labelButtons} />
+          </CCardBody>
+        </CCard>
+      </div>
     </CRow>
   );
 }

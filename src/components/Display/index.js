@@ -25,7 +25,6 @@ function Display({ loadInput, requesting, displayMenu }) {
   const [displayTypeV2, setDisplayTypeV2] = useState();
   let email = localStorage.getItem("email");
   const [inputValue, setInputValue] = useState();
-  console.log(inputValue);
 
   useEffect(() => {
     setInputValue(loadInput);
@@ -35,8 +34,20 @@ function Display({ loadInput, requesting, displayMenu }) {
     if (email != null) {
       ButtonService.getButtonByIDMenu(id).then((res) => {
         setButton(res.data);
-        setdisplayType(res.data[0].menu.menuType);
-        setDisplayTypeV2(res.data[0].menu.menuLocation);
+        setdisplayType(
+          res.data[0]
+            ? res.data[0].menu.menuType
+              ? res.data[0].menu.menuType
+              : ""
+            : ""
+        );
+        setDisplayTypeV2(
+          res.data[0]
+            ? res.data[0].menu.menuType
+              ? res.data[0].menu.menuLocation
+              : ""
+            : ""
+        );
       });
     }
   }, [id]);
@@ -229,7 +240,9 @@ function Display({ loadInput, requesting, displayMenu }) {
                                 top: "0px",
                                 left: "0px",
                                 backgroundColor: `${items.menu.color_menu}`,
-                                opacity: 1,
+                                opacity: items.menu.opacity
+                                  ? items.menu.opacity
+                                  : "1",
                                 color: "rgb(255, 255, 255)",
                                 pointerEvents: "none",
                                 zIndex: -1,
@@ -247,20 +260,21 @@ function Display({ loadInput, requesting, displayMenu }) {
                                     backgroundColor: `${items.color_background}`,
                                   }}
                                 >
-                                  <img
-                                    alt="url"
-                                    style={{
-                                      height: "30px",
-                                      marginRight: "20px",
-                                    }}
-                                    src={`../images/${items.icon}`}
-                                    className="mmt-button__icon"
+                                  <i
+                                    style={{ color: items.color_icon }}
+                                    className={` mr-1 my-auto  ${items.icon}`}
                                   />
+
                                   <span
                                     className="mmt-button__label"
                                     style={{ color: `${items.color_text}` }}
                                   >
                                     {items.name_button}
+                                    {items.captionContent && (
+                                      <div className="mt-tooltip__text">
+                                        {items.captionContent}
+                                      </div>
+                                    )}
                                   </span>
                                 </span>
                               </div>
@@ -288,7 +302,9 @@ function Display({ loadInput, requesting, displayMenu }) {
                                 top: "0px",
                                 left: "0px",
                                 backgroundColor: `${items.menu.color_menu}`,
-                                opacity: 1,
+                                opacity: items.menu.opacity
+                                  ? items.menu.opacity
+                                  : "1",
                                 color: "rgb(255, 255, 255)",
                                 pointerEvents: "none",
                                 zIndex: -1,
@@ -306,25 +322,25 @@ function Display({ loadInput, requesting, displayMenu }) {
                                     backgroundColor: `${items.color_background}`,
                                   }}
                                 >
-                                  <img
-                                    alt="url"
-                                    style={{
-                                      height: "30px",
-                                      marginRight: "20px",
-                                    }}
-                                    src={`../images/${items.icon}`}
-                                    className="mmt-button__icon"
+                                  <i
+                                    style={{ color: items.color_icon }}
+                                    className={` mr-1 my-auto  ${items.icon}`}
                                   />
                                   <span
                                     className="mmt-button__label"
                                     style={{ color: `${items.color_text}` }}
                                   >
                                     {items.name_button}
+                                    {items.captionContent && (
+                                      <div className="mt-tooltip__text">
+                                        {items.captionContent}
+                                      </div>
+                                    )}
                                   </span>
                                 </span>
 
                                 {items.captionContent && (
-                                  <div className="mt-tooltip_text">
+                                  <div className="mt-tooltip__text">
                                     <span>{items.captionContent}</span>
                                   </div>
                                 )}
@@ -363,7 +379,9 @@ function Display({ loadInput, requesting, displayMenu }) {
                                 <span
                                   style={{
                                     backgroundColor: `${items.menu.color_menu}`,
-                                    opacity: 1,
+                                    opacity: items.menu.opacity
+                                      ? items.menu.opacity
+                                      : "1",
                                     position: "absolute",
                                     width: "100%",
                                     height: "100%",
@@ -373,17 +391,20 @@ function Display({ loadInput, requesting, displayMenu }) {
                                     zIndex: "-1",
                                   }}
                                 ></span>
-                                <img
-                                  alt="url"
-                                  style={{ height: "30px" }}
-                                  src={`../images/${items.icon}`}
-                                  className="mmt-button__icon"
+                                <i
+                                  style={{ color: items.color_icon }}
+                                  className={` mr-1 my-auto  ${items.icon}`}
                                 />
                                 <span
                                   className="mmt-button__label"
                                   style={{ color: `${items.color_text}` }}
                                 >
                                   {items.name_button}
+                                  {items.captionContent && (
+                                    <div className="mt-tooltip__text">
+                                      {items.captionContent}
+                                    </div>
+                                  )}
                                 </span>
                               </span>
 
@@ -423,7 +444,9 @@ function Display({ loadInput, requesting, displayMenu }) {
                                 <span
                                   style={{
                                     backgroundColor: `${items.menu.color_menu}`,
-                                    opacity: 1,
+                                    opacity: items.menu.opacity
+                                      ? items.menu.opacity
+                                      : "1",
                                     position: "absolute",
                                     width: "100%",
                                     height: "100%",
@@ -432,17 +455,20 @@ function Display({ loadInput, requesting, displayMenu }) {
                                     zIndex: "-1",
                                   }}
                                 ></span>
-                                <img
-                                  alt="url"
-                                  style={{ height: "30px" }}
-                                  src={`../images/${items.icon}`}
-                                  className="mmt-button__icon"
+                                <i
+                                  style={{ color: items.color_icon }}
+                                  className={` mr-1 my-auto  ${items.icon}`}
                                 />
                                 <span
                                   className="mmt-button__label"
                                   style={{ color: `${items.color_text}` }}
                                 >
                                   {items.name_button}
+                                  {items.captionContent && (
+                                    <div className="mt-tooltip__text">
+                                      {items.captionContent}
+                                    </div>
+                                  )}
                                 </span>
                               </span>
 

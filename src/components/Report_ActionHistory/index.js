@@ -45,8 +45,8 @@ function Report_ActionHistory() {
     const API = `http://localhost:8080/api/v1/getStatisticInformationOfAction?email=${username}&start=${startDate
       .toISOString()
       .slice(0, 10)}&end=${endDate
-      .toISOString()
-      .slice(0, 10)}&search=${search}&pageNo=${pageNo - 1}&limit=${limit}`;
+        .toISOString()
+        .slice(0, 10)}&search=${search}&pageNo=${pageNo - 1}&limit=${limit}`;
 
     // console.log("API: ", API);
 
@@ -188,89 +188,93 @@ function Report_ActionHistory() {
   }, [pageNo, limit, startDate, endDate, search]);
   //  console.log("list Data now 2: ", data);
   return (
-    <CContainer style={{ marginLeft: "10px" }}>
-      <CCard>
-        <CCardHeader align={"center"}>Chọn Thời gian</CCardHeader>
-        <CCardBody align={"center"}>
-          <StatisticsClickAllMenu></StatisticsClickAllMenu>
-        </CCardBody>
-        <CCardFooter></CCardFooter>
-      </CCard>
-      <br />
-      <ReportRatioActivity></ReportRatioActivity>
-      <br />
-      <ReportActionByEquipment></ReportActionByEquipment>
-      <br />
-      <CCard>
-        <div className="row ">
-          <CInput
-            style={{ marginLeft: "12px", height: "50px" }}
-            className="col-3"
-            placeholder="Tìm kiếm theo tên,url..."
-            size="md"
-            onKeyPress={handleChange}
-          />
-          <CCardHeader className="font-weight-bolder text-center bg-blue-500 col-6 offset-2">
-            Thống kê Tương tác
-          </CCardHeader>
-        </div>
+    <div className="w-full mx-auto">
+      <CContainer >
+        <CCard>
+          <CCardHeader align={"center"}>Chọn Thời gian</CCardHeader>
+          <CCardBody align={"center"}>
+            <StatisticsClickAllMenu></StatisticsClickAllMenu>
+          </CCardBody>
+          <CCardFooter></CCardFooter>
+        </CCard>
+        <br />
+        <ReportRatioActivity></ReportRatioActivity>
+        <br />
+        <ReportActionByEquipment></ReportActionByEquipment>
+        <br />
+        <CCard className="w-full">
+          <div className="flex justify-between ">
+            <CCardHeader className="font-weight-bolder w-full text-center flex justify-between">
+              <div className="my-auto text-xl"> Thống kê Tương tác</div>
+              <div className="p-2 w-auto">
+                <CInput
+                  style={{ height: "50px" }}
+                  className=" "
+                  placeholder="Tìm kiếm theo tên,url..."
+                  size="md"
+                  onKeyPress={handleChange}
+                />
+              </div>
+            </CCardHeader>
+          </div>
 
-        <table
-          className=" table table-striped table-bordered "
-          style={{ border: "none" }}
-        >
-          <thead>
-            <tr>
-              <th>STT</th>
-              <th>Thời gian</th>
-              <th>Tên Menu</th>
-              <th>Tên Button</th>
-              <th>Link-Button</th>
-              <th>Nguồn</th>
-            </tr>
-          </thead>
-          <tbody>
-            {/* {
+          <table
+            className=" table table-striped table-bordered"
+            style={{ border: "none" }}
+          >
+            <thead>
+              <tr>
+                <th>STT</th>
+                <th>Thời gian</th>
+                <th>Tên Menu</th>
+                <th>Tên Button</th>
+                <th>Link-Button</th>
+                <th>Nguồn</th>
+              </tr>
+            </thead>
+            <tbody>
+              {/* {
               !data.length(
                 <tr className="text-center">
                   <td colSpan={3}>No Student</td>
                 </tr>
               )
             } */}
-            {data.map((item, index) => {
-              return (
-                <tr key={index}>
-                  <td>{index + 1}</td>
-                  <td>{new Date(item[0]).toUTCString()}</td>
-                  <td>{item[1]}</td>
-                  <td>{item[2]}</td>
-                  <td>{item[3]}</td>
-                  <td>{item[4]}</td>
-                </tr>
-              );
-            })}
-          </tbody>
-        </table>
-        <CRow className="row">
-          <CPagination
-            className="col-5 mx-0 px-3"
-            addListClass="some-class"
-            activePage={pageNo}
-            pages={totalPage}
-            onActivePageChange={setPageNo}
-          />
-          <div className="col-6 right">
-            <DisplayResultPagination
-              page={pageNo}
-              setPage={setPageNo}
-              limit={limit}
-              setLimit={setLimit}
-              totalElements={totalRecord}
-            ></DisplayResultPagination>
-          </div>
-        </CRow>
-      </CCard>
-    </CContainer>
+              {data.map((item, index) => {
+                return (
+                  <tr key={index}>
+                    <td>{index + 1}</td>
+                    <td>{new Date(item[0]).toUTCString()}</td>
+                    <td>{item[1]}</td>
+                    <td>{item[2]}</td>
+                    <td>{item[3]}</td>
+                    <td>{item[4]}</td>
+                  </tr>
+                );
+              })}
+            </tbody>
+          </table>
+          <CRow className="row p-2">
+            <CPagination
+              className="col-5 mx-0 px-3"
+              addListClass="some-class"
+              activePage={pageNo}
+              pages={totalPage}
+              onActivePageChange={setPageNo}
+            />
+            <div className="col-6 right">
+              <DisplayResultPagination
+                page={pageNo}
+                setPage={setPageNo}
+                limit={limit}
+                setLimit={setLimit}
+                totalElements={totalRecord}
+              ></DisplayResultPagination>
+            </div>
+          </CRow>
+        </CCard>
+      </CContainer>
+    </div>
   );
 }
 

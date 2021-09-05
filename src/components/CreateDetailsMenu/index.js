@@ -7,6 +7,10 @@ import ButtonFake from "../../service/ButtonFake";
 import Ifram from "./iframe";
 import DisplayCreateDetails from "../Display/displaycreatedetails";
 import { connect, useDispatch, useSelector } from "react-redux";
+import MenuItem from "@material-ui/core/MenuItem";
+import SendIcon from "@material-ui/icons/Send";
+import ListItemIcon from "@material-ui/core/ListItemIcon";
+import ListItemText from "@material-ui/core/ListItemText";
 import Swal from "sweetalert2";
 import {
   createButton,
@@ -17,7 +21,21 @@ import {
 import Display from "../Display/displaycreatedetails";
 import Frame, { FrameContextConsumer } from "react-frame-component";
 import { SketchPicker } from "react-color";
-// import styles from 'public/styleMetu/style.css';
+import ClickAwayListener from "@material-ui/core/ClickAwayListener";
+import Grow from "@material-ui/core/Grow";
+import Paper from "@material-ui/core/Paper";
+import Popper from "@material-ui/core/Popper";
+import MenuList from "@material-ui/core/MenuList";
+import { makeStyles } from "@material-ui/core/styles";
+import { styles } from "@material-ui/pickers/views/Calendar/Calendar";
+const useStyles = makeStyles((theme) => ({
+  root: {
+    display: "flex",
+  },
+  paper: {
+    marginRight: theme.spacing(2),
+  },
+}));
 function CreateDetailsMenu({ data, color }) {
   const displayMenu = useSelector((state) => state.displayMenu.displayMenu);
   const initialContent = () => {
@@ -25,6 +43,9 @@ function CreateDetailsMenu({ data, color }) {
           <html>
             <head>
              <style>
+             .mt-tooltip:hover .mt-tooltip__text {
+              visibility: visible;
+          }
              #metu .mmt-container {
                 position: fixed;
                 left: 0;
@@ -58,7 +79,7 @@ function CreateDetailsMenu({ data, color }) {
                 justify-content: center;
                 align-items: center;
             }
-            .mt-tooltip_text {
+            .mt-tooltip__text {
                 position: absolute;
                 visibility: hidden;
                 z-index: 1;
@@ -93,8 +114,20 @@ function CreateDetailsMenu({ data, color }) {
                 height: 40px;
                 margin: 10px 5px;
             }
-            
+            .mt-tooltip__text:after {
+              content: " ";
+              position: absolute;
+              top: 100%;
+              left: 50%;
+              margin-left: -5px;
+              border: 5px solid transparent;
+              border-top-color: #232f34;
+          }
+          #metu .mmt-button:hover{background-color:rgba(27,27,27,.2)}
              </style>
+             <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css"
+             integrity="sha512-HK5fgLBL+xu6dm/Ii3z4xhlSUyZgTT9tuc/hSrtw6uzJOvgRr2a9jyxxT1ely+B+xFAmJKVSTbpM/CuL7qxO8w=="
+             crossOrigin="anonymous" />
             </head>
             <body >
               <div id="page" ></div>
@@ -147,7 +180,7 @@ function CreateDetailsMenu({ data, color }) {
                 justify-content: center;
                 align-items: center;
             }
-            .mt-tooltip_text {
+            .mt-tooltip__text {
                 position: absolute;
                 visibility: hidden;
                 z-index: 1;
@@ -182,8 +215,22 @@ function CreateDetailsMenu({ data, color }) {
                 height: 40px;
                 margin: 10px 5px;
             }
-            
+            .mt-tooltip:hover .mt-tooltip__text {
+              visibility: visible;
+          }
+          .mt-tooltip__text:after {
+            content: " ";
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            margin-left: -5px;
+            border: 5px solid transparent;
+            border-top-color: #232f34;
+        }
              </style>
+             <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css"
+             integrity="sha512-HK5fgLBL+xu6dm/Ii3z4xhlSUyZgTT9tuc/hSrtw6uzJOvgRr2a9jyxxT1ely+B+xFAmJKVSTbpM/CuL7qxO8w=="
+             crossOrigin="anonymous" />
             </head>
             <body >
               <div id="page" ></div>
@@ -243,7 +290,15 @@ function CreateDetailsMenu({ data, color }) {
             align-items: flex-end;
             justify-content: flex-end;
             }
-           
+            .mt-tooltip__text:after {
+              content: " ";
+              position: absolute;
+              top: 100%;
+              left: 50%;
+              margin-left: -5px;
+              border: 5px solid transparent;
+              border-top-color: #232f34;
+          }
             body {
                display: table-cell;
               }
@@ -268,7 +323,7 @@ function CreateDetailsMenu({ data, color }) {
                 justify-content: center;
                 align-items: center;
             }
-            .mt-tooltip_text {
+            .mt-tooltip__text {
                 position: absolute;
                 visibility: hidden;
                 z-index: 1;
@@ -297,7 +352,7 @@ function CreateDetailsMenu({ data, color }) {
                 white-space: nowrap;
                 text-overflow: clip;
             }
-            #metu .mmt-button__labe{
+            #metu .mmt-button__label{
                 font-size: 14px;
     line-height: 20px
             }
@@ -315,14 +370,20 @@ function CreateDetailsMenu({ data, color }) {
                 height: 40px;
                 margin: 10px 5px;
             }
-            
+            .mt-tooltip:hover .mt-tooltip__text {
+              visibility: visible;
+          }
              </style>
+             <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css"
+             integrity="sha512-HK5fgLBL+xu6dm/Ii3z4xhlSUyZgTT9tuc/hSrtw6uzJOvgRr2a9jyxxT1ely+B+xFAmJKVSTbpM/CuL7qxO8w=="
+             crossOrigin="anonymous" />
             </head>
             <body >
               <div id="page" ></div>
             </body>
           </html>`;
   };
+
   const initstateText = {
     displayColorText: false,
     color: {
@@ -339,6 +400,14 @@ function CreateDetailsMenu({ data, color }) {
       b: "19",
     },
   };
+  const initstateIcon = {
+    displayColorIcon: false,
+    color: {
+      r: "241",
+      g: "112",
+      b: "19",
+    },
+  };
   const initstateValueButton = {
     name_button: null,
     color_text: null,
@@ -346,21 +415,24 @@ function CreateDetailsMenu({ data, color }) {
     color_icon: null,
     link: null,
   };
+  const classes = useStyles();
   const data1 = useSelector((state) => state.createbuttons.data);
   const [colorText, setColorText] = useState(initstateText);
   const [valueButton, setValueButton] = useState(initstateValueButton);
   const [colorBackground, setColorBackground] = useState(initstateBackground);
+  const [colorIcon, setColorIcon] = useState(initstateIcon);
   const [editButton, setEditButton] = useState({});
   const [show, setShow] = useState(false);
-
+  const [step, setStep] = useState("1");
+  const [open, setOpen] = React.useState(false);
+  const anchorRef = React.useRef(null);
   const stylesText = {
     color: {
       width: "36px",
       height: "14px",
       borderRadius: "2px",
-      background: `rgba(${colorText.color && colorText.color.r}, ${
-        colorText.color && colorText.color.g
-      }, ${colorText.color && colorText.color.b})`,
+      background: `rgba(${colorText.color && colorText.color.r}, ${colorText.color && colorText.color.g
+        }, ${colorText.color && colorText.color.b})`,
       // backgroundColor: colorText.color_text ? colorText.color_text : "",
     },
     swatch: {
@@ -388,9 +460,36 @@ function CreateDetailsMenu({ data, color }) {
       width: "36px",
       height: "14px",
       borderRadius: "2px",
-      background: `rgba(${colorBackground.color && colorBackground.color.r}, ${
-        colorBackground.color && colorBackground.color.g
-      }, ${colorBackground.color && colorBackground.color.b})`,
+      background: `rgba(${colorBackground.color && colorBackground.color.r}, ${colorBackground.color && colorBackground.color.g
+        }, ${colorBackground.color && colorBackground.color.b})`,
+    },
+    swatch: {
+      padding: "5px",
+      background: "#fff",
+      borderRadius: "1px",
+      boxShadow: "0 0 0 1px rgba(0,0,0,.1)",
+      display: "inline-block",
+      cursor: "pointer",
+    },
+    popover: {
+      position: "absolute",
+      zIndex: "1",
+    },
+    cover: {
+      position: "fixed",
+      top: "0px",
+      right: "0px",
+      bottom: "0px",
+      left: "0px",
+    },
+  };
+  const stylesIcon = {
+    color: {
+      width: "36px",
+      height: "14px",
+      borderRadius: "2px",
+      background: `rgba(${colorIcon.color && colorIcon.color.r}, ${colorIcon.color && colorIcon.color.g
+        }, ${colorIcon.color && colorIcon.color.b})`,
     },
     swatch: {
       padding: "5px",
@@ -430,14 +529,8 @@ function CreateDetailsMenu({ data, color }) {
     });
   };
   const ondelete = (id) => {
+    console.log(id);
     dispatch(deleteButton(id));
-    // button.forEach((item, index) => {
-    //     if (item.id_button === id) {
-    //         button.splice(index, 1)
-    //     }
-    // })
-    // setButton([...button])
-    ButtonFake.deleteButtonFake(id);
   };
   const onedit = (id) => {
     data1.forEach((items, index) => {
@@ -457,6 +550,14 @@ function CreateDetailsMenu({ data, color }) {
             r: hexToR(data1[index].color_background),
             g: hexToG(data1[index].color_background),
             b: hexToB(data1[index].color_background),
+          },
+        });
+        setColorIcon({
+          ...colorIcon,
+          color: {
+            r: hexToR(data1[index].color_icon),
+            g: hexToG(data1[index].color_icon),
+            b: hexToB(data1[index].color_icon),
           },
         });
       }
@@ -479,10 +580,10 @@ function CreateDetailsMenu({ data, color }) {
     var result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
     return result
       ? {
-          r: parseInt(result[1], 16),
-          g: parseInt(result[2], 16),
-          b: parseInt(result[3], 16),
-        }
+        r: parseInt(result[1], 16),
+        g: parseInt(result[2], 16),
+        b: parseInt(result[3], 16),
+      }
       : null;
   }
   const handleClose = () => {
@@ -500,23 +601,44 @@ function CreateDetailsMenu({ data, color }) {
     const editButtons = {
       id_button: editButton.id_button,
       name_button: editButton.name_button,
-      color_text: rgbToHex(
-        valueButton.color_text.r ? valueButton.color_text.r : "",
-        valueButton.color_text.g ? valueButton.color_text.g : "",
-        valueButton.color_text.b ? valueButton.color_text.b : ""
-      ),
-      color_background: rgbToHex(
-        valueButton.color_background.r ? valueButton.color_background.r : "",
-        valueButton.color_background.g ? valueButton.color_background.g : "",
-        valueButton.color_background.b ? valueButton.color_background.b : ""
-      ),
-      color_icon: rgbToHex(
-        valueButton.color_icon.r ? valueButton.color_icon.r : "",
-        valueButton.color_icon.g ? valueButton.color_icon.g : "",
-        valueButton.color_icon.b ? valueButton.color_icon.b : ""
-      ),
       link: editButton.link,
       icon: editButton.icon,
+      TypeButton: editButton.TypeButton,
+      captionContent: editButton.captionContent,
+      color_text: rgbToHex(
+        valueButton.color_text
+          ? valueButton.color_text.r
+          : colorText.color && colorText.color.r,
+        valueButton.color_text
+          ? valueButton.color_text.g
+          : colorText.color && colorText.color.g,
+        valueButton.color_text
+          ? valueButton.color_text.b
+          : colorText.color && colorText.color.b
+      ),
+
+      color_background: rgbToHex(
+        valueButton.color_background
+          ? valueButton.color_background.r
+          : colorBackground.color && colorBackground.color.r,
+        valueButton.color_background
+          ? valueButton.color_background.g
+          : colorBackground.color && colorBackground.color.g,
+        valueButton.color_background
+          ? valueButton.color_background.b
+          : colorBackground.color && colorBackground.color.b
+      ),
+      color_icon: rgbToHex(
+        valueButton.color_icon
+          ? valueButton.color_icon.r
+          : colorIcon.color && colorIcon.color.r,
+        valueButton.color_icon
+          ? valueButton.color_icon.g
+          : colorIcon.color && colorIcon.color.g,
+        valueButton.color_icon
+          ? valueButton.color_icon.b
+          : colorIcon.color && colorIcon.color.b
+      ),
     };
     dispatch(updateButton(editButtons));
     // ButtonFake.updateButtonFake(editButtons, editButton.id_button)
@@ -542,9 +664,23 @@ function CreateDetailsMenu({ data, color }) {
       displayColorBackground: false,
     });
   };
+
   const handleChangeBackground = (color) => {
     setColorBackground({ ...colorBackground, color: color.rgb });
     setValueButton({ ...valueButton, color_background: color.rgb });
+  };
+  const handleCloseIcon = () => {
+    setColorIcon({
+      ...colorIcon.color,
+      displayColorIcon: false,
+    });
+  };
+  const handleChangeIcon = (color) => {
+    setColorIcon({ ...colorIcon, color: color.rgb });
+    setValueButton({ ...valueButton, color_icon: color.rgb });
+  };
+  const handleClickIcon = () => {
+    setColorIcon({ ...colorIcon, displayColorIcon: true });
   };
   const viewColorTextInput = () => {
     return (
@@ -588,6 +724,25 @@ function CreateDetailsMenu({ data, color }) {
       </>
     );
   };
+  const viewColorIconInput = () => {
+    return (
+      <>
+        <div style={stylesIcon.swatch} onClick={handleClickIcon}>
+          <div style={stylesIcon.color} />
+        </div>
+
+        {colorIcon.displayColorIcon ? (
+          <div>
+            <div style={stylesIcon.cover} onClick={handleCloseIcon} />
+            <SketchPicker color={colorIcon.color} onChange={handleChangeIcon} />
+          </div>
+        ) : (
+          ""
+        )}
+      </>
+    );
+  };
+
   const initialContentView = () => {
     if (displayMenu === "1") {
       return initialContent();
@@ -597,7 +752,32 @@ function CreateDetailsMenu({ data, color }) {
       return initialContent2();
     }
   };
+  const onStep1 = () => {
+    setStep("1");
+  };
+  const onStep2 = () => {
+    setStep("2");
+  };
 
+  const handleClick = (event) => {
+    setOpen((prevOpen) => !prevOpen);
+  };
+
+  function handleListKeyDown(event) {
+    if (event.key === "Tab") {
+      event.preventDefault();
+      setOpen(false);
+    }
+  }
+
+  const handleCloseButton = (event) => {
+    if (anchorRef.current && anchorRef.current.contains(event.target)) {
+      return;
+    }
+
+    setOpen(false);
+    // onedit(item.id_button)}
+  };
   return (
     <>
       <div className=" lg:ml-10 bg-white rounded shadow-xl p-6 w-screen lg:w-full ">
@@ -612,26 +792,80 @@ function CreateDetailsMenu({ data, color }) {
                             <span class="text-sm">Gọi ngay</span></div>
                     </button></div> */}
 
-        <section className="my-1 grid grid-cols-1 xl:grid-cols-6 gap-2 mr-1">
+        <section className="my-1 grid grid-cols-1 xl:grid-cols-4 gap-2 mr-1">
           {data1.map((item) => (
             <div className="flex  flex-wrap mt-1">
               <div
                 class="flex-1  font-bold rounded border-2  hover:border-green-700 hover:text-black shadow-md py-2 px-2  items-center"
                 style={{ backgroundColor: `${item.color_background}` }}
               >
-                <button class="px-3 ">
-                  <div class="flex mx-auto my-auto">
-                    <i class="fas fa-phone-volume mr-1 my-auto"></i>
-                    <span
-                      class="text-sm"
-                      style={{ color: `${item.color_text}` }}
+                <button
+                  ref={anchorRef}
+                  aria-controls={open ? "menu-list-grow" : undefined}
+                  aria-haspopup="true"
+                  class="px-3 "
+                  onClick={handleClick}
+                >
+                  <div className="flex">
+                    <div class="flex mx-auto my-auto flex-none">
+                      <i
+                        style={{ color: `${item.color_icon}` }}
+                        className={` ${item.icon} mr-1 my-auto  `}
+                      />
+                      <span
+                        class="text-sm w-full "
+                        style={{ color: `${item.color_text}` }}
+                      >
+                        {item.name_button}
+                      </span>
+
+                      {/* <Popper
+                      open={open}
+                      anchorEl={anchorRef.current}
+                      role={undefined}
+                      transition
+                      disablePortal
                     >
+                     
+                        <Paper>
+                          <MenuList
+                            autoFocusItem={open}
+                            id="menu-list-grow"
+                            onKeyDown={handleListKeyDown}
+                          >
+                            <MenuItem onClick={() => onedit(item.id_button)}>
+                              Edit
+                            </MenuItem>
+                            <MenuItem onClick={() => ondelete(item.id_button)}>
+                              Delete
+                            </MenuItem>
+                          </MenuList>
+                        </Paper>
+                      )}
+                    </Popper> */}
+                    </div>
+                    <div>
                       {" "}
-                      {item.name_button}
-                    </span>
+                      <ReactBootStrap.NavDropdown
+                        size="smm"
+                        id="collasible-nav-dropdown"
+                      >
+                        <ReactBootStrap.NavDropdown.Item
+                          onClick={() => onedit(item.id_button)}
+                        >
+                          Sửa
+                        </ReactBootStrap.NavDropdown.Item>
+                        <ReactBootStrap.NavDropdown.Item
+                          onClick={() => ondelete(item.id_button)}
+                        >
+                          Xóa
+                        </ReactBootStrap.NavDropdown.Item>
+                      </ReactBootStrap.NavDropdown>
+                    </div>
                   </div>
                 </button>
               </div>
+
               {/* <div class="p-2 "> */}
 
               {/* <div></div> */}
@@ -655,36 +889,72 @@ function CreateDetailsMenu({ data, color }) {
                                </div>
                           </div> */}
             </div>
-          ))}{" "}
+          ))}
         </section>
 
         <div className="flex mt-3 border-b-2 border-gray-200 pb-4">
-          <button class="flex px-4 py-2 hover:bg-red-500  w-auto self-center text-sm font-medium antialiased rounded bg-blue-800 text-white">
+          <button
+            onClick={onStep1}
+            class="flex px-4 py-2 hover:bg-red-500  w-auto self-center text-sm font-medium antialiased rounded bg-blue-800 text-white"
+          >
             <i class="fas fa-tv mr-3 my-auto"></i>
             <div>Máy tính</div>
           </button>
-          <button class="flex ml-2 px-4 py-2 hover:bg-red-500 w-auto self-center  text-sm font-medium antialiased rounded bg-blue-800 text-white">
+          <button
+            onClick={onStep2}
+            class="flex ml-2 px-4 py-2 hover:bg-red-500 w-auto self-center  text-sm font-medium antialiased rounded bg-blue-800 text-white"
+          >
             <i class="fas fa-mobile-alt mr-3 my-auto"></i>
             <div>Điện thoại</div>
           </button>
         </div>
-        <button
+
+        {/* <button
           style={{ backgroundColor: color }}
           className={`h-12 w-12 mx-auto rounded-md `}
-        ></button>
-        <div className="app-preview__body desktop">
-          <div className="preview-image">
-            <img
-              src="../../../../images/desktop.png"
-              alt=""
-              width="692px"
-              height="409px"
-            />
-            <Frame initialContent={initialContentView()}>
-              <Display />
-            </Frame>
-          </div>
-        </div>
+        ></button> */}
+
+        {(() => {
+          if (step == "1") {
+            return (
+              <>
+                <div className="app-preview__body desktop">
+                  <div className="preview-image">
+                    <img
+                      src="../../../../images/desktop.png"
+                      alt=""
+                      width="692px"
+                      height="409px"
+                    />
+                    <Frame initialContent={initialContentView()}>
+                      <Display />
+                    </Frame>
+                  </div>
+                </div>
+              </>
+            );
+          } else {
+            return (
+              <>
+                <div className="ifame">
+                  <div className="app-preview__body desktop">
+                    <div
+                      className="preview-image"
+                      style={{ textAlign: "-webkit-center" }}
+                    >
+                      <img
+                        src="../../../../images/mobile.png"
+                        alt=""
+                        width="210px"
+                        height="100px"
+                      />
+                    </div>
+                  </div>
+                </div>
+              </>
+            );
+          }
+        })()}
       </div>
 
       <Modal show={show}>
@@ -697,63 +967,64 @@ function CreateDetailsMenu({ data, color }) {
           <Form>
             <Form.Group controlId="formBasicEmail">
               <div class=" flex  space-x-2">
-                <div class="flex-1 mt-5">
-                  {" "}
-                  <Form.Label>Biểu tượng nút</Form.Label>
-                  <img
-                    className="h-12 bg-gray-400"
-                    src={`../images/${editButton.icon}`}
-                  />
+                <div class="flex-1 mt-3">
+                  <div style={{ display: "grid" }}>
+                    <Form.Label>Biểu tượng nút</Form.Label>
+                    <i className={` mr-1 my-auto fa-5x ${editButton.icon}`}></i>
+                  </div>
                 </div>
                 <div class="flex-1 ">
                   <div className="flex  flex-wrap mt-1 ">
                     <div class="p-2 text-right ml-5 mt-3">
                       <Form.Label>Hiển thị</Form.Label>
-                      <div
-                        style={{
-                          background: `rgba(${
-                            colorBackground.color && colorBackground.color.r
-                          },
-                                                    ${
-                                                      colorBackground.color &&
-                                                      colorBackground.color.g
-                                                    }, 
-                                                    ${
-                                                      colorBackground.color &&
-                                                      colorBackground.color.b
-                                                    })`,
-                        }}
-                        className={`flex items-center p-1  rounded-lg shadow-xs cursor-pointer hover:bg-blue-500 hover:text-gray-100`}
-                      >
-                        <button
-                          classname={`flex items-center bg-gray-200 rounded-lg shadow-xs cursor-pointer hover:bg-blue-500 hover:text-gray-100`}
+                      <div className="flex  flex-wrap mt-1">
+                        <div
+                          class="flex-1  font-bold rounded border-2  hover:border-green-700 hover:text-black shadow-md py-2 px-2  items-center"
+                          style={{
+                            background: `rgba(${colorBackground.color && colorBackground.color.r
+                              },
+                                                      ${colorBackground.color &&
+                              colorBackground.color.g
+                              }, 
+                                                      ${colorBackground.color &&
+                              colorBackground.color.b
+                              })`,
+                          }}
                         >
-                          <img
-                            className="h-12"
-                            src={`../images/${editButton.icon}`}
-                          />
-
-                          <div>
-                            <p
-                              className="text-xs font-medium mt-2 ml-2"
-                              style={{
-                                color: `rgba(${
-                                  colorText.color && colorText.color.r
-                                },
-                                                    ${
-                                                      colorText.color &&
-                                                      colorText.color.g
-                                                    }, 
-                                                    ${
-                                                      colorText.color &&
-                                                      colorText.color.b
-                                                    })`,
-                              }}
-                            >
-                              {editButton && editButton.name_button}
-                            </p>
-                          </div>
-                        </button>
+                          <button class="px-3 ">
+                            <div class="flex mx-auto my-auto">
+                              <i
+                                style={{
+                                  color: `rgba(${colorIcon.color && colorIcon.color.r
+                                    },
+                                                    ${colorIcon.color &&
+                                    colorIcon.color.g
+                                    }, 
+                                                    ${colorIcon.color &&
+                                    colorIcon.color.b
+                                    })`,
+                                }}
+                                class={`${editButton.icon} mr-1 my-auto`}
+                              ></i>
+                              <span
+                                class="text-sm"
+                                style={{
+                                  color: `rgba(${colorText.color && colorText.color.r
+                                    },
+                                                      ${colorText.color &&
+                                    colorText.color.g
+                                    }, 
+                                                      ${colorText.color &&
+                                    colorText.color.b
+                                    })`,
+                                }}
+                              >
+                                {" "}
+                                {editButton && editButton.name_button}
+                              </span>
+                            </div>
+                          </button>
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -774,29 +1045,101 @@ function CreateDetailsMenu({ data, color }) {
             <Form.Group controlId="formBasicPassword">
               <Form.Label>Nhập nội dung chú thích</Form.Label>
               <Form.Control
+                value={editButton.captionContent}
+                name="captionContent"
+                onChange={onHandleChange}
                 type="text"
                 placeholder="Hiển thị chú thích khi di chuột vào"
               />
             </Form.Group>
             <Form.Group controlId="formBasicPassword">
-              <Form.Label className="mr-5">Màu chữ</Form.Label>
-              {viewColorTextInput()}
+              <div className="grid  grid-cols-3">
+                <div class="...">
+                  <Form.Label className="mr-3">Màu chữ</Form.Label>
+                  {viewColorTextInput()}
+                </div>
+                <div>
+                  {" "}
+                  <Form.Label className="mr-3">Màu nền</Form.Label>
+                  {viewColorBackgroundInput()}
+                </div>
+                <div>
+                  {" "}
+                  <Form.Label className="mr-3">Màu icon</Form.Label>
+                  {viewColorIconInput()}
+                </div>
+              </div>
             </Form.Group>
-            <Form.Group controlId="formBasicPassword">
-              <Form.Label className="mr-5">Màu nền</Form.Label>
-              {viewColorBackgroundInput()}
-            </Form.Group>
-            <Form.Group controlId="formBasicPassword">
-              <Form.Label>Color Icon</Form.Label>
-              <Form.Control
-                value={editButton.color_icon}
-                onChange={onHandleChange}
-                name="color_icon"
-                type="color_icon"
-                placeholder="Màu"
-              />
-            </Form.Group>
-            <Form.Group controlId="formLink">
+            {(() => {
+              if (editButton.TypeButton == "1") {
+                return (
+                  <>
+                    <Form.Group controlId="formLink">
+                      <Form.Label>Link</Form.Label>
+                      <Form.Control
+                        value={editButton.link}
+                        name="link"
+                        onChange={onHandleChange}
+                        type="text"
+                        placeholder="Link"
+                      />
+                    </Form.Group>
+                  </>
+                );
+              } else if (editButton.TypeButton == "2") {
+                return (
+                  <>
+                    <Form>
+                      <Form.Group controlId="formBasicCheckbox">
+                        <Form.Label type="text" label="Check me out">
+                          {" "}
+                          Cấu hình giá trị thuộc tính nút
+                        </Form.Label>
+                      </Form.Group>
+                      <Form.Group controlId="formBasicEmail">
+                        <Form.Label>Nhập số điện thoại (*)</Form.Label>
+                        <Form.Control
+                          value={editButton.link}
+                          name="link"
+                          onChange={onHandleChange}
+                          type="text"
+                          placeholder="Gọi ngay"
+                        />
+                      </Form.Group>
+                      <Form.Group controlId="formBasicEmail">
+                        <Form.Label>
+                          Nhập tên người phụ trách số điện thoại (*)
+                        </Form.Label>
+                        <Form.Control type="text" placeholder="Gọi ngay" />
+                      </Form.Group>
+                      <Form.Group controlId="formBasicEmail">
+                        <Form.Label>
+                          Địa chỉ của văn phòng | chi nhánh | cá nhân
+                        </Form.Label>
+                        <Form.Control type="text" placeholder="Gọi ngay" />
+                      </Form.Group>
+                    </Form>
+                  </>
+                );
+              } else if (editButton.TypeButton == "3") {
+                return (
+                  <>
+                    <Form.Group controlId="formBasicCheckbox">
+                      <div class="cursor-pointer text-blue-400 ml-1 ">
+                        {/* <Modals />
+                        <p
+                          onClick={() => InsertInput()}
+                          class="inline hover:bg-blue-100 px-4 py-3 rounded-full"
+                        >
+                          <i class="fas fa-globe"></i>Thêm trường thông tin
+                        </p> */}
+                      </div>
+                    </Form.Group>
+                  </>
+                );
+              }
+            })()}
+            {/* <Form.Group controlId="formLink">
               <Form.Label>Link</Form.Label>
               <Form.Control
                 value={editButton.link}
@@ -805,28 +1148,7 @@ function CreateDetailsMenu({ data, color }) {
                 type="text"
                 placeholder="Link"
               />
-            </Form.Group>
-            <Form.Group controlId="formBasicCheckbox">
-              <Form.Label type="text" label="Check me out">
-                {" "}
-                Cấu hình giá trị thuộc tính nút
-              </Form.Label>
-            </Form.Group>
-            {/* <Form.Group controlId="formBasicEmail">
-                            <Form.Label>Nhập số điện thoại (*)</Form.Label>
-                            <Form.Control type="text" placeholder="Gọi ngay" />
-
-                        </Form.Group>
-                        <Form.Group controlId="formBasicEmail">
-                            <Form.Label>Nhập tên người phụ trách số điện thoại (*)</Form.Label>
-                            <Form.Control type="text" placeholder="Gọi ngay" />
-
-                        </Form.Group>
-                        <Form.Group controlId="formBasicEmail">
-                            <Form.Label>Địa chỉ của văn phòng | chi nhánh | cá nhân</Form.Label>
-                            <Form.Control type="text" placeholder="Gọi ngay" />
-
-                        </Form.Group> */}
+            </Form.Group> */}
           </Form>
         </Modal.Body>
 

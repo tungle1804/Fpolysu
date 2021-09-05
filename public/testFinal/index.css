@@ -1084,7 +1084,9 @@ html {
 .body-banner--show {
     padding-top: 52px !important;
 }
-
+.mt-tooltip:hover .mt-tooltip__text {
+    visibility: visible;
+}
 /* .modal {
     position: fixed;
     top: 0;

@@ -1,5 +1,6 @@
 (function () {
   "use strict";
+
   // eslint-disable-next-line no-undef
   // class DisplayWebsite extends React.Component {
   //     constructor(props) {
@@ -340,6 +341,8 @@
     const [button, setButton] = React.useState([]);
     const [displayType, setDisplayType] = React.useState("");
     const [displayTypeV2, setDisplayTypeV2] = React.useState("");
+    const [toDisplayTime, setToDisplayTime] = React.useState(2360);
+    const [fromDisplayTime, setFromDisplayTime] = React.useState(0);
     const [show, setShow] = React.useState(false);
     const [input, setInput] = React.useState("");
     const [createData, setCreateData] = React.useState({});
@@ -347,8 +350,78 @@
     const [email, setEmail] = React.useState("");
     const [typeButton, setTypeButton] = React.useState("");
     const [typeLink, setTypeLink] = React.useState("");
-    console.log(typeButton);
+    const [timer, setTimer] = React.useState("");
+    // const [moment,setMoment]=React.useState("");
+
+    // React.useEffect(() => {
+    //   console.log("ssssss");
+    //   const script = document.createElement("script");
+    //   script.src = "https://unpkg.com/react@16/umd/react.production.min.js";
+    //   script.async = true;
+
+    //   const script1 = document.createElement("script");
+    //   script1.src =
+    //     "https://unpkg.com/react-dom@16/umd/react-dom.production.min.js";
+    //   script1.async = true;
+
+    //   const script2 = document.createElement("script");
+    //   script2.src = "https://unpkg.com/@babel/standalone/babel.min.js";
+    //   script2.async = true;
+
+    //   document.body.appendChild(script);
+
+    //   document.body.appendChild(script1);
+
+    //   document.body.appendChild(script2);
+    // }, []);
+
+    React.useEffect(() => {
+      const interval = setInterval(() => {
+        console.log("This will run every second!");
+        var time = Number(
+          String(
+            (new Date().getHours() < 10 ? "0" : "") + new Date().getHours()
+          ) +
+            String(
+              (new Date().getMinutes() < 10 ? "0" : "") +
+                new Date().getMinutes()
+            )
+        );
+
+        setTimer(time);
+      }, 1000);
+
+      // This is important, you must clear your interval when component unmounts
+      return () => clearInterval(interval);
+    }, []);
+    React.useEffect(() => {
+      const script = document.createElement("script");
+      script.src = "https://use.fontawesome.com/releases/v5.15.4/js/all.js";
+      script.async = true;
+
+      const script1 = document.createElement("script");
+      script1.src = "https://rawgit.com/moment/moment/2.2.1/min/moment.min.js";
+      document.body.appendChild(script);
+      document.body.appendChild(script1);
+
+      const link = document.createElement("Link");
+      link.src =
+        "https://unpkg.com/@material-ui/core@latest/umd/material-ui.development.js";
+
+      document.head.appendChild(link);
+
+      const script2 = document.createElement("script");
+      script2.src = "//cdn.jsdelivr.net/npm/sweetalert2@11";
+      document.body.appendChild(script2);
+
+      // document.head.appendChild(script2);
+      // document.body.appendChild(script1);
+      // document.body.appendChild(script2);
+    }, []);
+
     const showModal = (id) => {
+      // import Swal from "sweetalert2";
+
       setShow(true);
       fetch(`http://localhost:8080/api/v1/getModalByButton/${id}`, {
         method: "POST",
@@ -379,8 +452,12 @@
         return "mmt-app--circle-top-left";
       }
     };
+
     React.useEffect(() => {
-      if (!window.name.length > 21) {
+      // console.log(moment("12:30:00 PM", "h:mm:ss a").minutes());
+
+      // if (timer == "38") {
+      if (!(window.name.length > 21)) {
         fetch(
           `http://localhost:8080/api/v1/getMenuByStatus/${decode(window.name)}`,
           {
@@ -395,6 +472,13 @@
             setEmail(data[0].email);
             setDisplayType(data[0].menuType ? data[0].menuType : "");
             setDisplayTypeV2(data[0].menuLocation ? data[0].menuLocation : "");
+            setFromDisplayTime(
+              data[0].fromDisplayTime != 0 ? data[0].fromDisplayTime : 0
+            );
+
+            setToDisplayTime(
+              data[0].toDisplayTime ? data[0].toDisplayTime : 2360
+            );
             // setTypeButton(data[0].typeButton ? data[0].typeButton : "");
             // setTypeLink(data[0].link ? data[0].link : "#");
             var maMN = data[0].id;
@@ -429,12 +513,14 @@
           });
       } else {
         const email = window.name.split("MU")[0];
+
         if (email && email != "") {
           setEmail(decode(email));
         }
         const menuSplit = reverseString(
           reverseString(window.name.split("MU")[1]).concat("UM")
         );
+        console.log(decode(email));
         // const menuCode = reverseString((menuSplit).concat('MU'));
         console.log(menuSplit);
         fetch(`http://localhost:8080/api/v1/getMenuByStatus/${decode(email)}`, {
@@ -465,7 +551,12 @@
                     setDisplayTypeV2(
                       data[0].menuLocation ? data[0].menuLocation : ""
                     );
-
+                    setFromDisplayTime(
+                      data[0].fromDisplayTime != 0 ? data[0].fromDisplayTime : 0
+                    );
+                    setToDisplayTime(
+                      data[0].toDisplayTime ? data[0].toDisplayTime : "2360"
+                    );
                     var maMN = data[0].id;
                     var myHeaders = new Headers();
                     myHeaders.append("Content-Type", "application/json");
@@ -508,10 +599,10 @@
             }
           });
       }
+      // }
     }, []);
 
     const onHandleChange = (e) => {
-      console.log(e);
       const { name } = e.target;
       setCreateData({
         ...createData,
@@ -524,7 +615,6 @@
         ...idInput,
         [name]: e.target.value,
       });
-      console.log(idInput);
     };
     const handleCreateData = () => {
       var newArray = Object.keys(idInput);
@@ -561,368 +651,782 @@
         };
         fetch(`http://localhost:8080/api/v1/dataofcustomer`, requestOptions)
           .then((response) => response.text())
-          .then((result) => console.log("saveDataCustomer", result))
-          .catch((error) => console.log("error", error));
+          .then((result) => {
+            console.log("saveDataCustomer", result);
+            Swal.fire(
+              "Thành công",
+              "Bạn đã gửi thông tin thành công",
+              "question"
+            );
+          });
+        setShow(false).catch((error) => console.log("error", error));
       } catch (error) {
         console.error(error);
       }
 
       // dispatch(fetchCreateData(data))
     };
+
+    const displayType1Link = (items) => {
+      return (
+        <>
+          <a href={items.link}>
+            <span
+              className="mmt-button call"
+              style={{
+                backgroundColor: `${items.color_background}`,
+              }}
+            >
+              {/* <img
+                alt="url"
+                style={{
+                  height: "30px",
+                  marginRight: "20px",
+                }}
+                src={`../images/${items.icon}`}
+                className="mmt-button__icon"
+              /> */}
+              <i
+                style={{
+                  color: items.color_icon,
+                  width: "20px",
+                  height: "20px",
+                  marginRight: "10px",
+                  boxSizing: "border-box",
+                }}
+                className={` mr-1 my-auto  ${items.icon}`}
+              />
+              <span
+                className="mmt-button__label"
+                style={{
+                  color: `${items.color_text}`,
+                }}
+              >
+                {items.name_button}
+              </span>
+              {items.captionContent && (
+                <div className="mt-tooltip__text">{items.captionContent}</div>
+              )}
+            </span>
+          </a>
+        </>
+      );
+    };
+    const displayType1Call = (items) => {
+      return (
+        <>
+          <a href={`tel:${items.link}`}>
+            <span
+              className="mmt-button call"
+              style={{
+                backgroundColor: `${items.color_background}`,
+              }}
+            >
+              {/* <img
+                alt="url"
+                style={{
+                  height: "30px",
+                  marginRight: "20px",
+                }}
+                src={`../images/${items.icon}`}
+                className="mmt-button__icon"
+              /> */}
+              <i
+                style={{
+                  color: items.color_icon,
+                  width: "20px",
+                  height: "20px",
+                  marginRight: "10px",
+                  boxSizing: "border-box",
+                }}
+                className={` mr-1 my-auto  ${items.icon}`}
+              />
+              <span
+                className="mmt-button__label"
+                style={{
+                  color: `${items.color_text}`,
+                }}
+              >
+                {items.name_button}
+              </span>
+              {items.captionContent && (
+                <div className="mt-tooltip__text">{items.captionContent}</div>
+              )}
+            </span>
+          </a>
+        </>
+      );
+    };
+    function displayType1Modal(items) {
+      return (
+        <>
+          <span
+            onClick={() => showModal(items.id)}
+            className="mmt-button call"
+            style={{
+              backgroundColor: `${items.color_background}`,
+            }}
+          >
+            {/* <img
+              alt="url"
+              style={{
+                height: "30px",
+                marginRight: "20px",
+              }}
+              src={`../images/${items.icon}`}
+              className="mmt-button__icon"
+            /> */}
+            <i
+              style={{
+                color: items.color_icon,
+                width: "20px",
+                height: "20px",
+                marginRight: "10px",
+                boxSizing: "border-box",
+              }}
+              className={` mr-1 my-auto  ${items.icon}`}
+            />
+            <span
+              className="mmt-button__label"
+              style={{
+                color: `${items.color_text}`,
+              }}
+            >
+              {items.name_button}
+              {items.captionContent && (
+                <div className="mt-tooltip__text">{items.captionContent}</div>
+              )}
+            </span>
+          </span>
+        </>
+      );
+    }
+    const displayType2Link = (items) => {
+      return (
+        <>
+          <a href={items.link}>
+            <span
+              className="mmt-button call"
+              style={{
+                backgroundColor: `${items.color_background}`,
+              }}
+            >
+              <i
+                style={{
+                  color: items.color_icon,
+                  width: "20px",
+                  height: "20px",
+                  marginRight: "10px",
+                  boxSizing: "border-box",
+                }}
+                className={` mr-1 my-auto  ${items.icon}`}
+              />
+              <span
+                className="mmt-button__label"
+                style={{ color: `${items.color_text}` }}
+              >
+                {items.name_button}
+                {items.captionContent && (
+                  <div className="mt-tooltip__text">{items.captionContent}</div>
+                )}
+              </span>
+            </span>
+          </a>
+        </>
+      );
+    };
+    const displayType2Call = (items) => {
+      return (
+        <>
+          <a href={`tel:${items.link}`}>
+            <span
+              className="mmt-button call"
+              style={{
+                backgroundColor: `${items.color_background}`,
+              }}
+            >
+              <i
+                style={{
+                  color: items.color_icon,
+                  width: "20px",
+                  height: "20px",
+                  marginRight: "10px",
+                  boxSizing: "border-box",
+                }}
+                className={` mr-1 my-auto  ${items.icon}`}
+              />
+              <span
+                className="mmt-button__label"
+                style={{ color: `${items.color_text}` }}
+              >
+                {items.name_button}
+                {items.captionContent && (
+                  <div className="mt-tooltip__text">{items.captionContent}</div>
+                )}
+              </span>
+            </span>
+          </a>
+        </>
+      );
+    };
+    const displayType2Modal = (items) => {
+      return (
+        <>
+          <span
+            onClick={() => showModal(items.id)}
+            className="mmt-button call"
+            style={{
+              backgroundColor: `${items.color_background}`,
+            }}
+          >
+            {/* <img
+              alt="url"
+              style={{
+                height: "30px",
+                marginRight: "20px",
+              }}
+              src={`../images/${items.icon}`}
+              className="mmt-button__icon"
+            /> */}
+            <i
+              style={{
+                color: items.color_icon,
+                width: "20px",
+                height: "20px",
+                marginRight: "10px",
+                boxSizing: "border-box",
+              }}
+              className={` mr-1 my-auto  ${items.icon}`}
+            />
+            <span
+              className="mmt-button__label"
+              style={{ color: `${items.color_text}` }}
+            >
+              {items.name_button}
+              {items.captionContent && (
+                <div className="mt-tooltip__text">{items.captionContent}</div>
+              )}
+            </span>
+          </span>
+        </>
+      );
+    };
+    const displayType3Link = (items) => {
+      return (
+        <>
+          <a href={items.link}>
+            <span className="mmt-button call mmt-button--circle">
+              <span
+                style={{
+                  backgroundColor: `${items.menu.color_menu}`,
+                  opacity: `${items.menu.opacity ? items.menu.opacity : "1"}`,
+                  position: "absolute",
+                  width: "100%",
+                  height: "100%",
+                  top: "0px",
+                  left: "0px",
+                  borderRadius: "20px",
+                  zIndex: "-1",
+                }}
+              ></span>
+              <i
+                style={{ color: items.color_icon }}
+                className={` mr-1 my-auto  ${items.icon}`}
+              />
+              <span
+                className="mmt-button__label"
+                style={{ color: `${items.color_text}` }}
+              >
+                {items.name_button}
+                {items.captionContent && (
+                  <div className="mt-tooltip__text">{items.captionContent}</div>
+                )}
+              </span>
+            </span>
+          </a>
+        </>
+      );
+    };
+    const displayType3Call = (items) => {
+      return (
+        <>
+          <a href={`tel:${items.link}`}>
+            <span className="mmt-button call mmt-button--circle">
+              <span
+                style={{
+                  backgroundColor: `${items.menu.color_menu}`,
+                  opacity: `${items.menu.opacity ? items.menu.opacity : "1"}`,
+                  position: "absolute",
+                  width: "100%",
+                  height: "100%",
+                  top: "0px",
+                  left: "0px",
+                  borderRadius: "20px",
+                  zIndex: "-1",
+                }}
+              ></span>
+              <i
+                style={{ color: items.color_icon }}
+                className={` mr-1 my-auto  ${items.icon}`}
+              />
+              <span
+                className="mmt-button__label"
+                style={{ color: `${items.color_text}` }}
+              >
+                {items.name_button}
+                {items.captionContent && (
+                  <div className="mt-tooltip__text">{items.captionContent}</div>
+                )}
+              </span>
+            </span>
+          </a>
+        </>
+      );
+    };
+    const displayType3Modal = (items) => {
+      return (
+        <>
+          <span
+            onClick={() => showModal(items.id)}
+            className="mmt-button call mmt-button--circle"
+          >
+            <span
+              style={{
+                backgroundColor: `${items.menu.color_menu}`,
+                opacity: `${items.menu.opacity ? items.menu.opacity : "1"}`,
+                position: "absolute",
+                width: "100%",
+                height: "100%",
+                top: "0px",
+                left: "0px",
+                borderRadius: "20px",
+                zIndex: "-1",
+              }}
+            ></span>
+            <i
+              style={{ color: items.color_icon }}
+              className={` mr-1 my-auto  ${items.icon}`}
+            />
+            <span
+              className="mmt-button__label"
+              style={{ color: `${items.color_text}` }}
+            >
+              {items.name_button}
+              {items.captionContent && (
+                <div className="mt-tooltip__text">{items.captionContent}</div>
+              )}
+            </span>
+          </span>
+        </>
+      );
+    };
+    const displayType4Link = (items) => {
+      return (
+        <>
+          <a href={items.link}>
+            <span className="mmt-button call mmt-button--circle">
+              <span
+                style={{
+                  backgroundColor: `${items.menu.color_menu}`,
+                  opacity: `${items.menu.opacity ? items.menu.opacity : "1"}`,
+                  position: "absolute",
+                  width: "100%",
+                  height: "100%",
+                  top: "0px",
+                  left: "0px",
+                  zIndex: "-1",
+                }}
+              ></span>
+              <i
+                style={{ color: items.color_icon }}
+                className={` mr-1 my-auto  ${items.icon}`}
+              />
+              <span
+                className="mmt-button__label"
+                style={{ color: `${items.color_text}` }}
+              >
+                {items.name_button}
+                {items.captionContent && (
+                  <div className="mt-tooltip__text">{items.captionContent}</div>
+                )}
+              </span>
+            </span>
+          </a>
+        </>
+      );
+    };
+    const displayType4Call = (items) => {
+      return (
+        <>
+          <a href={`tel:${items.link}`}>
+            <span className="mmt-button call mmt-button--circle">
+              <span
+                style={{
+                  backgroundColor: `${items.menu.color_menu}`,
+                  opacity: `${items.menu.opacity ? items.menu.opacity : "1"}`,
+                  position: "absolute",
+                  width: "100%",
+                  height: "100%",
+                  top: "0px",
+                  left: "0px",
+                  zIndex: "-1",
+                }}
+              ></span>
+              <i
+                style={{ color: items.color_icon }}
+                className={` mr-1 my-auto  ${items.icon}`}
+              />
+              <span
+                className="mmt-button__label"
+                style={{ color: `${items.color_text}` }}
+              >
+                {items.name_button}
+                {items.captionContent && (
+                  <div className="mt-tooltip__text">{items.captionContent}</div>
+                )}
+              </span>
+            </span>
+          </a>
+        </>
+      );
+    };
+    const displayType4Modal = (items) => {
+      return (
+        <>
+          <span
+            onClick={() => showModal(items.id)}
+            className="mmt-button call mmt-button--circle"
+          >
+            <span
+              style={{
+                backgroundColor: `${items.menu.color_menu}`,
+                opacity: `${items.menu.opacity ? items.menu.opacity : "1"}`,
+                position: "absolute",
+                width: "100%",
+                height: "100%",
+                top: "0px",
+                left: "0px",
+                zIndex: "-1",
+              }}
+            ></span>
+            {/* <img
+              alt="url"
+              style={{ height: "30px" }}
+              src={`../images/${items.icon}`}
+              className="mmt-button__icon"
+            /> */}
+            <i
+              style={{ color: items.color_icon }}
+              className={` mr-1 my-auto  ${items.icon}`}
+            />
+            <span
+              className="mmt-button__label"
+              style={{ color: `${items.color_text}` }}
+            >
+              {items.name_button}
+              {items.captionContent && (
+                <div className="mt-tooltip__text">{items.captionContent}</div>
+              )}
+            </span>
+          </span>
+        </>
+      );
+    };
     return (
       <>
         {(() => {
-          if (displayType == "1") {
+          if (timer >= fromDisplayTime && timer < toDisplayTime) {
             return (
               <>
-                <Modals
-                  show={show}
-                  handleClose={hideModal}
-                  input={input}
-                  onHandleChange={onHandleChange}
-                  onHandleChangeInput={onHandleChangeInput}
-                  handleCreateData={handleCreateData}
-                >
-                  <p>tubnganhle</p>
-                </Modals>
-                <div id="metu">
-                  <div
-                    style={{
-                      position: "fixed",
-                      top: "0px",
-                      left: "0px",
-                      right: "0px",
-                      zIndex: 999999,
-                    }}
-                  />
-                  <div className="mmt-container  mmt-container--full">
-                    <div className="mmt-app">
-                      {button && button.length > 0
-                        ? button.map((items) => (
-                            <>
-                              <div
-                                style={{
-                                  position: "absolute",
-                                  width: "100%",
-                                  height: "100%",
-                                  top: "0px",
-                                  left: "0px",
-                                  backgroundColor: `${items.menu.color_menu}`,
-                                  opacity: 1,
-                                  color: "rgb(255, 255, 255)",
-                                  pointerEvents: "none",
-                                  zIndex: -1,
-                                }}
-                              />
-                              <span
-                                className="mmt-menu__item"
-                                style={{ display: "flex" }}
-                              >
-                                <div className="mt-tooltip">
-                                  {(() => {
-                                    if (items && items.typeButton == "1") {
-                                      return (
-                                        <>
-                                          <a href={items.link}>
-                                            <span
-                                              className="mmt-button call"
-                                              style={{
-                                                backgroundColor: `${items.color_background}`,
-                                              }}
-                                            >
-                                              <img
-                                                alt="url"
-                                                style={{
-                                                  height: "30px",
-                                                  marginRight: "20px",
-                                                }}
-                                                src={`../images/${items.icon}`}
-                                                className="mmt-button__icon"
-                                              />
-                                              <span
-                                                className="mmt-button__label"
-                                                style={{
-                                                  color: `${items.color_text}`,
-                                                }}
-                                              >
-                                                {items.name_button}
-                                              </span>
-                                            </span>
-                                          </a>
-                                        </>
-                                      );
-                                    } else if (
-                                      items &&
-                                      items.typeButton == "2"
-                                    ) {
-                                      return (
-                                        <>
-                                          <a href={`tel:${items.link}`}>
-                                            <span
-                                              className="mmt-button call"
-                                              style={{
-                                                backgroundColor: `${items.color_background}`,
-                                              }}
-                                            >
-                                              <img
-                                                alt="url"
-                                                style={{
-                                                  height: "30px",
-                                                  marginRight: "20px",
-                                                }}
-                                                src={`../images/${items.icon}`}
-                                                className="mmt-button__icon"
-                                              />
-                                              <span
-                                                className="mmt-button__label"
-                                                style={{
-                                                  color: `${items.color_text}`,
-                                                }}
-                                              >
-                                                {items.name_button}
-                                              </span>
-                                            </span>
-                                          </a>
-                                        </>
-                                      );
-                                    } else if (
-                                      items &&
-                                      items.typeButton == "3"
-                                    ) {
-                                      return (
-                                        <>
-                                          <span
-                                            onClick={() =>
-                                              showModal(items.id_button)
+                {(() => {
+                  if (displayType == "1") {
+                    return (
+                      <>
+                        <Modals
+                          show={show}
+                          handleClose={hideModal}
+                          input={input}
+                          onHandleChange={onHandleChange}
+                          onHandleChangeInput={onHandleChangeInput}
+                          handleCreateData={handleCreateData}
+                        ></Modals>
+                        <div id="metu">
+                          <div
+                            style={{
+                              position: "fixed",
+                              top: "0px",
+                              left: "0px",
+                              right: "0px",
+                              zIndex: 999999,
+                            }}
+                          />
+                          <div className="mmt-container  mmt-container--full">
+                            <div className="mmt-app">
+                              {button && button.length > 0
+                                ? button.map((items) => (
+                                    <>
+                                      <div
+                                        style={{
+                                          position: "absolute",
+                                          width: "100%",
+                                          height: "100%",
+                                          top: "0px",
+                                          left: "0px",
+                                          backgroundColor: `${items.menu.color_menu}`,
+                                          opacity: `${
+                                            items.menu.opacity
+                                              ? items.menu.opacity
+                                              : "1"
+                                          }`,
+                                          color: "rgb(255, 255, 255)",
+                                          pointerEvents: "none",
+                                          zIndex: -1,
+                                        }}
+                                      />
+                                      <span
+                                        className="mmt-menu__item"
+                                        style={{ display: "flex" }}
+                                      >
+                                        <div className="mt-tooltip">
+                                          {(() => {
+                                            if (
+                                              items &&
+                                              items.typeButton == "1"
+                                            ) {
+                                              return (
+                                                <> {displayType1Link(items)}</>
+                                              );
+                                            } else if (
+                                              items &&
+                                              items.typeButton == "2"
+                                            ) {
+                                              return (
+                                                <>{displayType1Call(items)}</>
+                                              );
+                                            } else if (
+                                              items &&
+                                              items.typeButton == "3"
+                                            ) {
+                                              return (
+                                                <>{displayType1Modal(items)}</>
+                                              );
                                             }
-                                            className="mmt-button call"
-                                            style={{
-                                              backgroundColor: `${items.color_background}`,
-                                            }}
-                                          >
-                                            <img
-                                              alt="url"
-                                              style={{
-                                                height: "30px",
-                                                marginRight: "20px",
-                                              }}
-                                              src={`../images/${items.icon}`}
-                                              className="mmt-button__icon"
-                                            />
-                                            <span
-                                              className="mmt-button__label"
-                                              style={{
-                                                color: `${items.color_text}`,
-                                              }}
-                                            >
-                                              {items.name_button}
-                                            </span>
-                                          </span>
-                                        </>
-                                      );
-                                    }
-                                  })()}
-                                </div>
-                              </span>
-                            </>
-                          ))
-                        : ""}
-                    </div>
-                  </div>
-                </div>
-              </>
-            );
-          } else if (displayType == "2") {
-            return (
-              <>
-                <div id="metu">
-                  <div
-                    style={{
-                      position: "fixed",
-                      top: "0px",
-                      left: "0px",
-                      right: "0px",
-                      zIndex: 999999,
-                    }}
-                  />
-                  <div className="mmt-container  mmt-container--fit">
-                    <div className="mmt-app">
-                      {button && button.length > 0
-                        ? button.map((items) => (
-                            <>
-                              <div
-                                style={{
-                                  position: "absolute",
-                                  width: "100%",
-                                  height: "100%",
-                                  top: "0px",
-                                  left: "0px",
-                                  backgroundColor: `${items.menu.color_menu}`,
-                                  opacity: 1,
-                                  color: "rgb(255, 255, 255)",
-                                  pointerEvents: "none",
-                                  zIndex: -1,
-                                }}
-                              />
-                              <span
-                                onClick={() => onclick(items.id_button)}
-                                className="mmt-menu__item"
-                                style={{ display: "flex" }}
-                              >
-                                <div className="mt-tooltip">
-                                  <span
-                                    className="mmt-button call"
-                                    style={{
-                                      backgroundColor: `${items.color_background}`,
-                                    }}
-                                  >
-                                    <img
-                                      alt="url"
-                                      style={{
-                                        height: "30px",
-                                        marginRight: "20px",
-                                      }}
-                                      src={`../images/${items.icon}`}
-                                      className="mmt-button__icon"
-                                    />
-                                    <span
-                                      className="mmt-button__label"
-                                      style={{ color: `${items.color_text}` }}
-                                    >
-                                      {items.name_button}
-                                    </span>
-                                  </span>
-
-                                  {items.captionContent && (
+                                          })()}
+                                        </div>
+                                      </span>
+                                    </>
+                                  ))
+                                : ""}
+                            </div>
+                          </div>
+                        </div>
+                      </>
+                    );
+                  } else if (displayType == "2") {
+                    return (
+                      <>
+                        <Modals
+                          show={show}
+                          handleClose={hideModal}
+                          input={input}
+                          onHandleChange={onHandleChange}
+                          onHandleChangeInput={onHandleChangeInput}
+                          handleCreateData={handleCreateData}
+                        ></Modals>
+                        <div id="metu">
+                          <div
+                            style={{
+                              position: "fixed",
+                              top: "0px",
+                              left: "0px",
+                              right: "0px",
+                              zIndex: 999999,
+                            }}
+                          />
+                          <div className="mmt-container  mmt-container--fit">
+                            <div className="mmt-app">
+                              {button && button.length > 0
+                                ? button.map((items) => (
+                                    <>
+                                      <div
+                                        style={{
+                                          position: "absolute",
+                                          width: "100%",
+                                          height: "100%",
+                                          top: "0px",
+                                          left: "0px",
+                                          backgroundColor: `${items.menu.color_menu}`,
+                                          opacity: `${
+                                            items.menu.opacity
+                                              ? items.menu.opacity
+                                              : "1"
+                                          }`,
+                                          color: "rgb(255, 255, 255)",
+                                          pointerEvents: "none",
+                                          zIndex: -1,
+                                        }}
+                                      />
+                                      <span
+                                        className="mmt-menu__item"
+                                        style={{ display: "flex" }}
+                                      >
+                                        <div className="mt-tooltip">
+                                          {(() => {
+                                            if (
+                                              items &&
+                                              items.typeButton == "1"
+                                            ) {
+                                              return (
+                                                <> {displayType2Link(items)}</>
+                                              );
+                                            } else if (
+                                              items &&
+                                              items.typeButton == "2"
+                                            ) {
+                                              return (
+                                                <>{displayType2Call(items)}</>
+                                              );
+                                            } else if (
+                                              items &&
+                                              items.typeButton == "3"
+                                            ) {
+                                              return (
+                                                <>{displayType2Modal(items)}</>
+                                              );
+                                            }
+                                          })()}
+                                          {/* {items.captionContent && (
                                     <div className="mt-tooltip_text">
                                       <span>{items.captionContent}</span>
                                     </div>
-                                  )}
-                                </div>
-                              </span>
-                            </>
-                          ))
-                        : ""}
-                    </div>
-                  </div>{" "}
-                </div>
-              </>
-            );
-          } else if (displayType == "3") {
-            return (
-              <>
-                <div className="mmt-container">
-                  <div
-                    className={`mmt-app mmt-app--circle ${viewDisplayV2(
-                      displayTypeV2
-                    )}`}
-                  >
-                    {button && button.length > 0
-                      ? button.map((items) => (
-                          <>
-                            {/* <div style={{
+                                  )} */}
+                                        </div>
+                                      </span>
+                                    </>
+                                  ))
+                                : ""}
+                            </div>
+                          </div>{" "}
+                        </div>
+                      </>
+                    );
+                  } else if (displayType == "3") {
+                    return (
+                      <>
+                        <Modals
+                          show={show}
+                          handleClose={hideModal}
+                          input={input}
+                          onHandleChange={onHandleChange}
+                          onHandleChangeInput={onHandleChangeInput}
+                          handleCreateData={handleCreateData}
+                        ></Modals>
+                        <div className="mmt-container">
+                          <div
+                            className={`mmt-app mmt-app--circle ${viewDisplayV2(
+                              displayTypeV2
+                            )}`}
+                          >
+                            {button && button.length > 0
+                              ? button.map((items) => (
+                                  <>
+                                    {/* <div style={{
                                         position: 'absolute', width: '100%', height: '100%', top: '0px', left: '0px',
                                         backgroundColor: `${dataColorMenu ? dataColorMenu : ""}`, opacity: 1, color: 'rgb(255, 255, 255)', pointerEvents: 'none', zIndex: -1
                                     }} /> */}
-                            <span
-                              className="mmt-menu__item"
-                              style={{ display: "flex" }}
-                            >
-                              {/* <div className="mt-tooltip"> */}
-                              <span className="mmt-button call mmt-button--circle">
-                                <span
-                                  style={{
-                                    backgroundColor: `${items.menu.color_menu}`,
-                                    opacity: 1,
-                                    position: "absolute",
-                                    width: "100%",
-                                    height: "100%",
-                                    top: "0px",
-                                    left: "0px",
-                                    borderRadius: "20px",
-                                    zIndex: "-1",
-                                  }}
-                                ></span>
-                                <img
-                                  alt="url"
-                                  style={{ height: "30px" }}
-                                  src={`../images/${items.icon}`}
-                                  className="mmt-button__icon"
-                                />
-                                <span
-                                  className="mmt-button__label"
-                                  style={{ color: `${items.color_text}` }}
-                                >
-                                  {items.name_button}
-                                </span>
-                              </span>
-
-                              {/* </div> */}
-                            </span>
-                          </>
-                        ))
-                      : ""}
-                  </div>
-                </div>
-              </>
-            );
-          } else if (displayType === "4") {
-            return (
-              <>
-                {" "}
-                <div className="mmt-container">
-                  <div
-                    className={`mmt-app mmt-app--circle ${viewDisplayV2(
-                      displayTypeV2
-                    )} `}
-                  >
-                    {button && button.length > 0
-                      ? button.map((items) => (
-                          <>
-                            {/* <div style={{
+                                    <span
+                                      className="mmt-menu__item"
+                                      style={{ display: "flex" }}
+                                    >
+                                      {/* <div className="mt-tooltip"> */}
+                                      {(() => {
+                                        if (items && items.typeButton == "1") {
+                                          return (
+                                            <> {displayType3Link(items)}</>
+                                          );
+                                        } else if (
+                                          items &&
+                                          items.typeButton == "2"
+                                        ) {
+                                          return <>{displayType3Call(items)}</>;
+                                        } else if (
+                                          items &&
+                                          items.typeButton == "3"
+                                        ) {
+                                          return (
+                                            <>{displayType3Modal(items)}</>
+                                          );
+                                        }
+                                      })()}
+                                    </span>
+                                  </>
+                                ))
+                              : ""}
+                          </div>
+                        </div>
+                      </>
+                    );
+                  } else if (displayType === "4") {
+                    return (
+                      <>
+                        <Modals
+                          show={show}
+                          handleClose={hideModal}
+                          input={input}
+                          onHandleChange={onHandleChange}
+                          onHandleChangeInput={onHandleChangeInput}
+                          handleCreateData={handleCreateData}
+                        ></Modals>
+                        <div className="mmt-container">
+                          <div
+                            className={`mmt-app mmt-app--circle ${viewDisplayV2(
+                              displayTypeV2
+                            )} `}
+                          >
+                            {button && button.length > 0
+                              ? button.map((items) => (
+                                  <>
+                                    {/* <div style={{
                                             position: 'absolute', width: '100%', height: '100%', top: '0px', left: '0px',
                                             backgroundColor: `${dataColorMenu ? dataColorMenu : ""}`, opacity: 1, color: 'rgb(255, 255, 255)', pointerEvents: 'none', zIndex: -1
                                         }} /> */}
-                            <span
-                              onClick={() => onclick(items.id_button)}
-                              className="mmt-menu__item"
-                              style={{ display: "flex" }}
-                            >
-                              {/* <div className="mt-tooltip"> */}
-                              <span className="mmt-button call mmt-button--circle">
-                                <span
-                                  style={{
-                                    backgroundColor: `${items.menu.color_menu}`,
-                                    opacity: 1,
-                                    position: "absolute",
-                                    width: "100%",
-                                    height: "100%",
-                                    top: "0px",
-                                    left: "0px",
-                                    zIndex: "-1",
-                                  }}
-                                ></span>
-                                <img
-                                  alt="url"
-                                  style={{ height: "30px" }}
-                                  src={`../images/${items.icon}`}
-                                  className="mmt-button__icon"
-                                />
-                                <span
-                                  className="mmt-button__label"
-                                  style={{ color: `${items.color_text}` }}
-                                >
-                                  {items.name_button}
-                                </span>
-                              </span>
+                                    <span
+                                      onClick={() => onclick(items.id_button)}
+                                      className="mmt-menu__item"
+                                      style={{ display: "flex" }}
+                                    >
+                                      {/* <div className="mt-tooltip"> */}
+                                      {(() => {
+                                        if (items && items.typeButton == "1") {
+                                          return (
+                                            <> {displayType4Link(items)}</>
+                                          );
+                                        } else if (
+                                          items &&
+                                          items.typeButton == "2"
+                                        ) {
+                                          return <>{displayType4Call(items)}</>;
+                                        } else if (
+                                          items &&
+                                          items.typeButton == "3"
+                                        ) {
+                                          return (
+                                            <>{displayType4Modal(items)}</>
+                                          );
+                                        }
+                                      })()}
 
-                              {/* </div> */}
-                            </span>
-                          </>
-                        ))
-                      : ""}
-                  </div>
-                </div>
+                                      {/* </div> */}
+                                    </span>
+                                  </>
+                                ))
+                              : ""}
+                          </div>
+                        </div>
+                      </>
+                    );
+                  }
+                })()}
               </>
             );
           }
@@ -1176,15 +1680,6 @@
     let seconds = newDate.getSeconds();
     return `${year}-${month}-${date} ${hours}:${minutes}:${seconds}`;
   }
-  <script
-    src="https://unpkg.com/react@16/umd/react.production.min.js"
-    crossorigin
-  ></script>;
-  <script
-    src="https://unpkg.com/react-dom@16/umd/react-dom.production.min.js"
-    crossorigin
-  ></script>;
-  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>;
-  // eslint-disable-next-line no-undef
+
   ReactDOM.render(<DisplayWebsite />, document.getElementById("metu"));
 })();

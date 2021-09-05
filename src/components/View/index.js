@@ -3,17 +3,26 @@ import { Link } from "react-router-dom";
 import ButtonService from "../../service/Button/ButtonService";
 import MenuService from "../../service/Menu/MenuService";
 import { MenuContext } from "../../service/MenuContext";
-import * as ReactBootStrap from 'react-bootstrap';
+import * as ReactBootStrap from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
-import { loadPosts, viewPost } from "../../redux/actions/menuAction";
-import { encode, reverseString } from '../../utils/index';
+import {
+  checkTotalMenu,
+  loadPosts,
+  viewPost,
+} from "../../redux/actions/menuAction";
+import { encode, reverseString } from "../../utils/index";
 import ReactPaginate from "react-paginate";
 import ReactLoading from "react-loading";
-import "./style.css"
+import "./style.css";
+import "./toggles.css";
+import Swal from "sweetalert2/dist/sweetalert2.js";
+import { useHistory } from "react-router";
 export default function View({ posts, onlistbutton, requesting }) {
   const [radio, setRadio] = useState();
+  let history = useHistory();
   const [listmenu, setListMenu] = useState({});
   const [search, setSearch] = useState("");
+  const dispatch = useDispatch();
   const [filterMenu, setFilterMenu] = useState([]);
   const [menuCode, setMenuCode] = useState();
   const [paginate, setPaginate] = useState({
@@ -23,20 +32,19 @@ export default function View({ posts, onlistbutton, requesting }) {
     perPage: 5,
     currentPage: 0,
   });
-  // useEffect(() => {
-  //   // setPaginate({
-  //   //   ...paginate,
-  //   //   tableData: posts.filter(post => {
-
-  //   //     return post.name_menu.toLowerCase().includes(search.toLowerCase())
-  //   //   }),
-
-  //   // })
-  //   setFilterMenu(paginate.tableData.filter(post => {
-  //     return post.name_menu.toLowerCase().includes(search.toLowerCase())
-  // }))
-
-  // }, [search]);
+  console.log(paginate);
+  useEffect(() => {
+    setPaginate({
+      ...paginate,
+      tableData: posts.filter((post) => {
+        return post.name_menu.toLowerCase().includes(search.toLowerCase());
+      }),
+    });
+    //   setFilterMenu(paginate.tableData.filter(post => {
+    //     return post.name_menu.toLowerCase().includes(search.toLowerCase())
+    // }
+    // ))
+  }, [search]);
   useEffect(() => {
     // ProductService.getProducts().then(res => {
 
@@ -63,6 +71,7 @@ export default function View({ posts, onlistbutton, requesting }) {
     });
   }, [posts]);
   const handlePageClick = (e) => {
+    setSearch("");
     // console.log(paginate.orgtableData)
     const selectedPage = e.selected;
     const offset = selectedPage * paginate.perPage;
@@ -78,9 +87,11 @@ export default function View({ posts, onlistbutton, requesting }) {
   };
 
   const onChangeGetCode = (menuCode) => {
-
-    setMenuCode(menuCode)
-  }
+    setMenuCode(menuCode);
+  };
+  const onNextCreateMenu = () => {
+    dispatch(checkTotalMenu({ history, Swal }));
+  };
   // const [listbutton, setListButton] = useContext(MenuContext)
 
   // useEffect(() => {
@@ -105,14 +116,13 @@ export default function View({ posts, onlistbutton, requesting }) {
     menuCode.select();
     navigator.clipboard.writeText(menuCode.value);
     // document.execCommand("copy");
-
-  }
+  };
   return (
     <>
       {requesting ? (
         <ReactLoading type="balls" color="#f32" height={467} width={275} />
       ) : (
-        <div className=" bg-white rounded shadow-xl p-6 lg:h-full lg:w-full w-screen mb-3 lg:my-0" >
+        <div className=" bg-white rounded shadow-xl p-6 lg:h-full lg:w-full w-screen mb-3 lg:my-0">
           {/* <div className="text-sm text-gray-600 font-normal antialiased tracking-normal">
             Projects &nbsp; / &nbsp; Biltrax IT Project
           </div> */}
@@ -120,12 +130,12 @@ export default function View({ posts, onlistbutton, requesting }) {
             <div className="text-base  text-black font-semibold antialiased tracking-normal ">
               Danh Sách Menu
             </div>
-            <Link
-              to="create-menu"
+            <button
+              onClick={onNextCreateMenu}
               className="lg:ml-32 px-4 py-1 self-center text-sm font-medium antialiased rounded bg-blue-800 text-white transform  duration-500 hover:scale-110"
             >
               Tạo Menu
-            </Link>
+            </button>
           </div>
 
           <div className="flex mt-3 w-full">
@@ -134,6 +144,7 @@ export default function View({ posts, onlistbutton, requesting }) {
               type="text"
               className="w-full h-10 px-2 text-gray-500 border rounded text-xs"
               placeholder="Tìm Kiếm Menu ..."
+              value={search}
             />
           </div>
           <div className="bg-white mt-4 rounded">
@@ -143,7 +154,6 @@ export default function View({ posts, onlistbutton, requesting }) {
                 style={{ height: "308px" }}
               >
                 {paginate.tableData.map((res) => {
-
                   return (
                     <>
                       <div style={{ textAlign: "right" }}>
@@ -158,17 +168,52 @@ export default function View({ posts, onlistbutton, requesting }) {
                           onClick={() => onChangeGetCode(res.menuCode)}
                         >
                           {/* <ReactBootStrap.NavDropdown id="collasible-nav-dropdown"> */}
-                          <ReactBootStrap.NavDropdown.Item   >
+                          <ReactBootStrap.NavDropdown.Item>
                             {/* <span id="tichhop" className="inline-flex px-2">
                             &lt;script&gt;window.name="{window.localStorage.getItem("email") ? encode(window.localStorage.getItem("email")).concat(menuCode) : ""}
                             "&lt;/script&gt;&lt;script type="text/babel" src="index.js"&gt;&lt;/script&gt;
                           </span> */}
                             <div onClick={copy} className="copy">
-                              <input id="url" type="text" data-autoselect readonly value={`<script>window.name = "${window.localStorage.getItem("email") ? encode(window.localStorage.getItem("email")).concat(menuCode) : ""}"</script><script type="text/babel" src="index.js"></script>`}></input>
+                              <input
+                                id="url"
+                                type="text"
+                                data-autoselect
+                                readonly
+                                value={`<script>window.name = "${
+                                  window.localStorage.getItem("email")
+                                    ? encode(
+                                        window.localStorage.getItem("email")
+                                      ).concat(menuCode)
+                                    : ""
+                                }"</script><script type="text/babel" src="index.js"></script>`}
+                              ></input>
                               <div class="input-group-button">
-                                <clipboard-copy value="https://github.com/tungle1804/Fpolysu.git" aria-label="Copied!" class="btn btn-sm js-clipboard-copy tooltipped-no-delay ClipboardButton" data-copy-feedback="Copied!" data-tooltip-direction="n" data-hydro-click="{&quot;event_type&quot;:&quot;clone_or_download.click&quot;,&quot;payload&quot;:{&quot;feature_clicked&quot;:&quot;COPY_URL&quot;,&quot;git_repository_type&quot;:&quot;REPOSITORY&quot;,&quot;repository_id&quot;:378593816,&quot;originating_url&quot;:&quot;https://github.com/tungle1804/Fpolysu&quot;,&quot;user_id&quot;:64072868}}" data-hydro-click-hmac="638d55352c2c04ad8e05bd56248b3fd141aafdbc6fa38c3ee4e6efad653c7dd6" tabindex="0" role="button"><svg aria-hidden="true" height="16" viewBox="0 0 16 16" version="1.1" width="16" data-view-component="true" class="octicon octicon-paste js-clipboard-clippy-icon d-inline-block">
-                                  <path fill-rule="evenodd" d="M5.75 1a.75.75 0 00-.75.75v3c0 .414.336.75.75.75h4.5a.75.75 0 00.75-.75v-3a.75.75 0 00-.75-.75h-4.5zm.75 3V2.5h3V4h-3zm-2.874-.467a.75.75 0 00-.752-1.298A1.75 1.75 0 002 3.75v9.5c0 .966.784 1.75 1.75 1.75h8.5A1.75 1.75 0 0014 13.25v-9.5a1.75 1.75 0 00-.874-1.515.75.75 0 10-.752 1.298.25.25 0 01.126.217v9.5a.25.25 0 01-.25.25h-8.5a.25.25 0 01-.25-.25v-9.5a.25.25 0 01.126-.217z"></path>
-                                </svg></clipboard-copy>
+                                <clipboard-copy
+                                  value="https://github.com/tungle1804/Fpolysu.git"
+                                  aria-label="Copied!"
+                                  class="btn btn-sm js-clipboard-copy tooltipped-no-delay ClipboardButton"
+                                  data-copy-feedback="Copied!"
+                                  data-tooltip-direction="n"
+                                  data-hydro-click='{"event_type":"clone_or_download.click","payload":{"feature_clicked":"COPY_URL","git_repository_type":"REPOSITORY","repository_id":378593816,"originating_url":"https://github.com/tungle1804/Fpolysu","user_id":64072868}}'
+                                  data-hydro-click-hmac="638d55352c2c04ad8e05bd56248b3fd141aafdbc6fa38c3ee4e6efad653c7dd6"
+                                  tabindex="0"
+                                  role="button"
+                                >
+                                  <svg
+                                    aria-hidden="true"
+                                    height="16"
+                                    viewBox="0 0 16 16"
+                                    version="1.1"
+                                    width="16"
+                                    data-view-component="true"
+                                    class="octicon octicon-paste js-clipboard-clippy-icon d-inline-block"
+                                  >
+                                    <path
+                                      fill-rule="evenodd"
+                                      d="M5.75 1a.75.75 0 00-.75.75v3c0 .414.336.75.75.75h4.5a.75.75 0 00.75-.75v-3a.75.75 0 00-.75-.75h-4.5zm.75 3V2.5h3V4h-3zm-2.874-.467a.75.75 0 00-.752-1.298A1.75 1.75 0 002 3.75v9.5c0 .966.784 1.75 1.75 1.75h8.5A1.75 1.75 0 0014 13.25v-9.5a1.75 1.75 0 00-.874-1.515.75.75 0 10-.752 1.298.25.25 0 01.126.217v9.5a.25.25 0 01-.25.25h-8.5a.25.25 0 01-.25-.25v-9.5a.25.25 0 01.126-.217z"
+                                    ></path>
+                                  </svg>
+                                </clipboard-copy>
                               </div>
                             </div>
                           </ReactBootStrap.NavDropdown.Item>
@@ -184,7 +229,54 @@ export default function View({ posts, onlistbutton, requesting }) {
                         </div>
                         <div className="flex px-3 justify-between">
                           <div className="flex">
-                            <div className="bg-red-500 rounded h-4 w-4 p-1">
+                            <i
+                              class="fa fa-clock mr-2"
+                              style={{ fontSize: "20px" }}
+                            ></i>
+                            <span
+                              style={{ fontFamily: "Font Awesome 5 Brands" }}
+                            >
+                              {(() => {
+                                return (
+                                  <>
+                                    {String(
+                                      (String(res.fromDisplayTime).slice(0, -2)
+                                        .length > 0
+                                        ? String(res.fromDisplayTime).slice(
+                                            0,
+                                            -2
+                                          )
+                                        : "0") +
+                                        ":" +
+                                        String(res.fromDisplayTime).slice(-2)
+                                    )}
+                                  </>
+                                );
+                              })()}
+                              -
+                            </span>
+                            <span
+                              style={{ fontFamily: "Font Awesome 5 Brands" }}
+                            >
+                              {(() => {
+                                return (
+                                  <>
+                                    {String(
+                                      (String(res.toDisplayTime).slice(0, -2)
+                                        .length > 0
+                                        ? String(res.toDisplayTime).slice(0, -2)
+                                        : "0") +
+                                        ":" +
+                                        (String(res.toDisplayTime).slice(-2) ==
+                                        "60"
+                                          ? "59"
+                                          : String(res.toDisplayTime).slice(-2))
+                                    )}
+                                  </>
+                                );
+                              })()}
+                            </span>
+                            {/* <div className="bg-red-500 rounded h-4 w-4 p-1">
                               <svg
                                 className="h-2 w-2 text-white"
                                 fill="currentColor "
@@ -199,11 +291,11 @@ export default function View({ posts, onlistbutton, requesting }) {
                             </div>
                             <div className="font-bold text-gray-500 ml-1 text-xs">
                               NITSWEBAPP-01
-                            </div>
+                            </div> */}
                           </div>
 
                           <Link
-                            to={`/admin/update-menu/${res.id_menu}`}
+                            to={`/admin/update-menu/${res.id}`}
                             class=" inline-flex items-center justify-center px-4 py-2 text-base leading-5 rounded-md border font-medium shadow-sm transition ease-in-out duration-150 focus:outline-none focus:shadow-outline bg-blue-600 border-blue-600 text-gray-100 hover:bg-blue-500 hover:border-blue-500 hover:text-gray-100"
                           >
                             <svg
@@ -249,7 +341,8 @@ export default function View({ posts, onlistbutton, requesting }) {
                           <div className="flex  justify-center  ">
                             <label className="flex items-center cursor-pointer">
                               <div className="relative">
-                                <input onClick={() => onlistbutton(res.id)}
+                                <input
+                                  onClick={() => onlistbutton(res.id)}
                                   id="toogleA"
                                   className="hidden"
                                   type="checkbox"
@@ -258,20 +351,20 @@ export default function View({ posts, onlistbutton, requesting }) {
                                     posts.map((data) => {
                                       if (data.id === res.id) {
                                         data.status = checked;
-
                                       }
-                                      MenuService.updateMenu(
-                                        data,
-                                        data.id
-                                      );
-                                      // setRadio(data.status)
-                                      console.log(data);
-
+                                      MenuService.updateMenu(data, data.id);
+                                      Swal.fire({
+                                        position: "top-end",
+                                        icon: "success",
+                                        title: "Cập nhật thành công",
+                                        showConfirmButton: false,
+                                        timer: 1500,
+                                      });
                                       return data;
-                                    })
-
+                                    });
                                   }}
                                   checked={res.status}
+                                  // defaultChecked="true"
                                 ></input>
 
                                 <div className="toggle__line w-10 h-4 bg-gray-400 rounded-full shadow-inner" />
@@ -337,9 +430,8 @@ export default function View({ posts, onlistbutton, requesting }) {
               </div>
             </div>
           </div>
-        </div >
-      )
-      }
+        </div>
+      )}
     </>
   );
 }
