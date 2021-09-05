@@ -8,15 +8,16 @@ export default function Resgiter() {
 
     let history = useHistory();
 
-    const [user, setUser] = useState({ role: "customer" });
-
+    const [user, setUser] = useState({createdDate: new Date(), role: "customer" });
+    const [errorCheckUnique, setErrorCheckUnique] = useState("");
+    
     const onhandleResgiter = (e) => {
         const { name, value } = e.target;
         setUser({ ...user, [name]: value })
         console.log(e.target.value)
     }
 
-    const onclickResgiter = (e) => {
+    const onclickResgiter = (event) => {
         var password1 = document.getElementById("password1").value;
         var password2 = document.getElementById("password2").value;
 
@@ -34,12 +35,19 @@ export default function Resgiter() {
                     title: 'Thành công',
                     text: 'Chúc mừng bạn đăng ký thành công',
                     timer: 2000
-                })
+                });
+                document.getElementById("form").reset();
+                history.push("/login");
             })
-            .catch(error => { console.log(error) })
+            .catch(error => { 
+                if(error.response){
+                    setErrorCheckUnique(error.response.data);
+                    console.log("ahihi:",error.response.data)
+                  }else{
+                    setErrorCheckUnique("");
+                  }
+             })
 
-        e.preventDefault();
-        document.getElementById("form").reset();
     }
 
     /* Validation */
@@ -71,21 +79,21 @@ const tagViewError = (messageError) => {
                                     <form onSubmit= {handleSubmit(onclickResgiter)} id="form" >
                                         <div className="flex -mx-3">
                                             <div className="w-3/5 px-3 mb-3">
-                                                <label htmlFor className="text-xs font-semibold px-1">Họ và tên</label>
+                                                <label htmlFor className="text-sm font-medium px-1">Họ và tên</label>
                                                 <div className="flex">
                                                     <div className="w-10 z-10 pl-1 text-center pointer-events-none flex items-center justify-center"><i className="mdi mdi-account-outline text-gray-400 text-lg" /></div>
                                                     <input {...register("fullName", { required: true, minLength: 5  })} 
-                                                            onChange={onhandleResgiter} name="fullName" id="hoten" type="text" className="w-full -ml-10 pl-3 pr-3 py-2 rounded-lg border-2 border-gray-200 outline-none focus:border-indigo-500" placeholder="John" />
+                                                             name="fullName" id="hoten" type="text" className="w-full -ml-10 pl-3 pr-3 py-2 rounded-lg border-2 border-gray-200 outline-none focus:border-indigo-500 text-gray-900" placeholder="John" onChange={onhandleResgiter} />
                                                 </div>
                                                 {errors.fullName?.type === 'required' && tagViewError("Họ tên không được bỏ trống")}
                                                 {errors.fullName?.type === 'minLength' && tagViewError("Họ tên không được ít hơn 5 kí tự")}
                                               
                                             </div>
                                             <div className="w-2/5 px-3 mb-3">
-                                                <label htmlFor className="text-xs font-semibold px-1">Số điện thoại</label>
+                                                <label htmlFor className="text-sm font-medium px-1">Số điện thoại</label>
                                                 <div className="flex">
                                                     <div className="w-10 z-10 pl-1 text-center pointer-events-none flex items-center justify-center"><i className="mdi mdi-account-outline text-gray-400 text-lg" /></div>
-                                                    <input {...register("phone", { required: true, pattern: /^0\d{9}$/})} onChange={onhandleResgiter} name="phone" id="sdt" type="text" className="w-full -ml-10 pl-3 pr-3 py-2 rounded-lg border-2 border-gray-200 outline-none focus:border-indigo-500" />
+                                                    <input {...register("phone", { required: true, pattern: /^0\d{9}$/})} name="phone" id="sdt" type="text" className="w-full -ml-10 pl-3 pr-3 py-2 rounded-lg border-2 border-gray-200 outline-none focus:border-indigo-500 text-gray-900" onChange={onhandleResgiter} />
                                                 </div>
                                                 {errors.phone?.type === 'required' && tagViewError("Số điện thoại không được bỏ trống")}
                                                 {errors.phone?.type === 'pattern' && tagViewError("Số điện thoại không đúng định dạng")}
@@ -95,10 +103,10 @@ const tagViewError = (messageError) => {
                                         </div>
                                         <div className="flex -mx-3">
                                             <div className="w-full px-3 mb-3">
-                                                <label htmlFor className="text-xs font-semibold px-1">Tên doanh nghiệp</label>
+                                                <label htmlFor className="text-sm font-medium px-1">Tên doanh nghiệp</label>
                                                 <div className="flex">
                                                     <div className="w-10 z-10 pl-1 text-center pointer-events-none flex items-center justify-center"><i className="mdi mdi-email-outline text-gray-400 text-lg" /></div>
-                                                    <input {...register("business", { required: true, minLength: 5})} onChange={onhandleResgiter} name="business" id="tenDN" type="text" className="w-full -ml-10 pl-3 pr-3 py-2 rounded-lg border-2 border-gray-200 outline-none focus:border-indigo-500" placeholder="công ty abc" />
+                                                    <input {...register("business", { required: true, minLength: 5})} name="business" id="tenDN" type="text" className="w-full -ml-10 pl-3 pr-3 py-2 rounded-lg border-2 border-gray-200 outline-none focus:border-indigo-500 text-gray-900" placeholder="công ty abc" onChange={onhandleResgiter} />
                                                 </div>
                                                 {errors.business?.type === 'required' && tagViewError("Tên doanh nghiệp không được bỏ trống")}
                                                 {errors.business?.type === 'minLength' && tagViewError("Tên doanh nghiệp phải ít nhất 5 kí tự")}
@@ -107,21 +115,22 @@ const tagViewError = (messageError) => {
                                         </div>
                                         <div className="flex -mx-3">
                                             <div className="w-full px-3 mb-3">
-                                                <label htmlFor className="text-xs font-semibold px-1">Email</label>
+                                                <label htmlFor className="text-sm font-medium px-1">Email</label>
                                                 <div className="flex">
                                                     <div className="w-10 z-10 pl-1 text-center pointer-events-none flex items-center justify-center"><i className="mdi mdi-email-outline text-gray-400 text-lg" /></div>
-                                                    <input {...register("email", { required: true, pattern: /^\w+@+\w+(\.\w+){1,2}$/ })} onChange={onhandleResgiter} name="email" id="email" type="email" className="w-full -ml-10 pl-3 pr-3 py-2 rounded-lg border-2 border-gray-200 outline-none focus:border-indigo-500" placeholder="johnsmith@example.com" />
+                                                    <input {...register("email", { required: true, pattern: /^\w+@+\w+(\.\w+){1,2}$/ })} name="email" id="email" type="email" className="w-full -ml-10 pl-3 pr-3 py-2 rounded-lg border-2 border-gray-200 outline-none focus:border-indigo-500 text-gray-900" placeholder="johnsmith@example.com" onChange={onhandleResgiter} />
                                                 </div>
                                                 {errors.email?.type === 'required' && tagViewError("Email không được bỏ trống")}
                                                 {errors.email?.type === 'pattern' && tagViewError("Email không đúng định dạng")}
+                                                {errorCheckUnique === "Error: Email đã tồn tại"? tagViewError("Email đã tồn tại") : ""}
                                             </div>
                                         </div>
                                         <div className="flex -mx-3">
                                             <div className="w-full px-3 mb-3">
-                                                <label htmlFor className="text-xs font-semibold px-1">Mật khẩu</label>
+                                                <label htmlFor className="text-sm font-medium px-1">Mật khẩu</label>
                                                 <div className="flex">
                                                     <div className="w-10 z-10 pl-1 text-center pointer-events-none flex items-center justify-center"><i className="mdi mdi-lock-outline text-gray-400 text-lg" /></div>
-                                                    <input {...register("password", { required: true, minLength: 5, maxLength: 20 })} onChange={onhandleResgiter} name="password" id="password1" type="password" className="w-full -ml-10 pl-3 pr-3 py-2 rounded-lg border-2 border-gray-200 outline-none focus:border-indigo-500" placeholder="************" />
+                                                    <input {...register("password", { required: true, minLength: 5, maxLength: 20 })} name="password" id="password1" type="password" className="w-full -ml-10 pl-3 pr-3 py-2 rounded-lg border-2 border-gray-200 outline-none focus:border-indigo-500 text-gray-900" placeholder="************" onChange={onhandleResgiter} />
                                                 </div>
                                                 {errors.password?.type === 'required' && tagViewError("Mật khẩu không được bỏ trống")}
                                                 {errors.password?.type === 'minLength' && tagViewError("Mật khẩu ít nhất 5 kí tự")}
@@ -131,21 +140,19 @@ const tagViewError = (messageError) => {
 
                                         <div className="flex -mx-3">
                                             <div className="w-full px-3 mb-10">
-                                                <label htmlFor className="text-xs font-semibold px-1">Xác nhận mật khẩu</label>
+                                                <label htmlFor className="text-sm font-medium px-1">Xác nhận mật khẩu</label>
                                                 <div className="flex">
                                                     <div className="w-10 z-10 pl-1 text-center pointer-events-none flex items-center justify-center"><i className="mdi mdi-lock-outline text-gray-400 text-lg" /></div>
-                                                    <input id="password2" type="password" className="w-full -ml-10 pl-3 pr-3 py-2 rounded-lg border-2 border-gray-200 outline-none focus:border-indigo-500" placeholder="************" />
+                                                    <input id="password2" type="password" className="w-full -ml-10 pl-3 pr-3 py-2 rounded-lg border-2 border-gray-200 outline-none focus:border-indigo-500 text-gray-900" placeholder="************" />
                                                 </div>
                                             </div>
                                         </div>
 
                                         <div className="flex -mx-3">
                                             <div className="w-full px-3 mb-5">
-                                                <button type="submit" id="btn_register" className="block w-full max-w-xs mx-auto bg-indigo-500 hover:bg-indigo-700 focus:bg-indigo-700 text-white rounded-lg px-3 py-3 font-semibold">ĐĂNG KÝ</button>
+                                                <button type="submit" id="btn_register" className="block w-full max-w-xs mx-auto bg-indigo-500 hover:bg-indigo-700 focus:bg-indigo-700 text-white rounded-lg px-3 py-3 font-semibold">ĐĂNG KÝ</button>                                             
                                             </div>
                                         </div>
-
-
                                         <div className="flex -mx-3">
                                             <div className="w-full px-3 mb-3">
                                                 <button onClick={() => history.push("/login")} className="block w-full max-w-xs mx-auto text-gray-700 px-3 py-3 font-semibold border">Đăng nhập</button>

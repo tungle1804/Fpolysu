@@ -54,8 +54,7 @@ const UpdateCustomer = (props) => {
     }
 
     return (
-        <>
-            <div>
+ 
                 <div className="min-w-screen min-h-screen flex items-center justify-center ">
                     <div className="rounded-3xl shadow-xl w-full overflow-hidden" style={{ maxWidth: '1000px' }}>
 
@@ -145,9 +144,7 @@ const UpdateCustomer = (props) => {
 
                     </div>
                 </div>
-            </div>
-
-        </>
+      
     )
 }
 
