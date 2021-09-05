@@ -56,7 +56,7 @@ const CustomerDatePicker = ({
                 alignContent: "center",
               }}
             >
-              Thống kê tương tác từ ngày {moment(startDate).format("l")} đến
+              Thống kê từ ngày {moment(startDate).format("l")} đến
               ngày {moment(endDate).format("l")}.
             </p>
           </div>

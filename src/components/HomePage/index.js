@@ -137,7 +137,7 @@ export default function HomePage() {
                                                 <a onClick={() => history.push('/login')} class="inline-block lg:text-xl text-base text-black hover:text-purple-700 hover:bg-gray-300 rounded py-2 px-2 transition duration-150 ease-in-out transform hover:scale-125" href="#" style={{textDecoration:"none"}}>Đăng nhập</a>
                                             </li>
                                             <li class="mr-2 lg:hidden block">
-                                                <a onClick={() => history.push('/resgiter')} class="inline-block lg:text-xl text-base text-black hover:text-purple-700 hover:bg-gray-300 rounded py-2 px-2 transition duration-150 ease-in-out transform hover:scale-125" href="#" style={{textDecoration:"none"}}>Đăng ký</a>
+                                                <a onClick={() => history.push('/register')} class="inline-block lg:text-xl text-base text-black hover:text-purple-700 hover:bg-gray-300 rounded py-2 px-2 transition duration-150 ease-in-out transform hover:scale-125" href="#" style={{textDecoration:"none"}}>Đăng ký</a>
                                             </li>
                                             
 
@@ -148,7 +148,7 @@ export default function HomePage() {
                                         {/* <button  className="flex-1 lg:h-14 h-10 w-16 py-2 px-3 mx-2 hover:text-white bg-red-500 rounded transition duration-150 ease-in-out transform hover:scale-110 bg-emerald-600 text-black font-semibold">
                                             
                                         </button> */}
-                                        <button onClick={() => history.push('/resgiter')} className="flex-1 lg:h-14 h-10 py-2 w-40 px-3 mx-2 hover:text-white bg-red-500 rounded transition duration-150 ease-in-out transform hover:scale-110 bg-emerald-600 text-black font-semibold">
+                                        <button onClick={() => history.push('/register')} className="flex-1 lg:h-14 h-10 py-2 w-40 px-3 mx-2 hover:text-white bg-red-500 rounded transition duration-150 ease-in-out transform hover:scale-110 bg-emerald-600 text-black font-semibold">
                                             Đăng ký
                                         </button>
                                     </div>

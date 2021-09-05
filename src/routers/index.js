@@ -36,7 +36,8 @@ import AdminCustomer from '../components/admin/components/AdminCustomer';
 import AdminStaff from '../components/admin/components/AdminStaff';
 import AdminServiceFee from '../components/admin/components/AdminServiceFee';
 import AdminDataOfCustomer from '../components/admin/components/AdminDataOfCustomer';
-import AdminStatistical from '../components/admin/components/AdminStatistical';
+import AdminStatisticalCustomer from '../components/admin/components/AdminStatistical/AdminStatisticalCustomer';
+import AdminStatisticalRevenue from '../components/admin/components/AdminStatistical/AdminStatisticalRevenue';
 import AdminDashboard from '../components/admin/components/AdminDashboard';
 import UpdateCustomer from '../components/admin/components/AdminCustomer/UpdateCustomer';
 import ViewDataOfCustomer from '../components/admin/components/AdminCustomer/ViewDataOfCustomer';
@@ -62,7 +63,8 @@ export default function Routers() {
                     <Route exact path='/admin/manage/services-fee/add' component={AddService} />
                     <Route exact path='/admin/manage/services-fee/:id' component={UpdateService} />
                     <Route exact path='/admin/manage/data-of-customers' component={AdminDataOfCustomer} />
-                    <Route exact path='/admin/manage/statistical' component={AdminStatistical} />
+                    <Route exact path='/admin/manage/statistical-customers' component={AdminStatisticalCustomer} />
+                    <Route exact path='/admin/manage/statistical-revenue' component={AdminStatisticalRevenue} />
                     <Route exact path='/admin/manage/staffs/add' component={AddStaff} />
                     <Route exact path='/admin/manage/staffs/:id' component={UpdateStaff} />
                     <Route exact path='/admin/manage/customers/:id' component={UpdateCustomer} />
@@ -76,7 +78,7 @@ export default function Routers() {
               <Route path="/test">
                 <Test />
               </Route>
-              <Route path="/resgiter">
+              <Route path="/register">
                 <Resgiter />
               </Route>
               <Route path="/price-list">
