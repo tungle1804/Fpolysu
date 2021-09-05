@@ -5,17 +5,24 @@ import MenuService from "../../service/Menu/MenuService";
 import { MenuContext } from "../../service/MenuContext";
 import * as ReactBootStrap from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
-import { loadPosts, viewPost } from "../../redux/actions/menuAction";
+import {
+  checkTotalMenu,
+  loadPosts,
+  viewPost,
+} from "../../redux/actions/menuAction";
 import { encode, reverseString } from "../../utils/index";
 import ReactPaginate from "react-paginate";
 import ReactLoading from "react-loading";
 import "./style.css";
 import "./toggles.css";
 import Swal from "sweetalert2/dist/sweetalert2.js";
+import { useHistory } from "react-router";
 export default function View({ posts, onlistbutton, requesting }) {
   const [radio, setRadio] = useState();
+  let history = useHistory();
   const [listmenu, setListMenu] = useState({});
   const [search, setSearch] = useState("");
+  const dispatch = useDispatch();
   const [filterMenu, setFilterMenu] = useState([]);
   const [menuCode, setMenuCode] = useState();
   const [paginate, setPaginate] = useState({
@@ -82,6 +89,9 @@ export default function View({ posts, onlistbutton, requesting }) {
   const onChangeGetCode = (menuCode) => {
     setMenuCode(menuCode);
   };
+  const onNextCreateMenu = () => {
+    dispatch(checkTotalMenu({ history, Swal }));
+  };
   // const [listbutton, setListButton] = useContext(MenuContext)
 
   // useEffect(() => {
@@ -120,12 +130,12 @@ export default function View({ posts, onlistbutton, requesting }) {
             <div className="text-base  text-black font-semibold antialiased tracking-normal ">
               Danh Sách Menu
             </div>
-            <Link
-              to="create-menu"
+            <button
+              onClick={onNextCreateMenu}
               className="lg:ml-32 px-4 py-1 self-center text-sm font-medium antialiased rounded bg-blue-800 text-white transform  duration-500 hover:scale-110"
             >
               Tạo Menu
-            </Link>
+            </button>
           </div>
 
           <div className="flex mt-3 w-full">

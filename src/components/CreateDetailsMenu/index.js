@@ -795,7 +795,7 @@ function CreateDetailsMenu({ data, color }) {
                             <span class="text-sm">Gọi ngay</span></div>
                     </button></div> */}
 
-        <section className="my-1 grid grid-cols-1 xl:grid-cols-6 gap-2 mr-1">
+        <section className="my-1 grid grid-cols-1 xl:grid-cols-4 gap-2 mr-1">
           {data1.map((item) => (
             <div className="flex  flex-wrap mt-1">
               <div
@@ -809,33 +809,20 @@ function CreateDetailsMenu({ data, color }) {
                   class="px-3 "
                   onClick={handleClick}
                 >
-                  <div class="flex mx-auto my-auto">
-                    <i
-                      style={{ color: `${item.color_icon}` }}
-                      className={` ${item.icon} mr-1 my-auto `}
-                    />
-                    <span
-                      class="text-sm"
-                      style={{ color: `${item.color_text}` }}
-                    >
-                      {item.name_button}
-                    </span>
-                    <ReactBootStrap.NavDropdown
-                      size="smm"
-                      id="collasible-nav-dropdown"
-                    >
-                      <ReactBootStrap.NavDropdown.Item
-                        onClick={() => onedit(item.id_button)}
+                  <div className="flex">
+                    <div class="flex mx-auto my-auto flex-none">
+                      <i
+                        style={{ color: `${item.color_icon}` }}
+                        className={` ${item.icon} mr-1 my-auto  `}
+                      />
+                      <span
+                        class="text-sm w-full "
+                        style={{ color: `${item.color_text}` }}
                       >
-                        Sửa
-                      </ReactBootStrap.NavDropdown.Item>
-                      <ReactBootStrap.NavDropdown.Item
-                        onClick={() => ondelete(item.id_button)}
-                      >
-                        Xóa
-                      </ReactBootStrap.NavDropdown.Item>
-                    </ReactBootStrap.NavDropdown>
-                    {/* <Popper
+                        {item.name_button}
+                      </span>
+
+                      {/* <Popper
                       open={open}
                       anchorEl={anchorRef.current}
                       role={undefined}
@@ -859,6 +846,25 @@ function CreateDetailsMenu({ data, color }) {
                         </Paper>
                       )}
                     </Popper> */}
+                    </div>
+                    <div>
+                      {" "}
+                      <ReactBootStrap.NavDropdown
+                        size="smm"
+                        id="collasible-nav-dropdown"
+                      >
+                        <ReactBootStrap.NavDropdown.Item
+                          onClick={() => onedit(item.id_button)}
+                        >
+                          Sửa
+                        </ReactBootStrap.NavDropdown.Item>
+                        <ReactBootStrap.NavDropdown.Item
+                          onClick={() => ondelete(item.id_button)}
+                        >
+                          Xóa
+                        </ReactBootStrap.NavDropdown.Item>
+                      </ReactBootStrap.NavDropdown>
+                    </div>
                   </div>
                 </button>
               </div>
