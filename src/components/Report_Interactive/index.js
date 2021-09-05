@@ -1,23 +1,21 @@
 import React, { useState, useEffect } from "react";
-import { CChartBar, CChartLine } from "@coreui/react-chartjs";
+import { CChartLine } from "@coreui/react-chartjs";
 import {
   CCard,
   CCardBody,
   CLabel,
-  CCardTitle,
   CCardHeader,
   CRow,
+  CBadge,
 } from "@coreui/react";
-import { dataHour, header } from "../CommonData/data";
+import { dataHour, header, username } from "../CommonData/data";
 import DatePicker from "react-datepicker";
 import axios from "axios";
 import ReportUsers from "./index2";
 import ReportIp from "./index3";
 import Select from "react-select";
+
 function TotalCustomerByMonth() {
-  const username = "vuthanhnam@gmail.com";
-  // this is version official
-  // const username = localStorage.getItem("email");
   const [date, setDate] = useState(new Date());
   const [year, setYear] = useState(new Date());
   const [month, setMonth] = useState(new Date());
@@ -25,30 +23,26 @@ function TotalCustomerByMonth() {
   const [totalByDay, setTotalByDay] = useState([]);
   const [menu, setMenu] = useState([]);
   const [idMenu, setIdMenu] = useState();
-
+  const [total, setTotal] = useState();
   let arr = [];
-  const getDataByDay = async () => {
-    console.log("header", header);
-    console.log("window.name", window.name);
 
-    console.log("object", username);
-    console.log("date", date.toISOString());
+  const getDataByDay = async () => {
+    let sum = 0;
     let day = date.getDate();
 
-    console.log("day", day);
     let month = date.getMonth() + 1;
 
-    console.log("month", month);
     let year = date.getFullYear();
 
-    console.log("year", year);
-
-    if (year !== (undefined | null) && month !== (undefined | null)) {
+    if (year !== (undefined | null) && month !== (undefined | null) && idMenu) {
       var API_Statistics = `http://localhost:8080/api/v1/statisticAllActionOnThisMenuEnable?email=${username}&idMenu=${idMenu}&day=${day}&month=${month}&year=${year}`;
-      console.log("object API:  ", API_Statistics);
-      axios.get(API_Statistics, { header }).then((response) => {
+
+      await axios.get(API_Statistics, { header }).then((response) => {
+        response.data.map((item) => {
+          sum += item;
+        });
+        setTotal(sum);
         setTotalByDay(response.data);
-        console.log("response:  " + response.data);
       });
     }
   };
@@ -60,7 +54,7 @@ function TotalCustomerByMonth() {
   useEffect(() => {
     getListMenu();
   }, []);
-  
+
   const getListMenu = () => {
     var config = {
       method: "get",
@@ -71,9 +65,8 @@ function TotalCustomerByMonth() {
     axios(config)
       .then(function (response) {
         const datas = response.data;
-        // console.log("datas", datas);
+
         datas.map((item) => {
-          // console.log("item", item);
           const mn = { value: item.id, label: item.name_menu };
           arr.push(mn);
         });
@@ -85,10 +78,14 @@ function TotalCustomerByMonth() {
   };
   return (
     <div className="container row-auto">
-      <CRow className="container row-auto">
+      <CRow>
         <CCard className="col-3">
-          <CCardBody className="mx-auto p-1 border text-center">
-            <CCardTitle className="text-orange-500">Click chọn ngày</CCardTitle>
+          <CCardBody className="mx-auto p-1 border-none text-center">
+            <CCardHeader className="font-extrabold " style={{ height: "60px" }}>
+              Chọn ngày
+            </CCardHeader>
+            <br />
+            <br />
             <DatePicker
               inline
               className="text-center"
@@ -96,14 +93,24 @@ function TotalCustomerByMonth() {
               onChange={(date) => setDate(date)} //when day is clicked
             />
           </CCardBody>
+          <CCardHeader>
+            Tổng số Tương tác :{" "}
+            <CBadge
+              className="float-lg-right rounded font-extrabold"
+              color="primary"
+            >
+              {total}
+            </CBadge>{" "}
+          </CCardHeader>
+          <br />
+          <br />
         </CCard>
 
-        <CCard className="col-8 offset-1">
-          <CLabel className="font-bold text-center">
-            Thống kê theo ngày của Menu đang dùng:
-          </CLabel>
-          <CCardHeader className="row">
-            <h6 className="col-4 offset-4">Chọn Menu</h6>
+        <CCard className="col-9 ">
+          <CCardHeader className="row justify-center">
+            <CLabel className="font-bold text-center pt-2">
+              Thống kê theo ngày của Menu đang dùng :
+            </CLabel>
             <Select
               className="col-4"
               name="IdMenu"
@@ -119,7 +126,7 @@ function TotalCustomerByMonth() {
               datasets={[
                 {
                   label: "Lượng Khách Hàng",
-                  backgroundColor: "#f87979",
+                  backgroundColor: "#6699FF",
                   data: totalByDay,
                 },
               ]}

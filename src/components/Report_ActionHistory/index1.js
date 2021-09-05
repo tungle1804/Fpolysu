@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { CCard, CCardBody, CCardHeader, CRow } from "@coreui/react";
-import { header } from "./../CommonData/data";
+import { header, username } from "./../CommonData/data";
 import axios from "axios";
 
 function ReportRatioActivity() {
@@ -8,8 +8,6 @@ function ReportRatioActivity() {
   const [dataWidget, setDataWidget] = useState([]);
 
   const getDataMenu = () => {
-    const username = "vuthanhnam@gmail.com";
-    //const username= window.name;
     var config = {
       method: "get",
       url: `http://localhost:8080/api/v1/getTotalNumberActionDisplayOnMenu?email=${username}`,
@@ -23,7 +21,6 @@ function ReportRatioActivity() {
     let datax = [];
     axios(config)
       .then(function (response) {
-        //  console.log(JSON.stringify(response.data));
         datax = response.data.content;
       })
       .catch(function (error) {
@@ -40,17 +37,14 @@ function ReportRatioActivity() {
           test = [...test, element];
           datax2 = [...datax2, test];
         }
-        console.log(":...", datax2);
+
         setDataMenu(datax2);
-        console.log("new:  ", dataMenu);
       })
       .catch(function (error) {
         console.log(error);
       });
   };
   const getDataWidget = () => {
-    const username = "vuthanhnam@gmail.com";
-    //const username= window.name;
     var config = {
       method: "get",
       url: `http://localhost:8080/api/v1/statisticActionButtonByRangeTimeSelect?email=${username}`,
@@ -65,8 +59,6 @@ function ReportRatioActivity() {
     axios(config)
       .then(function (response) {
         datax = response.data;
-        //  setDataWidget(response.data.content);
-        //  datax = [...datax, response.data];
       })
       .catch(function (error) {
         console.log(error);
@@ -82,9 +74,8 @@ function ReportRatioActivity() {
           test = [...test, element];
           datax2 = [...datax2, test];
         }
-        //  console.log(":...", datax2);
+
         setDataWidget(datax2);
-        // console.log("new:  ", dataWidget);
       })
       .catch(function (error) {
         console.log(error);
@@ -94,9 +85,6 @@ function ReportRatioActivity() {
   useEffect(() => {
     getDataWidget();
     getDataMenu();
-    // return () => {
-    //   cleanup
-    // }
   }, []);
   return (
     <CRow>
