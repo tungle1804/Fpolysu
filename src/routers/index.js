@@ -156,7 +156,11 @@ export default function Routers() {
               <Route path="/admin/:path?/:path?" exact>
                 <Home>
                   <Switch>
-                    <Route exact path="/admin" component={Dashboard} />
+                    <Route
+                      exact
+                      path="/admin/dashboard"
+                      component={Dashboard}
+                    />
                     <Route
                       path="/admin/payment-history"
                       component={PaymentHistory}

@@ -699,7 +699,6 @@ export default function UpdateDetailsMenu() {
     return "#" + componentToHex(r) + componentToHex(g) + componentToHex(b);
   }
   const handleEditMenu = () => {
-    debugger;
     const editButtons = {
       id: editButton.id,
       name_button: editButton.name_button,

@@ -136,7 +136,7 @@ function* getLoadInput({ payload }) {
   }
 }
 function* fetchUpdateMenu({ data }) {
-  debugger;
+ 
   try {
     yield put(fetchListMenusRequest());
     const response = yield call(getApi2, [`/menu`, data.data.menu[0]]);

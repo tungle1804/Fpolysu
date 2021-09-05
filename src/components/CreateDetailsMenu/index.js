@@ -3,6 +3,7 @@ import { Modal, Button, Form } from "react-bootstrap";
 import { ButtonContext } from "../../service/ButtonContext";
 import * as ReactBootStrap from "react-bootstrap";
 import "./style.css";
+
 import ButtonFake from "../../service/ButtonFake";
 import Ifram from "./iframe";
 import DisplayCreateDetails from "../Display/displaycreatedetails";
@@ -931,17 +932,19 @@ function CreateDetailsMenu({ data, color }) {
           if (step == "1") {
             return (
               <>
-                <div className="app-preview__body desktop">
-                  <div className="preview-image">
-                    <img
-                      src="../../../../images/desktop.png"
-                      alt=""
-                      width="692px"
-                      height="409px"
-                    />
-                    <Frame initialContent={initialContentView()}>
-                      <Display />
-                    </Frame>
+                <div className="iframe">
+                  <div className="app-preview__body desktop">
+                    <div className="preview-image">
+                      <img
+                        src="../../../../images/desktop.png"
+                        alt=""
+                        width="692px"
+                        height="409px"
+                      />
+                      <Frame initialContent={initialContentView()}>
+                        <Display />
+                      </Frame>
+                    </div>
                   </div>
                 </div>
               </>

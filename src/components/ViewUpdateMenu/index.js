@@ -99,7 +99,7 @@ export default function ViewUpdateMenu() {
   const [menu, setMenu] = useState();
   const [namemenu, setnameMenu] = useState();
   const [images, setImages] = useState();
-  const [show1, setShow1] = useState(false);
+
   const [displayTab, setDisplayTab] = useState(1);
   const [colorPicker, setColorPicker] = useState(innistall);
   const [colormenu, setColorMenu] = useState();
@@ -326,9 +326,6 @@ export default function ViewUpdateMenu() {
     );
   };
 
-  const handleShow1 = () => {
-    setShow1(true);
-  };
   const handleClick = () => {
     setColorPicker({ ...colorPicker, displayColorPicker: true });
   };
@@ -718,15 +715,12 @@ export default function ViewUpdateMenu() {
             <i class="fas fa-arrow-left mr-2"></i>Quay lại
           </Link>
           <button
-            onClick={handleShow1}
+            onClick={onchangeEditMenu}
             to="create-menu"
             className=" px-3 py-2 self-center text-sm font-medium antialiased rounded bg-blue-800 text-white"
           >
             {" "}
-            <i
-              onClick={onchangeEditMenu}
-              className="fas fa-plus-square mr-2"
-            ></i>
+            <i className="fas fa-plus-square mr-2"></i>
             Lưu Menu
           </button>
         </div>

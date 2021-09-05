@@ -22,7 +22,7 @@ export default function Login() {
       .then((response) => {
         console.log("object,", data);
         if (response.data.role[0].authority === "customer") {
-          history.push("/admin/list-menu'");
+          history.push("/admin/dashboard");
         } else {
           history.push("/admin/manage");
         }
