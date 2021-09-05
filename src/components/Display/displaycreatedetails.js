@@ -9,6 +9,7 @@ export default function Display() {
   const data1 = useSelector((state) => state.createbuttons.data);
   const requestingg = useSelector((state) => state.createbuttons.requesting);
   const dataColorMenu = useSelector((state) => state.colormenu.dataColorMenu);
+  const opacityMenu = useSelector((state) => state.colormenu.opacityMenu);
   const displayMenu = useSelector((state) => state.displayMenu.displayMenu);
   const displayMenuV2 = useSelector((state) => state.displayMenu.dislayMenuV2);
 
@@ -62,7 +63,7 @@ export default function Display() {
                                 backgroundColor: `${
                                   dataColorMenu ? dataColorMenu : ""
                                 }`,
-                                opacity: 1,
+                                opacity: opacityMenu ? opacityMenu : "1",
                                 color: "rgb(255, 255, 255)",
                                 pointerEvents: "none",
                                 zIndex: -1,
@@ -94,11 +95,11 @@ export default function Display() {
                                   </span>
                                 </span>
 
-                                {/* {items.captionContent && (
-                                  <div className="mt-tooltip_text">
-                                    <span>{items.captionContent}</span>
+                                {items.captionContent && (
+                                  <div className="mt-tooltip__text">
+                                    {items.captionContent}
                                   </div>
-                                )} */}
+                                )}
                               </div>
                             </span>
                           </>
@@ -141,7 +142,7 @@ export default function Display() {
                                 backgroundColor: `${
                                   dataColorMenu ? dataColorMenu : ""
                                 }`,
-                                opacity: 1,
+                                opacity: opacityMenu ? opacityMenu : "1",
                                 color: "rgb(255, 255, 255)",
                                 pointerEvents: "none",
                                 zIndex: -1,
@@ -159,14 +160,9 @@ export default function Display() {
                                     backgroundColor: `${items.color_background}`,
                                   }}
                                 >
-                                  <img
-                                    alt="url"
-                                    style={{
-                                      height: "30px",
-                                      marginRight: "20px",
-                                    }}
-                                    src={`../images/${items.icon}`}
-                                    className="mmt-button__icon"
+                                  <i
+                                    style={{ color: items.color_icon }}
+                                    className={` mr-1 my-auto  ${items.icon}`}
                                   />
                                   <span
                                     className="mmt-button__label"
@@ -177,7 +173,7 @@ export default function Display() {
                                 </span>
 
                                 {items.captionContent && (
-                                  <div className="mt-tooltip_text">
+                                  <div className="mt-tooltip__text">
                                     <span>{items.captionContent}</span>
                                   </div>
                                 )}
@@ -228,7 +224,7 @@ export default function Display() {
                                 <span
                                   style={{
                                     backgroundColor: `${dataColorMenu}`,
-                                    opacity: 1,
+                                    opacity: opacityMenu ? opacityMenu : "1",
                                     position: "absolute",
                                     width: "100%",
                                     height: "100%",
@@ -238,17 +234,21 @@ export default function Display() {
                                     zIndex: "-1",
                                   }}
                                 ></span>
-                                <img
-                                  alt="url"
-                                  style={{ height: "30px" }}
-                                  src={`../images/${items.icon}`}
-                                  className="mmt-button__icon"
+                                <i
+                                  style={{ color: items.color_icon }}
+                                  className={` mr-1 my-auto  ${items.icon}`}
                                 />
                                 <span
                                   className="mmt-button__label"
                                   style={{ color: `${items.color_text}` }}
                                 >
                                   {items.name_button}
+
+                                  {items.captionContent && (
+                                    <div className="mt-tooltip__text">
+                                      <span>{items.captionContent}</span>
+                                    </div>
+                                  )}
                                 </span>
                               </span>
 
@@ -299,7 +299,7 @@ export default function Display() {
                                 <span
                                   style={{
                                     backgroundColor: `${dataColorMenu}`,
-                                    opacity: 1,
+                                    opacity: opacityMenu ? opacityMenu : "1",
                                     position: "absolute",
                                     width: "100%",
                                     height: "100%",
@@ -308,17 +308,21 @@ export default function Display() {
                                     zIndex: "-1",
                                   }}
                                 ></span>
-                                <img
-                                  alt="url"
-                                  style={{ height: "30px" }}
-                                  src={`../images/${items.icon}`}
-                                  className="mmt-button__icon"
+                                <i
+                                  style={{ color: items.color_icon }}
+                                  className={` mr-1 my-auto  ${items.icon}`}
                                 />
                                 <span
                                   className="mmt-button__label"
                                   style={{ color: `${items.color_text}` }}
                                 >
                                   {items.name_button}
+
+                                  {items.captionContent && (
+                                    <div className="mt-tooltip__text">
+                                      <span>{items.captionContent}</span>
+                                    </div>
+                                  )}
                                 </span>
                               </span>
 

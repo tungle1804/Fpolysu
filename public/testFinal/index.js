@@ -341,6 +341,8 @@
     const [button, setButton] = React.useState([]);
     const [displayType, setDisplayType] = React.useState("");
     const [displayTypeV2, setDisplayTypeV2] = React.useState("");
+    const [toDisplayTime, setToDisplayTime] = React.useState(2360);
+    const [fromDisplayTime, setFromDisplayTime] = React.useState(0);
     const [show, setShow] = React.useState(false);
     const [input, setInput] = React.useState("");
     const [createData, setCreateData] = React.useState({});
@@ -348,6 +350,8 @@
     const [email, setEmail] = React.useState("");
     const [typeButton, setTypeButton] = React.useState("");
     const [typeLink, setTypeLink] = React.useState("");
+    const [timer, setTimer] = React.useState("");
+    // const [moment,setMoment]=React.useState("");
 
     // React.useEffect(() => {
     //   console.log("ssssss");
@@ -375,16 +379,45 @@
     let languages;
     let supplier;
     React.useEffect(() => {
+      const interval = setInterval(() => {
+        console.log("This will run every second!");
+        var time = Number(
+          String(
+            (new Date().getHours() < 10 ? "0" : "") + new Date().getHours()
+          ) +
+            String(
+              (new Date().getMinutes() < 10 ? "0" : "") +
+                new Date().getMinutes()
+            )
+        );
+
+        setTimer(time);
+      }, 1000);
+
+      // This is important, you must clear your interval when component unmounts
+      return () => clearInterval(interval);
+    }, []);
+    React.useEffect(() => {
       const script = document.createElement("script");
       script.src = "https://use.fontawesome.com/releases/v5.15.4/js/all.js";
       script.async = true;
-      // const script1 = document.createElement("script");
-      // script1.src = "/your-path-to-fontawesome/js/solid.js";
-      // script1.async = true;
-      // const script2 = document.createElement("script");
-      // script2.src = "/your-path-to-fontawesome/js/fontawesome.js";
-      // script2.async = true;
+
+      const script1 = document.createElement("script");
+      script1.src = "https://rawgit.com/moment/moment/2.2.1/min/moment.min.js";
       document.body.appendChild(script);
+      document.body.appendChild(script1);
+
+      const link = document.createElement("Link");
+      link.src =
+        "https://unpkg.com/@material-ui/core@latest/umd/material-ui.development.js";
+
+      document.head.appendChild(link);
+
+      const script2 = document.createElement("script");
+      script2.src = "//cdn.jsdelivr.net/npm/sweetalert2@11";
+      document.body.appendChild(script2);
+
+      // document.head.appendChild(script2);
       // document.body.appendChild(script1);
       // document.body.appendChild(script2);
     }, []);
@@ -424,6 +457,9 @@
     };
 
     React.useEffect(() => {
+      // console.log(moment("12:30:00 PM", "h:mm:ss a").minutes());
+
+      // if (timer == "38") {
       if (!(window.name.length > 21)) {
         fetch(
           `http://localhost:8080/api/v1/getMenuByStatus/${decode(window.name)}`,
@@ -439,6 +475,13 @@
             setEmail(data[0].email);
             setDisplayType(data[0].menuType ? data[0].menuType : "");
             setDisplayTypeV2(data[0].menuLocation ? data[0].menuLocation : "");
+            setFromDisplayTime(
+              data[0].fromDisplayTime != 0 ? data[0].fromDisplayTime : 0
+            );
+
+            setToDisplayTime(
+              data[0].toDisplayTime ? data[0].toDisplayTime : 2360
+            );
             // setTypeButton(data[0].typeButton ? data[0].typeButton : "");
             // setTypeLink(data[0].link ? data[0].link : "#");
             var maMN = data[0].id;
@@ -473,12 +516,14 @@
           });
       } else {
         const email = window.name.split("MU")[0];
+
         if (email && email != "") {
           setEmail(decode(email));
         }
         const menuSplit = reverseString(
           reverseString(window.name.split("MU")[1]).concat("UM")
         );
+        console.log(decode(email));
         // const menuCode = reverseString((menuSplit).concat('MU'));
         console.log(menuSplit);
         fetch(`http://localhost:8080/api/v1/getMenuByStatus/${decode(email)}`, {
@@ -509,7 +554,12 @@
                     setDisplayTypeV2(
                       data[0].menuLocation ? data[0].menuLocation : ""
                     );
-
+                    setFromDisplayTime(
+                      data[0].fromDisplayTime != 0 ? data[0].fromDisplayTime : 0
+                    );
+                    setToDisplayTime(
+                      data[0].toDisplayTime ? data[0].toDisplayTime : "2360"
+                    );
                     var maMN = data[0].id;
                     var myHeaders = new Headers();
                     myHeaders.append("Content-Type", "application/json");
@@ -552,6 +602,7 @@
             }
           });
       }
+      // }
     }, []);
     React.useEffect(() => {
       fetch(
@@ -617,8 +668,15 @@
         };
         fetch(`http://localhost:8080/api/v1/dataofcustomer`, requestOptions)
           .then((response) => response.text())
-          .then((result) => console.log("saveDataCustomer", result))
-          .catch((error) => console.log("error", error));
+          .then((result) => {
+            console.log("saveDataCustomer", result);
+            Swal.fire(
+              "Thành công",
+              "Bạn đã gửi thông tin thành công",
+              "question"
+            );
+          });
+        setShow(false).catch((error) => console.log("error", error));
       } catch (error) {
         console.error(error);
       }
@@ -646,7 +704,13 @@
                 className="mmt-button__icon"
               /> */}
               <i
-                style={{ color: items.color_icon }}
+                style={{
+                  color: items.color_icon,
+                  width: "20px",
+                  height: "20px",
+                  marginRight: "10px",
+                  boxSizing: "border-box",
+                }}
                 className={` mr-1 my-auto  ${items.icon}`}
               />
               <span
@@ -657,6 +721,9 @@
               >
                 {items.name_button}
               </span>
+              {items.captionContent && (
+                <div className="mt-tooltip__text">{items.captionContent}</div>
+              )}
             </span>
           </a>
         </>
@@ -682,7 +749,13 @@
                 className="mmt-button__icon"
               /> */}
               <i
-                style={{ color: items.color_icon }}
+                style={{
+                  color: items.color_icon,
+                  width: "20px",
+                  height: "20px",
+                  marginRight: "10px",
+                  boxSizing: "border-box",
+                }}
                 className={` mr-1 my-auto  ${items.icon}`}
               />
               <span
@@ -693,6 +766,9 @@
               >
                 {items.name_button}
               </span>
+              {items.captionContent && (
+                <div className="mt-tooltip__text">{items.captionContent}</div>
+              )}
             </span>
           </a>
         </>
@@ -718,7 +794,13 @@
               className="mmt-button__icon"
             /> */}
             <i
-              style={{ color: items.color_icon }}
+              style={{
+                color: items.color_icon,
+                width: "20px",
+                height: "20px",
+                marginRight: "10px",
+                boxSizing: "border-box",
+              }}
               className={` mr-1 my-auto  ${items.icon}`}
             />
             <span
@@ -728,6 +810,9 @@
               }}
             >
               {items.name_button}
+              {items.captionContent && (
+                <div className="mt-tooltip__text">{items.captionContent}</div>
+              )}
             </span>
           </span>
         </>
@@ -743,20 +828,24 @@
                 backgroundColor: `${items.color_background}`,
               }}
             >
-              <img
-                alt="url"
+              <i
                 style={{
-                  height: "30px",
-                  marginRight: "20px",
+                  color: items.color_icon,
+                  width: "20px",
+                  height: "20px",
+                  marginRight: "10px",
+                  boxSizing: "border-box",
                 }}
-                src={`../images/${items.icon}`}
-                className="mmt-button__icon"
+                className={` mr-1 my-auto  ${items.icon}`}
               />
               <span
                 className="mmt-button__label"
                 style={{ color: `${items.color_text}` }}
               >
                 {items.name_button}
+                {items.captionContent && (
+                  <div className="mt-tooltip__text">{items.captionContent}</div>
+                )}
               </span>
             </span>
           </a>
@@ -773,20 +862,24 @@
                 backgroundColor: `${items.color_background}`,
               }}
             >
-              <img
-                alt="url"
+              <i
                 style={{
-                  height: "30px",
-                  marginRight: "20px",
+                  color: items.color_icon,
+                  width: "20px",
+                  height: "20px",
+                  marginRight: "10px",
+                  boxSizing: "border-box",
                 }}
-                src={`../images/${items.icon}`}
-                className="mmt-button__icon"
+                className={` mr-1 my-auto  ${items.icon}`}
               />
               <span
                 className="mmt-button__label"
                 style={{ color: `${items.color_text}` }}
               >
                 {items.name_button}
+                {items.captionContent && (
+                  <div className="mt-tooltip__text">{items.captionContent}</div>
+                )}
               </span>
             </span>
           </a>
@@ -803,7 +896,7 @@
               backgroundColor: `${items.color_background}`,
             }}
           >
-            <img
+            {/* <img
               alt="url"
               style={{
                 height: "30px",
@@ -811,12 +904,25 @@
               }}
               src={`../images/${items.icon}`}
               className="mmt-button__icon"
+            /> */}
+            <i
+              style={{
+                color: items.color_icon,
+                width: "20px",
+                height: "20px",
+                marginRight: "10px",
+                boxSizing: "border-box",
+              }}
+              className={` mr-1 my-auto  ${items.icon}`}
             />
             <span
               className="mmt-button__label"
               style={{ color: `${items.color_text}` }}
             >
               {items.name_button}
+              {items.captionContent && (
+                <div className="mt-tooltip__text">{items.captionContent}</div>
+              )}
             </span>
           </span>
         </>
@@ -830,7 +936,7 @@
               <span
                 style={{
                   backgroundColor: `${items.menu.color_menu}`,
-                  opacity: 1,
+                  opacity: `${items.menu.opacity ? items.menu.opacity : "1"}`,
                   position: "absolute",
                   width: "100%",
                   height: "100%",
@@ -840,17 +946,18 @@
                   zIndex: "-1",
                 }}
               ></span>
-              <img
-                alt="url"
-                style={{ height: "30px" }}
-                src={`../images/${items.icon}`}
-                className="mmt-button__icon"
+              <i
+                style={{ color: items.color_icon }}
+                className={` mr-1 my-auto  ${items.icon}`}
               />
               <span
                 className="mmt-button__label"
                 style={{ color: `${items.color_text}` }}
               >
                 {items.name_button}
+                {items.captionContent && (
+                  <div className="mt-tooltip__text">{items.captionContent}</div>
+                )}
               </span>
             </span>
           </a>
@@ -865,7 +972,7 @@
               <span
                 style={{
                   backgroundColor: `${items.menu.color_menu}`,
-                  opacity: 1,
+                  opacity: `${items.menu.opacity ? items.menu.opacity : "1"}`,
                   position: "absolute",
                   width: "100%",
                   height: "100%",
@@ -875,17 +982,18 @@
                   zIndex: "-1",
                 }}
               ></span>
-              <img
-                alt="url"
-                style={{ height: "30px" }}
-                src={`../images/${items.icon}`}
-                className="mmt-button__icon"
+              <i
+                style={{ color: items.color_icon }}
+                className={` mr-1 my-auto  ${items.icon}`}
               />
               <span
                 className="mmt-button__label"
                 style={{ color: `${items.color_text}` }}
               >
                 {items.name_button}
+                {items.captionContent && (
+                  <div className="mt-tooltip__text">{items.captionContent}</div>
+                )}
               </span>
             </span>
           </a>
@@ -902,7 +1010,7 @@
             <span
               style={{
                 backgroundColor: `${items.menu.color_menu}`,
-                opacity: 1,
+                opacity: `${items.menu.opacity ? items.menu.opacity : "1"}`,
                 position: "absolute",
                 width: "100%",
                 height: "100%",
@@ -912,17 +1020,18 @@
                 zIndex: "-1",
               }}
             ></span>
-            <img
-              alt="url"
-              style={{ height: "30px" }}
-              src={`../images/${items.icon}`}
-              className="mmt-button__icon"
+            <i
+              style={{ color: items.color_icon }}
+              className={` mr-1 my-auto  ${items.icon}`}
             />
             <span
               className="mmt-button__label"
               style={{ color: `${items.color_text}` }}
             >
               {items.name_button}
+              {items.captionContent && (
+                <div className="mt-tooltip__text">{items.captionContent}</div>
+              )}
             </span>
           </span>
         </>
@@ -936,7 +1045,7 @@
               <span
                 style={{
                   backgroundColor: `${items.menu.color_menu}`,
-                  opacity: 1,
+                  opacity: `${items.menu.opacity ? items.menu.opacity : "1"}`,
                   position: "absolute",
                   width: "100%",
                   height: "100%",
@@ -945,17 +1054,18 @@
                   zIndex: "-1",
                 }}
               ></span>
-              <img
-                alt="url"
-                style={{ height: "30px" }}
-                src={`../images/${items.icon}`}
-                className="mmt-button__icon"
+              <i
+                style={{ color: items.color_icon }}
+                className={` mr-1 my-auto  ${items.icon}`}
               />
               <span
                 className="mmt-button__label"
                 style={{ color: `${items.color_text}` }}
               >
                 {items.name_button}
+                {items.captionContent && (
+                  <div className="mt-tooltip__text">{items.captionContent}</div>
+                )}
               </span>
             </span>
           </a>
@@ -970,7 +1080,7 @@
               <span
                 style={{
                   backgroundColor: `${items.menu.color_menu}`,
-                  opacity: 1,
+                  opacity: `${items.menu.opacity ? items.menu.opacity : "1"}`,
                   position: "absolute",
                   width: "100%",
                   height: "100%",
@@ -979,17 +1089,18 @@
                   zIndex: "-1",
                 }}
               ></span>
-              <img
-                alt="url"
-                style={{ height: "30px" }}
-                src={`../images/${items.icon}`}
-                className="mmt-button__icon"
+              <i
+                style={{ color: items.color_icon }}
+                className={` mr-1 my-auto  ${items.icon}`}
               />
               <span
                 className="mmt-button__label"
                 style={{ color: `${items.color_text}` }}
               >
                 {items.name_button}
+                {items.captionContent && (
+                  <div className="mt-tooltip__text">{items.captionContent}</div>
+                )}
               </span>
             </span>
           </a>
@@ -1006,7 +1117,7 @@
             <span
               style={{
                 backgroundColor: `${items.menu.color_menu}`,
-                opacity: 1,
+                opacity: `${items.menu.opacity ? items.menu.opacity : "1"}`,
                 position: "absolute",
                 width: "100%",
                 height: "100%",
@@ -1021,12 +1132,18 @@
               src={`../images/${items.icon}`}
               className="mmt-button__icon"
             /> */}
-
+            <i
+              style={{ color: items.color_icon }}
+              className={` mr-1 my-auto  ${items.icon}`}
+            />
             <span
               className="mmt-button__label"
               style={{ color: `${items.color_text}` }}
             >
               {items.name_button}
+              {items.captionContent && (
+                <div className="mt-tooltip__text">{items.captionContent}</div>
+              )}
             </span>
           </span>
         </>

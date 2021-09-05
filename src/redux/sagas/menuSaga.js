@@ -11,7 +11,7 @@ import * as taskTypesMenus from "./../constants/menuConstant";
 import * as taskTypesButtons from "./../constants/buttonConstant";
 import * as taskTypesData from "./../constants/dataConstanst";
 import * as taskTypesInput from "./../constants/InputConstant";
-import { getApi, getApi1 } from "./../../util/api";
+import { getApi, getApi1, getApi2 } from "./../../util/api";
 import {
   fetchDataRequest,
   fetchDataSuccess,
@@ -32,6 +32,7 @@ import {
   fetchInputFailed,
   fetchSaveValueInput,
 } from "../actions/InputAction";
+
 // let email = localStorage.getItem('email')
 // const apiUrl = `http://localhost:8080/api/v1/getMenuByEmail/nhan@gmail.com`
 // const apiUrl1 = `http://localhost:8080/api/v1/getButtonByIDMenu/${id}`
@@ -134,6 +135,43 @@ function* getLoadInput({ payload }) {
     yield put(fetchInputFailed(error));
   }
 }
+function* fetchUpdateMenu({ data }) {
+  try {
+    yield put(fetchListMenusRequest());
+    const response = yield call(getApi2, [`/menu`, data.data.menu[0]]);
+    yield put(fetchListMenusSuccess(response));
+    yield put(fetchListMenusRequest());
+
+    for (let i = 0; i < data.data.buttons.length; i++) {
+      const response1 = yield call(getApi2, [`/button`, data.data.buttons[i]]);
+      yield put(fetchListMenusSuccess(response1));
+    }
+  } catch (error) {
+    yield put(fetchListMenusFailed(error));
+  }
+}
+function* checkTotalMenu({ data }) {
+  console.log(data);
+  let email = localStorage.getItem("email");
+  try {
+    yield put(fetchListMenusRequest());
+    const response = yield call(getApi, [`/getBasicPro/${email}`]);
+    if (response.data == "OK") {
+      yield put(fetchListMenusSuccess());
+      data.history.push("/admin/create-menu");
+    } else {
+      yield put(fetchListMenusFailed());
+      data.Swal.fire({
+        icon: "error",
+        title: "Oops...",
+        text: "Tài khoản này tối đa là 10 Menu, bạn phải nâng cấp tài khoản để được tạo mới",
+        footer: '<a href="">Why do I have this issue?</a>',
+      });
+    }
+  } catch (error) {
+    yield put(fetchListMenusFailed(error));
+  }
+}
 // function* createInput({ payload }) {
 
 //     try {
@@ -154,6 +192,8 @@ function* menuSaga() {
   yield takeEvery(taskTypesData.FETCH_DATA_INFO, getDataInfo);
   yield takeEvery(taskTypesData.FETCH_CREATE_DATA, createData);
   yield takeEvery(taskTypesInput.FETCH_LOAD_INPUT, getLoadInput);
+  yield takeEvery(taskTypesMenus.FETCH_UPDATE_MENU, fetchUpdateMenu);
+  yield takeEvery(taskTypesMenus.CHECK_TOTAL_MENU, checkTotalMenu);
   // yield takeEvery(taskTypesInput.FETCH_SAVE_INPUT, createInput)
 }
 export default menuSaga;

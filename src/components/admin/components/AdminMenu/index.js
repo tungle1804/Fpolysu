@@ -90,13 +90,13 @@ export default function AdminMenu() {
                   </svg>
                 </div>
               </div>
-              <div id ="divStatistical" className="bg-gray-100">
-               <Link to="/admin/manage/statistical" style = {{textDecoration:"none"}}>
+              <div id ="divStatistical" className="bg-gray-100" style = {{display : "none"}}>
+               <Link to="/admin/manage/statistical-customers" style = {{textDecoration:"none"}}>
                <div className="py-3 px-4 hover:bg-blue-100 cursor-pointer">
                 <span className="text-gray-900 pl-8">Báo cáo khách hàng</span>
                 </div>
                 </Link>
-                <Link to="/admin/manage/statistical" style = {{textDecoration:"none"}}>
+                <Link to="/admin/manage/statistical-revenue" style = {{textDecoration:"none"}}>
                 <div className="py-3 px-4 hover:bg-blue-100 cursor-pointer">
                 <span className="text-gray-900 pl-8">Báo cáo doanh thu</span>
                 </div>

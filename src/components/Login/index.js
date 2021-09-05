@@ -1,6 +1,7 @@
 import React, { useContext, useState } from "react";
 import { useHistory } from "react-router";
 import { callApi } from "../../service/Apis";
+import Swal from 'sweetalert2'
 
 export default function Login() {
   // const { jwt, setJwt } = useContext(JwtContext);
@@ -27,13 +28,15 @@ export default function Login() {
         }
         localStorage.setItem("token", response.data.token);
         localStorage.setItem("fullName", response.data.fullName);
-        //  localStorage.setItem("email", JSON.stringify(response.data.email));
         localStorage.setItem("email", response.data.email);
         //  setJwt(data.token);
       })
       .catch(function (error) {
-        alert("Tên đăng nhập hoặc mật khẩu không chính xác");
-        console.log(error);
+        Swal.fire({
+          icon: 'error',
+          title: 'Lỗi!',
+          text: 'Tên đăng nhập hoặc mật khẩu không chính xác!',
+        })
       });
   };
 

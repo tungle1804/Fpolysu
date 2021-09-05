@@ -36,7 +36,8 @@ import AdminCustomer from "../components/admin/components/AdminCustomer";
 import AdminStaff from "../components/admin/components/AdminStaff";
 import AdminServiceFee from "../components/admin/components/AdminServiceFee";
 import AdminDataOfCustomer from "../components/admin/components/AdminDataOfCustomer";
-import AdminStatistical from "../components/admin/components/AdminStatistical";
+import AdminStatisticalCustomer from "../components/admin/components/AdminStatistical/AdminStatisticalCustomer";
+import AdminStatisticalRevenue from "../components/admin/components/AdminStatistical/AdminStatisticalRevenue";
 import AdminDashboard from "../components/admin/components/AdminDashboard";
 import UpdateCustomer from "../components/admin/components/AdminCustomer/UpdateCustomer";
 import ViewDataOfCustomer from "../components/admin/components/AdminCustomer/ViewDataOfCustomer";
@@ -55,7 +56,7 @@ export default function Routers() {
                   <Switch>
                     <Route
                       exact
-                      path="/admin/manage/dashboard"
+                      path="/admin/manage"
                       component={AdminDashboard}
                     />
                     <Route
@@ -90,8 +91,13 @@ export default function Routers() {
                     />
                     <Route
                       exact
-                      path="/admin/manage/statistical"
-                      component={AdminStatistical}
+                      path="/admin/manage/statistical-customers"
+                      component={AdminStatisticalCustomer}
+                    />
+                    <Route
+                      exact
+                      path="/admin/manage/statistical-revenue"
+                      component={AdminStatisticalRevenue}
                     />
                     <Route
                       exact
@@ -122,7 +128,7 @@ export default function Routers() {
               <Route path="/test">
                 <Test />
               </Route>
-              <Route path="/resgiter">
+              <Route path="/register">
                 <Resgiter />
               </Route>
               <Route path="/price-list">
@@ -170,8 +176,7 @@ export default function Routers() {
                       path="/admin/report-interactive"
                       component={Report_Interactive}
                     />
-                    <Route path="/admin/report-menu"
-                     component={Report_Menu} />
+                    <Route path="/admin/report-menu" component={Report_Menu} />
                     <Route
                       path="/admin/report-button"
                       component={Report_Button}
